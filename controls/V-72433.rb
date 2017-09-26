@@ -76,9 +76,9 @@ cert_policy =ca, ocsp_on, signature;
 cert_policy =ca, ocsp_on, signature;
 
 There should be at least three lines returned. All lines must match the example
-output; specifically that \"oscp_on\" must be included in the \"cert_policy\" line.
+output; specifically that \"ocsp_on\" must be included in the \"cert_policy\" line.
 
-If \"oscp_on\" is present in all \"cert_policy\" lines, this is not a finding."
+If \"ocsp_on\" is present in all \"cert_policy\" lines, this is not a finding."
   tag "fix": "Configure the operating system to do certificate status checking for
 PKI authentication.
 
@@ -86,7 +86,7 @@ Modify all of the \"cert_policy\" lines in \"/etc/pam_pkcs11/pam_pkcs11.conf\" t
 include \"ocsp_on\"."
 
   describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf") do
-    its('stdout') { should include 'oscp_on' }
+    its('stdout') { should include 'ocsp_on' }
   end
 
   describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | wc -l") do
