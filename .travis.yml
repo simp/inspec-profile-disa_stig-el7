@@ -1,0 +1,38 @@
+---
+language: ruby
+
+notifications:
+  email: false
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - inspec
+
+jobs:
+  fast_finish: true
+  allow_failures:
+    - stage: system_test
+
+  include:
+    - stage: spec_test
+      sudo: false
+      rvm: 2.3
+      before_install:
+        - rm Gemfile.lock || true
+      before_script:
+        - bundle
+      script:
+        - bundle exec rake profile:check
+
+    - stage: system_test
+      sudo: required
+      services:
+        - docker
+      rvm: 2.3
+      before_script:
+        - bundle
+      script:
+        - bundle exec rake beaker:suites[default,docker]
