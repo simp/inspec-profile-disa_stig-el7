@@ -146,7 +146,7 @@ rules for allowing specific services and hosts.
 If \"tcpwrappers\" is installed, configure the \"/etc/hosts.allow\" and
 \"/etc/hosts.deny\" to allow or deny access to specific hosts."
 
-  if service('firewalld').running? then
+  if service('firewalld').running?
     @default_zone = firewalld.default_zone
 
     describe firewalld.where{ zone = @default_zone } do

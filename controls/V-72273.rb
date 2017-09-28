@@ -20,6 +20,12 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+FIREWALL_APPLICATION = attribute(
+  'firewalld_application',
+  default: 'firewalld',
+  description: "Name of the firewall application being used by this system."
+)
+
 control "V-72273" do
   title "The operating system must enable an application firewall, if available."
   desc  "
@@ -78,10 +84,10 @@ Start the firewall via \"systemctl\" with the following command:
 
 # systemctl start firewalld"
 
-  describe package('firewalld') do
+  describe package(FIREWALL_APPLICATION) do
     it { should be_installed }
   end
-  describe systemd_service('firewalld.service') do
-    it { should_not be_running }
+  describe service(FIREWALL_APPLICATION) do
+    it { should be_running }
   end
 end
