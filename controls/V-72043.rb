@@ -57,13 +57,12 @@ have the \"nosuid\" option set, this is a finding."
   tag "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
 systems that are associated with removable media."
 
-  file_systems = command('grep "^[^#]" /etc/fstab').stdout.split("\n")
+  file_systems = etc_fstab.params
 
   file_systems.each do |file_sys_line|
-    file_sys_arr = file_sys_line.gsub(/\s+/m, ' ').strip.split(' ')
-    if !"#{rhel7_fs_opts}".include?("#{file_sys_arr[2]}") then
-      describe mount("#{file_sys_arr[1]}") do
-        its('options') { should include "nosuid" }
+    if !"#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) then
+      describe file_sys_line['mount_options'] do
+        it { should include 'nosuid' }
       end
     end
   end
