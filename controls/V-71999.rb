@@ -73,4 +73,11 @@ If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding."
   tag "fix": "Install the operating system patches or updated packages available
 from Red Hat within 30 days or sooner as local policy dictates."
+
+  linux_update.updates.each { |update|
+      describe package(update['name']) do
+        its('version') { should eq update['version'] }
+      end
+    }
+  only_if { linux_update.updates.length > 0 }
 end
