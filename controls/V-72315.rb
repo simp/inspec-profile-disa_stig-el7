@@ -20,6 +20,58 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# These attributes must be updated to reflect expectations of particular system
+FIREWALLD_SERVICES = attribute(
+  'firewalld_services',
+  default: [
+    'dhcpv6-client',
+    'ssh'
+  ],
+  description: "Services that firewalld should be configured to allow."
+)
+
+FIREWALLD_HOSTS_ALLOW = attribute(
+  'firewalld_hosts_allow',
+  default: [],
+  description: "Hosts that firewalld should be configured to allow."
+)
+
+FIREWALLD_HOSTS_DENY = attribute(
+  'firewalld_hosts_deny',
+  default: [],
+  description: "Hosts that firewalld should be configured to deny."
+)
+
+FIREWALLD_PORTS_ALLOW = attribute(
+  'firewalld_ports_allow',
+  default: [],
+  description: "Ports that firewalld should be configured to allow."
+)
+
+FIREWALLD_PORTS_DENY = attribute(
+  'firewalld_ports_deny',
+  default: [],
+  description: "Ports that firewalld should be configured to deny."
+)
+
+TCPWRAPPERS_ALLOW = attribute(
+  'tcpwrappers_allow',
+  default: [
+    # Example below
+    #{ 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => ['allow'] }
+  ],
+  description: "Allow rules from etc/hosts.allow."
+)
+
+TCPWRAPPERS_DENY = attribute(
+  'tcpwrappers_deny',
+  default: [
+    # Example below
+    #{ 'daemon' => 'vsftpd', 'client_list' => ['ALL'], 'options' => [] }
+  ],
+  description: "Allow rules from etc/hosts.allow."
+)
+
 control "V-72315" do
   title "The system access control program must be configured to grant or deny
 system access to specific hosts and services."
@@ -37,23 +89,17 @@ accessible to unauthorized hosts."
   tag "check": "If the \"firewalld\" package is not installed, ask the System
 Administrator (SA) if another firewall application (such as iptables) is installed.
 If an application firewall is not installed, this is a finding.
-
 Verify the system's access control program is configured to grant or deny system
 access to specific hosts.
-
 Check to see if \"firewalld\" is active with the following command:
-
 # systemctl status firewalld
 firewalld.service - firewalld - dynamic firewall daemon
    Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled)
    Active: active (running) since Sun 2014-04-20 14:06:46 BST; 30s ago
-
 If \"firewalld\" is active, check to see if it is configured to grant or deny access
 to specific hosts or services with the following commands:
-
 # firewall-cmd --get-default-zone
 public
-
 # firewall-cmd --list-all --zone=public
 public (default, active)
   interfaces: eth0
@@ -64,30 +110,64 @@ public (default, active)
   forward-ports:
   icmp-blocks:
   rich rules:
- rule family=\"ipv4\" source address=\"92.188.21.1/24\" accept
- rule family=\"ipv4\" source address=\"211.17.142.46/32\" accept
-
+  rule family=\"ipv4\" source address=\"92.188.21.1/24\" accept
+  rule family=\"ipv4\" source address=\"211.17.142.46/32\" accept
 If \"firewalld\" is not active, determine whether \"tcpwrappers\" is being used by
 checking whether the \"hosts.allow\" and \"hosts.deny\" files are empty with the
 following commands:
-
 # ls -al /etc/hosts.allow
 rw-r----- 1 root root 9 Aug  2 23:13 /etc/hosts.allow
-
 # ls -al /etc/hosts.deny
 -rw-r----- 1 root root  9 Apr  9  2007 /etc/hosts.deny
-
 If \"firewalld\" and \"tcpwrappers\" are not installed, configured, and active, ask
 the SA if another access control program (such as iptables) is installed and active.
 Ask the SA to show that the running configuration grants or denies access to
 specific hosts or services.
-
 If \"firewalld\" is active and is not configured to grant access to specific hosts
 and \"tcpwrappers\" is not configured to grant or deny access to specific hosts,
 this is a finding."
   tag "fix": "If \"firewalld\" is installed and active on the system, configure
 rules for allowing specific services and hosts.
-
 If \"tcpwrappers\" is installed, configure the \"/etc/hosts.allow\" and
 \"/etc/hosts.deny\" to allow or deny access to specific hosts."
+
+  if service('firewalld').running? then
+    @default_zone = firewalld.default_zone
+
+    describe firewalld.where{ zone = @default_zone } do
+      its('services') { should be_in FIREWALLD_SERVICES }
+    end
+
+    describe firewalld do
+      FIREWALLD_HOSTS_ALLOW.each do |rule|
+        it { should have_rule_enabled(rule) }
+      end
+      FIREWALLD_HOSTS_DENY.each do |rule|
+        it { should_not have_rule_enabled(rule) }
+      end
+      FIREWALLD_PORTS_ALLOW.each do |port|
+        it { should have_port_enabled_in_zone(port) }
+      end
+      FIREWALLD_PORTS_DENY.each do |port|
+        it { should_not have_port_enabled_in_zone(port) }
+      end
+    end
+
+  else
+    describe package('tcp_wrappers') do
+      it { should be_installed }
+    end
+    TCPWRAPPERS_ALLOW.each do |rule|
+      describe etc_hosts_allow.where { daemon == rule['daemon'] } do
+        its('client_list') { should include rule['client_list'] }
+        its('options') { should include rule['options'] }
+      end
+    end
+    TCPWRAPPERS_DENY.each do |rule|
+      describe etc_hosts_deny.where { daemon == rule['daemon'] } do
+        its('client_list') { should include rule['client_list'] }
+        its('options') { should include rule['options'] }
+      end
+    end
+  end
 end
