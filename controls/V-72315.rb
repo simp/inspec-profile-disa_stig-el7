@@ -20,45 +20,60 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-# These attributes must be updated to reflect expectations of particular system
+# These attributes must be filled in to reflect expectations of particular system
 FIREWALLD_SERVICES = attribute(
   'firewalld_services',
   default: [
-    'dhcpv6-client',
-    'ssh'
+    # Examples
+    # 'dhcpv6-client',
+    # 'ssh'
   ],
   description: "Services that firewalld should be configured to allow."
 )
 
 FIREWALLD_HOSTS_ALLOW = attribute(
   'firewalld_hosts_allow',
-  default: [],
+  default: [
+    # Example
+    # 'rule family="ipv4" source address="92.188.21.1/24" accept]'
+  ],
   description: "Hosts that firewalld should be configured to allow."
 )
 
 FIREWALLD_HOSTS_DENY = attribute(
   'firewalld_hosts_deny',
-  default: [],
+  default: [
+    # Example
+    # 'rule family="ipv4" source address="104.56.21.1/24" accept]'
+  ],
   description: "Hosts that firewalld should be configured to deny."
 )
 
 FIREWALLD_PORTS_ALLOW = attribute(
   'firewalld_ports_allow',
-  default: [],
+  default: [
+    # Examples
+    # '22/tcp',
+    # '4722/tcp'
+  ],
   description: "Ports that firewalld should be configured to allow."
 )
 
 FIREWALLD_PORTS_DENY = attribute(
   'firewalld_ports_deny',
-  default: [],
+  default: [
+    # Examples
+    # '12345/tcp',
+    # '23456/tcp'
+  ],
   description: "Ports that firewalld should be configured to deny."
 )
 
 TCPWRAPPERS_ALLOW = attribute(
   'tcpwrappers_allow',
   default: [
-    # Example below
-    #{ 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => ['allow'] }
+    # Example
+    # { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => ['allow'] }
   ],
   description: "Allow rules from etc/hosts.allow."
 )
@@ -66,8 +81,8 @@ TCPWRAPPERS_ALLOW = attribute(
 TCPWRAPPERS_DENY = attribute(
   'tcpwrappers_deny',
   default: [
-    # Example below
-    #{ 'daemon' => 'vsftpd', 'client_list' => ['ALL'], 'options' => [] }
+    # Example
+    # { 'daemon' => 'vsftpd', 'client_list' => ['ALL'], 'options' => [] }
   ],
   description: "Allow rules from etc/hosts.allow."
 )
