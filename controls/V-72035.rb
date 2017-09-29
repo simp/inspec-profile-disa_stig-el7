@@ -86,8 +86,8 @@ systems that contain user home directories for interactive users."
             end
           end
           # This will fail if non-home directory found in path
-          describe file("#{line}") do
-            it { should exist }
+          describe "#{line}" do
+            it { should start_with("#{home}") }
           end
         end
       end

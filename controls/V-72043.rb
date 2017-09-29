@@ -59,10 +59,12 @@ systems that are associated with removable media."
 
   file_systems = etc_fstab.params
 
-  file_systems.each do |file_sys_line|
-    if !"#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) then
-      describe file_sys_line['mount_options'] do
-        it { should include 'nosuid' }
+  if !file_systems.nil?
+    file_systems.each do |file_sys_line|
+      if !"#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) then
+        describe file_sys_line['mount_options'] do
+          it { should include 'nosuid' }
+        end
       end
     end
   end

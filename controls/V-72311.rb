@@ -52,4 +52,11 @@ each NFS mounted file system and the \"sec\" option does not have the \"sys\"
 setting.
 
 Ensure the \"sec\" option is defined as \"krb5:krb5i:krb5p\"."
+
+  nfs_systems = etc_fstab.nfs_file_systems
+  nfs_systems.each do |file_system|
+    describe file_system do
+      its ('mount_options') { should include 'sec=krb5:krb5i:krb5p' }
+    end
+  end
 end

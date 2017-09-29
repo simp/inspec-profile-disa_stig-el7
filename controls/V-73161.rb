@@ -56,12 +56,10 @@ finding."
   tag "fix": "Configure the \"/etc/fstab\" to use the \"noexec\" option on file
 systems that are being exported via NFS."
 
-  nfs_fsystems = command('grep nfs /etc/fstab').stdout.split('\n')
-  nfs_fsystems.each do |file_sys_line|
-    file_sys_arr = file_sys_line.gsub(/\s+/m, ' ').strip.split(' ')
-    file_sys_to_test = file_sys_arr[1]
-    describe mount("#{file_sys_to_test}") do
-      its('options') { should include "noexec" }
+  nfs_systems = etc_fstab.nfs_file_systems
+  nfs_systems.each do |file_system|
+    describe file_system do
+      its ('mount_options') { should include 'noexec' }
     end
   end
 end
