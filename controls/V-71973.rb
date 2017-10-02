@@ -20,6 +20,12 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+file_integ_tool = attribute(
+  'file_integ_tool',
+  default: 'aide',
+  description: "Tool used to determine file integrity"
+)
+
 control "V-71973" do
   title "A file integrity tool must verify the baseline operating system
 configuration at least weekly."
@@ -78,4 +84,16 @@ AIDE daily, but other file integrity tools may be used:
 # cat /etc/cron.daily/aide
 0 0 * * * /usr/sbin/aide --check | /bin/mail -s \"aide integrity check run for
 <system name>\" root@sysname.mil"
+
+  describe package(file_integ_tool) do
+    it { should be_installed }
+  end
+  describe.one do
+    describe file("/etc/cron.daily/#{file_integ_tool}") do
+      it { should exist }
+    end
+    describe file("/etc/cron.weekly/#{file_integ_tool}") do
+      it { should exist }
+    end
+  end
 end

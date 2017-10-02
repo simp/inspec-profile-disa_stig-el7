@@ -77,7 +77,7 @@ hashes for validating file and directory contents.
 If AIDE is installed, ensure the \"sha512\" rule is present on all file and
 directory selection lists."
 
-  # @todo - redundant with V-72073
+  # Redundant with V-72063
   describe package("aide") do
     it { should be_installed }
   end
