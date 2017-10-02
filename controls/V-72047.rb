@@ -20,6 +20,12 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+WW_DIR_GROUPS = attribute(
+  'ww_dir_groups',
+  default: ['root', 'sys', 'bin'],
+  description: "File systems found in RHEL7 that don't correspond to removable media"
+)
+
 control "V-72047" do
   title "All world-writable directories must be group-owned by root, sys, bin, or an
 application group."
@@ -61,21 +67,11 @@ following command:
 
 # chgrp root <directory>"
 
-  # @todo - add option for app group associated with dir?
   ww_dirs = command('find / -xdev -perm -002 -type d -exec ls -ld {} \;').stdout.split("\n")
   ww_dirs.each do |curr_dir|
     dir_arr = curr_dir.split(' ')
-    # replace with be_in matcher
-    describe.one do
-      describe file(dir_arr.last) do
-        its('group') { should cmp "root" }
-      end
-      describe file(dir_arr.last) do
-        its('group') { should cmp "sys" }
-      end
-      describe file(dir_arr.last) do
-        its('group') { should cmp "bin" }
-      end
+    describe file(dir_arr.last) do
+      its('group') { should be_in WW_DIR_GROUPS }
     end
   end
 end

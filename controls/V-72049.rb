@@ -69,7 +69,6 @@ user agreement for access to the account must specify that the local interactive
 user must log on to their account first and then switch the user to the application
 account with the correct option to gain the account’s environment variables."
 
-  # @todo - test for values more restrictive than 077
   file_lines = command('grep -i -s umask /home/*/.*').stdout.split("\n")
   file_lines.each do |curr_line|
     file_name = curr_line.split(':').first

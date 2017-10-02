@@ -44,7 +44,6 @@ UUID=c274f65f    /var                    ext4    noatime,nobarrier        1 2
 If a separate entry for \"/var\" is not in use, this is a finding."
   tag "fix": "Migrate the \"/var\" path onto a separate file system."
 
-  # @todo fstab resource?
   # note: the directory resource is a symlink to the 'file' resource
   describe directory('/var') do
     it { should be_mounted }
