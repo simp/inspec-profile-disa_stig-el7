@@ -40,15 +40,6 @@ FIREWALLD_HOSTS_ALLOW = attribute(
   description: "Hosts that firewalld should be configured to allow."
 )
 
-FIREWALLD_HOSTS_DENY = attribute(
-  'firewalld_hosts_deny',
-  default: [
-    # Example
-    # 'rule family="ipv4" source address="104.56.21.1/24" accept]'
-  ],
-  description: "Hosts that firewalld should be configured to deny."
-)
-
 FIREWALLD_PORTS_ALLOW = attribute(
   'firewalld_ports_allow',
   default: [
@@ -57,16 +48,6 @@ FIREWALLD_PORTS_ALLOW = attribute(
     # '4722/tcp'
   ],
   description: "Ports that firewalld should be configured to allow."
-)
-
-FIREWALLD_PORTS_DENY = attribute(
-  'firewalld_ports_deny',
-  default: [
-    # Examples
-    # '12345/tcp',
-    # '23456/tcp'
-  ],
-  description: "Ports that firewalld should be configured to deny."
 )
 
 TCPWRAPPERS_ALLOW = attribute(
