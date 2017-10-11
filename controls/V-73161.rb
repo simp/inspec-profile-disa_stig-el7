@@ -20,8 +20,6 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-# @todo review
-
 control "V-73161" do
   title "File systems that are being imported via Network File System (NFS) must be
 mounted to prevent binary files from being executed."
@@ -56,7 +54,7 @@ finding."
   tag "fix": "Configure the \"/etc/fstab\" to use the \"noexec\" option on file
 systems that are being exported via NFS."
 
-  nfs_systems = etc_fstab.nfs_file_systems
+  nfs_systems = etc_fstab.nfs_file_systems.entries
   nfs_systems.each do |file_system|
     describe file_system do
       its ('mount_options') { should include 'noexec' }

@@ -52,7 +52,7 @@ If a file system found in \"/etc/fstab\" refers to NFS and it does not have the
   tag "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
 systems that are being exported via NFS."
 
-  nfs_systems = etc_fstab.nfs_file_systems
+  nfs_systems = etc_fstab.nfs_file_systems.entries
 
   nfs_systems.each do |partition|
     describe partition do
