@@ -69,11 +69,17 @@ user agreement for access to the account must specify that the local interactive
 user must log on to their account first and then switch the user to the application
 account with the correct option to gain the account’s environment variables."
 
-  file_lines = command('grep -i -s umask /home/*/.*').stdout.split("\n")
-  file_lines.each do |curr_line|
-    file_name = curr_line.split(':').first
-    describe command("grep -i umask #{file_name}") do
-      its('stdout.strip') { should match /^umask\s+.*077/}
+
+  @user_params = passwd.params
+  @user_params.each do |user_param|
+    if user_param['uid'].to_i >= 1000
+      @file_lines = command("grep -i -s bash #{user_param['home']}/.*").stdout.split("\n")
+      @file_lines.each do |curr_line|
+        @file_name = curr_line.split(':').first
+        describe file(@file_name) do
+          its('content') { should_not match /^umask\s+[0-6]{1,3}$/ }
+        end
+      end
     end
   end
 end

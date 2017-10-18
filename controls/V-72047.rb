@@ -20,10 +20,10 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-WW_DIR_GROUPS = attribute(
+ww_dir_groups = attribute(
   'ww_dir_groups',
   default: ['root', 'sys', 'bin'],
-  description: "File systems found in RHEL7 that don't correspond to removable media"
+  description: "Groups world-writeable directories are allowed to be owned by"
 )
 
 control "V-72047" do
@@ -67,11 +67,11 @@ following command:
 
 # chgrp root <directory>"
 
-  ww_dirs = command('find / -xdev -perm -002 -type d -exec ls -ld {} \;').stdout.split("\n")
-  ww_dirs.each do |curr_dir|
+  @ww_dirs = command('find / -xdev -perm -002 -type d -exec ls -ld {} \;').stdout.split("\n")
+  @ww_dirs.each do |curr_dir|
     dir_arr = curr_dir.split(' ')
     describe file(dir_arr.last) do
-      its('group') { should be_in WW_DIR_GROUPS }
+      its('group') { should be_in ww_dir_groups }
     end
   end
 end
