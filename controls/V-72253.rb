@@ -57,11 +57,12 @@ MACs hmac-sha2-256,hmac-sha2-512
 
 The SSH service must be restarted for changes to take effect."
 
-  @macs = inspec.sshd_config.params("macs").first.split(",")
-
-  @macs.each do |mac|
-    describe mac do
-      it { should be_in ['hmac-sha2-256', 'hmac-sha2-512'] }
+  @macs = inspec.sshd_config.params("macs")
+  if !@macs.nil?
+    @macs.first.split(",").each do |mac|
+      describe mac do
+        it { should be_in ['hmac-sha2-256', 'hmac-sha2-512'] }
+      end
     end
   end
 end
