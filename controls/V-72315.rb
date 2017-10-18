@@ -31,16 +31,21 @@ FIREWALLD_SERVICES = attribute(
   description: "Services that firewalld should be configured to allow."
 )
 
-FIREWALLD_HOSTS_ALLOW = attribute(
+firewalld_hosts_allow = attribute(
   'firewalld_hosts_allow',
   default: [
-    # Example
-    # 'rule family="ipv4" source address="92.188.21.1/24" accept]'
   ],
   description: "Hosts that firewalld should be configured to allow."
 )
 
-FIREWALLD_PORTS_ALLOW = attribute(
+firewalld_hosts_deny = attribute(
+  'firewalld_hosts_deny',
+  default: [
+  ],
+  description: "Hosts that firewalld should be configured to deny."
+)
+
+firewalld_ports_allow = attribute(
   'firewalld_ports_allow',
   default: [
     # Examples
@@ -50,7 +55,7 @@ FIREWALLD_PORTS_ALLOW = attribute(
   description: "Ports that firewalld should be configured to allow."
 )
 
-TCPWRAPPERS_ALLOW = attribute(
+tcpwrappers_allow = attribute(
   'tcpwrappers_allow',
   default: [
     # Example
@@ -59,13 +64,22 @@ TCPWRAPPERS_ALLOW = attribute(
   description: "Allow rules from etc/hosts.allow."
 )
 
-TCPWRAPPERS_DENY = attribute(
+tcpwrappers_deny = attribute(
   'tcpwrappers_deny',
   default: [
     # Example
     # { 'daemon' => 'vsftpd', 'client_list' => ['ALL'], 'options' => [] }
   ],
   description: "Allow rules from etc/hosts.allow."
+)
+
+iptable_rules = attribute(
+  'iptable_rules',
+  default: [
+    # Example
+    # '-P INPUT ACCEPT',
+  ],
+  description: "Iptable rules that should exist."
 )
 
 control "V-72315" do
@@ -135,31 +149,36 @@ If \"tcpwrappers\" is installed, configure the \"/etc/hosts.allow\" and
     end
 
     describe firewalld do
-      FIREWALLD_HOSTS_ALLOW.each do |rule|
+      firewalld_hosts_allow.each do |rule|
         it { should have_rule_enabled(rule) }
       end
-      FIREWALLD_HOSTS_DENY.each do |rule|
+      firewalld_hosts_deny.each do |rule|
         it { should_not have_rule_enabled(rule) }
       end
-      FIREWALLD_PORTS_ALLOW.each do |port|
+      firewalld_ports_allow.each do |port|
         it { should have_port_enabled_in_zone(port) }
       end
-      FIREWALLD_PORTS_DENY.each do |port|
+      firewalld_ports_deny.each do |port|
         it { should_not have_port_enabled_in_zone(port) }
       end
     end
-
+  elsif service('iptables').running?
+    describe iptables do
+      iptable_rules.each do |rule|
+        it { should have_rule(rule) }
+      end
+    end
   else
     describe package('tcp_wrappers') do
       it { should be_installed }
     end
-    TCPWRAPPERS_ALLOW.each do |rule|
+    tcpwrappers_allow.each do |rule|
       describe etc_hosts_allow.where { daemon == rule['daemon'] } do
         its('client_list') { should include rule['client_list'] }
         its('options') { should include rule['options'] }
       end
     end
-    TCPWRAPPERS_DENY.each do |rule|
+    tcpwrappers_deny.each do |rule|
       describe etc_hosts_deny.where { daemon == rule['daemon'] } do
         its('client_list') { should include rule['client_list'] }
         its('options') { should include rule['options'] }
