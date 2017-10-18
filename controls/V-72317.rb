@@ -73,10 +73,10 @@ finding."
   tag "fix": "Remove all unapproved tunnels from the system, or document them with
 the ISSO."
 
-    @connGrepResults = inspec.command("grep -i issue /etc/audit/audit.rules").stdout.split("\n")
+    @conn_grep_results = inspec.command("grep -i issue /etc/audit/audit.rules").stdout.split("\n")
 
-    @connGrepResults.each do |currLine|
-        describe currLine do
+    @conn_grep_results.each do |curr_line|
+        describe curr_line do
           it { should be_in tunnels }
         end
     end
