@@ -77,7 +77,7 @@ the ISSO."
 
     @connGrepResults.each do |currLine|
         describe currLine do
-          it {should be_in tunnels}
+          it { should be_in tunnels }
         end
     end
     only_if { package('libreswan').installed? }
