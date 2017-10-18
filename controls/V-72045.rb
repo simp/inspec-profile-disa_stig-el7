@@ -52,11 +52,11 @@ If a file system found in \"/etc/fstab\" refers to NFS and it does not have the
   tag "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
 systems that are being exported via NFS."
 
-  mnt_lines = command('cat /etc/fstab | grep nfs').stdout.split("\n")
-  mnt_lines.each do |mnt|
-    mnt_arr = mnt.gsub(/\s+/m, ' ').strip.split(" ")
-    describe mount("#{mnt_arr[1]}") do
-      its('options') { should include 'nosuid' }
+  nfs_systems = etc_fstab.nfs_file_systems.entries
+
+  nfs_systems.each do |partition|
+    describe partition do
+      its('mount_options') { should include 'nosuid' }
     end
   end
 end
