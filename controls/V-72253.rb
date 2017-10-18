@@ -57,20 +57,12 @@ MACs hmac-sha2-256,hmac-sha2-512
 
 The SSH service must be restarted for changes to take effect."
 
-  # Must be either or both of these ciphers
-  # @todo - replace with be_in when available
-  describe.one do
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-256,hmac-sha2-512$/ }
-    end
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-256$/ }
-    end
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-512$/ }
-    end
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-512,hmac-sha2-256$/ }
+  @macs = inspec.sshd_config.params("macs")
+  if !@macs.nil?
+    @macs.first.split(",").each do |mac|
+      describe mac do
+        it { should be_in ['hmac-sha2-256', 'hmac-sha2-512'] }
+      end
     end
   end
 end
