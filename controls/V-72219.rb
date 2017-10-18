@@ -20,13 +20,13 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-FIREWALLD_SERVICES_DENY = attribute(
+firewalld_services_deny = attribute(
   'firewalld_services_deny',
   default: [],
   description: "Services that firewalld should be configured to deny."
 )
 
-FIREWALLD_HOSTS_DENY = attribute(
+firewalld_hosts_deny = attribute(
   'firewalld_hosts_deny',
   default: [
     # Example
@@ -35,7 +35,7 @@ FIREWALLD_HOSTS_DENY = attribute(
   description: "Hosts that firewalld should be configured to deny."
 )
 
-FIREWALLD_PORTS_DENY = attribute(
+firewalld_ports_deny = attribute(
   'firewalld_ports_deny',
   default: [
     # Examples
@@ -43,6 +43,15 @@ FIREWALLD_PORTS_DENY = attribute(
     # '23456/tcp'
   ],
   description: "Ports that firewalld should be configured to deny."
+)
+
+iptable_rules = attribute(
+  'iptable_rules',
+  default: [
+    # Example
+    # '-P INPUT ACCEPT',
+  ],
+  description: "Iptable rules that should exist."
 )
 
 control "V-72219" do
@@ -109,14 +118,20 @@ with the PPSM CLSA for the site or program and the PPSM CAL."
 
   if service('firewalld').running?
     describe firewalld do
-      FIREWALLD_SERVICES_DENY.each do |serv|
+      firewalld_services_deny.each do |serv|
         it { should_not have_service_enabled_in_zone(serv) }
       end
-      FIREWALLD_HOSTS_DENY.each do |rule|
+      firewalld_hosts_deny.each do |rule|
         it { should_not have_rule_enabled(rule) }
       end
-      FIREWALLD_PORTS_DENY.each do |port|
+      firewalld_ports_deny.each do |port|
         it { should_not have_port_enabled_in_zone(port) }
+      end
+    end
+  elsif service('iptables').running?
+    describe iptables do
+      iptable_rules.each do |rule|
+        it { should have_rule(rule) }
       end
     end
   end
