@@ -67,8 +67,15 @@ Note: The command is to add a rule to the public zone.
 # firewall-cmd --direct --add-rule ipv4 filter IN_public_allow 0 -p tcp -m limit
 --limit 25/minute --limit-burst 100  -j ACCEPT"
 
-  describe command('firewall-cmd --direct --get-rule ipv4 filter IN_public_allow') do
-    its('stdout') { should match /--limit .+/ }
-    its('stdout') { should match /--limit-burst .+/ }
+  if service('firewalld').running?
+    describe command('firewall-cmd --direct --get-rule ipv4 filter IN_public_allow') do
+      its('stdout') { should match /--limit .+/ }
+      its('stdout') { should match /--limit-burst .+/ }
+    end
+  elsif service('iptables').running?
+    describe command('iptables -S') do
+      its('stdout') { should match /--limit .+/ }
+      its('stdout') { should match /--limit-burst .+/ }
+    end
   end
 end
