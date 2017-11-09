@@ -20,6 +20,15 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+tunnels = attribute(
+  'tunnels',
+  default: [
+    # Example
+    # 'conn myTunnel'
+  ],
+  description: "Approved configured tunnels prepended with word 'conn'"
+)
+
 control "V-72317" do
   title "The system must not have unauthorized IP tunnels configured."
   desc  "IP tunneling mechanisms can be used to bypass network filtering. If
@@ -63,4 +72,16 @@ is installed, \"IPsec\" is active, and an undocumented tunnel is active, this is
 finding."
   tag "fix": "Remove all unapproved tunnels from the system, or document them with
 the ISSO."
+
+    @grep_ipsec_conf = inspec.command("grep -i conn /etc/ipsec.conf").stdout.split("\n")
+    @grep_ipsec_d = inspec.command("grep -i conn /etc/ipsec.d/*.conf").stdout.split("\n")
+
+    @conn_grep_results = @grep_ipsec_conf + @grep_ipsec_d
+    @conn_grep_results.each do |curr_line|
+        describe curr_line do
+          it { should be_in tunnels }
+        end
+    end
+    only_if { package('libreswan').installed? }
+    only_if { service('ipsec.service').running? }
 end
