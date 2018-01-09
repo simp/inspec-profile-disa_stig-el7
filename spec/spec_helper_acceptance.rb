@@ -12,6 +12,9 @@ unless ENV['BEAKER_provision'] == 'no'
     else
       install_puppet
     end
+    # Install git, it's a dependency for all profiles
+    # Found this when experiencing https://github.com/chef/inspec/issues/1270
+    install_package(host, 'git')
   end
 end
 
