@@ -49,6 +49,9 @@ lifetime restriction.
   shadow.users.each do |user|
     # filtering on non-system accounts (uid >= 1000)
     next unless user(user).uid >= 1000
+    # Skip ec2-user this user will be set to 99999
+    # ec2-user doesn't have a password
+    next if user cmp 'ec2-user'
     describe shadow.users(user) do
       its('max_days.first.to_i') { should cmp <= 60 }
     end
