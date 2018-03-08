@@ -20,6 +20,13 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# Support for passed in Atrributes
+files_to_skip = attribute(
+                           'V_71849_Files_Allowed',
+                           default: "grep -v 'cron' | grep -v '/var/cache/yum' | grep -v 'etc/sysconfig/iptables' | grep -v 'useradd' | grep -v 'ntp' | grep -v 'sysctl'",
+                           description: 'Files that should be skipped'
+                         )
+
 control "V-71849" do
   title "The file permissions, ownership, and group membership of system files and
 commands must match the vendor values."
@@ -65,8 +72,37 @@ command:
 #rpm --setugids <packagename>"
 
   # @todo add puppet content to fix any rpms that get out of wack
-  describe command("rpm -Va | grep '^.M' | wc -l") do
+
+# The following are known to be different and must be excluded. These are changed by the following 
+# Chef Manage Cookbooks: 
+# cron entries - stig/recipies/file_permissions.rb
+
+#.M.......  /etc/cron.d 
+#.M.......  /etc/cron.daily 
+#.M.......  /etc/cron.hourly 
+#.M.......  /etc/cron.monthly 
+#.M.......  /etc/cron.weekly
+#.M.......  c /etc/crontab
+
+# /etc/default/useradd - stig/recipies/login_defs.rb
+#.M5....T.  c /etc/default/useradd 
+
+# /etc/ntp.conf - stig/recipies/ntp.rb
+#.M.......  c /etc/ntp.conf
+
+# /etc/sysctl.conf - stig
+#SM5....T.  c /etc/sysctl.conf
+#
+
+#/etc/default/useradd - stig/recipies/ipv6.rb
+#SM5....T.  c /etc/sysconfig/iptables
+
+# /var/cache/yum -  if you ever clear out the yum cache to free system space
+#.M.......    /var/cache/yum
+							
+  describe command("rpm -Va | grep '^.M' | #{files_to_skip} | wc -l") do
     its('stdout.strip') { should eq '0' }
   end
 
-end
+end 
+
