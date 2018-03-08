@@ -66,7 +66,18 @@ Alternatively, the package can be reinstalled from trusted media using the comma
 
 # sudo rpm -Uvh <packagename>"
 
-  describe command("rpm -Va | grep '^..5' | awk -F' ' '{ print $2 }'") do
-    its('stdout.strip') { should_not include 'b' }
+
+# Command expacts that we will only have changed Config Files (i..e files with the denoted 'c')
+# We have purposely excluded /etc/inittab as this isn't considered a config file by RPM
+# but will be changed stig::inittab cookbook to make the system STIG compliant for single-user
+# mode booting. Excluding this file in your check below prevents a false positive finding.
+
+# Broken - caused a false positive for /etc/inittab
+#  describe command("rpm -Va | grep '^..5' | awk -F' ' '{ print $2 }'") do
+#    its('stdout.strip') { should_not include 'b' }
+
+# Fixed to avoid false positive finding by excuding /etc/inittab from changed files list
+  describe command("rpm -Va | grep '^..5' | grep -v '/etc/inittab' | awk -F' ' '{ print $2 }'") do
+    its('stdout.strip') { should match /^((c)*(\\n)*)*$/ }
   end
 end
