@@ -50,6 +50,8 @@ password lifetime:
   shadow.users.each do |user|
     # filtering on non-system accounts (uid >= 1000)
     next unless user(user).uid >= 1000
+    # Filtering EC2-USER as this accounts expected to not have an expiring password
+    next if user cmp  'ec2-user'
     describe shadow.users(user) do
       its('min_days.first.to_i') { should cmp >= 1 }
     end
