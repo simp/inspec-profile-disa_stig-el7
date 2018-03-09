@@ -88,7 +88,7 @@ verified by the system file integrity tool."
       it('size') { should match eq 0 }
     end
     # Case when DNS used
-    describe command("grep -namserver /etc/resolv.conf") do
+    describe command("grep nameserver /etc/resolv.conf") do
       its('stdout.strip') { should match /^nameserver .+\s*\nnameserver .+\s*\n?$/}
     end
   end
