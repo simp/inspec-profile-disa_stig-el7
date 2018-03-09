@@ -120,26 +120,47 @@ Use the following command to map an existing user to the \"user_u\" role:
   end
 
   semanage_results = command("semanage login -l").stdout.split("\n")
+  # Remove Header Row
   semanage_results.shift
 
   semanage_results.each do |result|
     result = result.gsub(/\s_/m, ' ').strip.split(" ")
+    # Next if for some reason we still have header row
+    next if ( result[0] == 'Login')
+    # Next if root
+    next if ( result[0] == 'root')
+    # Skip Blank Lines
+    next if ( /\S/ !~  result[0])
+
     if admin_logins.include? "#{result[0]}"
       describe.one do
-        describe command("semanage login -l | grep #{result[1]}") do
+        describe command("semanage login -l | grep #{result[0]}") do
           its('stdout') { should match /sysadm_u/ }
         end
-        describe command("semanage login -l | grep #{result[1]}") do
+        describe command("semanage login -l | grep #{result[0]}") do
+          its('stdout') { should match /system_u/ }
+        end
+        describe command("semanage login -l | grep #{result[0]}") do
           its('stdout') { should match /staff_u/ }
         end
       end
     elsif non_admin_logins.include? "#{result[0]}"
-      describe command("semanage login -l | grep #{result[1]}") do
-        its('stdout') { should match /user_u/ }
-      end
+      describe.one do
+	describe command("semanage login -l | grep #{result[0]}") do
+          its('stdout') { should match /user_u/ }
+        end
+        if( result[0] == '__default__')
+          # all real users should be mapped to a context (i.e. user_u)
+          # but the system isn't forced to map them by default to a context
+          # This will enable defualt to be unconfined like it is by default
+	  describe command("semanage login -l | grep #{result[0]}") do
+            its('stdout') { should match /unconfined_u/ }
+          end
+        end
+      end   
     # Case when account isn't documented
     else
-      describe command("semanage login -l | grep #{result[1]}") do
+      describe command("semanage login -l | grep #{result[0]}") do
         its('stdout') { should match /^$/ }
       end
     end
