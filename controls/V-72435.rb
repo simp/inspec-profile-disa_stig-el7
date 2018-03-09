@@ -20,6 +20,19 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+
+# Smart Card Preference
+#
+# Per Redhat - Do not use the --enablerequiresmartcard option until you have 
+# successfully authenticated to the system using a smart card. Otherwise, 
+# users may be unable to log into the system.
+#
+smart_card_status = attribute(
+                           'V_72435_Smart_Card_Status',
+                           default: "enabled",
+                           description: 'Smart Card Status'
+                         )
+						 
 control "V-72435" do
   title "The operating system must implement smart card logons for multifactor
 authentication for access to privileged accounts."
@@ -87,7 +100,7 @@ Enable smart card logons with the following commands:
 
 
   describe command("authconfig --test | grep -i \"smartcard for login is\" | awk '{ print $NF }'") do
-    its('stdout.strip') { should eq 'enabled' }
+    its('stdout.strip') { should eq "#{smart_card_status}" }
   end
 
   describe command('authconfig --test | grep -i "smartcard removal action" | awk \'{ print $NF }\'') do
