@@ -77,11 +77,20 @@ command:
 Start the firewall via \"systemctl\" with the following command:
 
 # systemctl start firewalld"
-
-  describe package('firewalld') do
-    it { should be_installed }
+  describe.one do
+    describe package('firewalld') do
+      it { should be_installed }
+    end
+    describe package('iptables') do
+      it { should be_installed }
+    end
   end
-  describe systemd_service('firewalld.service') do
-    it { should_not be_running }
-  end
+  describe.one do
+    describe systemd_service('firewalld.service') do
+      it { should be_running }
+    end
+	describe systemd_service('iptables.service') do
+      it { should be_running }
+    end
+  end 
 end
