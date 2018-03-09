@@ -78,7 +78,8 @@ auid!=4294967295 -k setuid/setgid"
   target_files = command(%(find / -xautofs -noleaf -wholename '/proc' -prune -o -wholename '/sys' -prune -o -wholename '/dev' -prune -o -type f \\( -perm -4000 -o -perm -2000 \\) -print 2>/dev/null)).stdout.strip.lines
 
   target_files.each do |target_file|
-    describe auditd.file(target_file) do
+    # target_file still contains \n, need to chomp it
+    describe auditd.file(target_file.chomp) do
       its('permissions') { should_not cmp [] }
       its('action') { should_not include 'never' }
     end
