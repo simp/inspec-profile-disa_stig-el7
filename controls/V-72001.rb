@@ -20,13 +20,36 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-# Will need to be changed to reflect list of authorized system accounts
+# Will need to have attribute updated in YML to reflect list of authorized system accounts
 system_accounts = attribute(
-  'system_accounts',
+  'V_72001_System_Accounts',
   default: [
-    'root',
-    'bin',
-    'daemon'
+        'root',
+        'bin',
+        'daemon',
+        'adm',
+        'lp',
+        'sync',
+        'shutdown',
+        'halt',
+        'mail',
+        'operator',
+#       'games', # Should Be Removed
+#       'ftp', # Should Be Removed
+        'nobody',
+        'systemd-bus-proxy',
+        'systemd-network',
+        'dbus',
+        'polkitd',
+        'tss', #  Account used by the trousers package to sandbox the tcsd daemon
+        'postfix', # Service Account for Postfix Mail Daemon
+        'chrony', # Service Account for the Chrony Time Service
+        'sshd', # Service Account for SSH
+        'ec2-user', # Service Account for EC2 Access in AWS
+        'sssd', # Service Account for the SSSH Authentication service
+        'rpc', # Service Account RPCBind Daemon
+        'unbound', # Service Account UnBound Daemon
+        'ntp' # Service Account for NTPD Daemon
   ],
   description: "System accounts that support approved system activities."
 )
