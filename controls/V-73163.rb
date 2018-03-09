@@ -53,7 +53,8 @@ Uncomment the \"network_failure_action\" option in
 
 network_failure_action = single"
 
+#Test matches the test for ./inspec-profiles/controls/V-72087.rb
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action.strip') { should cmp('stop') }
+    its('network_failure_action.strip') { should match(/^(syslog|single|halt)$/) }
   end
 end
