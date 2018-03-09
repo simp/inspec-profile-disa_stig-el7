@@ -52,7 +52,16 @@ X11Fowarding yes
 
 The SSH service must be restarted for changes to take effect."
 
-  describe sshd_config do
-    its('X11Fowarding') { should cmp 'yes' }
+# The sshd_config command uses lowercases. 
+# So also test with a grep... grep will work 
+# both will succeed on an accurate configuration
+  describe.one do
+     describe sshd_config do
+       its('x11forwarding') { should cmp 'yes' }
+     end
+     describe command("grep -i 'X11Forwarding' /etc/ssh/sshd_config | awk '{print tolower($2)}'") do
+       its('stdout.strip') { should eq 'yes' }
+     end
   end
 end
+
