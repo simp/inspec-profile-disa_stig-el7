@@ -81,8 +81,15 @@ for remote access to privileged accounts via pluggable authentication modules (P
 
 Modify all of the services lines in /etc/sssd/sssd.conf to include pam."
 
-  describe parse_config_file('/etc/sssd/sssd.conf') do
-    its('services') { should include 'pam' }
+# its('services") doesn't appear to be working properly
+# added a test with grep to make sure one will pass if pam exists.
+  describe.one do
+     describe parse_config_file('/etc/sssd/sssd.conf') do
+       its('services') { should include 'pam' }
+     end
+     describe command(" grep -i -E 'services(\s)*=(\s)*(.+*)pam' /etc/sssd/sssd.conf ") do
+       its('stdout.strip') { should include 'pam' }
+     end
   end
-
+  
 end
