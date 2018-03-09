@@ -20,6 +20,18 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# Smart Card Preference
+#
+# Per Redhat - Do not use the --enablerequiresmartcard option until you have 
+# successfully authenticated to the system using a smart card. Otherwise, 
+# users may be unable to log into the system.
+#
+smart_card_status = attribute(
+                           'V_71965_Smart_Card_Status',
+                           default: "enabled",
+                           description: 'Smart Card Status'
+                         )
+						 
 control "V-71965" do
   title "The operating system must uniquely identify and must authenticate
 organizational users (or processes acting on behalf of organizational users) using
@@ -72,6 +84,10 @@ actions are blank, this is a finding."
   tag "fix": "Configure the operating system to require individuals to be
 authenticated with a multifactor authenticator.
 
+Per Redhat - Do not use the --enablerequiresmartcard option until you have 
+successfully authenticated to the system using a smart card. Otherwise, 
+users may be unable to log into the system.
+
 Enable smartcard logons with the following commands:
 
 # authconfig --enablesmartcard --smartcardaction=1 --update
@@ -86,7 +102,7 @@ Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey module if
 required."
 
   describe command("authconfig --test | grep -i smartcard") do
-    its('stdout') { should match /use only smartcard for login is enabled/ }
+    its('stdout') { should match /use only smartcard for login is #{smart_card_status}/ }
     its('stdout') { should match /smartcard module = ".+"/ }
     its('stdout') { should match /smartcard removal action = ".+"/ }
   end
