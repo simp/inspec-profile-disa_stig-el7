@@ -59,18 +59,20 @@ Modify the first three lines of the auth section of the
 \"/etc/pam.d/system-auth-ac\" and \"/etc/pam.d/password-auth-ac\" files to match the
 following lines:
 
-auth        required       pam_faillock.so preauth silent audit deny=3
-even_deny_root fail_interval=900 unlock_time=604800
+auth        required       pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=604800
 auth        sufficient     pam_unix.so try_first_pass
 auth        [default=die]  pam_faillock.so authfail audit deny=3 even_deny_root
 fail_interval=900 unlock_time=604800
 
 and run the \"authconfig\" command."
 
-  describe file("/etc/pam.d/password-auth-ac") do
-    its('content') { should match /auth\s+required\s+pam_faillock.so .*even_deny_root.*\nauth\s+\[default=die\]\s+pam_faillock.so.*even_deny_root.*/ }
-  end
-  describe file("/etc/pam.d/password-auth-ac") do
-    its('content') { should match /auth\s+\[default=die\]\s+pam_faillock.so .*even_deny_root.*\nauth\s+required\s+pam_faillock.so.*even_deny_root.*/ }
+  files = ["/etc/pam.d/system-auth-ac","/etc/pam.d/password-auth-ac"]
+  files.each do |config_file|
+    describe file(config_file) do
+      its('content') { should match /auth\s+required\s+pam_faillock.so preauth silent audit deny=\d+ even_deny_root fail_interval=\d+ unlock_time=\d+/ }
+    end
+    describe file(config_file) do
+      its('content') { should match /auth\s+\[default=die\]\s+pam_faillock.so authfail audit deny=\d+ even_deny_root fail_interval=\d+ unlock_time=\d+/ }
+    end
   end
 end
