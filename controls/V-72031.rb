@@ -72,18 +72,12 @@ Note: The example will be for the user smithj, who has a home directory of
 
 # chgrp users /home/smithj/<file>"
 
-  # Assumption - users' home directories created in "home"
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    home_files = command("find #{home} -name '.*'").stdout.split("\n")
-    home_user = home.split("/")
-    user_groups = command("groups #{home_user[2]}").stdout.split(" ")
-    user_groups.delete_at(0)
-    user_groups.delete_at(0)
-    home_files.each do |curr_file|
-      describe file(curr_file) do
-        its('group') { should cmp "#{user_groups.first}" }
-      end
-    end
-  end
+users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+        command("find #{user_info.home} -name '.*'").stdout.split("\n").each do |curr_file|
+                describe file(curr_file) do
+                        its('group') { should cmp "#{user_info.groups.first}" }
+                end
+        end
+end
+
 end
