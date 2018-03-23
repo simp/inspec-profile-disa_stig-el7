@@ -74,16 +74,14 @@ finding."
   tag "fix": "Remove alternate methods of booting the system from removable media or
 document the configuration to boot from removable media with the ISSO."
 
-  # @todo -make test more efficient/check for set root
-  grub_cfgs = command('find / -name grub.cfg').stdout.split("\n")
-  grub_cfgs.each do |cfg|
-    describe.one do
-      describe file(cfg) do
-        its('path') { should eq '/boot/grub2/grub.cfg' }
-      end
-      describe file(cfg) do
-        its('path') { should eq '/boot/efi/EFI/redhat/grub.cfg' }
-      end
-    end
+  describe "The list of unapproved boot loader configuration files" do
+    subject {
+      command('find / -name grub.cfg -type f').stdout.chomp.split
+    }
+    before {
+      subject.delete("/boot/grub2/grub.cfg")
+      subject.delete("/boot/efi/EFI/redhat/grub.cfg")
+    }
+    it { should eq [] }
   end
 end
