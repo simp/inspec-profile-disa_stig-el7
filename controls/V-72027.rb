@@ -58,18 +58,14 @@ Note: The example will be for the user smithj, who has a home directory of
 
 # chmod 0750 /home/smithj/<file>"
 
-  # Assumption - users' home directories created in "home"
-  # Allows for mode 750 or less permissive
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    home_files = command("find #{home} -xdev ! -name '.*' -type f -perm /027").stdout.split("\n")
-    home_files.each do |filename|
-      describe file(filename) do
-        it { should_not be_writable.by('group') }
-        it { should_not be_executable.by('others') }
-        it { should_not be_writable.by('others') }
-        it { should_not be_readable.by('others') }
-      end
+ users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+  command("find #{user_info.home} -xdev ! -type f -perm /027").stdout.split("\n").each do |filename|
+    describe file(filename) do
+      it { should_not be_writable.by('group') }
+      it { should_not be_executable.by('others') }
+      it { should_not be_writable.by('others') }
+      it { should_not be_readable.by('others') }
     end
   end
+ end
 end
