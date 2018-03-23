@@ -68,7 +68,7 @@ Note: The example will be for the user smithj, who has a home directory of
 
   #Get home directory from /etc/passwd. Check users with UID >= 1000.
   findings = []
-  u = users.where{uid >= 1000 and home}.entries
+  u = users.where{uid >= 1000 and home != ""}.entries
   #For each user, build and execute a find command that identifies files
   #that are not owned by a group the user is a member of.
   u.each do |user|
