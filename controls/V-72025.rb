@@ -66,22 +66,22 @@ Note: The example will be for the user smithj, who has a home directory of
 
 # chgrp users /home/smithj/<file>"
 
-  # Assumption - users' home directories created in "home"
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    home_files = command("find #{home} ! -name '.*'").stdout.split("\n")
-    home_user = home.split("/")
-    user_groups = command("groups #{home_user[2]}").stdout.split(" ")
-    user_groups.delete_at(0)
-    user_groups.delete_at(0)
-    home_files.each do |curr_file|
-      describe.one do
-        user_groups.each { |curr_group|
-          describe file(curr_file) do
-            its('group') { should cmp "#{curr_group}" }
-          end
-        }
-      end
-    end
+  #Get home directory from /etc/passwd. Check users with UID >= 1000.
+  findings = []
+  u = users.where{uid >= 1000 and home}.entries
+  #For each user, build and execute a find command that identifies files
+  #that are not owned by a group the user is a member of.
+  u.each do |user|
+    find_args = "" 
+    user.groups.each { |curr_group|
+      find_args = find_args+"-not -group #{curr_group} "
+    }
+    findings = findings + command("find #{user.home} #{find_args}").stdout.split("\n")
+  end
+  #If there are any files in a home directory that are not owned by
+  #a group that the user is a member of then report a finding and 
+  #provide the offending files.
+  describe findings do
+    it { should be nil }
   end
 end
