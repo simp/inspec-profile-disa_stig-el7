@@ -57,20 +57,17 @@ Note: The example will be for the smithj user, who has a home directory of
 
 # chown smithj /home/smithj/.*"
 
-  # Assumption - users' home directories created in "home"
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    home_files = command("find #{home} -name '.*'").stdout.split("\n")
-    home_user = home.split("/")
-    home_files.each do |curr_file|
+users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    command("find #{user_info.home} -name '.*'").stdout.split("\n").each do |curr_file|
       describe.one do
         describe file(curr_file) do
-          its('owner') { should cmp "#{home_user[2]}" }
+          its('owner') { should cmp "#{user_info.username}" }
         end
         describe file(curr_file) do
           its('owner') { should cmp "root" }
         end
       end
     end
-  end
+end
+
 end
