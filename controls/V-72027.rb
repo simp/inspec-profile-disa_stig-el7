@@ -59,10 +59,8 @@ Note: The example will be for the user smithj, who has a home directory of
 # chmod 0750 /home/smithj/<file>"
   findings = []
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
-    #puts "user: "+user_info.username+" for home: "+user_info.home
+    #Check for directories more permissive than 750 and files more permissive than 640.
     findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -type d -perm /027 -o -type f -perm /133").stdout.split("\n")
-
-    #puts "num_of_files: "+findings.length.to_s
   end
   describe findings do
     its ('length') { should == 0 }
