@@ -56,18 +56,12 @@ Note: The example will be for the smithj user, who has a home directory of
 \"/home/smithj\".
 
 # chown smithj /home/smithj/.*"
-
-users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
-    command("find #{user_info.home} -name '.*'").stdout.split("\n").each do |curr_file|
-      describe.one do
-        describe file(curr_file) do
-          its('owner') { should cmp "#{user_info.username}" }
-        end
-        describe file(curr_file) do
-          its('owner') { should cmp "root" }
-        end
-      end
-    end
-end
-
+  
+  findings = []
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    findings = findings + command("find #{user_info.home} -name '.*' -not -user #{user_info.username} -a -not -user root").stdout.split("\n")
+  end
+  describe findings do
+    its ('length') { should == 0 }
+  end
 end
