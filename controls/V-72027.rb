@@ -65,6 +65,6 @@ Note: The example will be for the user smithj, who has a home directory of
     #puts "num_of_files: "+findings.length.to_s
   end
   describe findings do
-    it { should be nil }
+    its ('length') { should == 0 }
   end
 end
