@@ -69,6 +69,6 @@ Note: The example will be for the user smithj, who has a home directory of
   #If there are any files in a home directory that are not owned by
   #that user then report a finding and provide the offending files.
   describe findings do
-    it { should be nil }
+    its ('length') { should == 0 }
   end
 end
