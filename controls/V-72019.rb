@@ -58,12 +58,13 @@ Note: The example will be for the user smithj, who has a home directory of
 
 # chown smithj /home/smithj"
 
-  # Assumption - users' home directories created in "home"
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    home_user = home.split("/")
-    describe file(home) do
-      its('owner') { should cmp "#{home_user[2]}" }
-    end
+  findings = []  
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    if file(user_info.home).exist? == false
+      findings << user_info.home  
+    end 
   end
+  describe findings do  
+    its ('length') { should == 0 }  
+  end  
 end
