@@ -56,15 +56,11 @@ Note: The example will be for the user \"smithj\".
 
 # chmod 0750 /home/smithj"
 
-  # Assumption - users' home directories created in "home"
-  # Allows for mode 750 or less permissive
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    describe file(home) do
-      it { should_not be_writable.by('group')}
-      it { should_not be_executable.by('others') }
-      it { should_not be_writable.by('others') }
-      it { should_not be_readable.by('others') }
-    end
+  findings = []
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    findings = findings + command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n")
+  end
+  describe findings do
+    its ('length') { should == 0 }
   end
 end
