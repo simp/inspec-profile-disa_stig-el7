@@ -71,13 +71,11 @@ Note: The example will be for the user smithj, who has a home directory of
 \"/home/smithj\", and has a primary group of users.
 
 # chgrp users /home/smithj/<file>"
-
-users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
-        command("find #{user_info.home} -name '.*'").stdout.split("\n").each do |curr_file|
-                describe file(curr_file) do
-                        its('group') { should cmp "#{user_info.groups.first}" }
-                end
-        end
-end
-
+  findings = []
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    findings = findings + command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
+  end
+  describe findings do
+    its('length') { should == 0 }
+  end
 end
