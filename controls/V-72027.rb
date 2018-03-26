@@ -57,15 +57,14 @@ Note: The example will be for the user smithj, who has a home directory of
 \"/home/smithj\" and is a member of the users group.
 
 # chmod 0750 /home/smithj/<file>"
+  findings = []
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    #puts "user: "+user_info.username+" for home: "+user_info.home
+    findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -type d -perm /027 -o -type f -perm /133").stdout.split("\n")
 
- users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
-  command("find #{user_info.home} -xdev ! -type f -perm /027").stdout.split("\n").each do |filename|
-    describe file(filename) do
-      it { should_not be_writable.by('group') }
-      it { should_not be_executable.by('others') }
-      it { should_not be_writable.by('others') }
-      it { should_not be_readable.by('others') }
-    end
+    #puts "num_of_files: "+findings.length.to_s
   end
- end
+  describe findings do
+    it { should be nil }
+  end
 end
