@@ -60,9 +60,8 @@ from non-privileged users.
   tag "rid": "SV-86595r1_rule"
   tag "stig_id": "RHEL-07-020020"
   tag "cci": "CCI-002165"
-  tag "nist": ["AC-3 (4)", "Rev_4"]
+  tag "nist": ["AC-3 (4)","AC-6 (10)","Rev_4"]
   tag "cci": "CCI-002235"
-  tag "nist": ["AC-6 (10)", "Rev_4"]
   tag "check": "Verify the operating system prevents non-privileged users from
 executing privileged functions to include disabling, circumventing, or altering
 implemented security safeguards/countermeasures.
