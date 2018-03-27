@@ -71,7 +71,7 @@ Note: The example will be for the user smithj, who has a home directory of
 \"/home/smithj\", and has a primary group of users.
 
 # chgrp users /home/smithj/<file>"
-  findings = []
+  findings = Set[]
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
     findings = findings + command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
   end
