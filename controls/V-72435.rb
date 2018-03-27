@@ -57,12 +57,8 @@ SRG-OS-000375-GPOS-0016.
   tag "gid": "V-72435"
   tag "rid": "SV-87059r2_rule"
   tag "stig_id": "RHEL-07-041004"
-  tag "cci": "CCI-001948"
-  tag "nist": ["IA-2 (11)", "Rev_4"]
-  tag "cci": "CCI-001953"
-  tag "nist": ["IA-2 (12)", "Rev_4"]
-  tag "cci": "CCI-001954"
-  tag "nist": ["IA-2 (12)", "Rev_4"]
+  tag "cci": ["CCI-001948","CCI-001953","CCI-001954"]
+  tag "nist": ["IA-2 (11)","IA-2 (12)","IA-2 (12)","Rev_4"]
   tag "check": "Verify the operating system requires smart card logons for
 multifactor authentication to uniquely identify privileged users.
 

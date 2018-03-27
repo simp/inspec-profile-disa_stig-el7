@@ -40,12 +40,8 @@ SRG-OS-000473-GPOS-0021.
   tag "gid": "V-72143"
   tag "rid": "SV-86767r2_rule"
   tag "stig_id": "RHEL-07-030600"
-  tag "cci": "CCI-000126"
-  tag "nist": ["AU-2 d", "Rev_4"]
-  tag "cci": "CCI-000172"
-  tag "nist": ["AU-12 c", "Rev_4"]
-  tag "cci": "CCI-002884"
-  tag "nist": ["MA-4 (1) (a)", "Rev_4"]
+  tag "cci": ["CCI-000126","CCI-000172","CCI-002884"] 
+  tag "nist": ["AU-2 d","AU-12 c","MA-4 (1) (a)","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system generates audit records when
 successful/unsuccessful account access count events occur.

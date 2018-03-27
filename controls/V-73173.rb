@@ -37,14 +37,8 @@ system (e.g., module or policy filter).
   tag "gid": "V-73173"
   tag "rid": "SV-87825r2_rule"
   tag "stig_id": "RHEL-07-030874"
-  tag "cci": "CCI-000018"
-  tag "nist": ["AC-2 (4)", "Rev_4"]
-  tag "cci": "CCI-000172"
-  tag "nist": ["AU-12 c", "Rev_4"]
-  tag "cci": "CCI-001403"
-  tag "nist": ["AC-2 (4)", "Rev_4"]
-  tag "cci": "CCI-002130"
-  tag "nist": ["AC-2 (4)", "Rev_4"]
+  tag "cci": ["CCI-000018","CCI-000172","CCI-001403","CCI-002130"]
+  tag "nist": ["AC-2 (4)","AU-12 c","AC-2 (4)","AC-2 (4)","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system must generate audit records for all
 account creations, modifications, disabling, and termination events that affect

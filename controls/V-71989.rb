@@ -41,10 +41,8 @@ verification/testing and/or systems and environments that require this functiona
   tag "gid": "V-71989"
   tag "rid": "SV-86613r2_rule"
   tag "stig_id": "RHEL-07-020210"
-  tag "cci": "CCI-002165"
-  tag "nist": ["AC-3 (4)", "Rev_4"]
-  tag "cci": "CCI-002696"
-  tag "nist": ["SI-6 a", "Rev_4"]
+  tag "cci": ["CCI-002165","CCI-002696"]
+  tag "nist": ["AC-3 (4)","SI-6 a","Rev_4"]
   tag "subsystems": ['selinux']
   tag "check": "Verify the operating system verifies correct operation of all
 security functions.

@@ -48,14 +48,8 @@ SRG-OS-000425-GPOS-00189, SRG-OS-000426-GPOS-0019.
   tag "gid": "V-72233"
   tag "rid": "SV-86857r1_rule"
   tag "stig_id": "RHEL-07-040300"
-  tag "cci": "CCI-002418"
-  tag "nist": ["SC-8", "Rev_4"]
-  tag "cci": "CCI-002420"
-  tag "nist": ["SC-8 (2)", "Rev_4"]
-  tag "cci": "CCI-002421"
-  tag "nist": ["SC-8 (1)", "Rev_4"]
-  tag "cci": "CCI-002422"
-  tag "nist": ["SC-8 (2)", "Rev_4"]
+  tag "cci": ["CCI-002418","CCI-002420","CCI-002421","CCI-002422"]
+  tag "nist": ["SC-8","SC-8 (2)","SC-8 (1)","SC-8 (2)","Rev_4"]
   tag "check": "Check to see if sshd is installed with the following command:
 
 # yum list installed ssh

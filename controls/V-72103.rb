@@ -39,10 +39,8 @@ SRG-OS-000458-GPOS-00203, SRG-OS-000474-GPOS-0021.
   tag "gid": "V-72103"
   tag "rid": "SV-86727r2_rule"
   tag "stig_id": "RHEL-07-030400"
-  tag "cci": "CCI-000126"
-  tag "nist": ["AU-2 d", "Rev_4"]
-  tag "cci": "CCI-000172"
-  tag "nist": ["AU-12 c", "Rev_4"]
+  tag "cci": ["CCI-000126","CCI-000172"]
+  tag "nist": ["AU-2 d","AU-12 c","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"fchownat\" command occur.

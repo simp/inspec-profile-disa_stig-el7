@@ -33,16 +33,8 @@ Information System Security Officer (ISSO)."
   tag "gid": "V-72075"
   tag "rid": "SV-86699r1_rule"
   tag "stig_id": "RHEL-07-021700"
-  tag "cci": "CCI-000318"
-  tag "nist": ["CM-3 f", "Rev_4"]
-  tag "cci": "CCI-000368"
-  tag "nist": ["CM-6 c", "Rev_4"]
-  tag "cci": "CCI-001812"
-  tag "nist": ["CM-11 (2)", "Rev_4"]
-  tag "cci": "CCI-001813"
-  tag "nist": ["CM-5 (1)", "Rev_4"]
-  tag "cci": "CCI-001814"
-  tag "nist": ["CM-5 (1)", "Rev_4"]
+  tag "cci": ["CCI-000318","CCI-000368","CCI-001812","CCI-001813","CCI-001814"]
+  tag "nist": ["CM-3 f","CM-6 c","CM-11 (2)","CM-5 (1)","CM-5 (1)","Rev_4"]
   tag "check": "Verify the system is not configured to use a boot loader on
 removable media.
 

@@ -39,12 +39,8 @@ SRG-OS-000471-GPOS-0021.
   tag "gid": "V-72149"
   tag "rid": "SV-86773r3_rule"
   tag "stig_id": "RHEL-07-030630"
-  tag "cci": "CCI-000135"
-  tag "nist": ["AU-3 (1)", "Rev_4"]
-  tag "cci": "CCI-000172"
-  tag "nist": ["AU-12 c", "Rev_4"]
-  tag "cci": "CCI-002884"
-  tag "nist": ["MA-4 (1) (a)", "Rev_4"]
+  tag "cci": ["CCI-000135","CCI-000172","CCI-002884"]
+  tag "nist": ["AU-3 (1)","AU-12 c","MA-4 (1) (a)","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"passwd\" command occur.

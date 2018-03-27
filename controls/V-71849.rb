@@ -36,9 +36,8 @@ permissions to system files and directories greater than the default.
   tag "rid": "SV-86473r2_rule"
   tag "stig_id": "RHEL-07-010010"
   tag "cci": "CCI-001494"
-  tag "nist": ["AU-9", "Rev_4"]
+  tag "nist": ["AU-9","AU-9 (3)","Rev_4"]
   tag "cci": "CCI-001496"
-  tag "nist": ["AU-9 (3)", "Rev_4"]
   tag "check": "Verify the file permissions, ownership, and group membership of
 system files and commands match the vendor values.
 
