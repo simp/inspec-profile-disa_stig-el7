@@ -56,7 +56,7 @@ Note: The example will be for the smithj user, who has a home directory of
 
 # chmod 0740 /home/smithj/.<INIT_FILE>"
 
-  findings = []
+  findings = Set[]
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
     findings = findings + command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
   end
