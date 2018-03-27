@@ -36,11 +36,9 @@ SRG-OS-000480-GPOS-0022.
   tag "rid": "SV-86607r1_rule"
   tag "stig_id": "RHEL-07-020100"
   tag "cci": "CCI-000366"
-  tag "nist": ["CM-6 b", "Rev_4"]
+  tag "nist": ["CM-6 b","IA-3","Rev_4"]
   tag "cci": "CCI-000778"
-  tag "nist": ["IA-3", "Rev_4"]
   tag "cci": "CCI-001958"
-  tag "nist": ["IA-3", "Rev_4"]
   tag "check": "If there is an HBSS with a Device Control Module and a Data Loss
 Prevention mechanism, this requirement is not applicable.
 
