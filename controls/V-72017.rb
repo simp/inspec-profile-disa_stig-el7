@@ -56,7 +56,7 @@ Note: The example will be for the user \"smithj\".
 
 # chmod 0750 /home/smithj"
 
-  findings = [] 
+  findings = Set[] 
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info| 
     findings = findings + command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n") 
   end 
