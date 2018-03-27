@@ -62,28 +62,27 @@ with the following command:
 
 # chmod 0755  <file>"
   #Get home directory for users with UID >= 1000.
-  dotfiles = []
+  dotfiles = Set[]
   u = users.where{uid >= 1000 and home != ""}.entries
   #For each user, build and execute a find command that identifies initialization files
   #in a user's home directory.
   u.each do |user|
     dotfiles = dotfiles + command("find #{user.home} -xdev -maxdepth 2 -name '.*' -type f").stdout.split("\n")
   end
+  ww_files = Set[]
   ww_files = command('find / -perm -002 -type f -exec ls {} \;').stdout.lines
   #Check each dotfile for existence of each world-writeable file
-  findings = []
-  i = 1
+  findings = Set[]
   dotfiles.each do |dotfile|
     dotfile = dotfile.strip
     ww_files.each do |ww_file|
       ww_file = ww_file.strip
       count = command("grep -c #{ww_file} #{dotfile}").stdout
-      if count.to_i > 0
         findings << dotfile
       end
     end
   end
   describe findings do
-    it { should be nil }
+    its ('length') { should == 0 }
   end
 end
