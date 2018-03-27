@@ -61,6 +61,6 @@ Note: The example will be for the smithj user, who has a home directory of
     findings = findings + command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
   end
   describe findings do
-    its ('length') { should == 0 }
+    it { should be_empty }
   end
 end
