@@ -58,7 +58,7 @@ Note: The example will be for the user smithj, who has a home directory of
 
 # chown smithj /home/smithj"
 
-  findings = []
+  findings = Set[]
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
     if file(user_info.home).exist? == false
       findings << user_info.home
