@@ -59,7 +59,7 @@ Note: The example will be for the user smithj, who has a home directory of
 
 # chown smithj /home/smithj/<file or directory>"
   #Get home directory from /etc/passwd. Check users with UID >= 1000.
-  findings = []
+  findings = Set[]
   u = users.where{uid >= 1000 and home != ""}.entries
   #For each user, build and execute a find command that identifies files
   #that are not owned by the user.
