@@ -40,14 +40,8 @@ SRG-OS-000396-GPOS-00176, SRG-OS-000405-GPOS-00184, SRG-OS-000478-GPOS-0022.
   tag "gid": "V-72067"
   tag "rid": "SV-86691r2_rule"
   tag "stig_id": "RHEL-07-021350"
-  tag "cci": "CCI-000068"
-  tag "nist": ["AC-17 (2)", "Rev_4"]
-  tag "cci": "CCI-001199"
-  tag "nist": ["SC-28", "Rev_4"]
-  tag "cci": "CCI-002450"
-  tag "nist": ["SC-13", "Rev_4"]
-  tag "cci": "CCI-002476"
-  tag "nist": ["SC-28 (1)", "Rev_4"]
+  tag "cci": ["CCI-000068","CCI-001199","CCI-002450","CCI-002476"]
+  tag "nist": ["AC-17 (2)","SC-28","SC-13","SC-28 (1)","Rev_4"]
   tag "check": "Verify the operating system implements DoD-approved encryption to
 protect the confidentiality of remote access sessions.
 
