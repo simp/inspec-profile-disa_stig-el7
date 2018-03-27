@@ -64,7 +64,7 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 
 # chgrp users /home/smithj"
 
-findings = []  
+findings = Set[]  
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|  
     findings = findings + command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")  
   end  
