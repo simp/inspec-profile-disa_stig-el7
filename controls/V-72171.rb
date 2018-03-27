@@ -38,10 +38,8 @@ reconstruct events to determine the cause and impact of compromise.
   tag "gid": "V-72171"
   tag "rid": "SV-86795r3_rule"
   tag "stig_id": "RHEL-07-030740"
-  tag "cci": "CCI-000135"
-  tag "nist": ["AU-3 (1)", "Rev_4"]
-  tag "cci": "CCI-002884"
-  tag "nist": ["MA-4 (1) (a)", "Rev_4"]
+  tag "cci": ["CCI-000135","CCI-002884"]
+  tag "nist": ["AU-3 (1)","MA-4 (1) (a)","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"mount\" command occur.

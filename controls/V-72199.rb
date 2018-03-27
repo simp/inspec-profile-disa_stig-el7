@@ -36,10 +36,8 @@ SRG-OS-000468-GPOS-00212, SRG-OS-000392-GPOS-0017.
   tag "gid": "V-72199"
   tag "rid": "SV-86823r2_rule"
   tag "stig_id": "RHEL-07-030880"
-  tag "cci": "CCI-000172"
-  tag "nist": ["AU-12 c", "Rev_4"]
-  tag "cci": "CCI-002884"
-  tag "nist": ["MA-4 (1) (a)", "Rev_4"]
+  tag "cci": ["CCI-000172","CCI-002130"]
+  tag "nist": ["AU-12 c","MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"rename\" command occur.

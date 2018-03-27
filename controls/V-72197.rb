@@ -41,14 +41,8 @@ SRG-OS-000476-GPOS-0022.
   tag "gid": "V-72197"
   tag "rid": "SV-86821r3_rule"
   tag "stig_id": "RHEL-07-030870"
-  tag "cci": "CCI-000018"
-  tag "nist": ["AC-2 (4)", "Rev_4"]
-  tag "cci": "CCI-000172"
-  tag "nist": ["AU-12 c", "Rev_4"]
-  tag "cci": "CCI-001403"
-  tag "nist": ["AC-2 (4)", "Rev_4"]
-  tag "cci": "CCI-002130"
-  tag "nist": ["AC-2 (4)", "Rev_4"]
+  tag "cci": ["CCI-000018","CCI-000172","CCI-001403"]
+  tag "nist": ["AC-2 (4)","AU-12 c","AC-2 (4)","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system must generate audit records for all
 account creations, modifications, disabling, and termination events that affect
