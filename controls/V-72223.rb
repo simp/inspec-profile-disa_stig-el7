@@ -46,10 +46,8 @@ resources associated with that session.
   tag "gid": "V-72223"
   tag "rid": "SV-86847r2_rule"
   tag "stig_id": "RHEL-07-040160"
-  tag "cci": "CCI-001133"
-  tag "nist": ["SC-10", "Rev_4"]
-  tag "cci": "CCI-002361"
-  tag "nist": ["AC-12", "Rev_4"]
+  tag "cci": ["CCI-001133","CCI-002361"]
+  tag "nist": ["SC-10","AC-12","Rev_4"]
   tag "check": "Verify the operating system terminates all network connections
 associated with a communications session at the end of the session or based on
 inactivity.

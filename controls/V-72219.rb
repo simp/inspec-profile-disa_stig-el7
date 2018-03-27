@@ -52,10 +52,8 @@ authorized quality of life issues.
   tag "gid": "V-72219"
   tag "rid": "SV-86843r1_rule"
   tag "stig_id": "RHEL-07-040100"
-  tag "cci": "CCI-000382"
-  tag "nist": ["CM-7 b", "Rev_4"]
-  tag "cci": "CCI-002314"
-  tag "nist": ["AC-17 (1)", "Rev_4"]
+  tag "cci": ["CCI-000382","CCI-002314"]
+  tag "nist": ["CM-7 b","AC-17 (1)","Rev_4"]
   tag "check": "Inspect the firewall configuration and running services to verify
 that it is configured to prohibit or restrict the use of functions, ports,
 protocols, and/or services that are unnecessary or prohibited.

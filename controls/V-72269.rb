@@ -47,10 +47,8 @@ authoritative time server (e.g., mobile, teleworking, and tactical endpoints).
   tag "gid": "V-72269"
   tag "rid": "SV-86893r2_rule"
   tag "stig_id": "RHEL-07-040500"
-  tag "cci": "CCI-001891"
-  tag "nist": ["AU-8 (1) (a)", "Rev_4"]
-  tag "cci": "CCI-002046"
-  tag "nist": ["AU-8 (1) (b)", "Rev_4"]
+  tag "cci": ["CCI-001891","CCI-002046"]
+  tag "nist": ["AU-8 (1) (a)","AU-8 (1) (b)","Rev_4"]
   tag "check": "Check to see if NTP is running in continuous mode.
 
 # ps -ef | grep ntp

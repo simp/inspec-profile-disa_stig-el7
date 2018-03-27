@@ -36,12 +36,8 @@ control "V-73177" do
   tag "gid": "V-73177"
   tag "rid": "SV-87829r1_rule"
   tag "stig_id": "RHEL-07-041010"
-  tag "cci": "CCI-001443"
-  tag "nist": ["AC-18 (1)", "Rev_4"]
-  tag "cci": "CCI-001444"
-  tag "nist": ["AC-18 (1)", "Rev_4"]
-  tag "cci": "CCI-002418"
-  tag "nist": ["SC-8", "Rev_4"]
+  tag "cci": "CCI-001443","CCI-001444","CCI-002418"]
+  tag "nist": ["AC-18 (1)","AC-18 (1)","SC-8", "Rev_4"]
   tag "networking","wifi"
 
   tag "check":
