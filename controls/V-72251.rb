@@ -35,10 +35,8 @@ access to the system.
   tag "gid": "V-72251"
   tag "rid": "SV-86875r2_rule"
   tag "stig_id": "RHEL-07-040390"
-  tag "cci": "CCI-000197"
-  tag "nist": ["IA-5 (1) (c)", "Rev_4"]
-  tag "cci": "CCI-000366"
-  tag "nist": ["CM-6 b", "Rev_4"]
+  tag "cci": ["CCI-000197","CCI-000366"]
+  tag "nist": ["IA-5 (1) (c)","CM-6 b","Rev_4"]
   tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon is configured to only use the SSHv2 protocol.
 

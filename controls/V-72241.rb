@@ -46,10 +46,8 @@ resources associated with that session.
   tag "gid": "V-72241"
   tag "rid": "SV-86865r2_rule"
   tag "stig_id": "RHEL-07-040340"
-  tag "cci": "CCI-001133"
-  tag "nist": ["SC-10", "Rev_4"]
-  tag "cci": "CCI-002361"
-  tag "nist": ["AC-12", "Rev_4"]
+  tag "cci": ["CCI-001133","CCI-002361"]
+  tag "nist": ["SC-10","AC-12","Rev_4"]
   tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system automatically terminates a user session
 after inactivity time-outs have expired.

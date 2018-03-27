@@ -45,12 +45,8 @@ SRG-OS-000125-GPOS-00065, SRG-OS-000250-GPOS-00093, SRG-OS-000393-GPOS-0017.
   tag "gid": "V-72221"
   tag "rid": "SV-86845r2_rule"
   tag "stig_id": "RHEL-07-040110"
-  tag "cci": "CCI-000068"
-  tag "nist": ["AC-17 (2)", "Rev_4"]
-  tag "cci": "CCI-000366"
-  tag "nist": ["CM-6 b", "Rev_4"]
-  tag "cci": "CCI-000803"
-  tag "nist": ["IA-7", "Rev_4"]
+  tag "cci": ["CCI-000068","CCI-000366","CCI-000803"]
+  tag "nist": ["AC-17 (2)","CM-6 b","IA-7","Rev_4"]
   tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system uses mechanisms meeting the requirements
 of applicable federal laws, Executive orders, directives, policies, regulations,

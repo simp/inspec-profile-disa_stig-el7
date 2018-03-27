@@ -50,14 +50,8 @@ SRG-OS-000423-GPOS-00189, SRG-OS-000423-GPOS-0019.
   tag "gid": "V-72235"
   tag "rid": "SV-86859r2_rule"
   tag "stig_id": "RHEL-07-040310"
-  tag "cci": "CCI-002418"
-  tag "nist": ["SC-8", "Rev_4"]
-  tag "cci": "CCI-002420"
-  tag "nist": ["SC-8 (2)", "Rev_4"]
-  tag "cci": "CCI-002421"
-  tag "nist": ["SC-8 (1)", "Rev_4"]
-  tag "cci": "CCI-002422"
-  tag "nist": ["SC-8 (2)", "Rev_4"]
+  tag "cci": ["CCI-002418","CCI-002420","CCI-002421","CCI-002422"]
+  tag "nist": ["SC-8","SC-8 (2)","SC-8 (1)","SC-8 (2)","Rev_4"]
   tag "subsystems": ["ssh"]
   tag "check": "Verify SSH is loaded and active with the following command:
 
