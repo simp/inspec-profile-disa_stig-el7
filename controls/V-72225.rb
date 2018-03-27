@@ -72,7 +72,7 @@ SRG-OS-000228-GPOS-0008.
   tag "rid": "SV-86849r2_rule"
   tag "stig_id": "RHEL-07-040170"
   tag "cci": ["CCI-000048","CCI-000050","CCI-001384","CCI-001385","CCI-001386","CCI-001387","CCI-001388"]
-  tag "nist": ["AC-8 a","AC-8 b","AC-8 c 1","AC-8 c 2","AC-8 c 2",["AC-8 c 2","AC-8 c 3", "Rev_4"]
+  tag "nist": ["AC-8 a","AC-8 b","AC-8 c 1","AC-8 c 2","AC-8 c 2","AC-8 c 2","AC-8 c 3", "Rev_4"]
   tag "check": "Verify any publicly accessible connection to the operating system
 displays the Standard Mandatory DoD Notice and Consent Banner before granting access
 to the system.
