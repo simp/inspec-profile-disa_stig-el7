@@ -57,7 +57,7 @@ Note: The example will be for the user smithj, who has a home directory of
 \"/home/smithj\" and is a member of the users group.
 
 # chmod 0750 /home/smithj/<file>"
-  findings = []
+  findings = Set[]
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
     #Check for directories more permissive than 750 and files more permissive than 640.
     findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -type d -perm /027 -o -type f -perm /133").stdout.split("\n")
