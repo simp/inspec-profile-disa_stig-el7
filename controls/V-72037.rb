@@ -1,9 +1,4 @@
 # encoding: utf-8
-RUN_SLOW_CONTROL = attribute('run_slow_control', default: 'false',
-description: 'Only run this control if it is enabled because it
-searches the entire file system and does a lot of comparisons and
-may take over 10 minutes to complete.')
-
 =begin
 -----------------
 Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
@@ -25,7 +20,6 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72037" do
-  only_if {RUN_SLOW_CONTROL == 'true'}
   title "Local initialization files must not execute world-writable programs."
   desc  "If user start-up files execute world-writable programs, especially in
 unprotected directories, they could be maliciously modified to destroy user files or
@@ -83,6 +77,6 @@ with the following command:
     end
   end
   describe findings do
-    its ('length') { should == 0 }
+    it { should be_empty }
   end
 end
