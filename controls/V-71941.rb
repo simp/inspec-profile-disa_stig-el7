@@ -1,3 +1,6 @@
+DAYS_OF_INACTIVITY = attribute('days_of_inactivity', default: '0', description: 'The 
+number of days of inactivity before an account is disabled.')
+
 # encoding: utf-8
 #
 =begin
@@ -58,6 +61,6 @@ required value):
 INACTIVE=0"
 
   describe parse_config_file("/etc/default/useradd") do
-    its('INACTIVE') { should cmp '0' }
+    its('INACTIVE') { should cmp DAYS_OF_INACTIVITY }
   end
 end
