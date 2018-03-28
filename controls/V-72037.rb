@@ -18,14 +18,22 @@ Source: STIG.DOD.MIL
 uri: http://iase.disa.mil
 -----------------
 =end
+DISABLE_SLOW_CONTROLS = attribute('disable_slow_controls',default: false,
+description: 'If enabled, this attribute disables this control and other
+controls that consistently take a long time to complete.')
 
 control "V-72037" do
   title "Local initialization files must not execute world-writable programs."
-  desc  "If user start-up files execute world-writable programs, especially in
+  if DISABLE_SLOW_CONTROLS
+    desc "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute."
+  else  
+    desc  "If user start-up files execute world-writable programs, especially in
 unprotected directories, they could be maliciously modified to destroy user files or
 otherwise compromise the system at the user level. If the system is compromised at
 the user level, it is easier to elevate privileges to eventually compromise the
 system at the root and network level."
+  end
   impact 0.5
   tag "severity": "medium"
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
@@ -55,27 +63,38 @@ is a finding."
 with the following command:
 
 # chmod 0755  <file>"
-  #Get home directory for users with UID >= 1000.  
-  dotfiles = Set[]  
-  u = users.where{uid >= 1000 and home != ""}.entries  
-  #For each user, build and execute a find command that identifies initialization files 
-  #in a user's home directory. 
-  u.each do |user|  
-    dotfiles = dotfiles + command("find #{user.home} -xdev -maxdepth 2 -name '.*' -type f").stdout.split("\n")
-  end  
-  ww_files = Set[]
-  ww_files = command('find / -perm -002 -type f -exec ls {} \;').stdout.lines
-  #Check each dotfile for existence of each world-writeable file
-  findings = Set[]
-  dotfiles.each do |dotfile|
-    dotfile = dotfile.strip
-    ww_files.each do |ww_file|
-      ww_file = ww_file.strip
-      count = command("grep -c #{ww_file} #{dotfile}").stdout
-      findings << dotfile
+
+  if DISABLE_SLOW_CONTROLS
+    describe "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute." do
+      skip "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute. To enable this control, set the 
+DISABLE_SLOW_CONTROLS attribute to false. Note: by setting the DISABLE_SLOW_CONTROLS 
+attribute to false, the other slow running controls will also be enabled."
     end
-  end
-  describe findings do
-    it { should be_empty }
+    else
+    #Get home directory for users with UID >= 1000.  
+    dotfiles = Set[]  
+    u = users.where{uid >= 1000 and home != ""}.entries  
+    #For each user, build and execute a find command that identifies initialization files 
+    #in a user's home directory. 
+    u.each do |user|  
+      dotfiles = dotfiles + command("find #{user.home} -xdev -maxdepth 2 -name '.*' -type f").stdout.split("\n")
+    end  
+    ww_files = Set[]
+    ww_files = command('find / -perm -002 -type f -exec ls {} \;').stdout.lines
+    #Check each dotfile for existence of each world-writeable file
+    findings = Set[]
+    dotfiles.each do |dotfile|
+      dotfile = dotfile.strip
+      ww_files.each do |ww_file|
+        ww_file = ww_file.strip
+        count = command("grep -c #{ww_file} #{dotfile}").stdout
+        findings << dotfile
+      end
+    end
+    describe findings do
+      it { should be_empty }
+    end
   end
 end 
