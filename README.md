@@ -114,11 +114,11 @@ more manually. Once resolved fully, you will only need to run `kitchen verify
    
 ### Long Running Controls
 
-There are a few long running controls that take anywhere from 3 mineutes to 10 mineutes 
+There are a few long running controls that take anywhere from 3 minutes to 10 minutes 
 or more to run. In an ongoing or CI/CD pipelne this is not ideal. We have created an 
 attribute in the profile to allow you to 'skip' these controls to account for situations.
 
-The attrubute `SKIP_LONG_CTRLS (bool: false)` can be set to `true` or `false` as needed in 
+The attrubute `DISABLE_SLOW_CONTROLS (bool: false)` can be set to `true` or `false` as needed in 
 the `attributes.yml` file or set in the `.kitchen.yml` file.
 
 * `V-71849` (~3 minutes)
