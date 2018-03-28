@@ -71,7 +71,8 @@ Uncomment the \"network_failure_action\" option in
     its('disk_full_action'.strip) { should match(/^(syslog|single|halt)$/) }
   end
 
-  describe file('/etc/audisp/audisp-remote.conf') do
+# Test matches ./inspec-profiles/controls/V-73163.rb
+  describe parse_config_file('/etc/audisp/audisp-remote.conf') do
     its('network_failure_action'.strip) { should match(/^(syslog|single|halt)$/) }
   end
 end
