@@ -72,8 +72,7 @@ with the following command:
     ww_files.each do |ww_file|
       ww_file = ww_file.strip
       count = command("grep -c #{ww_file} #{dotfile}").stdout
-        findings << dotfile
-      end
+      findings << dotfile
     end
   end
   describe findings do
