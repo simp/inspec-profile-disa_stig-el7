@@ -111,6 +111,19 @@ more manually. Once resolved fully, you will only need to run `kitchen verify
    * (optional) `inspec exec -i $SSH_KEY
    --controls=V-#####,V-##### -t ssh://vagrant@127.0.0.1:2222` to just test a
    small set of controls
+   
+### Long Running Controls
+
+There are a few long running controls that take anywhere from 3 mineutes to 10 mineutes 
+or more to run. In an ongoing or CI/CD pipelne this is not ideal. We have created an 
+attribute in the profile to allow you to 'skip' these controls to account for situations.
+
+The attrubute `SKIP_LONG_CTRLS (bool: false)` can be set to `true` or `false` as needed in 
+the `attributes.yml` file or set in the `.kitchen.yml` file.
+
+* `V-71849` (~3 minutes)
+* `V-71855` (~3 minutes)
+* `V-72037` (10+ minutes)
 
 # Hardening Development
 
