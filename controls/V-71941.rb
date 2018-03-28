@@ -1,6 +1,3 @@
-DAYS_OF_INACTIVITY = attribute('days_of_inactivity', default: '0', description: 'The
-number of days of inactivity before an account is disabled.')
-
 # encoding: utf-8
 #
 =begin
@@ -22,6 +19,9 @@ Source: STIG.DOD.MIL
 uri: http://iase.disa.mil
 -----------------
 =end
+
+DAYS_OF_INACTIVITY = attribute('days_of_inactivity', default: '0', description: 'The
+number of days of inactivity before an account is disabled.')
 
 control "V-71941" do
   title "The operating system must disable account identifiers (individuals, groups,
