@@ -1,0 +1,66 @@
+#This file specifies the attributes for the configurable controls 
+#used in the RHEL 7 DISA STIG.
+
+#Controls that are known to consistently have long run times can be 
+#disabled using the DISABLE_SLOW_CONTROLS attribute.
+disable_slow_controls: true
+
+#V-71859.rb (already set to true)
+banner_message_enabled: true
+
+#V-71861.rb
+#banner_message_text_gui: 
+
+#V-71863.rb
+#banner_message_text_cli: 
+
+#V-72225.rb
+#banner_message_text_ral:
+
+#V-71911.rb
+#DIFOK (minimum number of characters that must be different from 
+#previous password)
+difok: 1  
+
+#V-71933.rb
+#MIN_REUSE_GENERATIONS (number of reuse generations)
+min_reuse_generations: 24
+
+#V-71935.rb
+#MIN_LEN (number of characters)
+min_len: 8
+
+#V-71941.rb
+#DAYS_OF_INACTIVITY (number of days)
+days_of_inactivity: 90
+
+#V-71943.rb
+#UNSUCCESSFUL_ATTEMPTS (number of unsuccessful attempts)
+#FAIL_INTERVAL (time in seconds)
+#LOCKOUT_TIME (time in seconds)
+unsuccessful_attempts: 3 
+fail_interval: 900
+lockout_time: 1800 
+
+#V-71945.rb 
+#UNSUCCESSFUL_ATTEMPTS_ROOT (number of unsuccessful attempts)
+#FAIL_INTERVAL_ROOT (time in seconds)
+#LOCKOUT_TIME_ROOT (time in seconds)
+unsuccessfully_attempts_root: 3 
+fail_interval_root: 900
+lockout_time_root: 1800 
+
+#V-71973.rb 
+#FILE_INTEGRITY_TOOL (name of tool)
+#FILE_INTEGRITY_INTERVAL (monthly, weekly, or daily)
+file_integrity_tool: aide
+file_integrity_interval: monthly
+
+#V-72223.rb 
+#SYSTEM_INACTIVITY_TIMEOUT (time in seconds)
+system_inactivity_timeout: 1800
+
+#V-72237.rb 
+#CLIENT_ALIVE_INTERVAL (time in seconds)
+client_alive_interval: 1800
+
