@@ -19,6 +19,9 @@ Source: STIG.DOD.MIL
 uri: http://iase.disa.mil
 -----------------
 =end
+DISABLE_SLOW_CONTROLS = attribute('disable_slow_controls',default: false,
+description: 'If enabled, this attribute disables this control and other
+controls that consistently take a long time to complete.')
 
 control "V-71855" do
   title "The cryptographic hash of system files and commands must match vendor
@@ -75,9 +78,19 @@ Alternatively, the package can be reinstalled from trusted media using the comma
 # Broken - caused a false positive for /etc/inittab
 #  describe command("rpm -Va | grep '^..5' | awk -F' ' '{ print $2 }'") do
 #    its('stdout.strip') { should_not include 'b' }
-
-# Fixed to avoid false positive finding by excluding /etc/inittab from changed files list
-  describe command("rpm -Va | grep '^..5' | grep -v '/etc/inittab' | awk -F' ' '{ print $2 }'") do
-    its('stdout.strip') { should match /^((c)*(\\n)*)*$/ }
+  
+  if DISABLE_SLOW_CONTROLS
+    describe "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute." do
+      skip "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute. To enable this control, set the
+DISABLE_SLOW_CONTROLS attribute to false. Note: by setting the DISABLE_SLOW_CONTROLS
+attribute to false, the other slow running controls will also be enabled."
+    end
+  else
+    # Fixed to avoid false positive finding by excluding /etc/inittab from changed files list
+    describe command("rpm -Va | grep '^..5' | grep -v '/etc/inittab' | awk -F' ' '{ print $2 }'") do
+      its('stdout.strip') { should match /^((c)*(\\n)*)*$/ }
+    end
   end
 end
