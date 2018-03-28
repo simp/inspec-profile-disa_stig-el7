@@ -64,15 +64,12 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 
 # chgrp users /home/smithj"
 
-  # Assumption - users' home directories created in "home"
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    home_user = home.split("/")
-    user_groups = command("groups #{home_user[2]}").stdout.split(" ")
-    user_groups.delete_at(0)
-    user_groups.delete_at(0)
-    describe file("#{home}") do
-      its('group') { should cmp "#{user_groups.first}" }
-    end
-  end
-end
+findings = Set[]  
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|  
+    findings = findings + command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")  
+  end  
+  describe findings do  
+    its ('length') { should == 0 }  
+  end  
+end 
+
