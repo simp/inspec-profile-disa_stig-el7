@@ -1,5 +1,9 @@
 # encoding: utf-8
-#
+RUN_SLOW_CONTROL = attribute('run_slow_control', default: 'false', 
+description: 'Only run this control if it is enabled because it 
+searches the entire file system and does a lot of comparisons and 
+may take over 10 minutes to complete.')  
+
 =begin
 -----------------
 Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
@@ -21,6 +25,7 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72037" do
+  only_if {RUN_SLOW_CONTROL == 'true'}
   title "Local initialization files must not execute world-writable programs."
   desc  "If user start-up files execute world-writable programs, especially in
 unprotected directories, they could be maliciously modified to destroy user files or
@@ -56,17 +61,28 @@ is a finding."
 with the following command:
 
 # chmod 0755  <file>"
-
-  # Assumption - users' home directories created in "home"
-  dotfiles = command('find /home -xdev -maxdepth 2 -name ".*" -type f').stdout.lines
+  #Get home directory for users with UID >= 1000.  
+  dotfiles = Set[]  
+  u = users.where{uid >= 1000 and home != ""}.entries  
+  #For each user, build and execute a find command that identifies initialization files 
+  #in a user's home directory. 
+  u.each do |user|  
+    dotfiles = dotfiles + command("find #{user.home} -xdev -maxdepth 2 -name '.*' -type f").stdout.split("\n")
+  end  
+  ww_files = Set[]
   ww_files = command('find / -perm -002 -type f -exec ls {} \;').stdout.lines
-
-  # check each dotfile for existance of each world-writeable file
+  #Check each dotfile for existence of each world-writeable file
+  findings = Set[]
   dotfiles.each do |dotfile|
-    describe file(dotfile.strip) do
-      ww_files.each do |ww_file|
-        its('content') { should_not include ww_file.strip }
+    dotfile = dotfile.strip
+    ww_files.each do |ww_file|
+      ww_file = ww_file.strip
+      count = command("grep -c #{ww_file} #{dotfile}").stdout
+        findings << dotfile
       end
     end
   end
-end
+  describe findings do
+    its ('length') { should == 0 }
+  end
+end 
