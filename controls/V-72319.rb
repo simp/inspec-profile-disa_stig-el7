@@ -53,8 +53,13 @@ required value):
 
 net.ipv6.conf.all.accept_source_route = 0"
 
-  describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
-    its('value') { should eq 0 }
+  describe.one do
+    describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
+      its('value') { should eq 0 }
+    end
+	# If IPv6 is disabled in the kernel it will return NIL
+    describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
+      its('value') { should eq nil }
+    end
   end
-
 end
