@@ -21,8 +21,12 @@ uri: http://iase.disa.mil
 =end
 
 # Support for passed in Atrributes
-files_to_skip = attribute(
-                           'V_71849_Files_Allowed',
+DISABLE_SLOW_CONTROLS = attribute('disable_slow_controls',default: false,
+description: 'If enabled, this attribute disables this control and other
+controls that consistently take a long time to complete.')
+
+FILES_TO_SKIP = attribute(
+                           'FILES_TO_SKIP',
                            default: "grep -v 'cron' | grep -v '/var/cache/yum' | grep -v 'etc/sysconfig/iptables' | grep -v 'useradd' | grep -v 'ntp' | grep -v 'sysctl'",
                            description: 'Files that should be skipped'
                          )
@@ -30,12 +34,17 @@ files_to_skip = attribute(
 control "V-71849" do
   title "The file permissions, ownership, and group membership of system files and
 commands must match the vendor values."
-  desc  "
+   if DISABLE_SLOW_CONTROLS
+    desc "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute."
+   else
+     desc  "
     Discretionary access control is weakened if a user or group has access
 permissions to system files and directories greater than the default.
 
     Satisfies: SRG-OS-000257-GPOS-00098, SRG-OS-000278-GPOS-0010.
   "
+   end
   impact 0.7
   tag "severity": "high"
   tag "gtitle": "SRG-OS-000257-GPOS-00098"
@@ -99,10 +108,18 @@ command:
 
 # /var/cache/yum -  if you ever clear out the yum cache to free system space
 #.M.......    /var/cache/yum
-							
-  describe command("rpm -Va | grep '^.M' | #{files_to_skip} | wc -l") do
-    its('stdout.strip') { should eq '0' }
+  if DISABLE_SLOW_CONTROLS
+    describe "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute." do
+      skip "This control consistently takes a long to run and has been disabled
+using the DISABLE_SLOW_CONTROLS attribute. To enable this control, set the
+DISABLE_SLOW_CONTROLS attribute to false. Note: by setting the DISABLE_SLOW_CONTROLS
+attribute to false, the other slow running controls will also be enabled."
+    end
+  else
+    describe command("rpm -Va | grep '^.M' | #{FILES_TO_SKIP} | wc -l") do
+      its('stdout.strip') { should eq '0' }
+    end
   end
-
 end 
 
