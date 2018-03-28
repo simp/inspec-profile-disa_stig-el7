@@ -56,19 +56,11 @@ Note: The example will be for the smithj user, who has a home directory of
 
 # chmod 0740 /home/smithj/.<INIT_FILE>"
 
-  # Assumption - users' home directories created in "home"
-  # Allows for mode 740 or less permissive
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    home_files = command("find #{home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
-    home_files.each do |filename|
-      describe file(filename) do
-        it { should_not be_executable.by('group') }
-        it { should_not be_writable.by('group') }
-        it { should_not be_executable.by('others') }
-        it { should_not be_writable.by('others') }
-        it { should_not be_readable.by('others') }
-      end
-    end
+  findings = Set[]
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    findings = findings + command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
+  end
+  describe findings do
+    it { should be_empty }
   end
 end
