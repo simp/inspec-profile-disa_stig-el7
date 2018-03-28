@@ -20,6 +20,16 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+UNSUCCESSFUL_ATTEMPTS_ROOT = attribute('unsuccessful_attempts_root', default: '3',
+description: 'The root account is denied access after the specified number of
+consecutive failed logon attempts.')
+FAIL_INTERVAL_ROOT = attribute('fail_interval_root', default: '900',
+description: 'The interval of time in which the consecutive failed logon
+attempts must occur in order for the root account to be locked out.')
+LOCKOUT_TIME_ROOT = attribute('lockout_time_root', default: '604800',
+description: 'The amount of time that an root account must be locked out for
+after the specified number of unsuccessful logon attempts.')
+
 control "V-71945" do
   title "If three unsuccessful root logon attempts within 15 minutes occur the
 associated account must be locked."
@@ -59,20 +69,45 @@ Modify the first three lines of the auth section of the
 \"/etc/pam.d/system-auth-ac\" and \"/etc/pam.d/password-auth-ac\" files to match the
 following lines:
 
-auth        required       pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=604800
+auth        required       pam_faillock.so preauth silent audit deny=3
+even_deny_root fail_interval=900 unlock_time=604800
 auth        sufficient     pam_unix.so try_first_pass
 auth        [default=die]  pam_faillock.so authfail audit deny=3 even_deny_root
 fail_interval=900 unlock_time=604800
 
 and run the \"authconfig\" command."
 
-  files = ["/etc/pam.d/system-auth-ac","/etc/pam.d/password-auth-ac"]
-  files.each do |config_file|
-    describe file(config_file) do
-      its('content') { should match /auth\s+required\s+pam_faillock.so preauth silent audit deny=\d+ even_deny_root fail_interval=\d+ unlock_time=\d+/ }
+  only_if { file('/etc/pam.d/password-auth-ac').exist? }
+  
+  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('content') { should <= UNSUCCESSFUL_ATTEMPTS_ROOT }
     end
-    describe file(config_file) do
-      its('content') { should match /auth\s+\[default=die\]\s+pam_faillock.so authfail audit deny=\d+ even_deny_root fail_interval=\d+ unlock_time=\d+/ }
+  
+  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'fail_interval\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('content') { should <= FAIL_INTERVAL_ROOT }
     end
+  
+  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('content') { should >= LOCKOUT_TIME_ROOT }
+  end
+  
+  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") do
+    its('content') { should match /even_deny_root/ }
+end
+  
+  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('content') { should <= UNSUCCESSFUL_ATTEMPTS_ROOT }
+  end
+  
+  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'fail_interval\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('content') { should <= FAIL_INTERVAL_ROOT }
+  end
+  
+  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('content') { should >= LOCKOUT_TIME_ROOT }
+  end 
+  
+  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") do
+    its('content') { should match /even_deny_root/ }
   end
 end

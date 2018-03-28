@@ -20,11 +20,10 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-file_integ_tool = attribute(
-  'file_integ_tool',
-  default: 'aide',
-  description: "Tool used to determine file integrity"
-)
+FILE_INTEGRITY_TOOL = attribute('file_integrity_tool', default: 'aide',
+description: 'Tool used to determine file integrity')
+FILE_INTEGRITY_INTERVAL = attribute('file_integrity_interval', default: 'weekly',
+description: 'Interval for running the file integrity tool.')
 
 control "V-71973" do
   title "A file integrity tool must verify the baseline operating system
@@ -85,15 +84,33 @@ AIDE daily, but other file integrity tools may be used:
 0 0 * * * /usr/sbin/aide --check | /bin/mail -s \"aide integrity check run for
 <system name>\" root@sysname.mil"
 
-  describe package(file_integ_tool) do
+  describe package(FILE_INTEGRITY_TOOL) do
     it { should be_installed }
   end
+  if FILE_INTEGRITY_INTERVAL == 'monthly'
   describe.one do
-    describe file("/etc/cron.daily/#{file_integ_tool}") do
+      describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
       it { should exist }
     end
-    describe file("/etc/cron.weekly/#{file_integ_tool}") do
+      describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
       it { should exist }
+    end
+      describe file("/etc/cron.monthly/#{FILE_INTEGRITY_TOOL}") do
+        it { should exist }
+  end
+end
+  elsif FILE_INTEGRITY_INTERVAL == 'weekly'
+    describe.one do
+      describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+        it { should exist }
+      end
+      describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
+        it { should exist }
+      end
+    end
+  elsif FILE_INTEGRITY_INTERVAL == 'daily'
+    describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+        it { should exist }
     end
   end
 end

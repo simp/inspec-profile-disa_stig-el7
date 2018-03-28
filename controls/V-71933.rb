@@ -20,6 +20,10 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+MIN_REUSE_GENERATIONS = attribute('min_reuse_generations', default: '5',
+description: 'The minimum number of generations before a password can be
+reused.')
+
 control "V-71933" do
   title "Passwords must be prohibited from reuse for a minimum of five generations."
   desc  "Password complexity, or strength, is a measure of the effectiveness of a
@@ -57,7 +61,8 @@ password sufficient pam_unix.so use_authtok sha512 shadow remember=5
 
 and run the \"authconfig\" command."
 
-  describe file("/etc/pam.d/system-auth-ac") do
-    its('content') { should match /^password\s+sufficient\s+pam_unix.so .*remember=(\d\d+|[5-9]).*\n?$/ }
+#change cmp >= 5
+  describe command("grep -Po '^password\s+sufficient\s+pam_unix.so.*$' /etc/pam.d/system-auth-ac-1 | grep -Po '(?<=pam_unix.so).*$' | grep -Po 'remember\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('content') { should >= MIN_REUSE_GENERATIONS }
   end
 end

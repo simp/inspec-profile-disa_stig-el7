@@ -20,6 +20,10 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+DIFOK = attribute('difok', default: '8', description: 'The acceptable range of
+values for difok which specifies the maximum number of characters that must
+change when a password is changed.')
+
 control "V-71911" do
   title "When passwords are changed a minimum of eight of the total number of
 characters must be changed."
@@ -61,6 +65,6 @@ have the required value):
 difok = 8"
 
   describe parse_config_file("/etc/security/pwquality.conf") do
-    its('difok.to_i') { should cmp >= 8 }
+    its('difok.to_i') { should cmp >= DIFOK }
   end
 end
