@@ -28,7 +28,7 @@ router configurations) its use must be documented with the Information System
 Security Officer (ISSO), restricted to only authorized personnel, and have access
 control rules established."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72301"
   tag "rid": "SV-86925r1_rule"

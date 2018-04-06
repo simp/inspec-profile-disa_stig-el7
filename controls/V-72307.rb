@@ -20,6 +20,14 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO this needs to be reworked to allow `X11_NEEDED` attribute
+
+X11_ENABLED = attribute(
+  'x11_enabled',
+  description: 'Set to `true` if a GUI or X11 is needed on the system',
+  default: false
+)
+
 control "V-72307" do
   title "An X Windows display manager must not be installed unless approved."
   desc  "Internet services that are not required for system or application processes
@@ -27,7 +35,7 @@ must not be active to decrease the attack surface of the system. X Windows has a
 long history of security vulnerabilities and will not be used unless approved and
 documented."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72307"
   tag "rid": "SV-86931r2_rule"
@@ -55,5 +63,9 @@ remove the related packages with the following commands:
 
   describe package('xorg-x11-server-common') do
     it { should_not be_installed }
-  end
+  end if !X11_ENABLED
+
+  describe package('xorg-x11-server-common') do
+    it { should be_installed }
+  end if X11_ENABLED
 end

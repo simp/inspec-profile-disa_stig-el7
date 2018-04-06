@@ -25,8 +25,11 @@ control "V-72305" do
 daemon must be configured to operate in secure mode."
   desc  "Restricting TFTP to a specific directory prevents remote users from
 copying, transferring, or overwriting system files."
+if package('tftp').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72305"
   tag "rid": "SV-86929r1_rule"
@@ -57,7 +60,10 @@ value):
 server_args = -s /var/lib/tftpboot"
 
   describe command('grep server_args /etc/xinetd.d/tftp') do
-    its('stdout.strip') { should match /^\s*server_args\s+=\s+-s\s\S+\s*$/ }
-  end
-  only_if { package('tftp').installed? }
+    its('stdout.strip') { should match %r{^\s*server_args\s+=\s+-s\s\S+\s*$} }
+  end if package('tftp').installed?
+
+  describe "The TFTP package is not installed" do
+    skip "If a TFTP server is not installed, this is Not Applicable."
+  end if !package('tftp').installed?
 end

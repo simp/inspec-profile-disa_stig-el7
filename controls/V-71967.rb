@@ -41,7 +41,7 @@ session and has very weak authentication.
 password could be compromised.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000095-GPOS-00049"
   tag "gid": "V-71967"
   tag "rid": "SV-86591r1_rule"

@@ -44,7 +44,7 @@ certificates for this purpose; however, the certificate used to verify the softw
 must be from an approved CA.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000366-GPOS-00153"
   tag "gid": "V-71979"
   tag "rid": "SV-86603r1_rule"

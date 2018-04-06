@@ -21,15 +21,18 @@ uri: http://iase.disa.mil
 =end
 
 # Support for passed in Atrributes
-DISABLE_SLOW_CONTROLS = attribute('disable_slow_controls',default: false,
-description: 'If enabled, this attribute disables this control and other
-controls that consistently take a long time to complete.')
+DISABLE_SLOW_CONTROLS = attribute(
+  'disable_slow_controls',
+  default: false,
+  description: 'If enabled, this attribute disables this control and other
+                controls that consistently take a long time to complete.'
+)
 
 FILES_TO_SKIP = attribute(
-                           'FILES_TO_SKIP',
-                           default: "grep -v 'cron' | grep -v '/var/cache/yum' | grep -v 'etc/sysconfig/iptables' | grep -v 'useradd' | grep -v 'ntp' | grep -v 'sysctl'",
-                           description: 'Files that should be skipped'
-                         )
+  'FILES_TO_SKIP',
+  default: "grep -v 'cron' | grep -v '/var/cache/yum' | grep -v 'etc/sysconfig/iptables' | grep -v 'useradd' | grep -v 'ntp' | grep -v 'sysctl'",
+  description: 'Files that should be skipped'
+)
 
 control "V-71849" do
   title "The file permissions, ownership, and group membership of system files and
@@ -46,7 +49,6 @@ permissions to system files and directories greater than the default.
   "
    end
   impact 0.7
-  tag "severity": "high"
   tag "gtitle": "SRG-OS-000257-GPOS-00098"
   tag "gid": "V-71849"
   tag "rid": "SV-86473r2_rule"

@@ -39,7 +39,7 @@ providing a wide array of functionality not required for every mission, but whic
 cannot be disabled.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000095-GPOS-00049"
   tag "gid": "V-72077"
   tag "rid": "SV-86701r1_rule"

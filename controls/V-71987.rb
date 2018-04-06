@@ -28,7 +28,7 @@ information system after updates have been installed may be exploited by
 adversaries. Some information technology products may remove older versions of
 software automatically from the information system."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000437-GPOS-00194"
   tag "gid": "V-71987"
   tag "rid": "SV-86611r1_rule"
@@ -53,13 +53,13 @@ file:
 
 clean_requirements_on_remove=1"
 
-  describe.one do
+  # TODO Verify this OR statement is needed - it seems to be overkill
+  #describe.one do
     describe parse_config_file("/etc/yum.conf") do
-      its('clean_requirements_on_remove') { should match /^(1|True|yes)$/ }
+      its('clean_requirements_on_remove') { should match %r{1|True|yes}i }
     end
-    describe command("grep -i 'clean_requirements_on_remove=' /etc/yum.conf | awk -F= '{print $2}'") do
-      its('stdout.strip') { should eq '1' }
-    end
-  end
-
+    # describe command("grep -i 'clean_requirements_on_remove=' /etc/yum.conf | awk -F= '{print $2}'") do
+    #   its('stdout.strip') { should eq '1' }
+    # end
+  #end
 end

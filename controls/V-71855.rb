@@ -19,9 +19,11 @@ Source: STIG.DOD.MIL
 uri: http://iase.disa.mil
 -----------------
 =end
-DISABLE_SLOW_CONTROLS = attribute('disable_slow_controls',default: false,
-description: 'If enabled, this attribute disables this control and other
-controls that consistently take a long time to complete.')
+DISABLE_SLOW_CONTROLS = attribute(
+  'disable_slow_controls',
+  default: false,
+  description: 'If enabled, this attribute disables this control and other
+                controls that consistently take a long time to complete.')
 
 control "V-71855" do
   title "The cryptographic hash of system files and commands must match vendor
@@ -36,7 +38,6 @@ distribution of the public key to verify the hash information while maintaining 
 confidentiality of the key used to generate the hash.
   "
   impact 0.7
-  tag "severity": "high"
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-71855"
   tag "rid": "SV-86479r2_rule"
@@ -81,16 +82,18 @@ Alternatively, the package can be reinstalled from trusted media using the comma
 
   if DISABLE_SLOW_CONTROLS
     describe "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute." do
+              using the DISABLE_SLOW_CONTROLS attribute." do
+
       skip "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute. To enable this control, set the
-DISABLE_SLOW_CONTROLS attribute to false. Note: by setting the DISABLE_SLOW_CONTROLS
-attribute to false, the other slow running controls will also be enabled."
-    end
+            using the DISABLE_SLOW_CONTROLS attribute. To enable this control,
+            set the DISABLE_SLOW_CONTROLS attribute to false. Note: by setting
+            the DISABLE_SLOW_CONTROLS attribute to false, the other slow running
+            controls will also be enabled."
+  end
   else
     # Fixed to avoid false positive finding by excluding /etc/inittab from changed files list
     describe command("rpm -Va | grep '^..5' | grep -v '/etc/inittab' | awk -F' ' '{ print $2 }'") do
-      its('stdout.strip') { should match /^((c)*(\\n)*)*$/ }
+      its('stdout.strip') { should match %r{^((c)*(\\n)*)*$} }
     end
   end
 end
