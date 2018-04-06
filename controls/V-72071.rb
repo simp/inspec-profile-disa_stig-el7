@@ -25,7 +25,7 @@ control "V-72071" do
   desc  "Extended attributes in file systems are used to contain arbitrary data and
 file metadata with security implications."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72071"
   tag "rid": "SV-86695r2_rule"

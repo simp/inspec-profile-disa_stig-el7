@@ -29,6 +29,12 @@ mfa_pkg_list = attribute(
       'authconfig-gtk',
     ])
 
+SMART_CARD_STATUS = attribute(
+  'smart_card_status',
+  default: "enabled", # values(enabled|disabled)
+  description: 'Smart Card Status'
+)
+
 control "V-72417" do
   title "The operating system must have the required packages for multifactor
         authentication installed."
@@ -62,13 +68,17 @@ control "V-72417" do
       - SRG-OS-000375-GPOS-00161,
       - SRG-OS-000375-GPOS-0016.
   "
-  impact 0.5
-  tag "severity": "medium"
+  if SMART_CARD_STATUS.eql?('enabled')
+    impact 0.5
+  else
+    impact 0.0
+  end
+
   tag "gtitle": "SRG-OS-000375-GPOS-00160"
   tag "gid": "V-72417"
   tag "rid": "SV-87041r2_rule"
   tag "stig_id": "RHEL-07-041001"
-  tag "cci": ["CCI-001948","CCI-001953","CCI-001954"] 
+  tag "cci": ["CCI-001948","CCI-001953","CCI-001954"]
   tag "nist": ["IA-2 (11)","IA-2 (12)","IA-2 (12)","Rev_4"]
   tag "pki","MFA","pam","pkcs11","networking"
 
@@ -102,6 +112,9 @@ control "V-72417" do
     describe package("#{pkg}") do
       it { should be_installed }
     end
-  end
+  end if SMART_CARD_STATUS.eql?('enabled')
 
+  describe "The system is not smartcard enabled" do
+    skip "The system is not smartcard enabled"
+  end if !SMART_CARD_STATUS.eql?('enabled')
 end

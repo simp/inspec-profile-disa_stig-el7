@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+#TODO This will change as the shaw values goes up - make me an attrib for MIN_SHA_VAL
+
 control "V-71919" do
   title "The PAM system service must be configured to store only encrypted
 representations of passwords."
@@ -28,7 +30,7 @@ method for protecting passwords. If passwords are not encrypted, they can be pla
 read (i.e., clear text) and easily compromised. Passwords encrypted with a weak
 algorithm are no more protected than if they are kept in plain text."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000073-GPOS-00041"
   tag "gid": "V-71919"
   tag "rid": "SV-86543r1_rule"
@@ -57,6 +59,6 @@ password sufficient pam_unix.so sha512
 and run the \"authconfig\" command."
 
   describe file("/etc/pam.d/system-auth-ac") do
-    its('content') { should match /^password\s+sufficient\s+pam_unix.so .*sha512.*$/ }
+    its('content') { should match %r(^password\s+sufficient\s+pam_unix.so .*sha512.*$) }
   end
 end

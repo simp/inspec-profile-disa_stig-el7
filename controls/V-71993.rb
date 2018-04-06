@@ -29,7 +29,7 @@ systems due to unintentional reboot. In the GNOME graphical environment, risk of
 unintentional reboot from the Ctrl-Alt-Delete sequence is reduced because the user
 will be prompted before any action is taken."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-71993"
   tag "rid": "SV-86617r1_rule"
@@ -64,6 +64,6 @@ Add the setting to disable the Ctrl-Alt_Delete sequence for GNOME:
 logout=’’"
 
   describe systemd_service('ctrl-alt-del.service') do
-    it {should_not be_running }
+    it { should_not be_running }
   end
 end

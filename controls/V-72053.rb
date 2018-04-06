@@ -25,7 +25,7 @@ control "V-72053" do
   desc  "If the owner of the \"cron.allow\" file is not set to root, the possibility
 exists for an unauthorized user to view or to edit sensitive information."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72053"
   tag "rid": "SV-86677r1_rule"

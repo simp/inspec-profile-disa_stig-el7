@@ -28,7 +28,7 @@ configured to use removable media as the boot loader. If removable media is desi
 to be used as the boot loader, the requirement must be documented with the
 Information System Security Officer (ISSO)."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000364-GPOS-00151"
   tag "gid": "V-72075"
   tag "rid": "SV-86699r1_rule"
@@ -67,11 +67,11 @@ finding."
 document the configuration to boot from removable media with the ISSO."
 
   describe "The list of unapproved boot loader configuration files" do
-    subject { 
-      command('find / -name grub.cfg -type f').stdout.chomp.split 
-    } 
-    before { 
-      subject.delete("/boot/grub2/grub.cfg") 
+    subject {
+      command('find / -name grub.cfg -type f').stdout.chomp.split
+    }
+    before {
+      subject.delete("/boot/grub2/grub.cfg")
       subject.delete("/boot/efi/EFI/redhat/grub.cfg")
     }
     its ('length') { should == 0 }

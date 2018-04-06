@@ -26,7 +26,7 @@ control "V-72243" do
 that remote logon via SSH will require a password, even in the event of
 misconfiguration elsewhere."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72243"
   tag "rid": "SV-86867r2_rule"

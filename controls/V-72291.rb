@@ -27,7 +27,7 @@ control "V-72291" do
 direct route exists for a particular destination. These messages contain information
 from the system's route table, possibly revealing portions of the network topology."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72291"
   tag "rid": "SV-86915r2_rule"

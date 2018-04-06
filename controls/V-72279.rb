@@ -28,7 +28,7 @@ unauthorized access to the system, as it does not require interactive identifica
 and authentication of a connection request, or for the use of two-factor
 authentication."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72279"
   tag "rid": "SV-86903r1_rule"
@@ -47,6 +47,6 @@ If any \"shosts.equiv\" files are found on the system, this is a finding."
 # rm /[path]/[to]/[file]/shosts.equiv"
 
   describe command('find / -name shots.equiv') do
-    its('stdout') { should match /^$/ }
+    its('stdout') { should match %r{^$} }
   end
 end

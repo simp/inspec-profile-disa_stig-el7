@@ -21,22 +21,18 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72205" do
-  title "All uses of the unlink command must be audited."
-  desc  "
-    If the system is not configured to audit certain activities and write them to an
-audit log, it is more difficult to detect and track system compromises and damages
-incurred during a system compromise.
+  title "All uses of the `unlink` command must be audited."
+  desc  "If the system is not configured to audit certain activities and write them to an
+        audit log, it is more difficult to detect and track system compromises and damages
+        incurred during a system compromise."
 
-    Satisfies: SRG-OS-000466-GPOS-00210, SRG-OS-000467-GPOS-00210,
-SRG-OS-000468-GPOS-00212, SRG-OS-000392-GPOS-0017.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000466-GPOS-00210"
   tag "gid": "V-72205"
   tag "rid": "SV-86829r2_rule"
   tag "stig_id": "RHEL-07-030910"
-  tag "cci": ["CCI-000172","CCI-002884"] 
+  tag "cci": ["CCI-000172","CCI-002884"]
   tag "nist": ["AU-12 c","MA-4 (1) (a)","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system generates audit records when

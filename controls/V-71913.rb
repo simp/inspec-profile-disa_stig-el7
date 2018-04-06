@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+#TODO make me an attrib
+
 control "V-71913" do
   title "When passwords are changed a minimum of four character classes must be
 changed."
@@ -34,7 +36,7 @@ to crack a password. The more complex the password, the greater the number of
 possible combinations that need to be tested before the password is compromised.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000072-GPOS-00040"
   tag "gid": "V-71913"
   tag "rid": "SV-86537r1_rule"

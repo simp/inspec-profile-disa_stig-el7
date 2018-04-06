@@ -23,9 +23,9 @@ uri: http://iase.disa.mil
 control "V-72055" do
   title "If the cron.allow file exists it must be group-owned by root."
   desc  "If the group owner of the \"cron.allow\" file is not set to root, sensitive
-information could be viewed or edited by unauthorized users."
+        information could be viewed or edited by unauthorized users."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72055"
   tag "rid": "SV-86679r1_rule"

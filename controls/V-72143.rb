@@ -21,26 +21,22 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72143" do
-  title "The operating system must generate audit records for all
-successful/unsuccessful account access count events."
-  desc  "
-    Without generating audit records that are specific to the security and mission
-needs of the organization, it would be difficult to establish, correlate, and
-investigate the events relating to an incident or identify those responsible for one.
+  title "The operating system must generate audit records for all successful &
+        unsuccessful account access count events."
+  desc  "Without generating audit records that are specific to the security and mission
+        needs of the organization, it would be difficult to establish, correlate, and
+        investigate the events relating to an incident or identify those responsible for one.
 
-    Audit records can be generated from various components within the information
-system (e.g., module or policy filter).
+        Audit records can be generated from various components within the information
+        system (e.g., module or policy filter)."
 
-    Satisfies: SRG-OS-000392-GPOS-00172, SRG-OS-000470-GPOS-00214,
-SRG-OS-000473-GPOS-0021.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000392-GPOS-00172"
   tag "gid": "V-72143"
   tag "rid": "SV-86767r2_rule"
   tag "stig_id": "RHEL-07-030600"
-  tag "cci": ["CCI-000126","CCI-000172","CCI-002884"] 
+  tag "cci": ["CCI-000126","CCI-000172","CCI-002884"]
   tag "nist": ["AU-2 d","AU-12 c","MA-4 (1) (a)","Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system generates audit records when

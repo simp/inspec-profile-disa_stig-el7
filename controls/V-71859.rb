@@ -75,8 +75,11 @@ the number of characters that can be displayed in the banner:
     Satisfies: SRG-OS-000023-GPOS-00006, SRG-OS-000024-GPOS-00007,
     SRG-OS-000228-GPOS-0008.
   "
-  impact 0.5
-  tag "severity": "medium"
+  if package('gnome-desktop3').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000023-GPOS-00006"
   tag "gid": "V-71859"
   tag "rid": "SV-86483r2_rule"

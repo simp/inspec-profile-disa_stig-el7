@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+#TODO Make me an attribute - as part of the PAM_FAMILY / PASSWORD Family attribs
+
 control "V-71929" do
   title "Passwords for new users must be restricted to a 60-day maximum lifetime."
   desc  "Any password, no matter how complex, can eventually be cracked. Therefore,
@@ -27,7 +29,7 @@ passwords need to be changed periodically. If the operating system does not limi
 the lifetime of passwords and force users to change their passwords, there is the
 risk that the operating system passwords could be compromised."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000076-GPOS-00044"
   tag "gid": "V-71929"
   tag "rid": "SV-86553r1_rule"

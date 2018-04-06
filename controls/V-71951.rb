@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO Make me an attribute. Create a set of attributes for all the login.defs settings.
+
 control "V-71951" do
   title "The delay between logon prompts following a failed console logon attempt
 must be at least four seconds."

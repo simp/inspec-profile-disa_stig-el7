@@ -23,16 +23,16 @@ uri: http://iase.disa.mil
 
 # Smart Card Preference
 #
-# Per Redhat - Do not use the --enablerequiresmartcard option until you have 
-# successfully authenticated to the system using a smart card. Otherwise, 
+# Per Redhat - Do not use the --enablerequiresmartcard option until you have
+# successfully authenticated to the system using a smart card. Otherwise,
 # users may be unable to log into the system.
 #
-smart_card_status = attribute(
-                           'V_72435_Smart_Card_Status',
-                           default: "enabled",
-                           description: 'Smart Card Status'
-                         )
-						 
+SMART_CARD_STATUS = attribute(
+  'smart_card_status',
+  default: "enabled", # values(enabled|disabled)
+  description: 'Smart Card Status'
+)
+
 control "V-72435" do
   title "The operating system must implement smart card logons for multifactor
 authentication for access to privileged accounts."
@@ -64,8 +64,12 @@ configuring the device itself (management).
     Satisfies: SRG-OS-000375-GPOS-00160, SRG-OS-000375-GPOS-00161,
 SRG-OS-000375-GPOS-0016.
   "
+if SMART_CARD_STATUS.eql?('enabled')
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
+
   tag "gtitle": "SRG-OS-000375-GPOS-00160"
   tag "gid": "V-72435"
   tag "rid": "SV-87059r2_rule"
@@ -96,11 +100,14 @@ Enable smart card logons with the following commands:
 
 
   describe command("authconfig --test | grep -i \"smartcard for login is\" | awk '{ print $NF }'") do
-    its('stdout.strip') { should eq "#{smart_card_status}" }
-  end
+    its('stdout.strip') { should eq "#{SMART_CARD_STATUS}" }
+  end if SMART_CARD_STATUS.eql?('enabled')
 
   describe command('authconfig --test | grep -i "smartcard removal action" | awk \'{ print $NF }\'') do
     its('stdout.strip') { should_not be nil }
-  end
+  end if SMART_CARD_STATUS.eql?('enabled')
 
+  describe "The system is not smartcard enabled" do
+    skip "The system is not smartcard enabled"
+  end if !SMART_CARD_STATUS.eql?('enabled')
 end

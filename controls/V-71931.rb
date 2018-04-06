@@ -20,6 +20,10 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO update to use the KNOWN_EXEPTION_USERS and KNOWN_SYSTEM_USERS attributes
+# TODO this should work for all KNOWN_EXEMPT users and not just ec2-user
+# TODO use same attrib as V-71927?
+
 control "V-71931" do
   title "Existing passwords must be restricted to a 60-day maximum lifetime."
   desc  "Any password, no matter how complex, can eventually be cracked. Therefore,

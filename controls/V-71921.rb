@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO use the same attrib from V-71919 - make me an attrib
+
 control "V-71921" do
   title "The shadow file must be configured to store only encrypted representations
 of passwords."
@@ -28,7 +30,7 @@ method for protecting passwords. If passwords are not encrypted, they can be pla
 read (i.e., clear text) and easily compromised. Passwords encrypted with a weak
 algorithm are no more protected than if they are kept in plain text."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000073-GPOS-00041"
   tag "gid": "V-71921"
   tag "rid": "SV-86545r1_rule"

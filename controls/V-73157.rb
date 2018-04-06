@@ -41,7 +41,7 @@ idled and take action to initiate the session lock.
 determined and/or controlled.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-73157"
   tag "rid": "SV-87809r2_rule"
@@ -91,7 +91,9 @@ Add the setting to lock the session idle delay:
 
   # @todo - dynamically gather system_db_path?
   describe command("grep -i idle_delay #{system_db_path}/locks/*") do
-    its('stdout') { should_not match /^$/ }
-  end
-  only_if { package('gnome-desktop3').installed? }
+    its('stdout') { should_not match %r{^$} }
+  end if package('gnome-desktop3').installed?
+  describe "The GNOME desktop is not installed" do
+    skip "The GNOME desktop is not installed, this control is Not Applicable"
+  end if !package('gnome-desktop3').installed?
 end

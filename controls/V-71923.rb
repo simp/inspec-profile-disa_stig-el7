@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO make me an attrib - use the same one from V-71919,V-71921 etc.
+
 control "V-71923" do
   title "User and group account administration utilities must be configured to store
 only encrypted representations of passwords."
@@ -56,6 +58,6 @@ Add or update the following line in \"/etc/libuser.conf\" in the [defaults] sect
 crypt_style = sha512"
 
   describe command("cat /etc/libuser.conf | grep -i sha512") do
-    its('stdout.strip') { should match /^crypt_style = sha512$/ }
+    its('stdout.strip') { should match %r(^crypt_style = sha512$) }
   end
 end

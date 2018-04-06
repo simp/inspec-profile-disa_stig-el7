@@ -26,7 +26,7 @@ control "V-71937" do
 with the privileges of that account. Accounts with empty passwords should never be
 used in operational environments."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-71937"
   tag "rid": "SV-86561r1_rule"

@@ -22,3 +22,4 @@ doc/
 .kitchen/
 .librarian/
 .tmp/
+.ruby-version

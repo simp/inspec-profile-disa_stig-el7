@@ -20,7 +20,7 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-file_integ_tool = attribute(
+FILE_INTEGRITY_TOOL = attribute(
   'file_integ_tool',
   default: 'aide',
   description: "Tool used to determine file integrity"
@@ -43,7 +43,7 @@ must be notified via email and/or monitoring system trap when there is an
 unauthorized modification of a configuration item.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000363-GPOS-00150"
   tag "gid": "V-71975"
   tag "rid": "SV-86599r1_rule"
@@ -96,15 +96,15 @@ send email at the completion of the analysis.
 0 0 * * * /usr/sbin/aide --check | /bin/mail -s \"$HOSTNAME - Daily aide integrity
 check run\" root@sysname.mil"
 
-  describe package(file_integ_tool) do
+  describe package(FILE_INTEGRITY_TOOL) do
     it { should be_installed }
   end
   describe.one do
-    describe file("cat /etc/cron.daily/#{file_integ_tool}") do
-      its('content') { should match /\/bin\/mail/ }
+    describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+      its('content') { should match %r{/bin/mail} }
     end
-    describe file("/etc/cron.weekly/#{file_integ_tool}") do
-      its('content') { should match /\/bin\/mail/ }
+    describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
+      its('content') { should match %r{/bin/mail} }
     end
   end
 end

@@ -20,7 +20,11 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-MIN_REUSE_GENERATIONS = attribute('min_reuse_generations', default: '5',
+# TODO this should raise an error if the file doesn't exist
+# TODO this can happen if `authconfig` has not been run on the system yet and
+# TODO the system is still using the `non-ac` versions of the files yet.
+
+MIN_REUSE_GENERATIONS = attribute('min_reuse_generations', default: 5,
 description: 'The minimum number of generations before a password can be
 reused.')
 
@@ -32,7 +36,7 @@ information system or application allows the user to consecutively reuse their
 password when that password has exceeded its defined lifetime, the end result is a
 password that is not changed per policy requirements."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000077-GPOS-00045"
   tag "gid": "V-71933"
   tag "rid": "SV-86557r1_rule"
@@ -61,8 +65,7 @@ password sufficient pam_unix.so use_authtok sha512 shadow remember=5
 
 and run the \"authconfig\" command."
 
-#change cmp >= 5
   describe command("grep -Po '^password\s+sufficient\s+pam_unix.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_unix.so).*$' | grep -Po 'remember\s*=\s*[0-9]+' | cut -d '=' -f2") do
-    its('content') { should >= MIN_REUSE_GENERATIONS }
+    its('stdout.to_i') { should be >= MIN_REUSE_GENERATIONS }
   end
 end

@@ -27,7 +27,7 @@ continues to provide security patches for the product. With an unsupported relea
 it will not be possible to resolve security issues discovered in the system
 software."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-71997"
   tag "rid": "SV-86621r2_rule"
@@ -49,8 +49,8 @@ Current End of Life for RHEL 7.3 is 30 June 2024.
 If the release is not supported by the vendor, this is a finding."
   tag "fix": "Upgrade to a supported version of the operating system."
 
-  # @todo update to match within list
+  # TODO use an array attribute of supported DISTROS and use the be_in matcher?
   describe file('/etc/redhat-release') do
-    its('content') { should match /.elease (6.7|7.[2-9])/ }
+    its('content') { should match %r{Release (6.7*|7.[2-9].*)}i }
   end
 end

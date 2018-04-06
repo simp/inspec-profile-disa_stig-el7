@@ -42,7 +42,7 @@ certificates for this purpose; however, the certificate used to verify the softw
 must be from an approved Certificate Authority.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000366-GPOS-00153"
   tag "gid": "V-71981"
   tag "rid": "SV-86605r1_rule"

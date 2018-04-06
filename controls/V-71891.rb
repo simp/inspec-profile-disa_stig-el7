@@ -38,8 +38,12 @@ other activity aside from reauthentication must unlock the system.
 
     Satisfies: SRG-OS-000028-GPOS-00009, SRG-OS-000030-GPOS-0001.
   "
+if package('gnome-desktop3').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
+
   tag "gtitle": "SRG-OS-000028-GPOS-00009"
   tag "gid": "V-71891"
   tag "rid": "SV-86515r2_rule"
@@ -99,6 +103,10 @@ Users must log out and back in again before the system-wide settings take effect
 
   describe parse_config_file('/etc/dconf/db/local.d/00-screensaver') do
     its('lock-enabled') { should cmp 'true' }
-  end
-  only_if { package('gnome-desktop3').installed? }
+  end if package('gnome-desktop3').installed?
+
+  describe "The system does not have GNOME installed" do
+    skip "The system does not have GNOME installed, this requirement is Not
+    Applicable."
+  end if !package('gnome-desktop3').installed?
 end

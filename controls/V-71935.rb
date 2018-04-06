@@ -20,6 +20,9 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO update attrib to use the same `style` as the other PAM/PASSWD attributes
+# TODO we should also have a PAM_PWQUALITY_PATH attrib I think
+
 MIN_LEN = attribute('min_len', default: '15',
 description: 'The minimum number of characters for passwords.')
 
@@ -36,7 +39,7 @@ crack a password. Use of more characters in a password helps to exponentially
 increase the time and/or resources required to compromise the password.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000078-GPOS-00046"
   tag "gid": "V-71935"
   tag "rid": "SV-86559r1_rule"

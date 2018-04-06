@@ -26,7 +26,7 @@ logon upon logon."
   desc  "Providing users with feedback on when account accesses last occurred
 facilitates user recognition and reporting of unauthorized account use."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72275"
   tag "rid": "SV-86899r1_rule"
@@ -54,7 +54,7 @@ Add the following line to the top of \"/etc/pam.d/postlogin-ac\":
 session     required      pam_lastlog.so showfailed"
 
   describe command('grep pam_lastlog /etc/pam.d/postlogin-ac') do
-    its('stdout') { should match /^session\s+required\s+pam_lastlog.so\s+showfailed\s*\n?$/ }
+    its('stdout') { should match %r{^session\s+required\s+pam_lastlog.so\s+showfailed\s*\n?$} }
   end
   describe sshd_config do
     its('PrintLastLog') { should_not cmp 'silent' }

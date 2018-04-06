@@ -21,20 +21,16 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72113" do
-  title "All uses of the fsetxattr command must be audited."
-  desc  "
-    Without generating audit records that are specific to the security and mission
-needs of the organization, it would be difficult to establish, correlate, and
-investigate the events relating to an incident or identify those responsible for one.
+  title "All uses of the `fsetxattr` command must be audited."
+  desc  "Without generating audit records that are specific to the security and mission
+        needs of the organization, it would be difficult to establish, correlate, and
+        investigate the events relating to an incident or identify those responsible for one.
 
-    Audit records can be generated from various components within the information
-system (e.g., module or policy filter).
+        Audit records can be generated from various components within the information
+        system (e.g., module or policy filter)."
 
-    Satisfies: SRG-OS-000458-GPOS-00203, SRG-OS-000392-GPOS-00172,
-SRG-OS-000064-GPOS-0003.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000458-GPOS-00203"
   tag "gid": "V-72113"
   tag "rid": "SV-86737r2_rule"

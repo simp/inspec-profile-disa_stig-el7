@@ -29,8 +29,13 @@ network and use the information to potentially compromise the integrity of the
 system or network(s). It is highly recommended that SNMP version 3 user
 authentication and message encryption be used in place of the version 2 community
 strings."
+
+if file('/etc/snmp/snmpd.conf').exist?
   impact 0.7
-  tag "severity": "high"
+else
+  impact 0.0
+end
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72313"
   tag "rid": "SV-86937r1_rule"
@@ -60,7 +65,10 @@ contain a community string value of \"public\" or \"private\" to another string
 value."
 
   describe file('/etc/snmp/snmpd.conf') do
-    its('content') { should_not include /public|private/ }
-  end
-  only_if { file('/etc/snmp/snmpd.conf').exist? }
+    its('content') { should_not match %r{public|private} }
+  end if file('/etc/snmp/snmpd.conf').exist?
+
+  describe "The `snmpd.conf` does not exist" do
+    skip "The snmpd.conf file does not exist, this control is Not Applicable"
+  end if !file('/etc/snmp/snmpd.conf').exist?
 end

@@ -25,7 +25,7 @@ control "V-71969" do
   desc  "Removing the \"ypserv\" package decreases the risk of the accidental (or
 intentional) activation of NIS or NIS+ services."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000095-GPOS-00049"
   tag "gid": "V-71969"
   tag "rid": "SV-86593r1_rule"

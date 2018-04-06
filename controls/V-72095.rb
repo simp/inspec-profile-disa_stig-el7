@@ -23,13 +23,14 @@ uri: http://iase.disa.mil
 control "V-72095" do
   title "All privileged function executions must be audited."
   desc  "Misuse of privileged functions, either intentionally or unintentionally by
-authorized users, or by unauthorized external entities that have compromised
-information system accounts, is a serious and ongoing concern and can have
-significant adverse impacts on organizations. Auditing the use of privileged
-functions is one way to detect such misuse and identify the risk from insider
-threats and the advanced persistent threat."
+        authorized users, or by unauthorized external entities that have compromised
+        information system accounts, is a serious and ongoing concern and can have
+        significant adverse impacts on organizations. Auditing the use of privileged
+        functions is one way to detect such misuse and identify the risk from insider
+        threats and the advanced persistent threat."
+
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000327-GPOS-00127"
   tag "gid": "V-72095"
   tag "rid": "SV-86719r2_rule"

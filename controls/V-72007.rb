@@ -20,12 +20,14 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO this should use a `finding` array and we should make sure it is nil right?
+
 control "V-72007" do
   title "All files and directories must have a valid owner."
   desc  "Unowned files and directories may be unintentionally inherited if a user is
 assigned the same User Identifier \"UID\" as the UID of the un-owned files."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72007"
   tag "rid": "SV-86631r1_rule"
@@ -49,6 +51,6 @@ the system with the \"chown\" command:
 # chown <user> <file>"
 
   describe command('find / -xdev -fstype xfs -nouser') do
-    its('stdout.strip') { should match /^$/ }
+    its('stdout.strip') { should match %r{^$} }
   end
 end

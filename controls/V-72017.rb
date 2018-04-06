@@ -20,13 +20,25 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72017" do
   title "All local interactive user home directories must have mode 0750 or less
 permissive."
   desc  "Excessive permissions on local interactive user home directories may allow
 unauthorized access to user files by other users."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72017"
   tag "rid": "SV-86641r1_rule"
@@ -56,11 +68,17 @@ Note: The example will be for the user \"smithj\".
 
 # chmod 0750 /home/smithj"
 
-  findings = Set[] 
-  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info| 
-    findings = findings + command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n") 
-  end 
-  describe findings do 
-    its ('length') { should == 0 } 
-  end 
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
+
+  findings = Set[]
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+    findings = findings + command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n")
+  end
+  describe "Home directories with excessive permissions" do
+    subject { findings.to_a }
+     it { should be_empty }
+  end
 end

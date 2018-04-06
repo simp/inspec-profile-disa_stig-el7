@@ -20,6 +20,20 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO ENHANCE: 1. this needs to be enhanced, i.e. to check the right thing. like V-72017
+
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72015" do
   title "All local interactive user home directories defined in the /etc/passwd file
 must exist."
@@ -29,7 +43,7 @@ directory upon logon. This could create a Denial of Service because the user wou
 not be able to access their logon configuration files, and it may give them
 visibility to system files they normally would not be able to access."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72015"
   tag "rid": "SV-86639r1_rule"
@@ -58,7 +72,7 @@ If any home directories referenced in \"/etc/passwd\" are returned as not define
 this is a finding."
   tag "fix": "Create home directories to all local interactive users that currently
 do not have a home directory assigned. Use the following commands to create the user
-home directory assigned in \"/etc/ passwd\":
+home directory assigned in \"/etc/passwd\":
 
 Note: The example will be for the user smithj, who has a home directory of
 \"/home/smithj\", a UID of \"smithj\", and a Group Identifier (GID) of \"users
@@ -69,8 +83,14 @@ assigned\" in \"/etc/passwd\".
 # chgrp users /home/smithj
 # chmod 0750 /home/smithj"
 
-  # @todo - better way to do this using resources
-  describe command('pwck -r') do
-    its('stdout.strip') { should_not match /directory \'\/home\/.+\' does not exist/}
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
+
+  interactive_users.each do |user|
+    next if EXEMPT_HOME_USERS.include?("#{user}")
+    describe directory(user(user).home) do
+      it { should exist }
+    end
   end
 end

@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO this control needs to have tests.
+
 control "V-72315" do
   title "The system access control program must be configured to grant or deny
 system access to specific hosts and services."
@@ -27,7 +29,7 @@ system access to specific hosts and services."
 rules for allowing and denying access to system network resources, services may be
 accessible to unauthorized hosts."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72315"
   tag "rid": "SV-86939r1_rule"
@@ -90,4 +92,8 @@ rules for allowing specific services and hosts.
 
 If \"tcpwrappers\" is installed, configure the \"/etc/hosts.allow\" and
 \"/etc/hosts.deny\" to allow or deny access to specific hosts."
+
+  describe "This control must be reviewd manually" do
+    skip "You must review this control manually"
+  end
 end

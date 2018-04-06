@@ -34,7 +34,7 @@ to crack a password. The more complex the password, the greater the number of
 possible combinations that need to be tested before the password is compromised.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000266-GPOS-00101"
   tag "gid": "V-71909"
   tag "rid": "SV-86533r1_rule"

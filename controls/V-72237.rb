@@ -40,12 +40,10 @@ operating system level and de-allocating networking assignments at the applicati
 level if multiple application sessions are using a single operating system-level
 network connection. This does not mean that the operating system terminates all
 sessions or network access; it only ends the inactive session and releases the
-resources associated with that session.
+resources associated with that session."
 
-    Satisfies: SRG-OS-000163-GPOS-00072, SRG-OS-000279-GPOS-0010.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000163-GPOS-00072"
   tag "gid": "V-72237"
   tag "rid": "SV-86861r2_rule"

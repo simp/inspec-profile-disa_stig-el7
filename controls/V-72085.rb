@@ -33,7 +33,7 @@ storage capacity.
     Satisfies: SRG-OS-000342-GPOS-00133, SRG-OS-000479-GPOS-0022.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000342-GPOS-00133"
   tag "gid": "V-72085"
   tag "rid": "SV-86709r1_rule"
@@ -64,6 +64,6 @@ it with the following line:
 enable_krb5 = yes"
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('enable_krb5.strip') { should cmp('yes') }
+    its('enable_krb5.strip') { should cmp 'yes' }
   end
 end

@@ -33,7 +33,7 @@ distribution of the public key to verify the hash information while maintaining 
 confidentiality of the key used to generate the hash.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000250-GPOS-00093"
   tag "gid": "V-72227"
   tag "rid": "SV-86851r2_rule"
@@ -67,7 +67,7 @@ Set \"ssl start_tls\" in \"/etc/pam_ldap.conf\"."
     end
     # @todo - pam resource
     describe command('grep -i ssl /etc/pam_ldap.conf') do
-      its('stdout.strip') { should match /^ssl start_tls$/}
+      its('stdout.strip') { should match %r{^ssl start_tls$} }
     end
   end
 end

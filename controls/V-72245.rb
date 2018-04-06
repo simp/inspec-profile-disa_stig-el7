@@ -26,7 +26,7 @@ logon upon an SSH logon."
   desc  "Providing users with feedback on when account accesses via SSH last
 occurred facilitates user recognition and reporting of unauthorized account use."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72245"
   tag "rid": "SV-86869r2_rule"

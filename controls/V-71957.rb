@@ -26,7 +26,7 @@ variables."
   desc  "Failure to restrict system access to authenticated users negatively impacts
 operating system security."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00229"
   tag "gid": "V-71957"
   tag "rid": "SV-86581r2_rule"
@@ -53,8 +53,8 @@ Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for
 PermitUserEnvironment no
 
 The SSH service must be restarted for changes to take effect."
-
+  # the `i` will ignore case 
   describe sshd_config do
-    its('PermitUserEnvironment') { should eq 'no' }
+    its('PermitUserEnvironment') { should match %r{no}i }
   end
 end

@@ -29,8 +29,8 @@ control "V-73177" do
     and enabling the attacker to monitor and record network traffic. These
     malicious APs can also serve to create a man-in-the-middle attack or be used
     to create a denial of service to valid network resources."
+
   impact 0.5
-  tag "severity": "medium"
 
   tag "gtitle": "SRG-OS-000424-GPOS-00188"
   tag "gid": "V-73177"
@@ -64,6 +64,6 @@ control "V-73177" do
     # nmcli radio wifi off"
 
     describe command('nmcli device') do
-      its('stdout.strip') { should_not match /wifi connected/ }
+      its('stdout.strip') { should_not match %r{wifi connected} }
     end
 end

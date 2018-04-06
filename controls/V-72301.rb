@@ -28,12 +28,12 @@ router configurations) its use must be documented with the Information System
 Security Officer (ISSO), restricted to only authorized personnel, and have access
 control rules established."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72301"
   tag "rid": "SV-86925r1_rule"
   tag "stig_id": "RHEL-07-040700"
-  tag "cci": ["CCI-000318","CCI-000368","CCI-001812","CCI-001813","CCI-001814"] 
+  tag "cci": ["CCI-000318","CCI-000368","CCI-001812","CCI-001813","CCI-001814"]
   tag "nist": ["CM-3 f","CM-6 c","CM-11 (2)","CM-5 (1)","CM-5 (1)","Rev_4"]
   tag "check": "Verify a TFTP server has not been installed on the system.
 

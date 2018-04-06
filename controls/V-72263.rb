@@ -26,7 +26,7 @@ configuration files."
   desc  "If other users have access to modify user-specific SSH configuration files,
 they may be able to log on to the system as another user."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72263"
   tag "rid": "SV-86887r2_rule"

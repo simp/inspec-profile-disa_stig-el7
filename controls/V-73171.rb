@@ -32,7 +32,7 @@ investigate the events relating to an incident or identify those responsible for
 system (e.g., module or policy filter).
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000004-GPOS-00004"
   tag "gid": "V-73171"
   tag "rid": "SV-87823r2_rule"

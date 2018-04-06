@@ -34,7 +34,7 @@ and updates are not installed, unauthorized users may take advantage of weakness
 in the unpatched software. The lack of prompt attention to patching could result in
 a system compromise."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-71999"
   tag "rid": "SV-86623r3_rule"
@@ -74,10 +74,14 @@ Vulnerability Management (IAVM) process, this is a finding."
   tag "fix": "Install the operating system patches or updated packages available
 from Red Hat within 30 days or sooner as local policy dictates."
 
-  linux_update.updates.each { |update|
+  describe.one
+    describe "All packages are up to date" do
+      subject { linux_update.updates.length }
+      it { should eq 0 }
+    end
+    linux_update.updates.each do |update|
       describe package(update['name']) do
         its('version') { should eq update['version'] }
       end
-    }
-  only_if { linux_update.updates.length > 0 }
-end
+    end
+  end

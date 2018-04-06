@@ -33,7 +33,7 @@ idled and take action to initiate the session lock.
     The screen package allows for a session lock to be implemented and configured.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-71897"
   tag "rid": "SV-86521r1_rule"

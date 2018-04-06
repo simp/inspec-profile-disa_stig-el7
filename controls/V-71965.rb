@@ -22,47 +22,46 @@ uri: http://iase.disa.mil
 
 # Smart Card Preference
 #
-# Per Redhat - Do not use the --enablerequiresmartcard option until you have 
-# successfully authenticated to the system using a smart card. Otherwise, 
+# Per Redhat - Do not use the --enablerequiresmartcard option until you have
+# successfully authenticated to the system using a smart card. Otherwise,
 # users may be unable to log into the system.
 #
-smart_card_status = attribute(
-                           'V_71965_Smart_Card_Status',
-                           default: "enabled",
-                           description: 'Smart Card Status'
-                         )
-						 
+
+SMART_CARD_STATUS = attribute(
+  'smart_card_status',
+  default: "enabled", # values(enabled|disabled)
+  description: 'Smart Card Status'
+)
+
 control "V-71965" do
   title "The operating system must uniquely identify and must authenticate
-organizational users (or processes acting on behalf of organizational users) using
-multifactor authentication."
-  desc  "
-    To assure accountability and prevent unauthenticated access, organizational
-users must be identified and authenticated to prevent potential misuse and
-compromise of the system.
+        organizational users (or processes acting on behalf of organizational users) using
+        multifactor authentication."
+        
+  desc  "To assure accountability and prevent unauthenticated access, organizational
+        users must be identified and authenticated to prevent potential misuse and
+        compromise of the system.
 
-    Organizational users include organizational employees or individuals the
-organization deems to have equivalent status of employees (e.g., contractors).
-Organizational users (and processes acting on behalf of users) must be uniquely
-identified and authenticated to all accesses, except for the following:
+        Organizational users include organizational employees or individuals the
+        organization deems to have equivalent status of employees (e.g., contractors).
+        Organizational users (and processes acting on behalf of users) must be uniquely
+        identified and authenticated to all accesses, except for the following:
 
-    1) Accesses explicitly identified and documented by the organization.
-Organizations document specific user actions that can be performed on the
-information system without identification or authentication;
+        1) Accesses explicitly identified and documented by the organization.
+        Organizations document specific user actions that can be performed on the
+        information system without identification or authentication;
 
-    and
+        2) Accesses that occur through authorized use of group authenticators without
+        individual authentication. Organizations may require unique identification of
+        individuals in group accounts (e.g., shared privilege accounts) or for detailed
+        accountability of individual activity."
 
-    2) Accesses that occur through authorized use of group authenticators without
-individual authentication. Organizations may require unique identification of
-individuals in group accounts (e.g., shared privilege accounts) or for detailed
-accountability of individual activity.
+  if SMART_CARD_STATUS.eql?('enabled')
+    impact 0.5
+  else
+    impact 0.0
+  end
 
-    Satisfies: SRG-OS-000104-GPOS-00051, SRG-OS-000106-GPOS-00053,
-SRG-OS-000107-GPOS-00054, SRG-OS-000109-GPOS-00056, SRG-OS-000108-GPOS-00055,
-SRG-OS-000108-GPOS-00057, SRG-OS-000108-GPOS-0005.
-  "
-  impact 0.5
-  tag "severity": "medium"
   tag "gtitle": "SRG-OS-000104-GPOS-00051"
   tag "gid": "V-71965"
   tag "rid": "SV-86589r1_rule"
@@ -84,8 +83,8 @@ actions are blank, this is a finding."
   tag "fix": "Configure the operating system to require individuals to be
 authenticated with a multifactor authenticator.
 
-Per Redhat - Do not use the --enablerequiresmartcard option until you have 
-successfully authenticated to the system using a smart card. Otherwise, 
+Per Redhat - Do not use the --enablerequiresmartcard option until you have
+successfully authenticated to the system using a smart card. Otherwise,
 users may be unable to log into the system.
 
 Enable smartcard logons with the following commands:
@@ -102,8 +101,12 @@ Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey module if
 required."
 
   describe command("authconfig --test | grep -i smartcard") do
-    its('stdout') { should match /use only smartcard for login is #{smart_card_status}/ }
-    its('stdout') { should match /smartcard module = ".+"/ }
-    its('stdout') { should match /smartcard removal action = ".+"/ }
-  end
+    its('stdout') { should match %r{use\sonly\ssmartcard\sfor\slogin\sis\s#{SMART_CARD_STATUS}} }
+    its('stdout') { should match %r{smartcard\smodule\s=\s".+"} }
+    its('stdout') { should match %r{smartcard\sremoval\saction\s=\s".+"} }
+  end if SMART_CARD_STATUS.eql?('enabled')
+
+  describe "The system is not smartcard enabled" do
+    skip "The system is not smartcard enabled"
+  end if !SMART_CARD_STATUS.eql?('enabled')
 end

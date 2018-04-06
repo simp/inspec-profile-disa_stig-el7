@@ -27,7 +27,7 @@ defined in the /etc/group file."
 group with the GID is subsequently created, the user may have unintended rights to
 any files associated with the group."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000104-GPOS-00051"
   tag "gid": "V-72003"
   tag "rid": "SV-86627r1_rule"

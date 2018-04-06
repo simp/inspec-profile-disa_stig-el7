@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO this needs review and logic validation
+
 control "V-72281" do
   title "For systems using DNS resolution, at least two name servers must be
 configured."
@@ -28,7 +30,7 @@ name servers are mandated. A failure in name resolution could lead to the failur
 security functions requiring name resolution, which may include time
 synchronization, centralized authentication, and remote system logging."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72281"
   tag "rid": "SV-86905r1_rule"
@@ -84,12 +86,12 @@ verified by the system file integrity tool."
   # @todo - set up tests where determine if local/dns and then carry out test
   describe.one do
     # Case when local auth used
-    describe file("/etc/resolve.conf") do
-      it('size') { should match eq 0 }
+    describe file("/etc/resolv.conf") do
+      it('size') { should eq 0 }
     end
     # Case when DNS used
     describe command("grep nameserver /etc/resolv.conf") do
-      its('stdout.strip') { should match /^nameserver .+\s*\nnameserver .+\s*\n?$/}
+      its('stdout.strip') { should match %r{^nameserver .+\s*\nnameserver .+\s*\n?$} }
     end
   end
 end

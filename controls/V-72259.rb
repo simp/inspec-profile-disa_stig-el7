@@ -28,7 +28,7 @@ mechanisms to applications. Allowing GSSAPI authentication through SSH exposes t
 system’s GSSAPI to remote hosts, increasing the attack surface of the system. GSSAPI
 authentication must be disabled unless needed."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000364-GPOS-00151"
   tag "gid": "V-72259"
   tag "rid": "SV-86883r2_rule"

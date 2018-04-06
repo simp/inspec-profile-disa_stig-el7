@@ -23,9 +23,9 @@ uri: http://iase.disa.mil
 control "V-72061" do
   title "The system must use a separate file system for /var."
   desc  "The use of separate file systems for different paths can protect the system
-from failures resulting from a file system becoming full or failing."
+        from failures resulting from a file system becoming full or failing."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72061"
   tag "rid": "SV-86685r1_rule"
@@ -39,14 +39,16 @@ Check that a file system/partition has been created for \"/var\" with the follow
 command:
 
 # grep /var /etc/fstab
-UUID=c274f65f    /var                    ext4    noatime,nobarrier        1 2
+UUID=c274f65f    /var ext4    noatime,nobarrier        1 2
 
 If a separate entry for \"/var\" is not in use, this is a finding."
   tag "fix": "Migrate the \"/var\" path onto a separate file system."
 
   # @todo fstab resource?
-  # note: the directory resource is a symlink to the 'file' resource
-  describe directory('/var') do
+  # describe etc_fstab.where { mount_point == '/home' } do
+  #   it { should be_configured }
+  # end
+  describe mount('/var') do
     it { should be_mounted }
   end
 end

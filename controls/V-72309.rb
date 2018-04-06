@@ -29,7 +29,7 @@ router."
 topology information with other routers. If this software is used when not required,
 system network information may be unnecessarily transmitted across the network."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72309"
   tag "rid": "SV-86933r1_rule"

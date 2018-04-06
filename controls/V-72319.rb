@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO we need to account for the case when IPV6 is not disabled and check it
+
 control "V-72319" do
   title "The system must not forward IPv6 source-routed packets."
   desc  "Source-routed packets allow the source of the packet to suggest that
@@ -28,7 +30,7 @@ which can be used to bypass network security measures. This requirement applies 
 to the forwarding of source-routed traffic, such as when IPv6 forwarding is enabled
 and the system is functioning as a router."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72319"
   tag "rid": "SV-86943r1_rule"

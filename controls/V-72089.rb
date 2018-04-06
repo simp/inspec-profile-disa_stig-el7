@@ -29,7 +29,7 @@ capacity."
 reaches 75 percent utilization, they are unable to plan for audit record storage
 capacity expansion."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000343-GPOS-00134"
   tag "gid": "V-72089"
   tag "rid": "SV-86713r1_rule"

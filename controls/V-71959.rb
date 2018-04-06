@@ -26,7 +26,7 @@ logon to the system."
   desc  "Failure to restrict system access to authenticated users negatively impacts
 operating system security."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00229"
   tag "gid": "V-71959"
   tag "rid": "SV-86583r2_rule"
@@ -55,6 +55,6 @@ HostbasedAuthentication no
 The SSH service must be restarted for changes to take effect."
 
   describe sshd_config do
-    its('HostbasedAuthentication') { should eq 'no' }
+    its('HostbasedAuthentication') { should match %r{no}i }
   end
 end

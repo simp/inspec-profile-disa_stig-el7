@@ -27,7 +27,7 @@ Control Message Protocol (ICMP) redirects."
 direct route exists for a particular destination. These messages contain information
 from the system's route table, possibly revealing portions of the network topology."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72293"
   tag "rid": "SV-86917r2_rule"

@@ -29,7 +29,7 @@ privileged user were to log on using this service, the privileged user password
 could be compromised. SSH or other encrypted file transfer methods must be used in
 place of this service."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72299"
   tag "rid": "SV-86923r1_rule"

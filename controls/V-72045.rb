@@ -29,7 +29,7 @@ file system not containing approved \"setuid\" and \"setguid\" files. Executing
 files from untrusted file systems increases the opportunity for unprivileged users
 to attain unauthorized administrative access."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72045"
   tag "rid": "SV-86669r1_rule"

@@ -28,7 +28,7 @@ direct route exists for a particular destination. These messages modify the host
 route table and are unauthenticated. An illicit ICMP redirect message could result
 in a man-in-the-middle attack."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-73175"
   tag "rid": "SV-87827r2_rule"

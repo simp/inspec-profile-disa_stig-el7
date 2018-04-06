@@ -21,27 +21,26 @@ uri: http://iase.disa.mil
 =end
 
 # Should we verify the virus software installation?
-check_virus_software = attribute(
-                           'V_72213_Check_Virus_Software',
-                           default: 1,
-                           description: 'Check Virus Software is Installed and Running'
-                         )
+ENABLE_AV = attribute(
+  'enable_av',
+  default: true,
+  description: 'Check Virus Software is Installed and Running'
+)
 
 control "V-72213" do
   title "The system must use a DoD-approved virus scan program."
-  desc  "
-    Virus scanning software can be used to protect a system from penetration from
-computer viruses and to limit their spread through intermediate systems.
+  desc  "Virus scanning software can be used to protect a system from penetration from
+        computer viruses and to limit their spread through intermediate systems.
 
-    The virus scanning software should be configured to perform scans dynamically on
-accessed files. If this capability is not available, the system must be configured
-to scan, at a minimum, all altered files on the system on a daily basis.
+        The virus scanning software should be configured to perform scans dynamically on
+        accessed files. If this capability is not available, the system must be configured
+        to scan, at a minimum, all altered files on the system on a daily basis.
 
-    If the system processes inbound SMTP mail, the virus scanner must be configured
-to scan all received mail.
-  "
+        If the system processes inbound SMTP mail, the virus scanner must be configured
+        to scan all received mail."
+
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72213"
   tag "rid": "SV-86837r1_rule"
@@ -75,12 +74,15 @@ If no antivirus scan program is active on the system, this is a finding."
   tag "fix": "Install an approved DoD antivirus solution on the system."
 
   describe.one do
-	describe service('nails') do
-	  it { should be_running }
+	  describe service('nails') do
+	    it { should be_running }
     end
-	describe service('clamav-daemon.socket') do
-	  it { should be_running }
-	end
-  end
-  only_if { check_virus_software == 1 } 
+    describe service('clamav-daemon.socket') do
+	    it { should be_running }
+	  end
+  end if ENABLE_AV
+
+  describe "The system is not required to have AntiVirus Installed" do
+    skip "The system does not require AntiVirus to be enabled"
+  end if !ENABLE_AV
 end

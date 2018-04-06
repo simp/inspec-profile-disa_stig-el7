@@ -20,6 +20,12 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+SMART_CARD_STATUS = attribute(
+  'smart_card_status',
+  default: "enabled", # values(enabled|disabled)
+  description: 'Smart Card Status'
+)
+
 control "V-72433" do
   title "The operating system must implement certificate status checking for PKI
 authentication."
@@ -46,18 +52,19 @@ function of the device or has the concept of an organizational user (e.g., VPN,
 proxy capability). This does not apply to authentication for the purpose of
 configuring the device itself (management).
 
-    Requires further clarification from NIST.
+    Requires further clarification from NIST."
 
-    Satisfies: SRG-OS-000375-GPOS-00160, SRG-OS-000375-GPOS-00161,
-SRG-OS-000375-GPOS-0016.
-  "
+if SMART_CARD_STATUS.eql?('enabled')
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
+
   tag "gtitle": "SRG-OS-000375-GPOS-00160"
   tag "gid": "V-72433"
   tag "rid": "SV-87057r2_rule"
   tag "stig_id": "RHEL-07-041003"
-  tag "cci": ["CCI-001948","CCI-001953","CCI-001954"] 
+  tag "cci": ["CCI-001948","CCI-001953","CCI-001954"]
   tag "nist": ["IA-2 (11)","IA-2 (12)","IA-2 (12)","Rev_4"]
   tag "check": "Verify the operating system implements certificate status checking
 for PKI authentication.
@@ -83,10 +90,13 @@ include \"ocsp_on\"."
 
   describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf") do
     its('stdout') { should include 'ocsp_on' }
-  end
+  end if SMART_CARD_STATUS.eql?('enabled')
 
   describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | wc -l") do
     its('stdout.strip.to_i') { should cmp >= 3 }
-  end
+  end if SMART_CARD_STATUS.eql?('enabled')
 
+  describe "The system is not smartcard enabled" do
+    skip "The system is not smartcard enabled"
+  end if !SMART_CARD_STATUS.eql?('enabled')
 end

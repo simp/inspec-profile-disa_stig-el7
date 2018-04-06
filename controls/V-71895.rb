@@ -34,8 +34,11 @@ idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
+if package('gnome-desktop3').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-71895"
   tag "rid": "SV-86519r3_rule"
@@ -83,7 +86,11 @@ Add the setting to lock the screensaver idle delay:
 
   describe command("grep -i idle-delay /etc/dconf/db/*/locks/*") do
     its('stdout.strip') { should_not cmp "" }
-    its('stderr') { should_not match /.*No such file or directory\n?$/ }
-  end
-  only_if { package('gnome-desktop3').installed? }
+    its('stderr') { should_not match %r{.*No such file or directory\n?$} }
+  end if package('gnome-desktop3').installed?
+
+  describe "The system does not have GNOME installed" do
+    skip "The system does not have GNOME installed, this requirement is Not
+    Applicable."
+  end if !package('gnome-desktop3').installed?
 end

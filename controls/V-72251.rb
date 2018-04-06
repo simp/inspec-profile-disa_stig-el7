@@ -25,12 +25,10 @@ control "V-72251" do
   desc  "
     SSHv1 is an insecure implementation of the SSH protocol and has many well-known
 vulnerability exploits. Exploits of the SSH daemon could provide immediate root
-access to the system.
+access to the system."
 
-    Satisfies: SRG-OS-000074-GPOS-00042, SRG-OS-000480-GPOS-0022.
-  "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000074-GPOS-00042"
   tag "gid": "V-72251"
   tag "rid": "SV-86875r2_rule"

@@ -20,13 +20,15 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO make me an attribute - the custom.conf file path should be an attribute.
+
 control "V-71953" do
   title "The operating system must not allow an unattended or automatic logon to the
 system via a graphical user interface."
   desc  "Failure to restrict system access to authenticated users negatively impacts
 operating system security."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00229"
   tag "gid": "V-71953"
   tag "rid": "SV-86577r1_rule"

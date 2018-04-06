@@ -25,7 +25,7 @@ control "V-72255" do
   desc  "If a public host key file is modified by an unauthorized user, the SSH
 service may be compromised."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72255"
   tag "rid": "SV-86879r1_rule"

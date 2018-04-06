@@ -20,13 +20,15 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO this should use a `finding` array and we should make sure it is nil right?
+
 control "V-72009" do
   title "All files and directories must have a valid group owner."
   desc  "Files without a valid group owner may be unintentionally inherited if a
 group is assigned the same Group Identifier (GID) as the GID of the files without a
 valid group owner."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72009"
   tag "rid": "SV-86633r1_rule"
@@ -50,6 +52,6 @@ system with the \"chgrp\" command:
 # chgrp <group> <file>"
 
   describe command('find / -xdev -fstype xfs -nogroup') do
-    its('stdout.strip') { should match /^$/ }
+    its('stdout.strip') { should match %r{^$} }
   end
 end

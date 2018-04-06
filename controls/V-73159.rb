@@ -29,7 +29,7 @@ effectiveness of a password in resisting attempts at guessing and brute-force
 attacks. \"Pwquality\" enforces complex password construction configuration on the
 system."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000069-GPOS-00037"
   tag "gid": "V-73159"
   tag "rid": "SV-87811r2_rule"
@@ -57,6 +57,6 @@ password    required    pam_pwquality.so retry=3"
 
   # @todo - pam resource
   describe command('grep pwquality /etc/pam.d/passwd') do
-    its('stdout.strip') { should match /^password\s+required\s+pam_pwquality.so/}
+    its('stdout.strip') { should match %r{^password\s+required\s+pam_pwquality.so} }
   end
 end

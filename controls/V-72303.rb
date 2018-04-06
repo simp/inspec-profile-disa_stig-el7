@@ -25,7 +25,7 @@ control "V-72303" do
   desc  "Open X displays allow an attacker to capture keystrokes and execute
 commands remotely."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72303"
   tag "rid": "SV-86927r2_rule"
@@ -48,20 +48,11 @@ Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for the
 differently or be in a different location if using a version of SSH that is provided
 by a third-party vendor):
 
-X11Fowarding yes
+X11Forwarding yes
 
 The SSH service must be restarted for changes to take effect."
 
-# The sshd_config command uses lowercases. 
-# So also test with a grep... grep will work 
-# both will succeed on an accurate configuration
-  describe.one do
-     describe sshd_config do
-       its('x11forwarding') { should cmp 'yes' }
-     end
-     describe command("grep -i 'X11Forwarding' /etc/ssh/sshd_config | awk '{print tolower($2)}'") do
-       its('stdout.strip') { should eq 'yes' }
-     end
+  describe sshd_config do
+    its('x11forwarding') { should cmp 'yes' }
   end
 end
-

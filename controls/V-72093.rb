@@ -28,7 +28,7 @@ the repository maximum audit record storage capacity is reached."
 the repository maximum audit record storage capacity is reached, they are unable to
 expand the audit record storage capacity before records are lost."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000343-GPOS-00134"
   tag "gid": "V-72093"
   tag "rid": "SV-86717r2_rule"
@@ -58,6 +58,6 @@ set it to root and any other accounts associated with security personnel.
 action_mail_acct = root"
 
   describe auditd_conf  do
-    its('action_mail_acct') { should cmp('root') }
+    its('action_mail_acct') { should cmp 'root' }
   end
 end

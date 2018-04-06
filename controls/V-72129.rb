@@ -21,20 +21,16 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72129" do
-  title "All uses of the open_by_handle_at command must be audited."
-  desc  "
-    Without generating audit records that are specific to the security and mission
-needs of the organization, it would be difficult to establish, correlate, and
-investigate the events relating to an incident or identify those responsible for one.
+  title "All uses of the `open_by_handle_at` command must be audited."
+  desc  "Without generating audit records that are specific to the security and mission
+        needs of the organization, it would be difficult to establish, correlate, and
+        investigate the events relating to an incident or identify those responsible for one.
 
-    Audit records can be generated from various components within the information
-system (e.g., module or policy filter).
+        Audit records can be generated from various components within the information
+        system (e.g., module or policy filter)."
 
-    Satisfies: SRG-OS-000064-GPOS-00033, SRG-OS-000458-GPOS-00203,
-SRG-OS-000461-GPOS-00205, SRG-OS-000392-GPOS-0017.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000064-GPOS-00033"
   tag "gid": "V-72129"
   tag "rid": "SV-86753r2_rule"

@@ -27,7 +27,7 @@ for validating file contents and directories."
 and directories have not been altered. These hashes must be FIPS 140-2 approved
 cryptographic hashes."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72073"
   tag "rid": "SV-86697r2_rule"

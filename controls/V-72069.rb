@@ -26,7 +26,7 @@ control "V-72069" do
   desc  "ACLs can provide permissions beyond those permitted through the file mode
 and must be verified by file integrity tools."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72069"
   tag "rid": "SV-86693r2_rule"

@@ -20,6 +20,18 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72023" do
   title "All files and directories contained in local interactive user home
 directories must be owned by the owner of the home directory."
@@ -27,7 +39,7 @@ directories must be owned by the owner of the home directory."
 unauthorized users may be able to access them. Additionally, if files are not owned
 by the user, this could be an indication of system compromise."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72023"
   tag "rid": "SV-86647r1_rule"
@@ -58,17 +70,18 @@ Note: The example will be for the user smithj, who has a home directory of
 \"/home/smithj\".
 
 # chown smithj /home/smithj/<file or directory>"
-  #Get home directory from /etc/passwd. Check users with UID >= 1000.
+
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
+
   findings = Set[]
-  u = users.where{uid >= 1000 and home != ""}.entries
-  #For each user, build and execute a find command that identifies files
-  #that are not owned by the user.
-  u.each do |user|
-    findings = findings + command("find #{user.home} -not -user #{user.username}").stdout.split("\n")
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+    findings = findings + command("find #{user_info.home} -not -user #{user_info.username}").stdout.split("\n")
   end
-  #If there are any files in a home directory that are not owned by
-  #that user then report a finding and provide the offending files.
-  describe findings do
-    its ('length') { should == 0 }
+  describe "Files and directories with incorrect group and user permissions" do
+    subject { findings.to_a }
+     it { should be_empty }
   end
 end

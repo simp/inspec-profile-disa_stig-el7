@@ -20,6 +20,9 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO update to use the KNOWN_EXEPTION_USERS and KNOWN_SYSTEM_USERS attributes
+# TODO this should work for all KNOWN_EXEMPT users and not just ec2-user
+
 control "V-71927" do
   title "Passwords must be restricted to a 24 hours/1 day minimum lifetime."
   desc  "Enforcing a minimum password lifetime helps to prevent repeated password
@@ -28,7 +31,7 @@ are allowed to immediately and continually change their password, the password c
 be repeatedly changed in a short period of time to defeat the organization's policy
 regarding password reuse."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000075-GPOS-00043"
   tag "gid": "V-71927"
   tag "rid": "SV-86551r1_rule"

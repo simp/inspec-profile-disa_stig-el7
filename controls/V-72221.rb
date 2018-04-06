@@ -40,7 +40,7 @@ system.
 SRG-OS-000125-GPOS-00065, SRG-OS-000250-GPOS-00093, SRG-OS-000393-GPOS-0017.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000033-GPOS-00014"
   tag "gid": "V-72221"
   tag "rid": "SV-86845r2_rule"

@@ -31,7 +31,7 @@ communicate over the network.
 SRG-OS-000480-GPOS-0023.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72273"
   tag "rid": "SV-86897r1_rule"
@@ -92,5 +92,5 @@ Start the firewall via \"systemctl\" with the following command:
 	describe systemd_service('iptables.service') do
       it { should be_running }
     end
-  end 
+  end
 end

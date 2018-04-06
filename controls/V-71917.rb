@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+#TODO make me an attrib
+
 control "V-71917" do
   title "When passwords are changed the number of repeating characters of the same
 character class must not be more than four characters."
@@ -34,7 +36,7 @@ to crack a password. The more complex the password, the greater the number of
 possible combinations that need to be tested before the password is compromised.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000072-GPOS-00040"
   tag "gid": "V-71917"
   tag "rid": "SV-86541r1_rule"

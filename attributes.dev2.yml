@@ -1,15 +1,32 @@
 #This file specifies the attributes for the configurable controls
 #used in the RHEL 7 DISA STIG.
 
+# The control should find the two defaults automatically
+# if you are using a different default path for the boot conf - set it here
+#grub_conf_path: '/boot/grub2/grub.cfg'
+
 #Controls that are known to consistently have long run times can be
 #disabled using the DISABLE_SLOW_CONTROLS attribute.
 disable_slow_controls: true
+
+# V-72081 - 'monitor_kernel_log', (bool)
+#'Set this to false if your system availability concern is not documented or
+#there is no monitoring of the kernel log',
+monitor_kernel_log: true
 
 #V-71859.rb (already set to true)
 banner_message_enabled: true
 
 # V-72211 (default: false)
 log_aggregation_server: false
+
+# V-72213 ( default: true )
+# This may only be disabled by exception and will be required to be enabled
+# for full accredidation
+enable_av: true
+
+# V-72307
+x11_enabled: false
 
 #V-71861.rb
 #banner_message_text_gui:
@@ -69,3 +86,10 @@ client_alive_interval: 1800
 
 # V-71965.rb values: (enabled or disabled)
 smart_card_status: 'enabled'
+
+# V-72011.rb
+#EXEMPT_HOME_USERS (list of users exempt from needing a home drive in array format)
+exempt_home_users: []
+grub_main_cfg: '/boot/grub2/grub.cfg'
+grub_superusers: ['root']
+grub_user_boot_files: ['/boot/grub2/user.cfg']

@@ -94,7 +94,7 @@ and work product are private and confidential. See User Agreement for details.\"
 SRG-OS-000228-GPOS-0008.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000023-GPOS-00006"
   tag "gid": "V-72225"
   tag "rid": "SV-86849r2_rule"

@@ -45,7 +45,7 @@ sessions or network access; it only ends the inactive session and releases the
 resources associated with that session.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000163-GPOS-00072"
   tag "gid": "V-72223"
   tag "rid": "SV-86847r2_rule"
