@@ -20,6 +20,18 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72021" do
   title "All local interactive user home directories must be group-owned by the home
 directory owners primary group."
@@ -28,7 +40,7 @@ is not the same as the primary GID of the user, this would allow unauthorized ac
 to the user’s files, and users that share the same group may not be able to access
 files that they legitimately should."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72021"
   tag "rid": "SV-86645r2_rule"
@@ -64,11 +76,17 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 
 # chgrp users /home/smithj"
 
-findings = Set[]
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
+
+  findings = Set[]
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")
   end
-  describe findings do
-    its ('length') { should == 0 }
+  describe "Home directories with excessive permissions" do
+    subject { findings.to_a }
+    it { should be_empty }
   end
 end

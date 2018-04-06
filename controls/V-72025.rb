@@ -19,6 +19,17 @@ Source: STIG.DOD.MIL
 uri: http://iase.disa.mil
 -----------------
 =end
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
 
 control "V-72025" do
   title "All files and directories contained in local interactive user home
@@ -27,7 +38,7 @@ member."
   desc  "If a local interactive user’s files are group-owned by a group of which the
 user is not a member, unintended users may be able to access them."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72025"
   tag "rid": "SV-86649r1_rule"
@@ -66,22 +77,22 @@ Note: The example will be for the user smithj, who has a home directory of
 
 # chgrp users /home/smithj/<file>"
 
-  #Get home directory from /etc/passwd. Check users with UID >= 1000.
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
+
   findings = Set[]
-  u = users.where{uid >= 1000 and home != ""}.entries
-  #For each user, build and execute a find command that identifies files
-  #that are not owned by a group the user is a member of.
-  u.each do |user|
+  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     find_args = ""
-    user.groups.each { |curr_group|
-      find_args = find_args+"-not -group #{curr_group} "
+    user_info.groups.each { |curr_group|
+      # some key files and secure dirs (like .ssh) are group owned 'root'
+      find_args = find_args + "-not -group #{curr_group} -o root"
     }
-    findings = findings + command("find #{user.home} #{find_args}").stdout.split("\n")
+    findings = findings + command("find #{user_info.home} #{find_args}").stdout.split("\n")
   end
-  #If there are any files in a home directory that are not owned by
-  #a group that the user is a member of then report a finding and
-  #provide the offending files.
-  describe findings do
-    its ('length') { should == 0 }
+  describe "Home directory files with incorrect group ownership or not 'root' owned" do
+    subject { findings.to_a }
+     it { should be_empty }
   end
 end
