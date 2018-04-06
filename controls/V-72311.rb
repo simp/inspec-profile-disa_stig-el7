@@ -28,7 +28,7 @@ could mistakenly or maliciously be set incorrectly. The RPCSEC_GSS method of
 authentication uses certificates on the server and client systems to more securely
 authenticate the remote mount request."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72311"
   tag "rid": "SV-86935r3_rule"

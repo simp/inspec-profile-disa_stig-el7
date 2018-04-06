@@ -30,15 +30,13 @@ devices, thereby facilitating malicious activity.
 SRG-OS-000480-GPOS-0022.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000114-GPOS-00059"
   tag "gid": "V-71985"
   tag "rid": "SV-86609r1_rule"
   tag "stig_id": "RHEL-07-020110"
-  tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b","IA-3","Rev_4"]
-  tag "cci": "CCI-000778"
-  tag "cci": "CCI-001958"
+  tag "cci": ["CCI-000778","CCI-000366","CCI-001958"]
   tag "check": "Verify the operating system disables the ability to automount
 devices.
 
@@ -63,6 +61,8 @@ If \"autofs\" is required for Network File System (NFS), it must be documented w
 the ISSO."
 
   describe systemd_service('autofs.service') do
-    it {should_not be_running }
+    it { should_not be_running }
+    it { should_not be_enabled }
+    it { should_not be_installed }
   end
 end

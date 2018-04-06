@@ -34,7 +34,7 @@ normally reserved for directories used by the system and by users for temporary 
 storage, (e.g., /tmp), and for directories requiring global read/write access.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72047"
   tag "rid": "SV-86671r1_rule"

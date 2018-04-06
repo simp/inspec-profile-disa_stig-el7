@@ -23,11 +23,11 @@ uri: http://iase.disa.mil
 control "V-72057" do
   title "Kernel core dumps must be disabled unless needed."
   desc  "Kernel core dumps may contain the full contents of system memory at the
-time of the crash. Kernel core dumps may consume a considerable amount of disk space
-and may result in denial of service by exhausting the available space on the target
-file system partition."
+        time of the crash. Kernel core dumps may consume a considerable amount
+        of disk space and may result in denial of service by exhausting the
+        available space on the target file system partition."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72057"
   tag "rid": "SV-86681r1_rule"

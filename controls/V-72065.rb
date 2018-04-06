@@ -25,7 +25,7 @@ control "V-72065" do
   desc  "The use of separate file systems for different paths can protect the system
 from failures resulting from a file system becoming full or failing."
   impact 0.3
-  tag "severity": "low"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72065"
   tag "rid": "SV-86689r1_rule"
