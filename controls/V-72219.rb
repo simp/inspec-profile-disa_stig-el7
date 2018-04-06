@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO we need to write tests on this.
+
 control "V-72219" do
   title "The host must be configured to prohibit or restrict the use of functions,
 ports, protocols, and/or services, as defined in the Ports, Protocols, and Services
@@ -47,7 +49,7 @@ authorized quality of life issues.
     Satisfies: SRG-OS-000096-GPOS-00050, SRG-OS-000297-GPOS-0011.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000096-GPOS-00050"
   tag "gid": "V-72219"
   tag "rid": "SV-86843r1_rule"
@@ -79,4 +81,8 @@ or there are ports, protocols, or services that are prohibited by the PPSM Categ
 Assurance List (CAL), this is a finding."
   tag "fix": "Update the host's firewall settings and/or running services to comply
 with the PPSM CLSA for the site or program and the PPSM CAL."
+
+  describe "This test currently has no automated tests, you must check manually" do
+    skip "This check must be preformed manually"
+  end
 end

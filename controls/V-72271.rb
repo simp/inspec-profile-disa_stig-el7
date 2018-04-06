@@ -38,7 +38,7 @@ establishing memory partitions). Employing increased capacity and bandwidth,
 combined with service redundancy, may reduce the susceptibility to some DoS attacks.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000420-GPOS-00186"
   tag "gid": "V-72271"
   tag "rid": "SV-86895r1_rule"
@@ -70,12 +70,12 @@ Note: The command is to add a rule to the public zone.
   # @todo - firewall resource?
   describe.one do
     describe command('firewall-cmd --direct --get-rule ipv4 filter IN_public_allow') do
-       its('stdout') { should match /--limit .+/ }
-       its('stdout') { should match /--limit-burst .+/ }
+       its('stdout') { should match %r{--limit .+} }
+       its('stdout') { should match %r{--limit-burst .+} }
     end
     describe command('iptables -L') do
-       its('stdout') { should match /limit.+/ }
-       its('stdout') { should match /burst.+/ }
+       its('stdout') { should match %r{limit.+} }
+       its('stdout') { should match %r{burst.+} }
     end
   end
 end

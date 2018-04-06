@@ -35,7 +35,7 @@ control "V-72317" do
 tunneling is required, it must be documented with the Information System Security
 Officer (ISSO)."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72317"
   tag "rid": "SV-86941r1_rule"
@@ -82,6 +82,5 @@ the ISSO."
           it { should be_in tunnels }
         end
     end
-    only_if { package('libreswan').installed? }
-    only_if { service('ipsec.service').running? }
+    only_if { package('libreswan').installed? && service('ipsec.service').running? }
 end

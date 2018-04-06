@@ -26,7 +26,7 @@ Control Message Protocol (ICMP) echoes sent to a broadcast address."
   desc  "Responding to broadcast (ICMP) echoes facilitates network mapping and
 provides a vector for amplification attacks."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72287"
   tag "rid": "SV-86911r1_rule"

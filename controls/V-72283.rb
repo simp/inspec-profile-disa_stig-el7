@@ -29,7 +29,7 @@ which can be used to bypass network security measures. This requirement applies 
 to the forwarding of source-routed traffic, such as when IPv4 forwarding is enabled
 and the system is functioning as a router."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72283"
   tag "rid": "SV-86907r1_rule"

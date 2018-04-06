@@ -33,7 +33,7 @@ use of these tools must be documented with the Information System Security Offic
 (ISSO) and restricted to only authorized personnel.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72295"
   tag "rid": "SV-86919r1_rule"
@@ -58,6 +58,6 @@ Set the promiscuous mode of an interface to off with the following command:
 
   # @todo - test against list of approved interfaces
   describe command("ip link | grep -i promisc") do
-    its('stdout.strip') { should match /^$/}
+    its('stdout.strip') { should match %r{^$} }
   end
 end

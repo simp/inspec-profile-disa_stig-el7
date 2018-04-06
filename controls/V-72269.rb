@@ -42,7 +42,7 @@ authoritative time server (e.g., mobile, teleworking, and tactical endpoints).
     Satisfies: SRG-OS-000355-GPOS-00143, SRG-OS-000356-GPOS-0014.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000355-GPOS-00143"
   tag "gid": "V-72269"
   tag "rid": "SV-86893r2_rule"
@@ -92,7 +92,7 @@ If NTP was not running, it must be started:
   end
   describe.one do
     describe command('grep maxpoll /etc/ntp.conf') do
-      its('stdout.strip') { should_not match /^maxpoll\s+17$/ }
+      its('stdout.strip') { should_not match %r{^maxpoll\s+17$} }
     end
     # Case where maxpoll empty @todo - test for empty maxpoll
     describe file('/etc/cron.daily/ntpdate') do
