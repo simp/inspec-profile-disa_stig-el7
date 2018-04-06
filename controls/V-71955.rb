@@ -26,7 +26,12 @@ control "V-71955" do
   title "The operating system must not allow an unrestricted logon to the system."
   desc  "Failure to restrict system access to authenticated users negatively impacts
 operating system security."
+
+if package('gnome-desktop3').installed?
   impact 0.7
+else
+  impact 0.0
+end
 
   tag "gtitle": "SRG-OS-000480-GPOS-00229"
   tag "gid": "V-71955"
@@ -61,11 +66,13 @@ TimedLoginEnable=false"
 
   custom_conf = file('/etc/gdm/custom.conf')
 
-  only_if { custom_conf.exist? }
-
   describe "In #{custom_conf.path}:[daemon]" do
     context 'TimedLoginEnable' do
       it { expect(ini(custom_conf.path)['daemon'][subject]).to cmp 'false' }
     end
-  end
+  end if package('gnome-desktop3').installed?
+
+  describe "The system does not have GNOME installed" do
+    skip "The system does not have GNOME installed, this requirement is Not Applicable."
+  end if !package('gnome-desktop3').installed?
 end
