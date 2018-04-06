@@ -29,8 +29,11 @@ control "V-72181" do
         password commands. The organization must maintain audit trails in sufficient detail
         to reconstruct events to determine the cause and impact of compromise."
 
+if file(@audit_file).exist?
   impact 0.5
-
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000042-GPOS-00020"
   tag "gid": "V-72181"
   tag "rid": "SV-86805r2_rule"
@@ -60,12 +63,12 @@ auid!=4294967295 -k privileged_terminal
 
 The audit daemon must be restarted for the changes to take effect."
 
-  @audit_file = '/usr/libexec/pt_chown'
+  @audit_file = inspec.command('find /usr -type f -name "pt_chown"').stdout.strip 
 
   describe auditd.file(@audit_file) do
     its('permissions') { should_not cmp [] }
     its('action') { should_not include 'never' }
-  end
+  end if file(@audit_file).exist?
 
   # Resource creates data structure including all usages of file
   @perms = auditd.file(@audit_file).permissions
@@ -74,6 +77,9 @@ The audit daemon must be restarted for the changes to take effect."
     describe perm do
       it { should include 'x' }
     end
-  end
-  only_if { file(@audit_file).exist? }
+  end if file(@audit_file).exist? 
+
+  describe "The pt_chown file does not exist" do
+    skip "The pt_chown file does not exist, this requirement is Not Applicable."
+  end if !file(@audit_file).exist?
 end
