@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+#TODO: Make sure this is acctually an onlyif on the GUI - ssh banner, ftp banner also use /etc/issue
+
 BANNER_MESSAGE_TEXT_CLI = attribute('banner_message_text_cli',
 default: "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
 
@@ -87,7 +89,7 @@ the number of characters that can be displayed in the banner:
     Satisfies: SRG-OS-000023-GPOS-00006, SRG-OS-000024-GPOS-0000.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000023-GPOS-00006"
   tag "gid": "V-71863"
   tag "rid": "SV-86487r1_rule"
@@ -168,8 +170,10 @@ communications, or work product, related to personal representation or services 
 attorneys, psychotherapists, or clergy, and their assistants. Such communications
 and work product are private and confidential. See User Agreement for details.\""
 
-  describe file("/etc/issue") do
-    its('content') { should cmp BANNER_MESSAGE_TEXT_CLI }
+
+  CLEAN_BANNER = BANNER_MESSAGE_TEXT_CLI.gsub(%r{[\s]}, '')
+  describe "The banner test should work" do
+   subject { file("/etc/issue").content.gsub(%r{[\s]}, '') }
+    it { should cmp CLEAN_BANNER }
   end
-  only_if { package('gnome-desktop3').installed? }
 end

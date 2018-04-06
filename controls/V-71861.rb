@@ -113,8 +113,11 @@ By using this IS (which includes any device attached to this IS), you consent to
 
     Satisfies: SRG-OS-000023-GPOS-00006, SRG-OS-000024-GPOS-00007, SRG-OS-000228-GPOS-0008.
   "
-  impact 0.5
-  tag "severity": "medium"
+  if package('gnome-desktop3').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000023-GPOS-00006"
   tag "gid": "V-71861"
   tag "rid": "SV-86485r2_rule"
@@ -210,6 +213,10 @@ and work product are private and confidential. See User Agreement for details.â€
     describe command("grep banner-message-text /etc/dconf/db/local.d/*") do
       its('stdout') { should cmp "banner-message-text='I\'ve read & consent to terms in IS user agreem\'t.'"}
     end
-  end
-  only_if { package('gnome-desktop3').installed? }
+  end if package('gnome-desktop3').installed?
+
+    describe "The system does not have GNOME installed" do
+      skip "The system does not have GNOME installed, this requirement is Not
+      Applicable."
+    end if !package('gnome-desktop3').installed?
 end
