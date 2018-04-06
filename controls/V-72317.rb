@@ -34,7 +34,12 @@ control "V-72317" do
   desc  "IP tunneling mechanisms can be used to bypass network filtering. If
 tunneling is required, it must be documented with the Information System Security
 Officer (ISSO)."
+
+if !package('libreswan').installed? || !service('ipsec.service').running?
+  impact 0.0
+else
   impact 0.5
+end
 
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72317"
@@ -81,6 +86,10 @@ the ISSO."
         describe curr_line do
           it { should be_in tunnels }
         end
-    end
-    only_if { package('libreswan').installed? && service('ipsec.service').running? }
+    end if package('libreswan').installed? && service('ipsec.service').running?
+
+  describe "The system does not have openswan installed or the ipsec.service isn't running" do
+    skip "The system does not have openswan installed or the ipsec.service isn't running, this requirement is Not Applicable."
+  end if !package('libreswan').installed? || !service('ipsec.service').running?
+
 end
