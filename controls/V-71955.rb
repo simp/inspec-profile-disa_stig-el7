@@ -20,12 +20,14 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO Use the attribute from V-71953 for the custom.conf file path
+
 control "V-71955" do
   title "The operating system must not allow an unrestricted logon to the system."
   desc  "Failure to restrict system access to authenticated users negatively impacts
 operating system security."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00229"
   tag "gid": "V-71955"
   tag "rid": "SV-86579r2_rule"
