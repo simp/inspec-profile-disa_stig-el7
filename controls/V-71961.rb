@@ -20,6 +20,22 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+GRUB_SUPERUSERS = attribute(
+  'grub_superusers',
+  description: 'superusers for grub boot ( array )',
+  default: ['root']
+)
+GRUB_USER_BOOT_FILES = attribute(
+ 'grub_user_boot_files',
+ description: 'grub boot config files',
+ default: ['/boot/grub2/user.cfg']
+)
+GRUB_MAIN_CFG = attribute(
+ 'grub_main_cfg',
+ description: 'main grub boot config file',
+ default: '/boot/grub2/grub.cfg'
+)
+
 control "V-71961" do
   title "Systems with a Basic Input/Output System (BIOS) must require authentication
 upon booting into single-user and maintenance modes."
@@ -29,7 +45,7 @@ mode is granted privileged access to all files on the system. GRUB 2 is the defa
 boot loader for RHEL 7 and is designed to require a password to boot into
 single-user mode or make modifications to the boot menu."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000080-GPOS-00048"
   tag "gid": "V-71961"
   tag "rid": "SV-86585r1_rule"
@@ -69,12 +85,18 @@ Generate a new \"grub.conf\" file with the new password with the following comma
 # grub2-mkconfig --output=/tmp/grub2.cfg
 # mv /tmp/grub2.cfg /boot/grub2/grub.cfg"
 
-  user_cfg = file('/boot/grub2/user.cfg')
+  describe file(GRUB_MAIN_CFG) do
+    its('content') { should match %r{^password_pbkdf2\s+root } }
+  end
 
-  describe user_cfg do
-    it { should exist }
-    if user_cfg.exist?
-      its('content') { should match(/^GRUB2_PASSWORD=grub\.pbkdf2\.sha\d+\.\d+\..+/) }
+  GRUB_USER_BOOT_FILES.each do |user_cfg_file|
+    next if !file(user_cfg_file).exist?
+    describe.one do
+      GRUB_SUPERUSERS.each do |user|
+        describe file(user_cfg_file) do
+          its('content') { should match %r{^password_pbkdf2\s+#{user} } }
+        end
+      end
     end
   end
 end

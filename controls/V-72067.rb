@@ -20,6 +20,12 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+GRUB_CONF_PATH = attribute(
+  'grub_conf_path',
+  description: 'the default path for the grub.conf file',
+  default: inspec.file('/boot/efi/EFI/redhat/grub.cfg').exist? ? '/boot/efi/EFI/redhat/grub.cfg' : '/boot/grub2/grub.cfg'
+)
+
 control "V-72067" do
   title "The operating system must implement NIST FIPS-validated cryptography for
 the following: to provision digital signatures, to generate cryptographic hashes,
@@ -35,7 +41,7 @@ this provides assurance they have been tested and validated.
 SRG-OS-000396-GPOS-00176, SRG-OS-000405-GPOS-00184, SRG-OS-000478-GPOS-0022.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000033-GPOS-00014"
   tag "gid": "V-72067"
   tag "rid": "SV-86691r2_rule"
@@ -143,14 +149,12 @@ boot=UUID=05c000f1-a213-759e-c7a2-f11b7424c797
 Reboot the system for the changes to take effect."
 
   describe package('dracut-fips') do
-    it { should be_installed}
+    it { should be_installed }
   end
-  # @todo - grub_conf resource not available for OS
-  #describe grub_conf('/boot/grb2/grub.cfg') do
-  #  its('fips') { should eq '1'}
-  #end
-  # @todo - better way to do this?
+  describe grub_conf(GRUB_CONF_PATH, 'default') do
+    its('kernel') { should include 'fips=1'}
+  end
   describe file('/proc/sys/crypto/fips_enabled') do
-    its('content') { should match /^1\n/ }
+    its('content') { should match %r{^1\n} }
   end
 end

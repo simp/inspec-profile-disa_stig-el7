@@ -28,7 +28,7 @@ configured to use removable media as the boot loader. If removable media is desi
 to be used as the boot loader, the requirement must be documented with the
 Information System Security Officer (ISSO)."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000364-GPOS-00151"
   tag "gid": "V-72075"
   tag "rid": "SV-86699r1_rule"
