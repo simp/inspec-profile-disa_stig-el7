@@ -22,7 +22,7 @@ uri: http://iase.disa.mil
 
 control "V-73173" do
   title "The operating system must generate audit records for all account creations,
-modifications, disabling, and termination events that affect /etc/opasswd."
+modifications, disabling, and termination events that affect /etc/security/opasswd."
   desc  "
     Without generating audit records that are specific to the security and mission
 needs of the organization, it would be difficult to establish, correlate, and
@@ -31,8 +31,12 @@ investigate the events relating to an incident or identify those responsible for
     Audit records can be generated from various components within the information
 system (e.g., module or policy filter).
   "
-  impact 0.5
 
+if file(@audit_file).exist?
+  impact 0.5
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000004-GPOS-00004"
   tag "gid": "V-73173"
   tag "rid": "SV-87825r2_rule"
@@ -42,34 +46,34 @@ system (e.g., module or policy filter).
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "check": "Verify the operating system must generate audit records for all
 account creations, modifications, disabling, and termination events that affect
-/etc/opasswd.
+/etc/security/opasswd.
 
 Check the auditing rules in \"/etc/audit/rules.d/audit.rules\" with the following
 command:
 
-# grep /etc/opasswd /etc/audit/rules.d/audit.rules
+# grep /etc/security/opasswd /etc/audit/rules.d/audit.rules
 
--w /etc/opasswd -p wa -k audit_rules_usergroup_modification
+-w /etc/security/opasswd -p wa -k audit_rules_usergroup_modification
 
 If the command does not return a line, or the line is commented out, this is a
 finding."
 
   tag "fix": "Configure the operating system to generate audit records for all
 account creations, modifications, disabling, and termination events that affect
-/etc/opasswd.
+/etc/security/opasswd.
 
 Add or update the following file system rule in \"/etc/audit/rules.d/audit.rules\":
 
--w /etc/opasswd -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
 
 The audit daemon must be restarted for the changes to take effect."
 
-  @audit_file = '/etc/opasswd'
+  @audit_file = inspec.command('find /etc -type f -name "opasswd"').stdout.strip
 
   describe auditd.file(@audit_file) do
     its('permissions') { should_not cmp [] }
     its('action') { should_not include 'never' }
-  end
+  end if file(@audit_file).exist?
 
   # Resource creates data structure including all usages of file
   @perms = auditd.file(@audit_file).permissions
@@ -79,6 +83,10 @@ The audit daemon must be restarted for the changes to take effect."
       it { should include 'w' }
       it { should include 'a' }
     end
-  end
-  only_if { file(@audit_file).exist? }
+  end if file(@audit_file).exist?
+
+  describe "The opasswd file does not exist" do
+    skip "The opasswd file does not exist, this requirement is Not Applicable."
+  end if !file(@audit_file).exist?
+
 end
