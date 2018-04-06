@@ -42,7 +42,7 @@ must be notified via email and/or monitoring system trap when there is an
 unauthorized modification of a configuration item.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000363-GPOS-00150"
   tag "gid": "V-71973"
   tag "rid": "SV-86597r1_rule"
