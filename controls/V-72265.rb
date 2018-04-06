@@ -26,7 +26,7 @@ control "V-72265" do
 privileges when not needed, which would decrease the impact of software
 vulnerabilities in the unprivileged section."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72265"
   tag "rid": "SV-86889r2_rule"

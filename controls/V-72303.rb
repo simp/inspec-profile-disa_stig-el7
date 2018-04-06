@@ -25,7 +25,7 @@ control "V-72303" do
   desc  "Open X displays allow an attacker to capture keystrokes and execute
 commands remotely."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72303"
   tag "rid": "SV-86927r2_rule"
@@ -49,7 +49,7 @@ Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for the
 differently or be in a different location if using a version of SSH that is provided
 by a third-party vendor):
 
-X11Fowarding yes
+X11Forwarding yes
 
 The SSH service must be restarted for changes to take effect."
 

@@ -28,7 +28,7 @@ layer of security is gained by extending the policy of not logging on directly a
 root. In addition, logging on with a user-specific account provides individual
 accountability of actions performed on the system."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72247"
   tag "rid": "SV-86871r2_rule"

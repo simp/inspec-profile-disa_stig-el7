@@ -27,7 +27,7 @@ after successful authentication."
 vulnerabilities in the compression software could result in compromise of the system
 from an unauthenticated connection, potentially with root privileges."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72267"
   tag "rid": "SV-86891r2_rule"

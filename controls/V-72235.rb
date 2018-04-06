@@ -39,13 +39,10 @@ controlled boundary are exposed to the possibility of interception and modificat
 be accomplished by physical means (e.g., employing physical distribution systems) or
 by logical means (e.g., employing cryptographic techniques). If physical means of
 protection are employed, then logical means (cryptography) do not have to be
-employed, and vice versa.
+employed, and vice versa."
 
-    Satisfies: SRG-OS-000423-GPOS-00187, SRG-OS-000423-GPOS-00188,
-SRG-OS-000423-GPOS-00189, SRG-OS-000423-GPOS-0019.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000423-GPOS-00187"
   tag "gid": "V-72235"
   tag "rid": "SV-86859r2_rule"

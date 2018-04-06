@@ -30,7 +30,7 @@ exploitation. To reduce the attack surface of the system, the Kerberos
 authentication mechanism within SSH must be disabled for systems not using this
 capability."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000364-GPOS-00151"
   tag "gid": "V-72261"
   tag "rid": "SV-86885r2_rule"

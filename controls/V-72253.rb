@@ -27,7 +27,7 @@ control "V-72253" do
 cryptographic hash functions. The only SSHv2 hash algorithm meeting this requirement
 is SHA."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000250-GPOS-00093"
   tag "gid": "V-72253"
   tag "rid": "SV-86877r2_rule"
@@ -59,7 +59,7 @@ MACs hmac-sha2-256,hmac-sha2-512
 The SSH service must be restarted for changes to take effect."
 
   # Must be either or both of these ciphers
-  # @todo - replace with be_in when available
+  # TODO - replace with be_in when available
   describe.one do
     describe sshd_config do
       its('MACs') { should match /^hmac-sha2-256,hmac-sha2-512$/ }

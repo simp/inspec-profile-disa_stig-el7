@@ -26,7 +26,7 @@ control "V-71939" do
 that remote logon via SSH will require a password, even in the event of
 misconfiguration elsewhere."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000106-GPOS-00053"
   tag "gid": "V-71939"
   tag "rid": "SV-86563r2_rule"
@@ -54,9 +54,9 @@ empty passwords should be disabled immediately, and PAM configuration should pre
 users from being able to assign themselves empty passwords."
 
   describe.one do
-    # case where value no line is returned
+    # case where value no line is returned ( i.e. unset or commented out )
     describe sshd_config do
-      its('PermitEmptyPasswords') { should cmp nil}
+      its('PermitEmptyPasswords') { should cmp nil }
     end
     # case where value no is returned
     describe sshd_config do

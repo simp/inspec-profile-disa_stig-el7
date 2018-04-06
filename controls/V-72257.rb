@@ -25,7 +25,7 @@ control "V-72257" do
   desc  "If an unauthorized user obtains the private SSH host key file, the host
 could be impersonated."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72257"
   tag "rid": "SV-86881r1_rule"
