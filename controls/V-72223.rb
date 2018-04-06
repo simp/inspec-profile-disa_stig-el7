@@ -20,9 +20,11 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-SYSTEM_ACTIVITY_TIMEOUT = attribute('system_activity_timeout', default: '600',
-description: 'The length of inactivity from the user in which the network
-connections associated with a session in terminated.')
+SYSTEM_INACTIVITY_TIMEOUT = attribute(
+'system_activity_timeout',
+default: 600,
+description: 'The length of inactivity from the user in which the network connections associated with a session in terminated.'
+)
 
 control "V-72223" do
   title "All network connections associated with a communication session must be
@@ -73,7 +75,13 @@ TMOUT=600
 
 The SSH service must be restarted for changes to take effect."
 
-  describe parse_config_file('/etc/bashrc') do
-    its('TMOUT.to_i') { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
+bashrc_file = parse_config_file('/etc/bashrc')
+
+  describe bashrc_file do
+    its('TMOUT') { should_not eq nil }
   end
+  describe bashrc_file.params('TMOUT') do
+    it { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
+  end
+
 end
