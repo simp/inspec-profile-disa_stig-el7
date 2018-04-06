@@ -34,8 +34,11 @@ idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
+if package('gnome-desktop3').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-71901"
   tag "rid": "SV-86525r1_rule"
@@ -72,7 +75,11 @@ lock-delay=uint32 5
 After the setting has been set, run dconf update."
 
   describe command("grep -i lock-delay /etc/dconf/db/local.d/*") do
-    its('stdout') { should match /^lock-delay=uint32 \d+\n?$/ }
-  end
-  only_if { package('gnome-desktop3').installed? }
+    its('stdout') { should match %r(^lock-delay=uint32 \d+\n?$) }
+  end if package('gnome-desktop3').installed?
+
+  describe "The system does not have GNOME installed" do
+    skip "The system does not have GNOME installed, this requirement is Not
+    Applicable."
+  end if !package('gnome-desktop3').installed?
 end

@@ -34,8 +34,11 @@ idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
+if package('gnome-desktop3').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-71899"
   tag "rid": "SV-86523r1_rule"
@@ -68,7 +71,11 @@ Add the setting to enable screensaver locking after 15 minutes of inactivity:
 idle-activation-enabled=true"
 
   describe command("grep -i idle_activation_enabled /etc/dconf/db/local.d/*") do
-    its('stdout') { should match /^\[org\/gnome\/desktop\/screensaver\]\s+idle-activation-enabled=true\n?$/ }
-  end
-  only_if { package('gnome-desktop3').installed? }
+    its('stdout') { should match %(^\[org\/gnome\/desktop\/screensaver\]\s+idle-activation-enabled=true\n?$) }
+  end if package('gnome-desktop3').installed?
+
+  describe "The system does not have GNOME installed" do
+    skip "The system does not have GNOME installed, this requirement is Not
+    Applicable."
+  end if !package('gnome-desktop3').installed?
 end

@@ -34,8 +34,12 @@ idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
+if package('gnome-desktop3').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
+
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-71893"
   tag "rid": "SV-86517r2_rule"
@@ -94,7 +98,11 @@ Update the system databases:
 Users must log out and back in again before the system-wide settings take effect."
 
   describe command("grep -i idle-delay /etc/dconf/db/local.d/*") do
-    its('stdout') { should match /^idle-delay=unit32 (900|[0-8]\d\d|\d\d|\d|)\n?$/ }
-  end
-  only_if { package('gnome-desktop3').installed? }
+    its('stdout') { should match %r{^idle-delay=unit32 (900|[0-8]\d\d|\d\d|\d|)\n?$} }
+  end if package('gnome-desktop3').installed?
+
+  describe "The system does not have GNOME installed" do
+    skip "The system does not have GNOME installed, this requirement is Not
+    Applicable."
+  end if !package('gnome-desktop3').installed?
 end

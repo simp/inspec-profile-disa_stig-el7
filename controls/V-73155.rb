@@ -40,8 +40,11 @@ idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
+if package('gnome-desktop3').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-73155"
   tag "rid": "SV-87807r2_rule"
@@ -90,7 +93,9 @@ Add the setting to lock the screensaver lock delay:
 
   # @todo - dynamically gather system_db_path?
   describe command("grep -i lock_delay #{system_db_path}/locks/*") do
-    its('stdout.strip') { should_not match /^$/ }
-  end
-  only_if { package('gnome-desktop3').installed? }
+    its('stdout.strip') { should_not match %r{^$} }
+  end if package('gnome-desktop3').installed?
+  describe "The GNOME desktop is not installed" do
+    skip "The GNOME desktop is not installed, this control is Not Applicable"
+  end if !package('gnome-desktop3').installed?
 end
