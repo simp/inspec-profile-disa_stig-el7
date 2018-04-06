@@ -40,8 +40,12 @@ idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
+  
+if package('gnome-desktop3').installed?
   impact 0.5
-
+else
+  impact 0.0
+end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-73157"
   tag "rid": "SV-87809r2_rule"
