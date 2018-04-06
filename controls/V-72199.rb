@@ -21,17 +21,16 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72199" do
-  title "All uses of the rename command must be audited."
-  desc  "
-    If the system is not configured to audit certain activities and write them to an
-audit log, it is more difficult to detect and track system compromises and damages
-incurred during a system compromise.
+  title "All uses of the `rename` command must be audited."
+  desc  "Without generating audit records that are specific to the security and mission
+        needs of the organization, it would be difficult to establish, correlate, and
+        investigate the events relating to an incident or identify those responsible for one.
 
-    Satisfies: SRG-OS-000466-GPOS-00210, SRG-OS-000467-GPOS-00210,
-SRG-OS-000468-GPOS-00212, SRG-OS-000392-GPOS-0017.
-  "
+        Audit records can be generated from various components within the information
+        system (e.g., module or policy filter)."
+
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000466-GPOS-00210"
   tag "gid": "V-72199"
   tag "rid": "SV-86823r2_rule"

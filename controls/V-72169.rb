@@ -21,20 +21,16 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72169" do
-  title "All uses of the sudoedit command must be audited."
-  desc  "
-    Reconstruction of harmful events or forensic analysis is not possible if audit
-records do not contain enough information.
+  title "All uses of the `sudoedit` command must be audited."
+  desc  "Reconstruction of harmful events or forensic analysis is not possible if audit
+        records do not contain enough information.
 
-    At a minimum, the organization must audit the full-text recording of privileged
-access commands. The organization must maintain audit trails in sufficient detail to
-reconstruct events to determine the cause and impact of compromise.
+        At a minimum, the organization must audit the full-text recording of privileged
+        password commands. The organization must maintain audit trails in sufficient detail
+        to reconstruct events to determine the cause and impact of compromise."
 
-    Satisfies: SRG-OS-000037-GPOS-00015, SRG-OS-000042-GPOS-00020,
-SRG-OS-000392-GPOS-00172, SRG-OS-000462-GPOS-00206, SRG-OS-000471-GPOS-0021.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000037-GPOS-00015"
   tag "gid": "V-72169"
   tag "rid": "SV-86793r3_rule"

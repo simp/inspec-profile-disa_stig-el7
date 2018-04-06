@@ -21,20 +21,16 @@ uri: http://iase.disa.mil
 =end
 
 control "V-72163" do
-  title "All uses of the sudoers command must be audited."
-  desc  "
-    Reconstruction of harmful events or forensic analysis is not possible if audit
-records do not contain enough information.
+  title "All uses of the `sudoers` command must be audited."
+  desc  "Reconstruction of harmful events or forensic analysis is not possible if audit
+        records do not contain enough information.
 
-    At a minimum, the organization must audit the full-text recording of privileged
-access commands. The organization must maintain audit trails in sufficient detail to
-reconstruct events to determine the cause and impact of compromise.
+        At a minimum, the organization must audit the full-text recording of privileged
+        password commands. The organization must maintain audit trails in sufficient detail
+        to reconstruct events to determine the cause and impact of compromise."
 
-    Satisfies: SRG-OS-000037-GPOS-00015, SRG-OS-000042-GPOS-00020,
-SRG-OS-000392-GPOS-00172, SRG-OS-000462-GPOS-00206, SRG-OS-000471-GPOS-0021.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000037-GPOS-00015"
   tag "gid": "V-72163"
   tag "rid": "SV-86787r3_rule"
@@ -76,7 +72,7 @@ The audit daemon must be restarted for the changes to take effect."
       its('permissions') { should_not cmp [] }
       its('action') { should_not include 'never' }
     end
-    
+
     # Resource creates data structure including all usages of file
     @perms = auditd.file(audit_file).permissions
 

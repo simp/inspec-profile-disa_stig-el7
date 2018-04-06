@@ -22,21 +22,16 @@ uri: http://iase.disa.mil
 
 control "V-72197" do
   title "The operating system must generate audit records for all account creations,
-modifications, disabling, and termination events that affect /etc/passwd."
-  desc  "
-    Without generating audit records that are specific to the security and mission
-needs of the organization, it would be difficult to establish, correlate, and
-investigate the events relating to an incident or identify those responsible for one.
+        modifications, disabling, and termination events that affect /etc/passwd."
+  desc  "Without generating audit records that are specific to the security and mission
+        needs of the organization, it would be difficult to establish, correlate, and
+        investigate the events relating to an incident or identify those responsible for one.
 
-    Audit records can be generated from various components within the information
-system (e.g., module or policy filter).
+        Audit records can be generated from various components within the information
+        system (e.g., module or policy filter)."
 
-    Satisfies: SRG-OS-000004-GPOS-00004, SRG-OS-000239-GPOS-00089,
-SRG-OS-000240-GPOS-00090, SRG-OS-000241-GPOS-00091, SRG-OS-000303-GPOS-00120,
-SRG-OS-000476-GPOS-0022.
-  "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000004-GPOS-00004"
   tag "gid": "V-72197"
   tag "rid": "SV-86821r3_rule"
