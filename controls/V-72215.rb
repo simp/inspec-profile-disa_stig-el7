@@ -21,11 +21,11 @@ uri: http://iase.disa.mil
 =end
 
 # Should we verify the virus software installation?
-check_virus_software = attribute(
-                           'V_72215_Check_Virus_Software',
-                           default: 1,
-                           description: 'Check Virus Software is Installed, Running, and up-to-date'
-                         )
+ENABLE_AV = attribute(
+  'enable_av',
+  default: true,
+  description: 'Check Virus Software is Installed and Running'
+)
 
 control "V-72215" do
   title "The system must update the DoD-approved virus scan program every seven days
@@ -92,30 +92,36 @@ a finding."
 files."
 
   sec_per_wk = 604800
-  describe.one do
-	describe systemd_service('nails') do
-	  it { should be_running }
-	end
-	describe systemd_service('clamav-daemon.socket') do
-	  it { should be_running }
-	end
-  end
-  if systemd_service('nails').running?
-	virus_defs = Dir["/opt/NAI/LinuxShield/engine/dat/*.dat"]
-	virus_defs.each do |curr_def|
-	  describe file(curr_def).mtime.to_i do
-		it { should >= Time.now.to_i - sec_per_wk }
-	  end
-    end
-  end
-  if systemd_service('clamav-daemon.socket').running?
-	cvd_files = Dir["/var/lib/clamav/*.cvd"]
-	cvd_files.each do |curr_file|
-	  describe file(curr_file).mtime.to_i do
-		it { should >= Time.now.to_i - sec_per_wk }
-	  end
-	end
-  end
-  only_if { check_virus_software == 1 }
 
+  describe.one do
+	  describe systemd_service('nails') do
+	    it { should be_running }
+	  end
+	  describe systemd_service('clamav-daemon.socket') do
+	    it { should be_running }
+	  end
+  end if ENABLE_AV
+
+  if systemd_service('nails').running?
+	  virus_defs = Dir["/opt/NAI/LinuxShield/engine/dat/*.dat"]
+
+    virus_defs.each do |curr_def|
+	    describe file(curr_def).mtime.to_i do
+		    it { should >= Time.now.to_i - sec_per_wk }
+	    end
+    end
+  end if ENABLE_AV
+
+  if systemd_service('clamav-daemon.socket').running?
+	  cvd_files = Dir["/var/lib/clamav/*.cvd"]
+	    cvd_files.each do |curr_file|
+	      describe file(curr_file).mtime.to_i do
+		      it { should >= Time.now.to_i - sec_per_wk }
+	      end
+	    end
+  end if ENABLE_AV
+
+  describe "The system is not required to have AntiVirus Installed" do
+    skip "The system does not require AntiVirus to be enabled"
+  end if !ENABLE_AV
 end
