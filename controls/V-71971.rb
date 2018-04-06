@@ -37,6 +37,8 @@ non_admin_logins = attribute(
   description: "System accounts that support approved system activities."
 )
 
+# TODO we really do need an `semanage` resource.
+
 control "V-71971" do
   title "The operating system must prevent non-privileged users from executing
 privileged functions to include disabling, circumventing, or altering implemented
@@ -54,14 +56,14 @@ protection mechanisms are examples of privileged functions that require protecti
 from non-privileged users.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000324-GPOS-00125"
   tag "gid": "V-71971"
   tag "rid": "SV-86595r1_rule"
   tag "stig_id": "RHEL-07-020020"
-  tag "cci": "CCI-002165"
+  tag "cci": ["CCI-002165","CCI-002235"]
   tag "nist": ["AC-3 (4)","AC-6 (10)","Rev_4"]
-  tag "cci": "CCI-002235"
+
   tag "check": "Verify the operating system prevents non-privileged users from
 executing privileged functions to include disabling, circumventing, or altering
 implemented security safeguards/countermeasures.
@@ -113,7 +115,9 @@ Use the following command to map an existing user to the \"user_u\" role:
 
 # semanage login -m -s user_u <username>"
 
+  # TODO should this be an onlyif or a force skip if not installed?
   # Make sure semanage is installed
+
   describe package("policycoreutils-python") do
     it { should be_installed }
   end
@@ -134,33 +138,33 @@ Use the following command to map an existing user to the \"user_u\" role:
     if admin_logins.include? "#{result[0]}"
       describe.one do
         describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match /sysadm_u/ }
+          its('stdout') { should match %r{sysadm_u} }
         end
         describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match /system_u/ }
+          its('stdout') { should match %{system_u} }
         end
         describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match /staff_u/ }
+          its('stdout') { should match %r{staff_u} }
         end
       end
     elsif non_admin_logins.include? "#{result[0]}"
       describe.one do
-	describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match /user_u/ }
+	      describe command("semanage login -l | grep #{result[0]}") do
+          its('stdout') { should match %r{user_u} }
         end
         if( result[0] == '__default__')
           # all real users should be mapped to a context (i.e. user_u)
           # but the system isn't forced to map them by default to a context
           # This will enable defualt to be unconfined like it is by default
-	  describe command("semanage login -l | grep #{result[0]}") do
-            its('stdout') { should match /unconfined_u/ }
+	        describe command("semanage login -l | grep #{result[0]}") do
+            its('stdout') { should match %r{unconfined_u} }
           end
         end
       end
     # Case when account isn't documented
     else
       describe command("semanage login -l | grep #{result[0]}") do
-        its('stdout') { should match /^$/ }
+        its('stdout') { should match %r{^$} }
       end
     end
   end

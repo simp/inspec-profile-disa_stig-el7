@@ -36,7 +36,7 @@ detection parameters.
 verification/testing and/or systems and environments that require this functionality.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000445-GPOS-00199"
   tag "gid": "V-71989"
   tag "rid": "SV-86613r2_rule"
@@ -63,8 +63,8 @@ SELINUX=enforcing
 
 A reboot is required for the changes to take effect."
 
-  #@todo - SELinux resource?? (https://github.com/chef/inspec/issues/534)
+  # TODO SELinux resource?? (https://github.com/chef/inspec/issues/534)
   describe command('getenforce') do
-    its('stdout'.strip) { should match(%r{^Enforcing$}) }
+    its('stdout.strip') { should match %r{^Enforcing} }
   end
 end

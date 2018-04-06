@@ -36,7 +36,7 @@ detection parameters.
 verification/testing and/or systems and environments that require this functionality.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000445-GPOS-00199"
   tag "gid": "V-71991"
   tag "rid": "SV-86615r2_rule"
@@ -73,10 +73,10 @@ A reboot is required for the changes to take effect."
   #@todo - SELinux resource?? (https://github.com/chef/inspec/issues/534)
   describe.one do
     describe command('sestatus') do
-      its('stdout') { should match /^Policy from config file:\s+targeted\n?$/ }
+      its('stdout') { should match %r{^Policy\sfrom\sconfigs\sfile:\s+targeted\n?$} }
     end
     describe command('sestatus') do
-      its('stdout') { should match /^Loaded policy name:\s+targeted\n?$/ }
+      its('stdout') { should match %r{^Loaded\spolicy\sname:\s+targeted\n?$} }
     end
   end
 end
