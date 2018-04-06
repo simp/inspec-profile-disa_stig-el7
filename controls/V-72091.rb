@@ -28,7 +28,7 @@ threshold for the repository maximum audit record storage capacity is reached."
 the repository maximum audit record storage capacity is reached, they are unable to
 expand the audit record storage capacity before records are lost."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000343-GPOS-00134"
   tag "gid": "V-72091"
   tag "rid": "SV-86715r1_rule"
@@ -58,6 +58,6 @@ and set it to \"email\".
 space_left_action = email"
 
   describe auditd_conf do
-    its('space_left_action.downcase') { should cmp('email') }
+    its('space_left_action.downcase') { should cmp 'email' }
   end
 end

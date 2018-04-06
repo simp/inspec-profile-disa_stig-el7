@@ -33,7 +33,7 @@ storage capacity.
     Satisfies: SRG-OS-000342-GPOS-00133, SRG-OS-000479-GPOS-0022.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000342-GPOS-00133"
   tag "gid": "V-72083"
   tag "rid": "SV-86707r1_rule"
@@ -63,6 +63,6 @@ Set the remote server option in \"/etc/audisp/audisp-remote.conf\" with the IP
 address of the log aggregation server."
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('remote_server') { should match(/^\S+$/) }
+    its('remote_server') { should match %r{^\S+$/} }
   end
 end

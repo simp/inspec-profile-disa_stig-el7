@@ -43,7 +43,7 @@ capacity thresholds; or identifying an improperly configured operating system.
 SRG-OS-000042-GPOS-00021, SRG-OS-000254-GPOS-00095, SRG-OS-000255-GPOS-0009.
   "
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000038-GPOS-00016"
   tag "gid": "V-72079"
   tag "rid": "SV-86703r1_rule"

@@ -26,7 +26,7 @@ is full."
   desc  "Taking appropriate action in case of a filled audit storage volume will
 minimize the possibility of losing audit records."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000342-GPOS-00133"
   tag "gid": "V-72087"
   tag "rid": "SV-86711r2_rule"
@@ -68,11 +68,11 @@ Uncomment the \"network_failure_action\" option in
 \"halt\"."
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('disk_full_action'.strip) { should match(/^(syslog|single|halt)$/) }
+    its('disk_full_action'.strip) { should match %r{^(syslog|single|halt)$} }
   end
 
 # Test matches ./inspec-profiles/controls/V-73163.rb
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.strip) { should match(/^(syslog|single|halt)$/) }
+    its('network_failure_action'.strip) { should match %r{^(syslog|single|halt)$} }
   end
 end

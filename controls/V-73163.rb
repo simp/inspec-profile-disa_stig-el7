@@ -26,7 +26,7 @@ sending audit records to a remote system."
   desc  "Taking appropriate action when there is an error sending audit records to a
 remote system will minimize the possibility of losing audit records."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000342-GPOS-00133"
   tag "gid": "V-73163"
   tag "rid": "SV-87815r2_rule"

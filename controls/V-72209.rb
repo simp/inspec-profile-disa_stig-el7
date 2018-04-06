@@ -32,7 +32,7 @@ control "V-72209" do
 removed or modified in the event that the system is compromised or has a hardware
 failure."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72209"
   tag "rid": "SV-86833r1_rule"
