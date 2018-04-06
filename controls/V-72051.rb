@@ -32,7 +32,7 @@ control "V-72051" do
 of cron jobs. It can also be used to spot intrusions into the use of the cron
 facility by unauthorized and malicious users."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72051"
   tag "rid": "SV-86675r1_rule"
@@ -76,11 +76,11 @@ Note: The line must be added before the following entry if it exists in
 
   describe.one do
     describe command("grep cron #{log_pkg_path}") do
-      its('stdout.strip') { should match /^cron/ }
+      its('stdout.strip') { should match %r{^cron} }
     end
     describe file("#{log_pkg_path}") do
-      its('content') { should match /^\*\.\* \/var\/log\/messages\n?$/ }
-      its('content') { should_not match /^*.*\s+~$.*^*\.\* \/var\/log\/messages\n?$/m}
+      its('content') { should match %r{^\*\.\* \/var\/log\/messages\n?$} }
+      its('content') { should_not match %r{^*.*\s+~$.*^*\.\* \/var\/log\/messages\n?$}m }
     end
   end
 end
