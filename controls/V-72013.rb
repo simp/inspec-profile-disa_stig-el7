@@ -26,7 +26,7 @@ directory."
   desc  "If local interactive users are not assigned a valid home directory, there
 is no place for the storage and control of files they should own."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72013"
   tag "rid": "SV-86637r1_rule"
@@ -51,6 +51,6 @@ local interactive users by setting the \"CREATE_HOME\" parameter in
 CREATE_HOME yes"
 
   describe login_defs do
-    its('CREATE_HOME') { should eq 'yes' }
+    its('CREATE_HOME') { should match %r{yes}i }
   end
 end

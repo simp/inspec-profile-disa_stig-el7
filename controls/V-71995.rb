@@ -25,8 +25,11 @@ control "V-71995" do
 users in such a way that the user can only read and modify their own files."
   desc  "Setting the most restrictive default permissions ensures that when new
 accounts are created, they do not have unnecessary access."
+if login_defs.read_params["UMASK"].eql?('000')
+  impact 0.7
+else
   impact 0.5
-  tag "severity": "medium"
+end
   tag "gtitle": "SRG-OS-000480-GPOS-00228"
   tag "gid": "V-71995"
   tag "rid": "SV-86619r1_rule"
@@ -59,5 +62,6 @@ UMASK  077"
 
   describe login_defs do
     its('UMASK') { should eq '077' }
+    its('UMAKS') { should_not eq '000' }
   end
 end
