@@ -34,7 +34,7 @@ to crack a password. The more complex the password, the greater the number of
 possible combinations that need to be tested before the password is compromised.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000069-GPOS-00037"
   tag "gid": "V-71903"
   tag "rid": "SV-86527r2_rule"
@@ -62,6 +62,6 @@ have the required value):
 ucredit = -1"
 
   describe parse_config_file("/etc/security/pwquality.conf") do
-    its('ucredit') { should match /^-\d+$/ }
+    its('ucredit.to_i') { should cmp < 0 }
   end
 end
