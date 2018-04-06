@@ -51,8 +51,12 @@ configuring the device itself (management).
     Satisfies: SRG-OS-000375-GPOS-00160, SRG-OS-000375-GPOS-00161,
 SRG-OS-000375-GPOS-0016.
   "
+if package('sssd').installed?
   impact 0.5
-  tag "severity": "medium"
+else
+  impact 0.0
+end
+
   tag "gtitle": "SRG-OS-000375-GPOS-00160"
   tag "gid": "V-72427"
   tag "rid": "SV-87051r2_rule"
@@ -82,10 +86,13 @@ Modify all of the services lines in /etc/sssd/sssd.conf to include pam."
   describe.one do
      describe parse_config_file('/etc/sssd/sssd.conf') do
        its('services') { should include 'pam' }
-     end
-     describe command(" grep -i -E 'services(\s)*=(\s)*(.+*)pam' /etc/sssd/sssd.conf ") do
+     end if package('sssd').installed?
+     describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' /etc/sssd/sssd.conf") do
        its('stdout.strip') { should include 'pam' }
-     end
-  end
+     end if package('sssd').installed?
+  end if package('sssd').installed?
 
+  describe "The SSSD Package is not installed on the system" do
+    skip "This control is Not Appliciable without the SSSD Package installed"
+  end if !package('sssd').installed?
 end
