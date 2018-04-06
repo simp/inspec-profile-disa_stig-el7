@@ -33,7 +33,7 @@ capability, it is critical the user reauthenticate.
 SRG-OS-000373-GPOS-0015.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000373-GPOS-00156"
   tag "gid": "V-71949"
   tag "rid": "SV-86573r2_rule"
@@ -57,7 +57,7 @@ the following command:
 
 Remove any occurrences of \"!authenticate\" tags in the file."
 
-  describe command("grep -i authenticate /etc/sudoers /etc/sudoers.d/*") do
-    its('stdout') { should_not match /!authenticate/ }
+  describe command("grep -ir authenticate /etc/sudoers /etc/sudoers.d/*") do
+    its('stdout') { should_not match %r{!authenticate} }
   end
 end

@@ -20,6 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+# TODO make this a `general use` attribute as we use it in multiple controls
+
 # Will need to have attribute updated in YML to reflect list of authorized system accounts
 system_accounts = attribute(
   'V_72001_System_Accounts',

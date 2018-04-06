@@ -36,7 +36,7 @@ user account has been obtained.
 identifiers after zero days of inactivity.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000118-GPOS-00060"
   tag "gid": "V-71941"
   tag "rid": "SV-86565r1_rule"
@@ -61,6 +61,6 @@ required value):
 INACTIVE=0"
 
   describe parse_config_file("/etc/default/useradd") do
-    its('INACTIVE') { should cmp DAYS_OF_INACTIVITY }
+    its('INACTIVE') { should cmp <= DAYS_OF_INACTIVITY }
   end
 end

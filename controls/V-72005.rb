@@ -28,7 +28,7 @@ has root authority, giving that account unrestricted access to the entire operat
 system. Multiple accounts with a UID of \"0\" afford an opportunity for potential
 intruders to guess a password for a privileged account."
   impact 0.7
-  tag "severity": "high"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72005"
   tag "rid": "SV-86629r1_rule"

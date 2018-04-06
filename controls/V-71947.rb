@@ -33,7 +33,7 @@ capability, it is critical the user re-authenticate.
 SRG-OS-000373-GPOS-0015.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000373-GPOS-00156"
   tag "gid": "V-71947"
   tag "rid": "SV-86571r1_rule"
@@ -62,12 +62,12 @@ Remove any occurrences of \"NOPASSWD\" tags in the file."
   # @todo update logic in case of multiple NOPASSWD findings
   describe.one do
     # case where NOPASSWD line is commented out
-    describe command("grep -i nopasswd /etc/sudoers /etc/sudoers.d/*") do
-      its('stdout') { should match /.*#.*NOPASSWD/ }
+    describe command("grep -ir nopasswd /etc/sudoers /etc/sudoers.d/*") do
+      its('stdout') { should match %r{.*#.*NOPASSWD} }
     end
     # case where NOPASSWD is found in uncommented line
-    describe command("grep -i nopasswd /etc/sudoers /etc/sudoers.d/*") do
-      its('stdout') { should_not match /NOPASSWD/ }
+    describe command("grep -ir nopasswd /etc/sudoers /etc/sudoers.d/*") do
+      its('stdout') { should_not match %r{NOPASSWD} }
     end
   end
 end
