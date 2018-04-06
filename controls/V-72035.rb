@@ -33,7 +33,7 @@ interpreted as the current working directory. If deviations from the default sys
 search path for the local interactive user are required, they must be documented
 with the Information System Security Officer (ISSO)."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72035"
   tag "rid": "SV-86659r2_rule"

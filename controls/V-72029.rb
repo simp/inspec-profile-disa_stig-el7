@@ -27,7 +27,7 @@ home directory user or root."
 environment upon logon. Malicious modification of these files could compromise
 accounts upon logon."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72029"
   tag "rid": "SV-86653r1_rule"
@@ -57,11 +57,17 @@ Note: The example will be for the smithj user, who has a home directory of
 
 # chown smithj /home/smithj/.*"
 
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
+
   findings = Set[]
   users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -name '.*' -not -user #{user_info.username} -a -not -user root").stdout.split("\n")
   end
-  describe findings do
-    its ('length') { should == 0 }
+  describe "Files and Directories not owned by the user or root of the parent home directory" do
+    subject { findings.to_a }
+     it { should be_empty }
   end
 end

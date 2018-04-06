@@ -29,7 +29,7 @@ modes is typically ignored or required to be \"0\". This requirement applies to 
 globally configured system defaults and the local interactive user defaults for each
 account on the system."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72049"
   tag "rid": "SV-86673r1_rule"
@@ -66,7 +66,7 @@ account with the correct option to gain the account’s environment variables."
   file_lines.each do |curr_line|
     file_name = curr_line.split(':').first
     describe command("grep -i umask #{file_name}") do
-      its('stdout.strip') { should match /^umask\s+.*077/}
+      its('stdout.strip') { should match %r{^umask\s+.*077} }
     end
   end
 end

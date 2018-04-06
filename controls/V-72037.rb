@@ -18,24 +18,27 @@ Source: STIG.DOD.MIL
 uri: http://iase.disa.mil
 -----------------
 =end
-DISABLE_SLOW_CONTROLS = attribute('disable_slow_controls',default: false,
-description: 'If enabled, this attribute disables this control and other
-controls that consistently take a long time to complete.')
+DISABLE_SLOW_CONTROLS = attribute(
+  'disable_slow_controls',
+  default: false,
+  description: 'If enabled, this attribute disables this control and other
+                controls that consistently take a long time to complete.'
+)
 
 control "V-72037" do
   title "Local initialization files must not execute world-writable programs."
   if DISABLE_SLOW_CONTROLS
     desc "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute."
+          using the DISABLE_SLOW_CONTROLS attribute."
   else
     desc  "If user start-up files execute world-writable programs, especially in
-unprotected directories, they could be maliciously modified to destroy user files or
-otherwise compromise the system at the user level. If the system is compromised at
-the user level, it is easier to elevate privileges to eventually compromise the
-system at the root and network level."
+           unprotected directories, they could be maliciously modified to destroy
+           user files or otherwise compromise the system at the user level. If
+           the system is compromised at the user level, it is easier to elevate
+           privileges to eventually compromise the system at the root and
+           network level."
   end
   impact 0.5
-  tag "severity": "medium"
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72037"
   tag "rid": "SV-86661r1_rule"

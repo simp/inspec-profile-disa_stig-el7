@@ -27,7 +27,7 @@ by the users primary group or root."
 user's shell environment upon logon. Malicious modification of these files could
 compromise accounts upon logon."
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72031"
   tag "rid": "SV-86655r2_rule"
