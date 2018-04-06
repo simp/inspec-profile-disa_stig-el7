@@ -33,7 +33,7 @@ distribution of the public key to verify the hash information while maintaining 
 confidentiality of the key used to generate the hash.
   "
   impact 0.5
-  tag "severity": "medium"
+
   tag "gtitle": "SRG-OS-000250-GPOS-00093"
   tag "gid": "V-72231"
   tag "rid": "SV-86855r2_rule"
@@ -75,7 +75,7 @@ the X.509 certificates used for peer authentication."
     end
     # @todo - pam resource - also dynamically find directory?
     describe command('grep -i cacertfile /etc/pam_ldap.conf') do
-      its('stdout.strip') { should match /^tls_cacertfile \/etc\/openldap\/ldap-cacert.pem$/}
+      its('stdout.strip') { should match %r{^tls_cacertfile /etc/openldap/ldap-cacert.pem$} }
     end
   end
 
