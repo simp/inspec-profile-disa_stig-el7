@@ -52,6 +52,9 @@ The SSH service must be restarted for changes to take effect.  Any accounts with
 empty passwords should be disabled immediately, and PAM configuration should prevent
 users from being able to assign themselves empty passwords."
 
+  # TODO: We should not allow a nil or unset value - as someday the defualt may change.
+  # TODO: Require that user be perscriptive about the state they want - yes or no.
+  
   describe.one do
     # case where value no line is returned ( i.e. unset or commented out )
     describe sshd_config do
