@@ -82,13 +82,10 @@ Alternatively, the package can be reinstalled from trusted media using the comma
 
   if DISABLE_SLOW_CONTROLS
     describe "This control consistently takes a long to run and has been disabled
-              using the DISABLE_SLOW_CONTROLS attribute." do
-
+    using the DISABLE_SLOW_CONTROLS attribute." do
       skip "This control consistently takes a long to run and has been disabled
-            using the DISABLE_SLOW_CONTROLS attribute. To enable this control,
-            set the DISABLE_SLOW_CONTROLS attribute to false. Note: by setting
-            the DISABLE_SLOW_CONTROLS attribute to false, the other slow running
-            controls will also be enabled."
+      using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
+      full accredidation for production."
   end
   else
     # Fixed to avoid false positive finding by excluding /etc/inittab from changed files list

@@ -20,6 +20,12 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+APPLICATION_GROUPS = attribute(
+  'application_groups',
+  description: 'Known application groups that are allowed to have world-writeable files or directories',
+  default: []
+)
+
 control "V-72047" do
   title "All world-writable directories must be group-owned by root, sys, bin, or an
 application group."
@@ -61,21 +67,20 @@ following command:
 
 # chgrp root <directory>"
 
-  # @todo - add option for app group associated with dir?
-  ww_dirs = command('find / -xdev -perm -002 -type d -exec ls -ld {} \;').stdout.split("\n")
-  ww_dirs.each do |curr_dir|
+  # TODO - add option for app group associated with dir?
+  # TODO - add an attribute for 'APPLICATION_GROUP'
+
+  ww_dirs = Set[]
+  partitions = etc_fstab.params.map{|partition| partition['file_system_type']}.uniq
+  partitions.each do |part|
+    cmd = "find / -xdev -perm -002 -type d -fstype #{part} -exec ls -ld {} \\;"
+    ww_dirs = ww_dirs + command(cmd).stdout.split("\n")
+  end
+
+  ww_dirs.to_a.each do |curr_dir|
     dir_arr = curr_dir.split(' ')
-    # replace with be_in matcher
-    describe.one do
-      describe file(dir_arr.last) do
-        its('group') { should cmp "root" }
-      end
-      describe file(dir_arr.last) do
-        its('group') { should cmp "sys" }
-      end
-      describe file(dir_arr.last) do
-        its('group') { should cmp "bin" }
-      end
+    describe file(dir_arr.last) do
+      its('group') { should be_in ["root","sys","bin"] + APPLICATION_GROUPS }
     end
   end
 end

@@ -68,7 +68,9 @@ Add or update the following file system rule in \"/etc/audit/rules.d/audit.rules
 
 The audit daemon must be restarted for the changes to take effect."
 
-  @audit_file = inspec.command('find /etc -type f -name "opasswd"').stdout.strip
+  FILE_NAME = '/etc/security/opasswd'
+
+  @audit_file = inspec.command('find /etc -type f -name "#{FILE_NAME}"').stdout.strip
 
   describe auditd.file(@audit_file) do
     its('permissions') { should_not cmp [] }
@@ -85,8 +87,8 @@ The audit daemon must be restarted for the changes to take effect."
     end
   end if file(@audit_file).exist?
 
-  describe "The opasswd file does not exist" do
-    skip "The opasswd file does not exist, this requirement is Not Applicable."
+  describe "The #{FILE_NAME} file does not exist" do
+    skip "The #{FILE_NAME} file does not exist, this requirement is Not Applicable."
   end if !file(@audit_file).exist?
 
 end

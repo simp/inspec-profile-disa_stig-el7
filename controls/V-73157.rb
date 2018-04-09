@@ -40,7 +40,7 @@ idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-  
+
 if package('gnome-desktop3').installed?
   impact 0.5
 else
@@ -98,6 +98,6 @@ Add the setting to lock the session idle delay:
     its('stdout') { should_not match %r{^$} }
   end if package('gnome-desktop3').installed?
   describe "The GNOME desktop is not installed" do
-    skip "The GNOME desktop is not installed, this control is Not Applicable"
+    skip "The GNOME desktop is not installed, this control is Not Applicable."
   end if !package('gnome-desktop3').installed?
 end

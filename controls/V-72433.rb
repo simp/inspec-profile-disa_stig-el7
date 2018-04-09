@@ -29,30 +29,19 @@ SMART_CARD_STATUS = attribute(
 control "V-72433" do
   title "The operating system must implement certificate status checking for PKI
 authentication."
-  desc  "
-    Using an authentication device, such as a CAC or token that is separate from the
+  desc  "Using an authentication device, such as a CAC or token that is separate from the
 information system, ensures that even if the information system is compromised, that
-compromise will not affect credentials stored on the authentication device.
-
-    Multifactor solutions that require devices separate from information systems
+compromise will not affect credentials stored on the authentication device. \n\n Multifactor solutions that require devices separate from information systems
 gaining access include, for example, hardware tokens providing time-based or
 challenge-response authenticators and smart cards such as the U.S. Government
-Personal Identity Verification card and the DoD Common Access Card.
-
-    A privileged account is defined as an information system account with
-authorizations of a privileged user.
-
-    Remote access is access to DoD nonpublic information systems by an authorized
+Personal Identity Verification card and the DoD Common Access Card. \n\n A privileged account is defined as an information system account with
+authorizations of a privileged user. \n\nRemote access is access to DoD nonpublic information systems by an authorized
 user (or an information system) communicating through an external,
 non-organization-controlled network. Remote access methods include, for example,
-dial-up, broadband, and wireless.
-
-    This requirement only applies to components where this is specific to the
+dial-up, broadband, and wireless. \n\n This requirement only applies to components where this is specific to the
 function of the device or has the concept of an organizational user (e.g., VPN,
 proxy capability). This does not apply to authentication for the purpose of
-configuring the device itself (management).
-
-    Requires further clarification from NIST."
+configuring the device itself (management).\n\nRequires further clarification from NIST."
 
 if SMART_CARD_STATUS.eql?('enabled')
   impact 0.5
@@ -97,6 +86,6 @@ include \"ocsp_on\"."
   end if SMART_CARD_STATUS.eql?('enabled')
 
   describe "The system is not smartcard enabled" do
-    skip "The system is not smartcard enabled"
+    skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
   end if !SMART_CARD_STATUS.eql?('enabled')
 end

@@ -31,7 +31,11 @@ investigate the events relating to an incident or identify those responsible for
     Audit records can be generated from various components within the information
 system (e.g., module or policy filter).
   "
-  impact 0.5
+  if file(@audit_file).exist?
+    impact 0.5
+  else
+    impact 0.0
+  end
 
   tag "gtitle": "SRG-OS-000004-GPOS-00004"
   tag "gid": "V-73167"
@@ -62,12 +66,14 @@ Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 
 The audit daemon must be restarted for the changes to take effect."
 
-  @audit_file = '/etc/gshadow'
+  FILE_NAME = '/etc/gshadow'
+
+  @audit_file = inspec.command('find /etc -type f -name "#{FILE_NAME}"').stdout.strip
 
   describe auditd.file(@audit_file) do
     its('permissions') { should_not cmp [] }
     its('action') { should_not include 'never' }
-  end
+  end if file(@audit_file).exist?
 
   # Resource creates data structure including all usages of file
   @perms = auditd.file(@audit_file).permissions
@@ -77,6 +83,10 @@ The audit daemon must be restarted for the changes to take effect."
       it { should include 'w' }
       it { should include 'a' }
     end
-  end
-  only_if { file(@audit_file).exist? }
+  end if file(@audit_file).exist?
+
+  describe "The #{FILE_NAME} file does not exist" do
+    skip "The #{FILE_NAME} file does not exist, this requirement is Not Applicable."
+  end if !file(@audit_file).exist?
+
 end
