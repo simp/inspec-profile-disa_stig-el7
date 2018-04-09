@@ -69,12 +69,11 @@ with the following command:
 
   if DISABLE_SLOW_CONTROLS
     describe "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute." do
+  using the DISABLE_SLOW_CONTROLS attribute." do
       skip "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute. To enable this control, set the
-DISABLE_SLOW_CONTROLS attribute to false. Note: by setting the DISABLE_SLOW_CONTROLS
-attribute to false, the other slow running controls will also be enabled."
-    end
+  using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
+  full accredidation for production."
+  end
     else
     #Get home directory for users with UID >= 1000.
     dotfiles = Set[]
