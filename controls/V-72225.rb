@@ -187,8 +187,11 @@ and work product are private and confidential. See User Agreement for details.\"
 
 The SSH service must be restarted for changes to take effect."
 
+banner = BANNER_MESSAGE_TEXT_RAL.gsub(/[\r\n\s]/, '')
+banner_used = file("/etc/issue").content.gsub(/[\r\n\s]/, '')
+
   # @todo - dynamically find where banner stored
-  describe file("/etc/issue") do
-    its('content') { should cmp BANNER_MESSAGE_TEXT_RAL }
+  describe banner_used do
+    it { should cmp banner }
   end
 end
