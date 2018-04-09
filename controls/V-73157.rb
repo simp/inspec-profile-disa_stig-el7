@@ -98,6 +98,6 @@ Add the setting to lock the session idle delay:
     its('stdout') { should_not match %r{^$} }
   end if package('gnome-desktop3').installed?
   describe "The GNOME desktop is not installed" do
-    skip "The GNOME desktop is not installed, this control is Not Applicable"
+    skip "The GNOME desktop is not installed, this control is Not Applicable."
   end if !package('gnome-desktop3').installed?
 end
