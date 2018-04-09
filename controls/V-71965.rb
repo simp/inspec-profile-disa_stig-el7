@@ -108,6 +108,6 @@ required."
   end if SMART_CARD_STATUS.eql?('enabled')
 
   describe "The system is not smartcard enabled" do
-    skip "The system is not smartcard enabled"
+    skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
   end if !SMART_CARD_STATUS.eql?('enabled')
 end

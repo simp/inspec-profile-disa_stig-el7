@@ -46,11 +46,8 @@ function of the device or has the concept of an organizational user (e.g., VPN,
 proxy capability). This does not apply to authentication for the purpose of
 configuring the device itself (management).
 
-    Requires further clarification from NIST.
+    Requires further clarification from NIST."
 
-    Satisfies: SRG-OS-000375-GPOS-00160, SRG-OS-000375-GPOS-00161,
-SRG-OS-000375-GPOS-0016.
-  "
 if package('sssd').installed?
   impact 0.5
 else
@@ -93,6 +90,6 @@ Modify all of the services lines in /etc/sssd/sssd.conf to include pam."
   end if package('sssd').installed?
 
   describe "The SSSD Package is not installed on the system" do
-    skip "This control is Not Appliciable without the SSSD Package installed"
+    skip "This control is Not Appliciable without the SSSD Package installed."
   end if !package('sssd').installed?
 end
