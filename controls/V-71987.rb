@@ -53,13 +53,7 @@ file:
 
 clean_requirements_on_remove=1"
 
-  # TODO Verify this OR statement is needed - it seems to be overkill
-  #describe.one do
     describe parse_config_file("/etc/yum.conf") do
       its('clean_requirements_on_remove') { should match %r{1|True|yes}i }
     end
-    # describe command("grep -i 'clean_requirements_on_remove=' /etc/yum.conf | awk -F= '{print $2}'") do
-    #   its('stdout.strip') { should eq '1' }
-    # end
-  #end
 end
