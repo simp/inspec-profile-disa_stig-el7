@@ -20,8 +20,6 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-# TODO this should use a `finding` array and we should make sure it is nil right?
-
 control "V-72007" do
   title "All files and directories must have a valid owner."
   desc  "Unowned files and directories may be unintentionally inherited if a user is
@@ -50,7 +48,15 @@ the system with the \"chown\" command:
 
 # chown <user> <file>"
 
-  describe command('find / -xdev -fstype xfs -nouser') do
-    its('stdout.strip') { should match %r{^$} }
+  findings = Set[]
+  partitions = etc_fstab.params.map{|partition| partition['file_system_type']}.uniq
+
+  partitions.each do |part|
+    findings = findings + command("find / -xdev -fstype #{part} -nouser").stdout.lines.map(&:chomp)
+  end
+
+  describe "All files should have an existing and assigned owner" do
+    subject { findings.to_a }
+    it { should be_empty }
   end
 end

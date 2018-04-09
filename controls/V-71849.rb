@@ -41,12 +41,8 @@ commands must match the vendor values."
     desc "This control consistently takes a long to run and has been disabled
 using the DISABLE_SLOW_CONTROLS attribute."
    else
-     desc  "
-    Discretionary access control is weakened if a user or group has access
-permissions to system files and directories greater than the default.
-
-    Satisfies: SRG-OS-000257-GPOS-00098, SRG-OS-000278-GPOS-0010.
-  "
+     desc  "Discretionary access control is weakened if a user or group has access
+permissions to system files and directories greater than the default."
    end
   impact 0.7
   tag "gtitle": "SRG-OS-000257-GPOS-00098"
@@ -111,11 +107,10 @@ command:
 #.M.......    /var/cache/yum
   if DISABLE_SLOW_CONTROLS
     describe "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute." do
+    using the DISABLE_SLOW_CONTROLS attribute." do
       skip "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute. To enable this control, set the
-DISABLE_SLOW_CONTROLS attribute to false. Note: by setting the DISABLE_SLOW_CONTROLS
-attribute to false, the other slow running controls will also be enabled."
+            using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
+            full accredidation for production."
     end
   else
     describe command("rpm -Va | grep '^.M' | #{FILES_TO_SKIP} | wc -l") do

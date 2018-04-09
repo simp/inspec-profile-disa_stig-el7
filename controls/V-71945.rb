@@ -113,8 +113,4 @@ and run the 'authconfig' command."
     subject { command("grep -Po '^auth\s+\\[default=die\\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") }
     its('stdout.strip') { should include 'even_deny_root' }
   end
-
-  # describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") do
-  #   its('stdout') { should match %r(even_deny_root) }
-  # end
 end

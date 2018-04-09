@@ -20,11 +20,8 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-# TODO make this a `general use` attribute as we use it in multiple controls
-
-# Will need to have attribute updated in YML to reflect list of authorized system accounts
-system_accounts = attribute(
-  'V_72001_System_Accounts',
+KNOWN_SYSTEM_ACCOUNTS = attribute(
+  'known_system_accounts',
   default: [
         'root',
         'bin',
@@ -36,12 +33,11 @@ system_accounts = attribute(
         'halt',
         'mail',
         'operator',
-#       'games', # Should Be Removed
-#       'ftp', # Should Be Removed
         'nobody',
         'systemd-bus-proxy',
         'systemd-network',
         'dbus',
+        'docker', # account used by the docker daemon
         'polkitd',
         'tss', #  Account used by the trousers package to sandbox the tcsd daemon
         'postfix', # Service Account for Postfix Mail Daemon
@@ -51,9 +47,32 @@ system_accounts = attribute(
         'sssd', # Service Account for the SSSH Authentication service
         'rpc', # Service Account RPCBind Daemon
         'unbound', # Service Account UnBound Daemon
-        'ntp' # Service Account for NTPD Daemon
+        'ntp', # Service Account for NTPD Daemon
+        'vboxadd', # known Virtualbox user
+        'nfsnobody', # service account for nsfd
+        'vagrant', # known service account for vagrant / Virtualbox
+        'nginx', # known service account for nginx web-server
+        'rpcuser', # known centos system account for nsf
+        'apache', # known apache system account
+        'mysql', # known mysql system account
   ],
-  description: "System accounts that support approved system activities."
+  description: 'System accounts that support approved system activities. (Array)'
+)
+
+DISALLOWED_ACCOUNTS = attribute(
+  'disallowed_accounts',
+  description: 'Accounts that are not allowed on the system (Array)',
+  default: [
+    'games',
+    'gopher',
+    'ftp',
+  ]
+)
+
+USER_ACCOUNTS = attribute(
+  'user_accounts',
+  description: 'accounts of known managed users (Array)',
+  default:[]
 )
 
 control "V-72001" do
@@ -101,7 +120,14 @@ normal user to perform administrative-level actions.
 
 Document all authorized accounts on the system."
 
-  describe passwd do
-    its('users') { should be_in system_accounts }
+  ALLOWED_ACCOUNTS = (KNOWN_SYSTEM_ACCOUNTS + USER_ACCOUNTS).uniq
+
+  describe "The active system users" do
+    subject { passwd }
+    its('users') { should be_in ALLOWED_ACCOUNTS }
+  end
+  describe "System" do
+    subject { passwd }
+    its('users') { should_not be_in DISALLOWED_ACCOUNTS }
   end
 end

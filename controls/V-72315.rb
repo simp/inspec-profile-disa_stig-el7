@@ -94,6 +94,6 @@ If \"tcpwrappers\" is installed, configure the \"/etc/hosts.allow\" and
 \"/etc/hosts.deny\" to allow or deny access to specific hosts."
 
   describe "This control must be reviewd manually" do
-    skip "You must review this control manually"
+    skip "You must review this control manually."
   end
 end

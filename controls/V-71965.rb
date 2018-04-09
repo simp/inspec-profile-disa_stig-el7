@@ -37,7 +37,7 @@ control "V-71965" do
   title "The operating system must uniquely identify and must authenticate
         organizational users (or processes acting on behalf of organizational users) using
         multifactor authentication."
-        
+
   desc  "To assure accountability and prevent unauthenticated access, organizational
         users must be identified and authenticated to prevent potential misuse and
         compromise of the system.
@@ -107,6 +107,6 @@ required."
   end if SMART_CARD_STATUS.eql?('enabled')
 
   describe "The system is not smartcard enabled" do
-    skip "The system is not smartcard enabled"
+    skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
   end if !SMART_CARD_STATUS.eql?('enabled')
 end

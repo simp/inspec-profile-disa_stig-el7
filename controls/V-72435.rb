@@ -59,11 +59,8 @@ function of the device or has the concept of an organizational user (e.g., VPN,
 proxy capability). This does not apply to authentication for the purpose of
 configuring the device itself (management).
 
-    Requires further clarification from NIST.
+    Requires further clarification from NIST."
 
-    Satisfies: SRG-OS-000375-GPOS-00160, SRG-OS-000375-GPOS-00161,
-SRG-OS-000375-GPOS-0016.
-  "
 if SMART_CARD_STATUS.eql?('enabled')
   impact 0.5
 else
@@ -108,6 +105,6 @@ Enable smart card logons with the following commands:
   end if SMART_CARD_STATUS.eql?('enabled')
 
   describe "The system is not smartcard enabled" do
-    skip "The system is not smartcard enabled"
+    skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
   end if !SMART_CARD_STATUS.eql?('enabled')
 end

@@ -21,12 +21,12 @@ uri: http://iase.disa.mil
 =end
 
 control "V-73159" do
-  title "When passwords are changed or new passwords are established, pwquality must
+  title "When passwords are changed or new passwords are established, `pwquality` must
 be used."
   desc  "Use of a complex password helps to increase the time and resources required
 to compromise the password. Password complexity, or strength, is a measure of the
 effectiveness of a password in resisting attempts at guessing and brute-force
-attacks. \"Pwquality\" enforces complex password construction configuration on the
+attacks. `pwquality` enforces complex password construction configuration on the
 system."
   impact 0.5
 
@@ -39,7 +39,7 @@ system."
   tag "check": "Verify the operating system uses \"pwquality\" to enforce the
 password complexity rules.
 
-Check for the use of \"pwquality\" with the following command:
+Check for the use of `pwquality` with the following command:
 
 # grep pwquality /etc/pam.d/passwd
 

@@ -38,8 +38,8 @@ vicinity, operating systems need to be able to identify when a user's session ha
 idled and take action to initiate the session lock.
 
     The session lock is implemented at the point where session activity can be
-determined and/or controlled.
-  "
+determined and/or controlled."
+
 if package('gnome-desktop3').installed?
   impact 0.5
 else
@@ -96,6 +96,6 @@ Add the setting to lock the screensaver lock delay:
     its('stdout.strip') { should_not match %r{^$} }
   end if package('gnome-desktop3').installed?
   describe "The GNOME desktop is not installed" do
-    skip "The GNOME desktop is not installed, this control is Not Applicable"
+    skip "The GNOME desktop is not installed, this control is Not Applicable."
   end if !package('gnome-desktop3').installed?
 end

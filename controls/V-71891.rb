@@ -24,20 +24,14 @@ control "V-71891" do
   title "The operating system must enable a user session lock until that user
 re-establishes access using established identification and authentication
 procedures."
-  desc  "
-    A session lock is a temporary action taken when a user stops work and moves away
+  desc  "A session lock is a temporary action taken when a user stops work and moves away
 from the immediate physical vicinity of the information system but does not want to
-log out because of the temporary nature of the absence.
+log out because of the temporary nature of the absence. The session lock is implemented
+at the point where session activity can be determined. Regardless of where the
+session lock is determined and implemented, once invoked, the session lock must
+remain in place until the user reauthenticates. No other activity aside from
+reauthentication must unlock the system."
 
-    The session lock is implemented at the point where session activity can be
-determined.
-
-    Regardless of where the session lock is determined and implemented, once
-invoked, the session lock must remain in place until the user reauthenticates. No
-other activity aside from reauthentication must unlock the system.
-
-    Satisfies: SRG-OS-000028-GPOS-00009, SRG-OS-000030-GPOS-0001.
-  "
 if package('gnome-desktop3').installed?
   impact 0.5
 else
