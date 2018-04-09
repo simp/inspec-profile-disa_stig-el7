@@ -155,6 +155,6 @@ Reboot the system for the changes to take effect."
     its('kernel') { should include 'fips=1'}
   end
   describe file('/proc/sys/crypto/fips_enabled') do
-    its('content') { should match %r{^1\n} }
+    its('content.strip') { should cmp 1 }
   end
 end
