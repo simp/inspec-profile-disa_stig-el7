@@ -184,7 +184,7 @@ CI investigative searching or monitoring of the content of privileged
 communications, or work product, related to personal representation or services by
 attorneys, psychotherapists, or clergy, and their assistants. Such communications
 and work product are private and confidential. See User Agreement for details.\"
-
+ 
 The SSH service must be restarted for changes to take effect."
 
 banner = BANNER_MESSAGE_TEXT_RAL.gsub(/[\r\n\s]/, '')
