@@ -61,13 +61,33 @@ the integrity of LDAP authentication sessions.
 Set the USELDAPAUTH=yes in \"/etc/sysconfig/authconfig\".
 
 Set \"ssl start_tls\" in \"/etc/pam_ldap.conf\"."
-  describe.one do
-    describe parse_config_file('/etc/sysconfig/authconfig') do
-      its('USELDAPAUTH') { should_not cmp 'yes' }
+
+  authconfig = parse_config_file('/etc/sysconfig/authconfig')
+
+  USELDAPAUTH_ldap_enabled = (authconfig.params['USELDAPAUTH'].eql? 'yes')
+
+  # @todo - verify best way to check this
+  VAS_QAS_ldap_enabled = (package('vasclnt').installed? or service('vasd').installed?)
+
+  if !(USELDAPAUTH_ldap_enabled or VAS_QAS_ldap_enabled )
+    impact 0.0
+    describe "LDAP not enabled" do
+      skip "LDAP not enabled using any known mechanisms, this control is Not Applicable."
     end
-    # @todo - pam resource
+  end
+
+  if USELDAPAUTH_ldap_enabled
     describe command('grep -i ssl /etc/pam_ldap.conf') do
-      its('stdout.strip') { should match %r{^ssl start_tls$} }
+      its('stdout.strip') { should match %r{^ssl start_tls$}}
+    end
+  end
+
+  # @todo - not sure how USELDAP is implemented and how it affects the system, so ignore for now
+
+  if VAS_QAS_ldap_enabled
+    describe command('grep ldap-gsssasl-security-layers /etc/opt/quest/vas/vas.conf') do
+      its('stdout.strip') { should match %r{^ldap-gsssasl-security-layers = 0$}}
+      its('stdout.strip.lines.length') { should eq 1 }
     end
   end
 end
