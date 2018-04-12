@@ -20,6 +20,18 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72029" do
   title "All local initialization files for interactive users must be owned by the
 home directory user or root."
