@@ -25,6 +25,18 @@ DISABLE_SLOW_CONTROLS = attribute(
                 controls that consistently take a long time to complete.'
 )
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72037" do
   title "Local initialization files must not execute world-writable programs."
   if DISABLE_SLOW_CONTROLS
@@ -74,10 +86,12 @@ with the following command:
   using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
   full accredidation for production."
   end
-    else
-    #Get home directory for users with UID >= 1000.
+  else
+    IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+    #Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
     dotfiles = Set[]
-    u = users.where{uid >= 1000 and home != ""}.entries
+    u = users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries
     #For each user, build and execute a find command that identifies initialization files
     #in a user's home directory.
     u.each do |user|

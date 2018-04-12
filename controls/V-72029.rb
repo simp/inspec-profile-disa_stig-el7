@@ -20,6 +20,18 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72029" do
   title "All local initialization files for interactive users must be owned by the
 home directory user or root."
@@ -59,10 +71,8 @@ Note: The example will be for the smithj user, who has a home directory of
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
-  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
-
   findings = Set[]
-  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+    users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -name '.*' -not -user #{user_info.username} -a -not -user root").stdout.split("\n")
   end

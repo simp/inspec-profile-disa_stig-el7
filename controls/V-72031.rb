@@ -20,6 +20,18 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72031" do
   title "Local initialization files for local interactive users must be group-owned
 by the users primary group or root."
@@ -71,8 +83,11 @@ Note: The example will be for the user smithj, who has a home directory of
 \"/home/smithj\", and has a primary group of users.
 
 # chgrp users /home/smithj/<file>"
+
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
   findings = Set[]
-  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     findings = findings + command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
   end
   describe findings do
