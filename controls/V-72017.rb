@@ -70,10 +70,8 @@ Note: The example will be for the user \"smithj\".
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
-  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
-
   findings = Set[]
-  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n")
   end

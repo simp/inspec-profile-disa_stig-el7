@@ -78,14 +78,12 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
-  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
-
   findings = Set[]
-  users.where{ uid >= 1000 and home != ""}.entries.each do |user_info|
+  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")
   end
-  describe "Home directories with excessive permissions" do
+  describe "Home directories that are not group-owned by the user's primary GID" do
     subject { findings.to_a }
     it { should be_empty }
   end
