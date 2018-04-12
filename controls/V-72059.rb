@@ -20,6 +20,18 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/sync"]
+)
+
 control "V-72059" do
   title "A separate file system must be used for user home directories (such as
 /home or an equivalent)."
@@ -62,19 +74,18 @@ If a separate entry for the file system/partition that contains the non-privileg
 interactive users' home directories does not exist, this is a finding."
   tag "fix": "Migrate the \"/home\" directory onto a separate file system/partition."
 
-  login_defs = file('/etc/login.defs')
-
-  only_if { login_defs.exist? }
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
   min_uid = 1000
+  login_defs = file('/etc/login.defs')
   if login_defs.content && login_defs.content.match(/^\s*UID_MIN\s+(\d+)\s*$/)
     min_uid = $1.to_i
   end
 
-  users.where { (uid >= min_uid) && (shell !~ /\/nologin$/ ) }.entries.each do |user|
+  users.where { (uid >= min_uid) && (!shell.match(IGNORE_SHELLS)) }.entries.each do |user|
+    next if EXEMPT_HOME_USERS.include?("#{user}") or !file(user.home).exist?
 
     home_mount = command(%(df #{user.home} --output=target | tail -1)).stdout.strip
-
     describe user.username do
       context 'with mountpoint' do
         context home_mount do
