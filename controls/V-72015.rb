@@ -85,11 +85,11 @@ assigned\" in \"/etc/passwd\".
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
-  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
+  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }
 
-  interactive_users.each do |user|
-    next if EXEMPT_HOME_USERS.include?("#{user}")
-    describe directory(user(user).home) do
+  interactive_users.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+    describe directory(user_info.home) do
       it { should exist }
     end
   end

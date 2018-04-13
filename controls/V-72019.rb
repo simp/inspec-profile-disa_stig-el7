@@ -74,12 +74,9 @@ Note: The example will be for the user smithj, who has a home directory of
   findings = Set[]
   users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
-    if file(user_info.home).exist? == false
-      findings << user_info.home
+    describe directory(user_info.home) do
+      it { should exist }
+      its('owner') { should eq user_info.username }
     end
-  end
-  describe "This user's home directory does not exist"  do
-    subject { findings.to_a }
-     it { should be_empty }
   end
 end
