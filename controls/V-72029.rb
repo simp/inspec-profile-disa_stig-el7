@@ -72,7 +72,7 @@ Note: The example will be for the smithj user, who has a home directory of
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
   findings = Set[]
-    users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -name '.*' -not -user #{user_info.username} -a -not -user root").stdout.split("\n")
   end
