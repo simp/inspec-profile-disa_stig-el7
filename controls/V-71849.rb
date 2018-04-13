@@ -106,9 +106,9 @@ command:
 # /var/cache/yum -  if you ever clear out the yum cache to free system space
 #.M.......    /var/cache/yum
   if DISABLE_SLOW_CONTROLS
-    describe "This control consistently takes a long to run and has been disabled
+    describe "This control consistently takes a long time to run and has been disabled
     using the DISABLE_SLOW_CONTROLS attribute." do
-      skip "This control consistently takes a long to run and has been disabled
+      skip "This control consistently takes a long time to run and has been disabled
             using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
             full accredidation for production."
     end
