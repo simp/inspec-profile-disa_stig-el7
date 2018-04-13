@@ -72,11 +72,9 @@ do not have a home directory assigned."
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
-  interactive_users = users.where{ !shell.match(IGNORE_SHELLS) }.usernames
-
-  interactive_users.each do |user|
-    next if EXEMPT_HOME_USERS.include?("#{user}")
-    describe directory(user(user).home) do
+  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+    describe directory(user_info.home) do
       it { should exist }
     end
   end

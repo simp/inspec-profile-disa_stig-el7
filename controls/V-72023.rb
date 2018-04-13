@@ -72,14 +72,14 @@ Note: The example will be for the user smithj, who has a home directory of
 # chown smithj /home/smithj/<file or directory>"
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
   findings = Set[]
- print 
   users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -not -user #{user_info.username}").stdout.split("\n")
   end
   describe "Files and directories that are not owned by the user" do
     subject { findings.to_a }
-     it { should be_empty }
+    it { should be_empty }
   end
 end

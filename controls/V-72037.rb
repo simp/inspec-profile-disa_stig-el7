@@ -18,6 +18,7 @@ Source: STIG.DOD.MIL
 uri: http://iase.disa.mil
 -----------------
 =end
+
 DISABLE_SLOW_CONTROLS = attribute(
   'disable_slow_controls',
   default: false,
@@ -105,11 +106,11 @@ with the following command:
       dotfile = dotfile.strip
       ww_files.each do |ww_file|
         ww_file = ww_file.strip
-        count = command("grep -c #{ww_file} #{dotfile}").stdout
-        findings << dotfile
+        count = command("grep -c \"#{ww_file}\" \"#{dotfile}\"").stdout.strip.to_i
+        findings << dotfile if count > 0
       end
     end
-    describe "Local initialization files that are found to reference world-writable files." do
+    describe "Local initialization files that are found to reference world-writable files" do
       subject { findings.to_a }
       it { should be_empty }
     end

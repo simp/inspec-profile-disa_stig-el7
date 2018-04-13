@@ -79,6 +79,6 @@ Note: The example will be for the user smithj, who has a home directory of
   end
   describe "Home directories with excessive permissions" do
     subject { findings.to_a }
-     it { should be_empty }
+    it { should be_empty }
   end
 end
