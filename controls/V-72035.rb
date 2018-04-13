@@ -20,6 +20,19 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
+
+EXEMPT_HOME_USERS = attribute(
+  'exempt_home_users',
+  description: 'These are `home dir` exempt interactive accounts',
+  default: []
+)
+
+NON_INTERACTIVE_SHELLS = attribute(
+  'non_interactive_shells',
+  description: 'These shells do not allow a user to login',
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+)
+
 control "V-72035" do
   title "All local interactive user initialization files executable search paths
 must contain only paths that resolve to the users home directory."
@@ -60,10 +73,12 @@ finding."
   tag "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
 systems that contain user home directories for interactive users."
 
-  # Assumption - users' home directories created in "home"
-  home_dirs = command('ls -d /home/*').stdout.split("\n")
-  home_dirs.each do |home|
-    grep_results = command("grep -i path --exclude=\".bash_history\" #{home}/.*").stdout.split("\n")
+  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+
+  findings = Set[]
+  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+    grep_results =  command("grep -i path --exclude=\".bash_history\" #{user_info.home}/.*").stdout.split("\\n")
     grep_results.each do |result|
       result.slice! "PATH="
       # Case when last value in exec search path is :
@@ -71,26 +86,35 @@ systems that contain user home directories for interactive users."
         result = result + " "
       end
       result.slice! "$PATH:"
-      result.gsub! '$HOME', "#{home}"
-      result.gsub! '~', "#{home}"
+      result.gsub! '$HOME', "#{user_info.home}"
+      result.gsub! '~', "#{user_info.home}"
       line_arr = result.split(":")
       line_arr.delete_at(0)
       line_arr.each do |line|
-        # Don't run test on line that exports PATH
-        if !line.start_with?('export') then
+        # Don't run test on line that exports PATH and is not commented out
+        if !line.start_with?('export') && !line.start_with?('#') then
           # Case when :: found in exec search path or : found at beginning
           if line.strip.empty? then
             curr_work_dir = command("pwd").stdout.gsub("\n", "")
-            if curr_work_dir.start_with?("#{home}") then
+            if curr_work_dir.start_with?("#{user_info.home}") then
               line = curr_work_dir
             end
           end
           # This will fail if non-home directory found in path
-          describe "#{line}" do
-            it { should start_with("#{home}") }
+          if !line.start_with?(user_info.home)
+            findings.add(line)
           end
         end
       end
+    end
+  end
+  describe.one do
+    describe etc_fstab do
+      its('home_mount_options') { should include 'nosuid' }
+    end
+    describe "Initialization files that include executable search paths that include directories outside their home directories" do
+      subject { findings.to_a }
+      it { should be_empty }
     end
   end
 end
