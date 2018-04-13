@@ -76,17 +76,12 @@ interactive users' home directories does not exist, this is a finding."
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
-  min_uid = 1000
-  login_defs = file('/etc/login.defs')
-  if login_defs.content && login_defs.content.match(/^\s*UID_MIN\s+(\d+)\s*$/)
-    min_uid = $1.to_i
-  end
+  # excluding root because its home directory is usually "/root" (mountpoint "/")
+  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000)}.entries.each do |user_info|
+    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
 
-  users.where { (uid >= min_uid) && (!shell.match(IGNORE_SHELLS)) }.entries.each do |user|
-    next if EXEMPT_HOME_USERS.include?("#{user}") or !file(user.home).exist?
-
-    home_mount = command(%(df #{user.home} --output=target | tail -1)).stdout.strip
-    describe user.username do
+    home_mount = command(%(df #{user_info.home} --output=target | tail -1)).stdout.strip
+    describe user_info.username do
       context 'with mountpoint' do
         context home_mount do
           it { should_not be_empty }
