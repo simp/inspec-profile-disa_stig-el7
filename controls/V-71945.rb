@@ -78,34 +78,76 @@ fail_interval=900 unlock_time=604800
 
 and run the 'authconfig' command."
 
-  only_if { file('/etc/pam.d/password-auth-ac').exist? }
+  only_if { file('/etc/pam.d/password-auth-ac').exist? && file('/etc/pam.d/password-auth-ac').exist?}
 
-  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
+  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
     its('stdout.to_i') { should cmp <= UNSUCCESSFUL_ATTEMPTS_ROOT }
     end
 
-  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'fail_interval\s*=\s*[0-9]+' | cut -d '=' -f2") do
+ describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('stdout.to_i') { should cmp <= UNSUCCESSFUL_ATTEMPTS_ROOT }
+    end
+
+
+  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'fail_interval\s*=\s*[0-9]+' | cut -d '=' -f2") do
     its('stdout.to_i') { should cmp <= FAIL_INTERVAL_ROOT }
     end
 
-  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
+ describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac \
+| grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'fail_interval\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('stdout.to_i') { should cmp <= FAIL_INTERVAL_ROOT }
+  end
+
+
+  describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
     its('stdout.to_i') { should cmp >= LOCKOUT_TIME_ROOT }
+  end
+
+ describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac \
+| grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('stdout.to_i') { should cmp >= LOCKOUT_TIME_ROOT }
+  end
+
+
+  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('stdout.to_i') { should cmp <= UNSUCCESSFUL_ATTEMPTS_ROOT }
   end
 
   describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
     its('stdout.to_i') { should cmp <= UNSUCCESSFUL_ATTEMPTS_ROOT }
   end
 
+
+  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'fail_interval\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('stdout.to_i') { should cmp <= FAIL_INTERVAL_ROOT }
+  end
+
   describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'fail_interval\s*=\s*[0-9]+' | cut -d '=' -f2") do
     its('stdout.to_i') { should cmp <= FAIL_INTERVAL_ROOT }
   end
 
-  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
+
+  describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
     its('stdout.to_i') { should cmp >= LOCKOUT_TIME_ROOT }
   end
 
-  describe "The `/etc/pam.d/system-auth-ac file`" do
-    subject { command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") }
+ describe command("grep -Po '^auth\s+\[default=die\]\s+pam_faillock.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'unlock_time\s*=\s*[0-9]+' | cut -d '=' -f2") do
+    its('stdout.to_i') { should cmp >= LOCKOUT_TIME_ROOT }
+  end
+
+
+  describe "The `/etc/pam.d/password-auth-ac file`" do
+    subject { command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") }
+    its('stdout.strip') { should include 'even_deny_root' }
+  end
+
+describe "The `/etc/pam.d/system-auth-ac file`" do
+    subject { command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' etc/pam.d/system-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") }
+    its('stdout.strip') { should include 'even_deny_root' }
+  end
+
+  describe "The `/etc/pam.d/password-auth-ac file`" do
+    subject { command("grep -Po '^auth\s+\\[default=die\\]\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$'") }
     its('stdout.strip') { should include 'even_deny_root' }
   end
 
