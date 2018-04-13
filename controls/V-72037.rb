@@ -105,8 +105,8 @@ with the following command:
       dotfile = dotfile.strip
       ww_files.each do |ww_file|
         ww_file = ww_file.strip
-        count = command("grep -c #{ww_file} #{dotfile}").stdout
-        findings << dotfile
+        count = command("grep -c \"#{ww_file}\" \"#{dotfile}\"").stdout.strip.to_i
+        findings << dotfile if count > 0
       end
     end
     describe "Local initialization files that are found to reference world-writable files." do
