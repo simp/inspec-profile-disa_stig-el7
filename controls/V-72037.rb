@@ -109,7 +109,8 @@ with the following command:
         findings << dotfile
       end
     end
-    describe findings do
+    describe "Local initialization files that are found to reference world-writable files." do
+      subject { findings.to_a }
       it { should be_empty }
     end
   end
