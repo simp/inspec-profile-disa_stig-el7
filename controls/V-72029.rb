@@ -78,6 +78,6 @@ Note: The example will be for the smithj user, who has a home directory of
   end
   describe "Files and Directories not owned by the user or root of the parent home directory" do
     subject { findings.to_a }
-     it { should be_empty }
+    it { should be_empty }
   end
 end
