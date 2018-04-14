@@ -83,22 +83,22 @@ AIDE daily, but other file integrity tools may be used:
 # cat /etc/cron.daily/aide
 0 0 * * * /usr/sbin/aide --check | /bin/mail -s \"aide integrity check run for
 <system name>\" root@sysname.mil"
-
+  
   describe package(FILE_INTEGRITY_TOOL) do
     it { should be_installed }
   end
   if FILE_INTEGRITY_INTERVAL == 'monthly'
-  describe.one do
+    describe.one do
       describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
-      it { should exist }
-    end
+        it { should exist }
+      end
       describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
-      it { should exist }
-    end
+        it { should exist }
+      end
       describe file("/etc/cron.monthly/#{FILE_INTEGRITY_TOOL}") do
         it { should exist }
-  end
-end
+      end
+    end
   elsif FILE_INTEGRITY_INTERVAL == 'weekly'
     describe.one do
       describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
@@ -110,7 +110,7 @@ end
     end
   elsif FILE_INTEGRITY_INTERVAL == 'daily'
     describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
-        it { should exist }
+      it { should exist }
     end
   end
 end
