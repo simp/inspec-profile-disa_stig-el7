@@ -20,7 +20,6 @@ uri: http://iase.disa.mil
 -----------------
 =end
 
-
 EXEMPT_HOME_USERS = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
