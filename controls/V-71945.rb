@@ -78,7 +78,7 @@ fail_interval=900 unlock_time=604800
 
 and run the 'authconfig' command."
 
-  only_if { file('/etc/pam.d/password-auth-ac').exist? && file('/etc/pam.d/password-auth-ac').exist?}
+  only_if { file('/etc/pam.d/password-auth-ac').exist? && file('/etc/pam.d/system-auth-ac').exist?}
 
   describe command("grep -Po '^auth\s+required\s+pam_faillock.so.*$' /etc/pam.d/password-auth-ac | grep -Po '(?<=pam_faillock.so).*$' | grep -Po 'deny\s*=\s*[0-9]+' | cut -d '=' -f2") do
     its('stdout.to_i') { should cmp <= UNSUCCESSFUL_ATTEMPTS_ROOT }
