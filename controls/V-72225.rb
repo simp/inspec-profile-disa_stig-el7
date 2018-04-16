@@ -48,6 +48,11 @@ and work product are private and confidential. See User Agreement for details.",
 description: 'The banner message  must display the Standard Mandatory DoD Notice and
 Consent Banner before granting access.')
 
+BANNER_MESSAGE_TEXT_RAL_LIMITED = attribute('banner_message_text_ral_limited',
+default: "I've read & consent to terms in IS user agreem't.",
+description: 'The banner message must display the Standard Mandatory DoD Notice and Consent Bann\
+er before granting access.')
+
 control "V-72225" do
   title "The Standard Mandatory DoD Notice and Consent Banner must be displayed
 immediately prior to, or as part of, remote access logon prompts."
@@ -195,12 +200,20 @@ The SSH service must be restarted for changes to take effect."
     it { should be false }
   end if BANNER_MISSING
   
-  #When Banner path is specified and the file exists then check the contents of that file for the actual banner to see if it is a match. 
-  banner_file = file(sshd_config.Banner)
-  describe "The SSHD Banner is set and has the correct text" do
-    banner_used = banner_file.content.gsub(%r{[\r\n\s]}, '')
-    banner = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
-    subject { banner_used } 
-    it { should cmp banner }
+  #When Banner path is specified and the file exists then check the contents of that 
+  describe.one do
+    banner_file = file(sshd_config.Banner)
+    banner = banner_file.content.gsub(%r{[\r\n\s]}, '')
+    CLEAN_BANNER = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
+    CLEAN_BANNER_LIMITED = BANNER_MESSAGE_TEXT_RAL_LIMITED.gsub(%r{[\r\n\s]}, '')
+    
+    describe "The SSHD Banner is set to the standard banner and has the correct text" do
+      subject { banner } 
+      it { should cmp CLEAN_BANNER }
+    end
+    describe "The SSHD Banner is set to the limited banner and has the correct text" do
+      subject { banner }
+      it { should cmp CLEAN_BANNER_LIMITED }
+    end
   end if !BANNER_MISSING
 end
