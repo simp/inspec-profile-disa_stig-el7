@@ -187,11 +187,20 @@ and work product are private and confidential. See User Agreement for details.\"
 
 The SSH service must be restarted for changes to take effect."
 
-banner = BANNER_MESSAGE_TEXT_RAL.gsub(/[\r\n\s]/, '')
-banner_used = file("/etc/issue").content.gsub(/[\r\n\s]/, '')
+  #When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
+  BANNER_MISSING = (sshd_config.Banner.nil? || sshd_config.Banner.match?(/none/i) || !file(sshd_config.Banner).exist?)? true : false
+  print BANNER_MISSING
+  describe "The SSHD Banner is missing and not set" do
+    subject { BANNER_MISSING }
+    it { should be false }
+  end if BANNER_MISSING
 
-  # @todo - dynamically find where banner stored
-  describe banner_used do
+  #When Banner path is specified and the file exists then check the contents of that file for the actual banner to see if it is a match.
+  banner_file = file(sshd_config.Banner)
+  describe "The SSHD Banner is set and has the correct text" do
+    banner_used = banner_file.content.gsub(%r{[\r\n\s]}, '')
+    banner = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
+    subject { banner_used }
     it { should cmp banner }
-  end
+  end if !BANNER_MISSING
 end
