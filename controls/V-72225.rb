@@ -193,7 +193,7 @@ and work product are private and confidential. See User Agreement for details.\"
 The SSH service must be restarted for changes to take effect."
 
   #When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
-  BANNER_MISSING = (sshd_config.Banner.nil? || sshd_config.Banner.match?(/none/i) || !file(sshd_config.Banner).exist?)? true : false
+  BANNER_MISSING = (sshd_config.Banner.nil? || sshd_config.Banner.match(/none/i) || !file(sshd_config.Banner).exist?)? true : false
   print BANNER_MISSING
   describe "The SSHD Banner is missing and not set" do
     subject { BANNER_MISSING }
