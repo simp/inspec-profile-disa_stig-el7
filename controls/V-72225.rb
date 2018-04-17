@@ -193,8 +193,8 @@ and work product are private and confidential. See User Agreement for details.\"
 The SSH service must be restarted for changes to take effect."
   
   #When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
-  BANNER_MISSING = (sshd_config.Banner.nil? || sshd_config.Banner.match(/none/i) || !file(sshd_config.Banner).exist?)? true : false
-  print BANNER_MISSING
+  BANNER_MISSING = (sshd_config.banner.nil? || sshd_config.banner.match(/none/i) || !file(sshd_config.banner).exist?)? true : false
+  
   describe "The SSHD Banner is missing and not set" do 
     subject { BANNER_MISSING }
     it { should be false }
@@ -202,7 +202,7 @@ The SSH service must be restarted for changes to take effect."
   
   #When Banner path is specified and the file exists then check the contents of that 
   describe.one do
-    banner_file = file(sshd_config.Banner)
+    banner_file = file(sshd_config.banner)
     banner = banner_file.content.gsub(%r{[\r\n\s]}, '')
     CLEAN_BANNER = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
     CLEAN_BANNER_LIMITED = BANNER_MESSAGE_TEXT_RAL_LIMITED.gsub(%r{[\r\n\s]}, '')
