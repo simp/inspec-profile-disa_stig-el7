@@ -193,27 +193,43 @@ and work product are private and confidential. See User Agreement for details.\"
 The SSH service must be restarted for changes to take effect."
 
   #When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
-  BANNER_MISSING = (sshd_config.banner.nil? || !sshd_config.banner.match(/none/i).nil? || !file(sshd_config.banner).exist?)? true : false
+  banner_files = [sshd_config.banner].flatten
 
-  describe "The SSHD Banner is missing and not set" do
-    subject { BANNER_MISSING }
-    it { should be false }
-  end if BANNER_MISSING
+  banner_files.each do |banner_file|
 
-  #When Banner path is specified and the file exists then check the contents of that
-  describe.one do
-    banner_file = file(sshd_config.banner)
-    banner = banner_file.content.gsub(%r{[\r\n\s]}, '')
-    CLEAN_BANNER = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
-    CLEAN_BANNER_LIMITED = BANNER_MESSAGE_TEXT_RAL_LIMITED.gsub(%r{[\r\n\s]}, '')
+    #Banner property is commented out.
+    describe "The SSHD Banner is not set" do
+      subject { banner_file.nil? }
+      it { should be false }
+    end if banner_file.nil?
 
-    describe "The SSHD Banner is set to the standard banner and has the correct text" do
-      subject { banner }
-      it { should cmp CLEAN_BANNER }
-    end
-    describe "The SSHD Banner is set to the limited banner and has the correct text" do
-      subject { banner }
-      it { should cmp CLEAN_BANNER_LIMITED }
-    end
-  end if !BANNER_MISSING
+    #Banner property is set to "none"
+    describe "The SSHD Banner is disabled" do
+      subject { banner_file.match(/none/i).nil? }
+      it { should be true }
+    end if !banner_file.nil? && !banner_file.match(/none/i).nil?
+
+    #Banner property provides a path to a file, however, it does not exist.
+    describe "The SSHD Banner is set, but, the file does not exist" do
+      subject { file(banner_file).exist? }
+      it { should be true }
+    end if !banner_file.nil? && banner_file.match(/none/i).nil? && !file(banner_file).exist?
+
+    #Banner property provides a path to a file and it exists.
+    describe.one do
+      banner = file(banner_file).content.gsub(%r{[\r\n\s]}, '')
+      CLEAN_BANNER = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
+      CLEAN_BANNER_LIMITED = BANNER_MESSAGE_TEXT_RAL_LIMITED.gsub(%r{[\r\n\s]}, '')
+
+      describe "The SSHD Banner is set to the standard banner and has the correct text" do
+        subject { banner }
+        it { should cmp CLEAN_BANNER }
+      end
+
+      describe "The SSHD Banner is set to the standard limited banner and has the correct text" do
+        subject { banner }
+        it { should cmp CLEAN_BANNER_LIMITED }
+      end
+    end if !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
+  end
 end
