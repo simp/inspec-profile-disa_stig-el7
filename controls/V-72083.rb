@@ -64,5 +64,13 @@ address of the log aggregation server."
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
     its('remote_server') { should match %r{^\S+$/} }
-  end
+  end if file('/etc/audisp/audisp-remote.conf').exist?
+  
+  describe rsyslog_conf('/etc/rsyslog.conf') do
+    it { should be_sending_to_remote_server}
+  end if file('/etc/rsyslog.conf').exist?
+  
+  describe syslog_ng_conf('/etc/syslog-ng/syslog-ng.conf') do
+    it { should be_sending_to_remote_server}
+  end if file('/etc/syslog-ng/syslog-ng.conf').exist?
 end
