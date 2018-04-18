@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-require 'utils/parser'
-require 'utils/file_reader'
-require 'utils/rsyslog_parser'
+require 'parser'
+require 'file_reader'
+require 'rsyslog_parser'
 
 # STABILITY: Experimental
 # This resouce needs a proper interace to the underlying data, which is currently missing.
@@ -44,19 +44,20 @@ class RsyslogConf < Inspec.resource(1)
     @path = rsyslog_path || DEFAULT_UNIX_PATH
     content = read_file_content(@path)
     return skip_resource 'The `rsyslog_conf` resource is not supported on Windows.' if inspec.os.windows?
-    parse_rsyslog(content)
+    @selectors = parse_rsyslog(content)
   end
   
   # Matcher to test if there is any selectors that go to a remote system.
   def sending_to_remote_server(opts = {})
-    !@selectors[:remote_selectors].empty?
-    @selectors.include?({facility: facility, priority: priority, server: server, port: port}) if opts != {}
+    !@selectors.detect {|x| x[:selector_type] == 'remote'}.nil?
+    #@selectors.include?({facility: facility, priority: priority, server: server, port: port}) if opts != {}
   end
+  alias sending_to_remote_server? sending_to_remote_server
   
   private
   
   def parse_rsyslog(content)
-    @selectors = RsyslogConfig.parse(content)
+    RsyslogConfig.parse(content)
   rescue StandardError => _
     raise "Cannot parse Rsyslog config in #{@path}."
   end

@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-require 'utils/parser'
-require 'utils/file_reader'
-require 'utils/syslog_ng_parser'
+require 'parser'
+require 'file_reader'
+require 'syslog_ng_parser'
 
 class SyslogNGConf < Inspec.resource(1)
   name 'syslog_ng_conf'

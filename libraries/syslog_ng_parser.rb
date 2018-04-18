@@ -5,7 +5,7 @@ require 'parslet'
 
 class SyslogNGParser < Parslet::Parser
   root :beginning
-  # only designed for rabbitmq config files for now:
+  
   rule(:beginning) { str('@') >> (match["\n\r"].absent? >> any).repeat >> outermost}
   rule(:outermost) { filler? >> section.repeat }
 
@@ -15,21 +15,23 @@ class SyslogNGParser < Parslet::Parser
   rule(:comment) { str('#') >> (match["\n\r"].absent? >> any).repeat }
 
   rule(:parameter) {
-    (identifier >>  str(')').maybe >> options.as(:args)).as(:parameter) >> str(');') >> filler?
+    (identifier >>  str('(').maybe >> 
+     options.as(:args)).as(:parameter) >> str(')') >> 
+     space.repeat >> str(';') >> filler?
   }
 
   rule(:identifier) {
-    ((match['\s{('].absent? >> match['\S']).repeat).as(:identifier) >> space.repeat
+    ((match['\s{(}'].absent? >> match['\S']).repeat).as(:identifier) >> filler?
   }
   
   rule(:option) {
-    ((match['\s'].absent? >> str(');').absent? >> any) >> (
-      match['\s'].absent? >> str(');').absent? >> any
-    ).repeat).as(:option) >> space.repeat
+    ((match['\s'].absent? >> str(');').absent? >> str(') ;').absent? >> str('};').absent? >> match['\S']) >> (
+      match['\s'].absent? >> str(');').absent? >> str(') ;').absent? >> str('};').absent? >> match['\S']
+    ).repeat).as(:option) >> filler?
   }
 
   rule(:options) {
-    option.repeat >> space.repeat
+    option.repeat >> filler?
   }
 
   rule(:section) {
@@ -50,7 +52,6 @@ end
 class SyslogNGConfig
   def self.parse(content)
     lex = SyslogNGParser.new.parse(content)
-    puts lex
     tree = SyslogNGTransform.new.apply(lex)
   rescue Parslet::ParseFailed => err
     puts err.parse_failure_cause.ascii_tree
