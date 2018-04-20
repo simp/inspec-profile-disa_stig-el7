@@ -63,7 +63,7 @@ Add the following line to the created file:
 install usb-storage /bin/true"
 
   # TODO ALWAYS check your resources
-  describe kernel_module('usb-storage') do
+  describe kernel_module('usb_storage') do
     it { should be_blacklisted }
   end
 end
