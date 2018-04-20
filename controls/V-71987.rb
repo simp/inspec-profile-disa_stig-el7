@@ -53,7 +53,7 @@ file:
 
 clean_requirements_on_remove=1"
 
-    describe parse_config_file("/etc/yum.conf") do
-      its('clean_requirements_on_remove') { should match %r{1|True|yes}i }
-    end
+  describe parse_config_file("/etc/yum.conf") do
+    its('main.clean_requirements_on_remove') { should match %r{1|True|yes}i }
+  end
 end
