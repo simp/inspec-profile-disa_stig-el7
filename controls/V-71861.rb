@@ -172,11 +172,11 @@ and work product are private and confidential. See User Agreement for details.â€
     command("grep -l banner-message-text /etc/dconf/db/local.d/*").stdout.split("\n") 
   
   #If there are no banner files then this is a finding.
-  BANNER_MISSING = banner_files.empty?
+  banner_missing = banner_files.empty?
   describe "If no files specify the banner text then this is a finding" do
-    subject { BANNER_MISSING }
+    subject { banner_missing }
     it{should be false}
-  end if BANNER_MISSING
+  end if banner_missing
 
   #If there are banner files then check them to make sure they have the correct text.
   banner_files.each do |banner_file|

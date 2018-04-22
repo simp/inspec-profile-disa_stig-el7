@@ -169,25 +169,25 @@ communications, or work product, related to personal representation or services 
 attorneys, psychotherapists, or clergy, and their assistants. Such communications
 and work product are private and confidential. See User Agreement for details.\""
 
-  CLEAN_BANNER = BANNER_MESSAGE_TEXT_CLI.gsub(%r{[\r\n\s]}, '')
-  CLEAN_BANNER_LIMITED = BANNER_MESSAGE_TEXT_CLI_LIMITED.gsub(%r{[\r\n\s]}, '')
+  clean_banner = BANNER_MESSAGE_TEXT_CLI.gsub(%r{[\r\n\s]}, '')
+  clean_banner_limited = BANNER_MESSAGE_TEXT_CLI_LIMITED.gsub(%r{[\r\n\s]}, '')
   banner_file = file("/etc/issue")
-  BANNER_MISSING = !banner_file.exist?
+  banner_missing = !banner_file.exist?
    
   describe "The banner text is not set because /etc/issue does not exist" do
-    subject { BANNER_MISSING }
+    subject { banner_missing }
     it { should be false }
-  end if BANNER_MISSING
+  end if banner_missing
 
   banner_message = banner_file.content.gsub(%r{[\r\n\s]}, '')
   describe.one do
     describe "The banner text should match the standard banner" do
       subject { banner_message }
-      it { should cmp CLEAN_BANNER }
+      it { should cmp clean_banner }
     end 
     describe "The banner text should match the limited banner" do
       subject { banner_message }
-      it{should cmp CLEAN_BANNER_LIMITED }
+      it{should cmp clean_banner_limited }
     end
-  end if !BANNER_MISSING
+  end if !banner_missing
 end
