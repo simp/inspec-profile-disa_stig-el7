@@ -218,19 +218,18 @@ The SSH service must be restarted for changes to take effect."
     #Banner property provides a path to a file and it exists.
     describe.one do
       banner = file(banner_file).content.gsub(%r{[\r\n\s]}, '')
-      CLEAN_BANNER = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
-      CLEAN_BANNER_LIMITED = BANNER_MESSAGE_TEXT_RAL_LIMITED.gsub(%r{[\r\n\s]}, '')
+      clean_banner = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
+      clean_banner_limited = BANNER_MESSAGE_TEXT_RAL_LIMITED.gsub(%r{[\r\n\s]}, '')
       
       describe "The SSHD Banner is set to the standard banner and has the correct text" do
         subject { banner } 
-        it { should cmp CLEAN_BANNER }
+        it { should cmp clean_banner }
       end
 
       describe "The SSHD Banner is set to the standard limited banner and has the correct text" do
         subject { banner }
-        it { should cmp CLEAN_BANNER_LIMITED }
+        it { should cmp clean_banner_limited }
       end
     end if !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
   end
 end
-
