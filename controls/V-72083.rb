@@ -63,7 +63,8 @@ Set the remote server option in \"/etc/audisp/audisp-remote.conf\" with the IP
 address of the log aggregation server."
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('remote_server') { should match %r{^\S+$/} }
+    its('remote_server') { should match %r{^\S+$} }
+    its('remote_server') { should_not match %r{localhost|127.0.0.1} }
   end if file('/etc/audisp/audisp-remote.conf').exist?
 
   describe rsyslog_conf('/etc/rsyslog.conf') do
