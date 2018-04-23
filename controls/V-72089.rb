@@ -90,7 +90,7 @@ percent of the partition size."
     before(:all) do
       @audit_log_dir = File.dirname(auditd_conf.log_file)
 
-      if File.directory?(@audit_log_dir)
+      if file(@audit_log_dir).directory?
         partition_info = command("df -h #{@audit_log_dir}").stdout.split("\n")
 
         partition_sz_arr = partition_info.last.gsub(/\s+/m, ' ').strip.split(" ")
@@ -104,9 +104,9 @@ percent of the partition size."
     end
 
     it 'should have an audit log directory' do
-      expect(File.directory?(@audit_log_dir)).to be true
+      expect(file(@audit_log_dir).directory?).to be true
     end
 
-    its('space_left.to_i') { should cmp(@exp_space_left) }
+    its('space_left.to_i') { should be >= @exp_space_left }
   end
 end
