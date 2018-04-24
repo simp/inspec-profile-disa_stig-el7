@@ -35,6 +35,7 @@ password that is not changed per policy requirements."
   tag "stig_id": "RHEL-07-010270"
   tag "cci": "CCI-000200"
   tag "nist": ["IA-5 (1) (e)", "Rev_4"]
+  tag "subsystems": ['pam', 'password']
   tag "check": "Verify the operating system prohibits password reuse for a minimum
 of five generations.
 
@@ -57,7 +58,7 @@ password sufficient pam_unix.so use_authtok sha512 shadow remember=5
 
 and run the \"authconfig\" command."
 
-  describe file("/etc/pam.d/system-auth-ac") do
-    its('content') { should match /^password\s+sufficient\s+pam_unix.so .*remember=(\d\d+|[5-9]).*\n?$/ }
+  describe pam("/etc/pam.d/system-auth") do
+    its('lines') { should match_pam_rule('password sufficient pam_unix.so').with_args(/remember=(\d{2,}|[5-9])/) }
   end
 end
