@@ -7,7 +7,7 @@
 
 #Controls that are known to consistently have long run times can be
 #disabled using the DISABLE_SLOW_CONTROLS attribute.
-disable_slow_controls: true
+disable_slow_controls: false
 
 # V-72081 - 'monitor_kernel_log', (bool)
 #'Set this to false if your system availability concern is not documented or
