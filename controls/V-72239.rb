@@ -34,29 +34,26 @@ misconfiguration elsewhere."
   tag "stig_id": "RHEL-07-040330"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the SSH daemon does not allow authentication using RSA rhosts
-authentication.
+  tag "check": "Verify the SSH daemon does not allow authentication using RSA rhosts authentication. 
 
-To determine how the SSH daemon's \"RhostsRSAAuthentication\" option is set, run the
-following command:
+To determine how the SSH daemon's \"RhostsRSAAuthentication\" option is set, run the following
+ command: 
 
-# grep RhostsRSAAuthentication /etc/ssh/sshd_config
+# grep RhostsRSAAuthentication /etc/ssh/sshd_config 
+RhostsRSAAuthentication no 
 
-RhostsRSAAuthentication yes
+If the value is returned as \"yes\", the returned line is commented out, or no output is returned, this
+ is a finding."
 
-If the value is returned as \"no\", the returned line is commented out, or no output
-is returned, this is a finding."
-  tag "fix": "Configure the SSH daemon to not allow authentication using RSA rhosts
-authentication.
+  tag "fix": "Configure the SSH daemon to not allow authentication using RSA rhosts authentication. 
 
-Add the following line in \"/etc/ssh/sshd_config\", or uncomment the line and set
-the value to \"yes\":
+Add the following line in \"/etc/ssh/sshd_config\", or uncomment the line and set the value to \"no\": 
 
-RhostsRSAAuthentication yes
+RhostsRSAAuthentication no 
 
 The SSH service must be restarted for changes to take effect."
 
   describe sshd_config do
-    its('RhostsRSAAuthentication') { should cmp 'yes' }
+    its('RhostsRSAAuthentication') { should cmp 'no' }
   end
 end
