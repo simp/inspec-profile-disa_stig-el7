@@ -14,7 +14,7 @@ addons:
 jobs:
   fast_finish: true
   allow_failures:
-    - stage: system_test
+    - stage: spec_test
 
   include:
     - stage: syntax
@@ -37,8 +37,7 @@ jobs:
       script:
         # This currently doesn't work due to a bug in inspec that fails on
         # skipped checks
-        #- bundle exec rake profile:check
-        - /bin/true
+        - bundle exec rake profile:check
 
     - stage: system_test
       sudo: required
