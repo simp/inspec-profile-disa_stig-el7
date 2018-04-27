@@ -82,7 +82,7 @@ and run the \"authconfig\" command."
     ]
 
     its('lines') {
-      should match_pam_rules(required_rules).exactly.or
+      should match_pam_rules(required_rules).exactly.or \
              match_pam_rules(alternate_rules).exactly
     }
   end

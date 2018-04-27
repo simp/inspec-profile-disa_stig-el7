@@ -51,7 +51,10 @@ class Pam < Inspec.resource(1)
   class PamError < StandardError; end
 
   def initialize(path = '/etc/pam.d')
+    # To know what we were actually derived from
     @path          = path
+
+    # Easy access helpers
     @services      = {}
     @types         = {}
     @modules       = {}
@@ -69,6 +72,11 @@ class Pam < Inspec.resource(1)
     parse_content(config_target)
   end
 
+  # Process a PAM configuration file
+  #
+  # @param [String] path The path to the file or directory to process
+  # @param [String] service_name The PAM Service under which the content falls.
+  #   Mainly used for recursive processing
   def parse_content(path, service_name = nil)
     config_files = Array(path)
 
@@ -79,6 +87,7 @@ class Pam < Inspec.resource(1)
     config_files.each do |config_file|
       next unless config_file.content
 
+      # Support multi-line continuance and skip all comments and blank lines
       rules = config_file.content.gsub("\\\n",' ').lines.map(&:strip).delete_if do |line|
         line  =~ /^(\s*#.*|\s*)$/
       end
@@ -91,7 +100,13 @@ class Pam < Inspec.resource(1)
       rules.each do |rule|
         new_rule = Pam::Rule.new(rule, {:service_name => service})
 
-         if ['include','substack'].include?(new_rule.control)
+        # If we hit an 'include' or 'substack' statement, we need to derail and
+        # delve down that tail until we hit the end
+        #
+        # There's no recursion checking here but, if you have a recursive PAM
+        # stack, you're probably not logging into your system anyway
+        if ['include','substack'].include?(new_rule.control)
+          # Support full path specification includes
           if new_rule.module_path[0].chr == '/'
             subtarget = inspec.file(new_rule.module_path)
           else
@@ -142,6 +157,10 @@ class Pam < Inspec.resource(1)
     @modules[module_name]
   end
 
+  # The list of rules with a bunch of helpers for matching in the future
+  #
+  # We do fuzzy matching across the board when checking for internal rule
+  # matches
   class Rules < Array
     def initialize(config_target)
       @config_target = config_target
@@ -194,6 +213,17 @@ class Pam < Inspec.resource(1)
       end
     end
 
+    # Determines if one or more rules are contained in the rule set
+    #
+    # @param [Array[String] rules The Rules to find
+    # @param [Hash] opts Options for the include processor
+    # @option opts [Boolean] :exact
+    #   If set, no rules may be present between the rules provided in `rules`
+    #   If unset, the rules simply need to be in the correct order, other rules
+    #   may appear between them
+    # @option opts [String] :service_name The PAM Service under which the rules
+    #   should be searched
+    # @return [Boolean] true if found, false otherwise
     def include?(rules, opts={:exact => false, :service_name => nil})
       raise PamError, 'opts must be a hash' unless opts.is_a?(Hash)
 
@@ -222,21 +252,34 @@ class Pam < Inspec.resource(1)
     end
     alias_method :match, :include?
 
+    # An alias for setting `:exact => true` in the `include` method
     def include_exactly?(rules, opts={})
       include?(rules, opts.merge({:exact => true}))
     end
     alias_method :match_exactly, :include_exactly?
 
+    # Convert the data structure to an Array suitable for an RSpec diff
+    #
+    # @return [Array[String]]
     def to_a
       self.sort_by{|l| l.type}.map{|l| l.to_s}
     end
 
+    # Convert the data structure to a String
+    #
+    # @return [String]
     def to_s
       to_a.join("\n")
     end
 
     private
 
+    # Get the service name out of the configuration target
+    #
+    # @param [String] svc_name Optional name of the service that should be
+    #    returned
+    #
+    # @return String
     def get_service_name(svc_name = nil)
       return svc_name if svc_name
 
@@ -248,7 +291,11 @@ class Pam < Inspec.resource(1)
     end
   end
 
-  class Rule 
+  # A single Rule object that has been processed
+  #
+  # Rule equality is a fuzzy match that can accept regular expression matches
+  # within the string to compare
+  class Rule
     attr_reader :to_s
     attr_reader :service, :silent, :type, :control, :module_path, :module_arguments
 
@@ -301,13 +348,16 @@ class Pam < Inspec.resource(1)
     def ==(to_cmp)
       to_cmp = Pam::Line.new(to_cmp) if to_cmp.is_a?(String)
 
+      # The simple match first
       self.class == to_cmp.class &&
         @service.match(Regexp.new("^#{to_cmp.service}$")) &&
         @type.match(Regexp.new("^#{to_cmp.type}$")) &&
         @control.match(Regexp.new("^#{to_cmp.control.gsub(/(\[|\])/, '\\\\\\1')}$")) &&
         @module_path.match(Regexp.new("^#{to_cmp.module_path}$")) &&
         (
+          # Fast match if everything is identical
           (to_cmp.module_arguments - @module_arguments).empty? ||
+            # Regex match if there are differences
             to_cmp.module_arguments.find do |arg|
               !@module_arguments.grep(Regexp.new("^#{arg}$")).empty?
             end
