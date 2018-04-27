@@ -59,6 +59,6 @@ password sufficient pam_unix.so use_authtok sha512 shadow remember=5
 and run the \"authconfig\" command."
 
   describe pam("/etc/pam.d/system-auth") do
-    its('lines') { should match_pam_rule('password sufficient pam_unix.so').with_args(/remember=(\d{2,}|[5-9])/) }
+    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').with_args(/remember=(\d{2,}|[5-9])/) }
   end
 end

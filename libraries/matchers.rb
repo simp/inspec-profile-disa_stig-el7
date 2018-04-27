@@ -2,7 +2,12 @@
 
 RSpec::Matchers.define :match_pam_rule do |expected|
   match do |actual|
-    retval = false
+    if @negate_args_match
+      retval = true
+    else
+      retval = false
+    end
+
     actual_munge = {}
 
     @expected = expected.to_s
@@ -10,7 +15,7 @@ RSpec::Matchers.define :match_pam_rule do |expected|
     if @args
       catch :stop_searching do
         actual.services.each do |service|
-          expected_line = Pam::Line.new(expected, {:service_name => service})
+          expected_line = Pam::Rule.new(expected, {:service_name => service})
 
           potentials = actual.find_all do |line|
             !line.module_arguments.empty? && (line == expected_line)
@@ -23,12 +28,12 @@ RSpec::Matchers.define :match_pam_rule do |expected|
             potentials.each do |potential|
               Array(@args).each do |args|
                 if @negate_args_match
-                  throw :stop_searching if !potential.module_arguments.join(' ').match(args).nil?
+                  retval = !potential.module_arguments.join(' ').match(args)
+                  throw :stop_searching unless retval
                 else
                   retval = !potential.module_arguments.join(' ').match(args).nil?
+                  throw :stop_searching if retval
                 end
-
-                throw :stop_searching if retval
               end
             end
           end

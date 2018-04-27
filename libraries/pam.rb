@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 class Pam < Inspec.resource(1)
-  attr_reader :lines
+  # These are aliases for one another
+  attr_reader :rules, :lines
 
   # These are here for useful interfaces into the module stack based on
   # common searches
@@ -16,34 +17,34 @@ class Pam < Inspec.resource(1)
     # Query for a match:
 
     describe pam('/etc/pam.d/system-auth') do
-      its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512' }
+      its('rules') { should match_pam_rule('password sufficient pam_unix.so sha512' }
     end
 
     # Query everything for a match without specific arguments
     # You can use a Ruby regexp match for everything except arguments
 
     describe pam('/etc/pam.d') do
-      its('lines') { should match_pam_rule('.* .* pam_unix.so').without_args('nullok' }
+      its('rules') { should match_pam_rule('.* .* pam_unix.so').without_args('nullok' }
     end
 
     # Query for multiple lines
 
     describe pam('/etc/pam.d/password-auth') do
-      required_lines = [
+      required_rules = [
         'auth required pam_faillock.so',
         'auth sufficient pam_unix.so try_first_pass'
       ]
-      its('lines') { should match_pam_ruiles(required_lines) }
+      its('rules') { should match_pam_ruiles(required_rules) }
     end
 
-    # Query for multiple lines without any lines in between them
+    # Query for multiple rules without any rules in between them
 
     describe pam('/etc/pam.d/password-auth') do
-      required_lines = [
+      required_rules = [
         'auth required pam_faillock.so',
         'auth sufficient pam_unix.so try_first_pass'
       ]
-      its('lines') { should match_pam_ruiles(required_lines).exactly }
+      its('rules') { should match_pam_ruiles(required_rules).exactly }
     end
   "
 
@@ -57,7 +58,8 @@ class Pam < Inspec.resource(1)
 
     config_target = inspec.file(path)
 
-    @lines         = Pam::Lines.new(config_target)
+    @rules         = Pam::Rules.new(config_target)
+    @lines         = @rules
 
     @top_config = false
     if path.strip == '/etc/pam.conf'
@@ -77,29 +79,32 @@ class Pam < Inspec.resource(1)
     config_files.each do |config_file|
       next unless config_file.content
 
-      lines = config_file.content.lines.map(&:strip).delete_if{|x| x =~ /^(\s*#.*|\s*)$/}
+      rules = config_file.content.gsub("\\\n",' ').lines.map(&:strip).delete_if do |line|
+        line  =~ /^(\s*#.*|\s*)$/
+      end
+
       service = nil
       unless @top_config
         service = config_file.basename
       end
 
-      lines.each do |line|
-        new_line = Pam::Line.new(line, {:service_name => service})
+      rules.each do |rule|
+        new_rule = Pam::Rule.new(rule, {:service_name => service})
 
-        unless new_line.type && new_line.control && new_line.module_path
+        unless new_rule.type && new_rule.control && new_rule.module_path
           raise PamError, "Invalid PAM config found at #{config_file}"
         end
 
-        @services[new_line.service] ||= []
-        @services[new_line.service] << new_line
+        @services[new_rule.service] ||= []
+        @services[new_rule.service] << new_rule
 
-        @types[new_line.type] ||= []
-        @types[new_line.type] << new_line
+        @types[new_rule.type] ||= []
+        @types[new_rule.type] << new_rule
 
-        @modules[new_line.module_path] ||= []
-        @modules[new_line.module_path] << new_line
+        @modules[new_rule.module_path] ||= []
+        @modules[new_rule.module_path] << new_rule
 
-        @lines.push(new_line)
+        @rules.push(new_rule)
       end
     end
   end
@@ -120,7 +125,7 @@ class Pam < Inspec.resource(1)
     @modules[module_name]
   end
 
-  class Lines < Array
+  class Rules < Array
     def initialize(config_target)
       @config_target = config_target
     end
@@ -138,46 +143,46 @@ class Pam < Inspec.resource(1)
       svcs.first
     end
 
-    def first?(line, opts={:service_name => nil})
+    def first?(rule, opts={:service_name => nil})
       raise PamError, 'opts must be a hash' unless opts.is_a?(Hash)
 
       service_name = get_service_name(opts[:service_name])
 
-      _line = Pam::Line.new(line, {:service_name => service_name})
+      _rule = Pam::Rule.new(rule, {:service_name => service_name})
 
-      lines_of_type(_line.type, opts).first == _line
+      rules_of_type(_rule.type, opts).first == _rule
     end
 
-    def last?(line, opts={:service_name => nil})
+    def last?(rule, opts={:service_name => nil})
       raise PamError, 'opts must be a hash' unless opts.is_a?(Hash)
 
       service_name = get_service_name(opts[:service_name])
 
-      _line = Pam::Line.new(line, {:service_name => service_name})
+      _rule = Pam::Rule.new(rule, {:service_name => service_name})
 
-      lines_of_type(_line.type, opts).last == _line
+      rules_of_type(_rule.type, opts).last == _rule
     end
 
-    def lines_of_type(line_type, opts={:service_name => nil})
+    def rules_of_type(rule_type, opts={:service_name => nil})
       raise PamError, 'opts must be a hash' unless opts.is_a?(Hash)
 
       service_name = get_service_name(opts[:service_name])
 
       if @services[service_name]
         @services[service_name].find_all do |l|
-          l.type == line_type
+          l.type == rule_type
         end
       else
         []
       end
     end
 
-    def include?(lines, opts={:exact => false, :service_name => nil})
+    def include?(rules, opts={:exact => false, :service_name => nil})
       raise PamError, 'opts must be a hash' unless opts.is_a?(Hash)
 
       service_name = get_service_name(opts[:service_name])
 
-      lines = Array(lines).map{|l| Pam::Line.new(l, {:service_name => service_name})}
+      rules = Array(rules).map{|l| Pam::Rule.new(l, {:service_name => service_name})}
 
       retval = false
 
@@ -185,23 +190,23 @@ class Pam < Inspec.resource(1)
         # This requires everything between the first and last rule to match
         # exactly
 
-        first_entry = index(lines.first)
-        last_entry = index(lines.last)
+        first_entry = index(rules.first)
+        last_entry = index(rules.last)
 
         if first_entry && last_entry
-          retval = (self[first_entry..last_entry] == lines)
+          retval = (self[first_entry..last_entry] == rules)
         end
       else
         # This match allows other rules between the two in question
-        retval = (lines.select{|l| super(l)} == lines)
+        retval = (rules.select{|l| super(l)} == rules)
       end
 
       return retval
     end
     alias_method :match, :include?
 
-    def include_exactly?(lines, opts={})
-      include?(lines, opts.merge({:exact => true}))
+    def include_exactly?(rules, opts={})
+      include?(rules, opts.merge({:exact => true}))
     end
     alias_method :match_exactly, :include_exactly?
 
@@ -226,15 +231,15 @@ class Pam < Inspec.resource(1)
     end
   end
 
-  class Line
+  class Rule 
     attr_reader :to_s
     attr_reader :service, :silent, :type, :control, :module_path, :module_arguments
 
-    def initialize(line, opts = {})
-      @to_s = line.strip.gsub(/\s+/,' ')
+    def initialize(rule, opts = {})
+      @to_s = rule.strip.gsub(/\s+/,' ')
 
-      line_regex = <<-'EOM'
-        # Start of Line
+      rule_regex = <<-'EOM'
+        # Start of Rule
           ^
         # Ignore initial Whitespace
           \s*
@@ -243,13 +248,13 @@ class Pam < Inspec.resource(1)
       EOM
 
       unless opts[:service_name]
-        line_regex += <<-'EOM'
+        rule_regex += <<-'EOM'
           # Capture Service
             (?<service_name>.+?)\s+
         EOM
       end
 
-      line_regex += <<-'EOM'
+      rule_regex += <<-'EOM'
         # Capture Type
           (?<type>.+?)\s+
         # Capture Control
@@ -258,14 +263,14 @@ class Pam < Inspec.resource(1)
           (?<module_path>.+?(\.so)?)
         # Capture Module Args
           (\s+(?<module_args>.+?))?
-        # End of Line
+        # End of Rule
           $
       EOM
 
-      match_data = line.match(Regexp.new(line_regex, Regexp::EXTENDED))
+      match_data = rule.match(Regexp.new(rule_regex, Regexp::EXTENDED))
 
       unless match_data
-        raise PamError, "Invalid PAM configuraiton line: '#{line}'"
+        raise PamError, "Invalid PAM configuraiton rule: '#{rule}'"
       end
 
       @service          = opts[:service_name] ? opts[:service_name] : match_data[:service_name]
