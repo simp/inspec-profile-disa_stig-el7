@@ -69,12 +69,21 @@ fail_interval=900 unlock_time=604800
 and run the \"authconfig\" command."
 
   describe pam('/etc/pam.d/password-auth') do
-    required_lines = [
-      'auth required pam_faillock.so unlock_time=604800',
+    required_rules = [
+      'auth required pam_faillock.so unlock_time=(604800|0|never)',
       'auth sufficient pam_unix.so try_first_pass',
-      'auth [default=die] pam_faillock.so unlock_time=604800'
+      'auth [default=die] pam_faillock.so unlock_time=(604800|0|never)'
+    ]
+    alternate_rules = [
+      'auth required pam_faillock.so unlock_time=(604800|0|never)',
+      'auth sufficient pam_sss.so forward_pass',
+      'auth sufficient pam_unix.so try_first_pass',
+      'auth [default=die] pam_faillock.so unlock_time=(604800|0|never)'
     ]
 
-    its('lines') { should match_pam_rules(required_lines).exactly }
+    its('lines') {
+      should match_pam_rules(required_rules).exactly.or
+             match_pam_rules(alternate_rules).exactly
+    }
   end
 end

@@ -62,11 +62,16 @@ PrintLastLog yes
 
 The SSH service must be restarted for changes to \"sshd_config\" to take effect."
 
-  describe sshd_config do
-    its('PrintLastLog') { should cmp 'yes' }
-  end
+  ssh_conf = sshd_config
 
-  describe pam('/etc/pam.d/sshd') do
-    its('lines') { should match_pam_rule('session required pam_lastlog.so showfailed') }
+  
+  if ssh_conf.params['printlastlog'] == 'yes'
+    describe sshd_config do
+      its('PrintLastLog') { should cmp 'yes' }
+    end
+  else
+    describe pam('/etc/pam.d/sshd') do
+      its('lines') { should match_pam_rule('session required pam_lastlog.so showfailed') }
+    end
   end
 end

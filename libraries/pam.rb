@@ -69,7 +69,7 @@ class Pam < Inspec.resource(1)
     parse_content(config_target)
   end
 
-  def parse_content(path)
+  def parse_content(path, service_name = nil)
     config_files = Array(path)
 
     if path.directory?
@@ -83,28 +83,45 @@ class Pam < Inspec.resource(1)
         line  =~ /^(\s*#.*|\s*)$/
       end
 
-      service = nil
-      unless @top_config
+      service = service_name
+      unless service || @top_config
         service = config_file.basename
       end
 
       rules.each do |rule|
         new_rule = Pam::Rule.new(rule, {:service_name => service})
 
-        unless new_rule.type && new_rule.control && new_rule.module_path
-          raise PamError, "Invalid PAM config found at #{config_file}"
+         if ['include','substack'].include?(new_rule.control)
+          if new_rule.module_path[0].chr == '/'
+            subtarget = inspec.file(new_rule.module_path)
+          else
+            if File.directory?(path.path)
+              subtarget = inspec.file(File.join(path.path, new_rule.module_path))
+            else
+              subtarget = inspec.file(File.join(File.dirname(path.path), new_rule.module_path))
+            end
+          end
+
+          if subtarget.exist?
+            parse_content(subtarget, service)
+          end
+        else
+
+          unless new_rule.type && new_rule.control && new_rule.module_path
+            raise PamError, "Invalid PAM config found at #{config_file}"
+          end
+
+          @services[new_rule.service] ||= []
+          @services[new_rule.service] << new_rule
+
+          @types[new_rule.type] ||= []
+          @types[new_rule.type] << new_rule
+
+          @modules[new_rule.module_path] ||= []
+          @modules[new_rule.module_path] << new_rule
+
+          @rules.push(new_rule)
         end
-
-        @services[new_rule.service] ||= []
-        @services[new_rule.service] << new_rule
-
-        @types[new_rule.type] ||= []
-        @types[new_rule.type] << new_rule
-
-        @modules[new_rule.module_path] ||= []
-        @modules[new_rule.module_path] << new_rule
-
-        @rules.push(new_rule)
       end
     end
   end
@@ -211,7 +228,7 @@ class Pam < Inspec.resource(1)
     alias_method :match_exactly, :include_exactly?
 
     def to_a
-      self.map{|l| l.to_s}
+      self.sort_by{|l| l.type}.map{|l| l.to_s}
     end
 
     def to_s
@@ -289,7 +306,12 @@ class Pam < Inspec.resource(1)
         @type.match(Regexp.new("^#{to_cmp.type}$")) &&
         @control.match(Regexp.new("^#{to_cmp.control.gsub(/(\[|\])/, '\\\\\\1')}$")) &&
         @module_path.match(Regexp.new("^#{to_cmp.module_path}$")) &&
-        (to_cmp.module_arguments - @module_arguments).empty?
+        (
+          (to_cmp.module_arguments - @module_arguments).empty? ||
+            to_cmp.module_arguments.find do |arg|
+              !@module_arguments.grep(Regexp.new("^#{arg}$")).empty?
+            end
+        )
     end
     alias_method :eql?, :==
   end

@@ -58,6 +58,6 @@ password    required    pam_pwquality.so retry=3"
 
   # @todo - pam resource
   describe pam('/etc/pam.d/passwd') do
-    its('lines') { should match_pam_rule('password required pam_pwquality.so')}
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so')}
   end
 end
