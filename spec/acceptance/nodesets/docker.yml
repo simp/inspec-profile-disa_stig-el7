@@ -6,7 +6,6 @@ HOSTS:
     hypervisor: docker
     image: centos:7
     docker_cmd: '/usr/sbin/init'
-    docker_preserve_image: true
     docker_image_commands:
       # Puppet Deps
       - 'yum install -y ntpdate rubygems rsync openssl'
