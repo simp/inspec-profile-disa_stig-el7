@@ -1,5 +1,12 @@
 # encoding: utf-8
 #
+
+rhel7_fs_opts = attribute(
+  'rhel7_fs_opts',
+  default: ['xfs', 'ext4', 'swap', 'tmpfs'],
+  description: "File systems found in RHEL7 that don't correspond to removable media"
+)
+
 control "V-72043" do
   title "File systems that are used with removable media must be mounted to
 prevent files with the setuid and setgid bit set from being executed."

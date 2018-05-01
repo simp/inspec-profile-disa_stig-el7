@@ -1,5 +1,10 @@
 # encoding: utf-8
 #
+
+DIFOK = attribute('difok', default: '8', description: 'The acceptable range of
+values for difok which specifies the maximum number of characters that must
+change when a password is changed.')
+
 control "V-71911" do
   title "When passwords are changed a minimum of eight of the total number of
 characters must be changed."

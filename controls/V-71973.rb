@@ -1,5 +1,11 @@
 # encoding: utf-8
 #
+
+FILE_INTEGRITY_TOOL = attribute('file_integrity_tool', default: 'aide',
+description: 'Tool used to determine file integrity')
+FILE_INTEGRITY_INTERVAL = attribute('file_integrity_interval', default: 'weekly',
+description: 'Interval for running the file integrity tool.')
+
 control "V-71973" do
   title "A file integrity tool must verify the baseline operating system
 configuration at least weekly."
