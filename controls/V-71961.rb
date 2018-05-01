@@ -1,24 +1,5 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
 
 GRUB_SUPERUSERS = attribute(
   'grub_superusers',
@@ -37,54 +18,62 @@ GRUB_MAIN_CFG = attribute(
 )
 
 control "V-71961" do
-  title "Systems with a Basic Input/Output System (BIOS) must require authentication
-upon booting into single-user and maintenance modes."
-  desc  "If the system does not require valid root authentication before it boots
-into single-user or maintenance mode, anyone who invokes single-user or maintenance
-mode is granted privileged access to all files on the system. GRUB 2 is the default
-boot loader for RHEL 7 and is designed to require a password to boot into
-single-user mode or make modifications to the boot menu."
+  title "Systems with a Basic Input/Output System (BIOS) must require
+authentication upon booting into single-user and maintenance modes."
+  desc  "If the system does not require valid root authentication before it
+boots into single-user or maintenance mode, anyone who invokes single-user or
+maintenance mode is granted privileged access to all files on the system. GRUB
+2 is the default boot loader for RHEL 7 and is designed to require a password
+to boot into single-user mode or make modifications to the boot menu."
   impact 0.7
-
   tag "gtitle": "SRG-OS-000080-GPOS-00048"
   tag "gid": "V-71961"
-  tag "rid": "SV-86585r1_rule"
+  tag "rid": "SV-86585r4_rule"
   tag "stig_id": "RHEL-07-010480"
-  tag "cci": "CCI-000213"
+  tag "cci": ["CCI-000213"]
+  tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
-  tag "check": "Check to see if an encrypted root password is set. On systems that
-use a BIOS, use the following command:
+  tag "check": "For systems that use UEFI, this is Not Applicable.
 
-# grep -i password /boot/grub2/grub.cfg
-password_pbkdf2 superusers-account password-hash
+Check to see if an encrypted root password is set. On systems that use a BIOS,
+use the following command:
+
+# grep -i ^password_pbkdf2 /boot/grub2/grub.cfg
+
+password_pbkdf2 [superusers-account] [password-hash]
 
 If the root password entry does not begin with \"password_pbkdf2\", this is a
-finding."
+finding.
+
+If the \"superusers-account\" is not set to \"root\", this is a finding."
   tag "fix": "Configure the system to encrypt the boot password for root.
 
 Generate an encrypted grub2 password for root with the following command:
 
 Note: The hash generated is an example.
 
-# grub-mkpasswd-pbkdf2
+# grub2-mkpasswd-pbkdf2
+
 Enter Password:
 Reenter Password:
 PBKDF2 hash of your password is
 grub.pbkdf2.sha512.10000.F3A7CFAA5A51EED123BE8238C23B25B2A6909AFC9812F0D45
 
-Using this hash, modify the \"/etc/grub.d/10_linux\" file with the following
-commands to add the password to the root entry:
+Edit \"/etc/grub.d/40_custom\" and add the following lines below the comments:
 
-# cat << EOF
-> set superusers=\"root\" password_pbkdf2 smithj
-grub.pbkdf2.sha512.10000.F3A7CFAA5A51EED123BE8238C23B25B2A6909AFC9812F0D45
-> EOF
+# vi /etc/grub.d/40_custom
 
-Generate a new \"grub.conf\" file with the new password with the following commands:
+set superusers=\"root\"
+
+password_pbkdf2 root {hash from grub2-mkpasswd-pbkdf2 command}
+
+Generate a new \"grub.conf\" file with the new password with the following
+commands:
 
 # grub2-mkconfig --output=/tmp/grub2.cfg
-# mv /tmp/grub2.cfg /boot/grub2/grub.cfg"
-
+# mv /tmp/grub2.cfg /boot/grub2/grub.cfg
+"
+  tag "fix_id": "F-78313r2_fix"
   describe file(GRUB_MAIN_CFG) do
     its('content') { should match %r{^password_pbkdf2\s+root } }
   end
