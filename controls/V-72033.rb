@@ -1,24 +1,5 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
 
 EXEMPT_HOME_USERS = attribute(
   'exempt_home_users',
@@ -38,15 +19,15 @@ control "V-72033" do
 environment upon logon. Malicious modification of these files could compromise
 accounts upon logon."
   impact 0.5
-
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72033"
   tag "rid": "SV-86657r1_rule"
   tag "stig_id": "RHEL-07-020710"
-  tag "cci": "CCI-000366"
+  tag "cci": ["CCI-000366"]
+  tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify that all local initialization files have a mode of \"0740\"
-or less permissive.
+  tag "check": "Verify that all local initialization files have a mode of
+\"0740\" or less permissive.
 
 Check the mode on all local initialization files with the following command:
 
@@ -58,15 +39,16 @@ Note: The example will be for the smithj user, who has a home directory of
 -rwxr-xr-x  1 smithj users        497 Jan  6  2007 .login
 -rwxr-xr-x  1 smithj users        886 Jan  6  2007 .something
 
-If any local initialization files have a mode more permissive than \"0740\", this is
-a finding."
-  tag "fix": "Set the mode of the local initialization files to \"0740\" with the
-following command:
+If any local initialization files have a mode more permissive than \"0740\",
+this is a finding."
+  tag "fix": "Set the mode of the local initialization files to \"0740\" with
+the following command:
 
 Note: The example will be for the smithj user, who has a home directory of
 \"/home/smithj\".
 
 # chmod 0740 /home/smithj/.<INIT_FILE>"
+  tag "fix_id": "F-78385r1_fix"
 
   IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
 
