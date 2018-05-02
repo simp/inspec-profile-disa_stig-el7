@@ -15,7 +15,7 @@ disable_slow_controls: false
 monitor_kernel_log: true
 
 #V-71859.rb (already set to true)
-banner_message_enabled: true
+banner_message_enabled: "true"
 
 # V-72211 (default: false)
 log_aggregation_server: false
