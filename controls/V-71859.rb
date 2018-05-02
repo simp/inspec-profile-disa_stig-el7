@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-BANNER_MESSAGE_ENABLED = attribute('banner_message_enabled', default: 'true',
+BANNER_MESSAGE_ENABLED = attribute('banner_message_enabled', default: "true",
 description: 'The banner message must display the Standard Mandatory DoD notice
 before granting access.')
 control "V-71859" do
@@ -107,7 +107,7 @@ effect."
 
   only_if { command('dconf').exist? or file('/etc/gdm/custom.conf').exist? }
 
-  describe command("dconf read /org/gnome/login-screen/banner-mesage-enable") do
-    its('stdout'.strip) { should eq BANNER_MESSAGE_ENABLED }
+  describe command("dconf read /org/gnome/login-screen/banner-message-enable") do
+    its('stdout.strip.to_s') { should cmp BANNER_MESSAGE_ENABLED }
   end
 end
