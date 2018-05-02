@@ -1,5 +1,13 @@
 # encoding: utf-8
 #
+
+MONITOR_KERNEL_LOG = attribute(
+  'monitor_kernel_log',
+  description: 'Set this to false if your system availability concern is not documented or
+  there is no monitoring of the kernel log',
+  default: true
+)
+
 control "V-72081" do
   title "The operating system must shut down upon audit processing failure,
 unless availability is an overriding concern. If availability is a concern, the
