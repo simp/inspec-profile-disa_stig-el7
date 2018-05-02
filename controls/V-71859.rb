@@ -49,7 +49,7 @@ Agreement for details.\"
 Use the following verbiage for operating systems that have severe limitations on
 the number of characters that can be displayed in the banner:
 
-  `I've read & consent to terms in IS user agreem't.'`"
+  \"I've read & consent to terms in IS user agreem't.\""
 
   if package('gnome-desktop3').installed?
   impact 0.5
