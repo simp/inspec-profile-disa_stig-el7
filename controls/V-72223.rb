@@ -67,15 +67,25 @@ readonly TMOUT
 export TMOUT"
   tag "fix_id": "F-78577r4_fix"
 
-The SSH service must be restarted for changes to take effect."
-
-bashrc_file = parse_config_file('/etc/bashrc')
-
+  bashrc_file = parse_config_file('/etc/bashrc')
+  
   describe bashrc_file do
     its('TMOUT') { should_not eq nil }
   end
   describe bashrc_file.params('TMOUT') do
     it { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
   end 
+  
+  profiled_files = command("find /etc/profile.d/*").stdout.split("\n")
+  profiled_files.each do |file|
+    profile_file = parse_config_file(file)
+    
+    describe profile_file do
+      its('TMOUT') { should_not eq nil }
+    end
+    describe profile_file.params('TMOUT') do
+      it { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
+    end
+  end
 end
 
