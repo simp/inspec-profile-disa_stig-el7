@@ -22,5 +22,10 @@ If no result is returned, \"/var/log/audit\" is not on a separate file system,
 and this is a finding."
   tag "fix": "Migrate the system audit data path onto a separate file system."
   tag "fix_id": "F-78415r1_fix"
+  
+  describe mount('/var/log/audit') do
+    it {should be_mounted}
+  end
+
 end
 
