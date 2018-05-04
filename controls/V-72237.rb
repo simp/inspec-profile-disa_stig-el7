@@ -60,9 +60,16 @@ ClientAliveInterval 600
 
 The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78591r2_fix"
-
+ 
+  #This may show slightly confusing results when a ClientAliveInterValue is not 
+  #specified. Specifically, because the value will be nil and when you try to 
+  #convert it to an integer using to_i it will convert it to 0 and pass the 
+  #<= CLIENT_ALIVE_INTERVAL check. However, the control as a whole will still fail.
   describe sshd_config do
-    its('ClientAliveInterval') { should cmp CLIENT_ALIVE_INTERVAL }
+    its("ClientAliveInterval.to_i"){should be >= 1}
+    its("ClientAliveInterval.to_i"){should be <= CLIENT_ALIVE_INTERVAL}
+    its("ClientAliveInterval"){should_not eq nil}
   end
 end
+
 
