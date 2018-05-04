@@ -56,6 +56,7 @@ SRG-OS-000425-GPOS-00189, SRG-OS-000426-GPOS-0019.
   tag "nist": ["SC-8 (1)", "Rev_4"]
   tag "cci": "CCI-002422"
   tag "nist": ["SC-8 (2)", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Check to see if sshd is installed with the following command:
 
 # yum list installed ssh

@@ -33,6 +33,7 @@ misconfiguration elsewhere."
   tag "stig_id": "RHEL-07-010300"
   tag "cci": "CCI-000766"
   tag "nist": ["IA-2 (2)", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "To determine how the SSH daemon's \"PermitEmptyPasswords\" option is
 set, run the following command:
 

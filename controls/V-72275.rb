@@ -33,6 +33,7 @@ facilitates user recognition and reporting of unauthorized account use."
   tag "stig_id": "RHEL-07-040530"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["pam", "ssh"]
   tag "check": "Verify users are provided with feedback on when account accesses
 last occurred.
 

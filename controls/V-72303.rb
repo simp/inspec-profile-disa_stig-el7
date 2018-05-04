@@ -32,6 +32,7 @@ commands remotely."
   tag "stig_id": "RHEL-07-040710"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify remote X connections for interactive users are encrypted.
 
 Check that remote X connections are encrypted with the following command:

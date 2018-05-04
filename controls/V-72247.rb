@@ -35,6 +35,7 @@ accountability of actions performed on the system."
   tag "stig_id": "RHEL-07-040370"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify remote access using SSH prevents users from logging on
 directly as root.
 
