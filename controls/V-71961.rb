@@ -75,7 +75,7 @@ commands:
 "
   tag "fix_id": "F-78313r2_fix"
   describe file(GRUB_MAIN_CFG) do
-    its('content') { should match %r{^password_pbkdf2\s+root } }
+    its('content') { should match %r{^\s*password_pbkdf2\s+root } }
   end
 
   GRUB_USER_BOOT_FILES.each do |user_cfg_file|
@@ -83,7 +83,7 @@ commands:
     describe.one do
       GRUB_SUPERUSERS.each do |user|
         describe file(user_cfg_file) do
-          its('content') { should match %r{^password_pbkdf2\s+#{user} } }
+          its('content') { should match %r{^\s*password_pbkdf2\s+#{user} } }
         end
       end
     end
