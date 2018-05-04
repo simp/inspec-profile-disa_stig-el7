@@ -30,14 +30,14 @@ configuring the device itself (management).
 
     Requires further clarification from NIST.
   "
-if package('sssd').installed?
-  impact 0.5
-else
-  impact 0.0
-end
+  if package('sssd').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000375-GPOS-00160"
   tag "satisfies": ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
-"SRG-OS-000375-GPOS-00162"]
+                    "SRG-OS-000375-GPOS-00162"]
   tag "gid": "V-72427"
   tag "rid": "SV-87051r3_rule"
   tag "stig_id": "RHEL-07-041002"
@@ -64,18 +64,20 @@ authentication modules (PAM).
 Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in configuration
 files found under \"/etc/sssd/conf.d\" to include pam."
   tag "fix_id": "F-78779r3_fix"
-
-# its('services") doesn't appear to be working properly
-# added a test with grep to make sure one will pass if pam exists.
-  describe.one do
-     describe parse_config_file('/etc/sssd/sssd.conf') do
-       its('services') { should include 'pam' }
-     end if package('sssd').installed?
-     describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' /etc/sssd/sssd.conf") do
-       its('stdout.strip') { should include 'pam' }
-     end if package('sssd').installed?
-  end if package('sssd').installed?
-
+  
+  # its('services") doesn't appear to be working properly
+  # added a test with grep to make sure one will pass if pam exists.
+  sssd_files = command("find /etc/sssd -name *.conf").stdout.split("\n")
+  sssd_files.each do |file|
+    describe.one do
+      describe parse_config_file(file) do
+        its('services') { should include 'pam' }
+      end if package('sssd').installed?
+      describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' #{file}") do
+        its('stdout.strip') { should include 'pam' }
+      end if package('sssd').installed?
+    end if package('sssd').installed?
+  end
   describe "The SSSD Package is not installed on the system" do
     skip "This control is Not Appliciable without the SSSD Package installed."
   end if !package('sssd').installed?
