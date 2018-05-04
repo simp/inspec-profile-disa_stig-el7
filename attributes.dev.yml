@@ -133,7 +133,7 @@ system_inactivity_timeout: 600
 
 #V-72237.rb
 #CLIENT_ALIVE_INTERVAL (time in seconds)
-client_alive_interval: 0
+client_alive_interval: 1800
 
 # V-71965.rb values: (enabled or disabled)
 smart_card_status: 'enabled'
