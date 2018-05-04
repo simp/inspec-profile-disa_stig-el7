@@ -54,9 +54,9 @@ command:
 
   # @todo - check for host vm device files as mentioned and pass if found
   findings = Set[]
-  findings = findings + command('find / -context *:device_t:* -type c -o -type b -printf "%p %Z\n"').stdout.split("\n")
-  findings = findings + command('find / -context *:unlabeled_t:* -type c -o -type b -printf "%p %Z\n"').stdout.split("\n")
+  findings = findings + command('find / -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+  findings = findings + command('find / -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
   describe findings do
-    its ('length') { should == '0' }
+    its ('length') { should cmp 0 }
   end
 end
