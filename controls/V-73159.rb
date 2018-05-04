@@ -1,5 +1,8 @@
 # encoding: utf-8
 #
+MAX_RETRY = attribute('max_retry', default: 3,
+description: 'The operating system must limit password
+failures.')
 control "V-73159" do
   title "When passwords are changed or new passwords are established, pwquality
 must be used."
@@ -41,8 +44,17 @@ Note: The value of “retry” should be between “1” and “3”."
   tag "fix_id": "F-79605r2_fix"
 
   # @todo - pam resource
-  describe command('grep pwquality /etc/pam.d/passwd') do
-    its('stdout.strip') { should match %r{^password\s+required\s+pam_pwquality.so} }
-  end
+  max_retry_val = command("grep -Po '(?<=pam_pwquality.so ).*$' /etc/pam.d/passwd | grep -Po '[\s]*retry[\s]*=[0-9]+' | cut -d '=' -f2").stdout.strip
+  if max_retry_val != ""
+    describe max_retry_val.to_i do
+      it { should be >= 1 }
+      it { should be <= MAX_RETRY }
+    end
+  else 
+    describe max_retry_val do
+      it { should_not eq "" }
+    end
+  end 
+  only_if { package('gnome-desktop3').installed? }
 end
 
