@@ -41,6 +41,7 @@ blacklist usb-storage"
 
   # TODO ALWAYS check your resources
   describe kernel_module('usb_storage') do
+    it { should_not be_loaded }
     it { should be_blacklisted }
   end
 end
