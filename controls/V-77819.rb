@@ -1,5 +1,19 @@
 # encoding: utf-8
 #
+
+SYSTEM_DB_PATH = attribute(
+                           'system_db_path',
+                           default: '/etc/dconf/db/local.d',
+                           description: "Path to the system database"
+                           )
+
+MULTIFACTOR_ENABLED = attribute(
+                           'multifactor_enabled',
+                           default: "true",
+                           description: "Path to the system database"
+                           )
+
+
 control "V-77819" do
   title "The operating system must uniquely identify and must authenticate
 users using multifactor authentication via a graphical user logon."
@@ -14,7 +28,11 @@ time-based or challenge-response authenticators and smart cards such as the
 U.S. Government Personal Identity Verification card and the DoD Common Access
 Card.
   "
-  impact 0.5
+  if package('gnome-desktop3').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000375-GPOS-00160"
   tag "satisfies": ["SRG-OS-000375-GPOS-00161", "SRG-OS-000375-GPOS-00162"]
   tag "gid": "V-77819"
@@ -63,4 +81,15 @@ created under the appropriate subdirectory.
 Add the setting to enable smartcard login:
 enable-smartcard-authentication=true"
   tag "fix_id": "F-84519r2_fix"
+
+  only_if { command('dconf').exist? }
+
+  # @todo - dynamically gather system_db_path?
+  describe command("dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+    its('stdout.strip') { should eq MULTIFACTOR_ENABLED }
+  end if package('gnome-desktop3').installed?
+
+  describe "The GNOME desktop is not installed" do
+    skip "The GNOME desktop is not installed, this control is Not Applicable."
+  end if !package('gnome-desktop3').installed?
 end
