@@ -1,5 +1,9 @@
 # encoding: utf-8
 #
+RANDOMIZE_VA_SPACE = attribute('randomize_va_space', default: 2,
+description: 'The value for the randomize virtual address space
+kernel parameter.')
+
 control "V-77825" do
   title "The operating system must implement virtual address space
 randomization."
@@ -37,5 +41,10 @@ Set the system to the required kernel parameter by adding the following line to
 
 kernel.randomize_va_space=2"
   tag "fix_id": "F-84531r1_fix"
+
+describe kernel_parameter('kernel.randomize_va_space') do
+  its('value') { should eq RANDOMIZE_VA_SPACE }
+end
+
 end
 
