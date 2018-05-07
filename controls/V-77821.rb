@@ -30,11 +30,16 @@ DCCP kernel module.
 
 Create a file under \"/etc/modprobe.d\" with the following command:
 
-# touch /etc/modprobe.d/nodccp
+# touch /etc/modprobe.d/nodccp.conf
 
 Add the following line to the created file:
 
 install dccp /bin/true"
   tag "fix_id": "F-84521r2_fix"
+
+  describe kernel_module('dccp') do
+    it { should_not be_loaded }
+    it { should be_blacklisted }
+  end  
 end
 
