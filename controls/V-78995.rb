@@ -1,5 +1,6 @@
 # encoding: utf-8
 #
+
 control "V-78995" do
   title "The operating system must prevent a user from overriding the
 screensaver lock-enabled setting for the graphical user interface."
@@ -66,4 +67,9 @@ Add the setting to lock the screensaver lock-enabled setting:
 /org/gnome/desktop/screensaver/lock-enabled
 "
   tag "fix_id": "F-85745r1_fix"
+
+  describe command("grep -i lock-enabled /etc/dconf/db/local.d/locks/*").stdout do
+    it { should_not eq "" }
+  end if package('gnome-desktop3').installed?
+
 end
