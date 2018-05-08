@@ -54,4 +54,16 @@ Only the lines appropriate for the system architecture must be configured.
 
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-85749r1_fix"
+
+  describe auditd.syscall("create_module").where {arch == "b32"} do
+    its('action.uniq') { should eq ['always'] }
+    its('list.uniq') { should eq ['exit'] }
+  end
+  if os.arch == 'x86_64'
+    describe auditd.syscall("create_module").where {arch == "b64"} do
+      its('action.uniq') { should eq ['always'] }
+      its('list.uniq') { should eq ['exit'] }
+    end
+  end
+
 end
