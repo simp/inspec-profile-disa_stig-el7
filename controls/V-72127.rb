@@ -73,7 +73,17 @@ The audit daemon must be restarted for the changes to take effect."
     its('list.uniq') { should eq ['exit'] }
     its('exit.uniq') { should include '-EPERM' }
   end
+  describe auditd.syscall("openat").where {arch == "b32"} do
+    its('action.uniq') { should eq ['always'] }
+    its('list.uniq') { should eq ['exit'] }
+    its('exit.uniq') { should include '-EACCES' }
+  end
   if os.arch == 'x86_64'
+    describe auditd.syscall("openat").where {arch == "b64"} do
+      its('action.uniq') { should eq ['always'] }
+      its('list.uniq') { should eq ['exit'] }
+      its('exit.uniq') { should include '-EPERM' }
+    end
     describe auditd.syscall("openat").where {arch == "b64"} do
       its('action.uniq') { should eq ['always'] }
       its('list.uniq') { should eq ['exit'] }
