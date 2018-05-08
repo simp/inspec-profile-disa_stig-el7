@@ -33,6 +33,9 @@ to prevent logons with empty passwords.
 Note: Any updates made to \"/etc/pam.d/system-auth-ac\" may be overwritten by
 the \"authconfig\" program. The \"authconfig\" program should not be used."
   tag "fix_id": "F-78289r2_fix"
+
+  nullok_files = command(%(grep -rle 'pam_unix.so .*nullok' /etc/pam.d/*)).stdout.lines.map(&:strip)
+
   describe 'PAM authorization files' do
     context nullok_files do
       it { should be_empty }
