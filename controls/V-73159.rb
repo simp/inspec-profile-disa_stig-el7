@@ -9,7 +9,7 @@ must be used."
   desc  "Use of a complex password helps to increase the time and resources
 required to compromise the password. Password complexity, or strength, is a
 measure of the effectiveness of a password in resisting attempts at guessing
-and brute-force attacks. “pwquality” enforces complex password construction
+and brute-force attacks. \"pwquality\" enforces complex password construction
 configuration and has the ability to limit brute-force attacks on the system."
   impact 0.5
   tag "gtitle": "SRG-OS-000069-GPOS-00037"
@@ -31,7 +31,7 @@ password required pam_pwquality.so retry=3
 If the command does not return a line containing the value
 \"pam_pwquality.so\", this is a finding.
 
-If the value of “retry” is set to “0” or greater than “3”, this is a finding."
+If the value of \"retry\" is set to \"0\" or greater than \"3\", this is a finding."
   tag "fix": "Configure the operating system to use \"pwquality\" to enforce
 password complexity rules.
 
@@ -40,7 +40,7 @@ required value):
 
 password    required    pam_pwquality.so retry=3
 
-Note: The value of “retry” should be between “1” and “3”."
+Note: The value of \"retry\" should be between \"1\" and \"3\"."
   tag "fix_id": "F-79605r2_fix"
 
   # @todo - pam resource

@@ -39,7 +39,7 @@ architecture), this is a finding.
 
 -a always,exit -F arch=b64 -S create_module -k module-change
 
-If there are no audit rules defined for “create_module”, this is a finding."
+If there are no audit rules defined for \"create_module\", this is a finding."
   tag "fix": "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"create_module\" command occur.
 

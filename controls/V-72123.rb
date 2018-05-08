@@ -42,12 +42,12 @@ must be present.
 
 -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 
-If there are no audit rules defined for the “creat” command, this is a finding.
+If there are no audit rules defined for the \"creat\" command, this is a finding.
 
-If the output does not produce a rule containing “-F exit=-EPERM”, this is a
+If the output does not produce a rule containing \"-F exit=-EPERM\", this is a
 finding.
 
-If the output does not produce a rule containing “-F exit=-EACCES”, this is a
+If the output does not produce a rule containing \"-F exit=-EACCES\", this is a
 finding."
   tag "fix": "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"creat\" command occur.

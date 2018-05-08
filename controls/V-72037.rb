@@ -1,5 +1,4 @@
 # encoding: utf-8
-=begin
 
 DISABLE_SLOW_CONTROLS = attribute(
   'disable_slow_controls',

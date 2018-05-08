@@ -39,7 +39,7 @@ Modify the first three lines of the \"auth\" section of the
 \"/etc/pam.d/system-auth-ac\" and \"/etc/pam.d/password-auth-ac\" files to match the
 following lines:
 
-Note: RHEL 7.3 and later allows for a value of “never” for \"unlock_time\". This is
+Note: RHEL 7.3 and later allows for a value of \"never\" for \"unlock_time\". This is
 an acceptable value but should be used with caution if availability is a concern.
 
 auth        required       pam_faillock.so preauth silent audit deny=3
