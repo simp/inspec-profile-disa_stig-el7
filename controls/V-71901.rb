@@ -45,7 +45,7 @@ is activated with the following command:
 # grep -i lock-delay /etc/dconf/db/local.d/*
 lock-delay=uint32 5
 
-If the \"lock-delay\" setting is missing, or is not set to “5” or less, this is
+If the \"lock-delay\" setting is missing, or is not set to \"5\" or less, this is
 a finding."
   tag "fix": "Configure the operating system to initiate a session lock for
 graphical user interfaces when a screensaver is activated.
