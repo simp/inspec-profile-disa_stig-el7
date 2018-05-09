@@ -108,6 +108,6 @@ effect."
   only_if { command('dconf').exist? or file('/etc/gdm/custom.conf').exist? }
 
   describe command("dconf read /org/gnome/login-screen/banner-message-enable") do
-    its('stdout.strip.to_s') { should cmp BANNER_MESSAGE_ENABLED }
+    its('stdout.strip.to_s') { should cmp BANNER_MESSAGE_ENABLED.to_s }
   end
 end
