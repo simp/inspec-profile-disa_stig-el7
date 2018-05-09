@@ -15,7 +15,7 @@ disable_slow_controls: false
 monitor_kernel_log: true
 
 #V-71859.rb (already set to true)
-banner_message_enabled: "true"
+banner_message_enabled: 'true'
 
 # V-72211 (default: false)
 log_aggregation_server: false
@@ -133,7 +133,7 @@ system_inactivity_timeout: 600
 
 #V-72237.rb
 #CLIENT_ALIVE_INTERVAL (time in seconds)
-client_alive_interval: 1800
+client_alive_interval: 600
 
 # V-71965.rb values: (enabled or disabled)
 smart_card_status: 'enabled'
