@@ -69,22 +69,17 @@ export TMOUT"
 
   bashrc_file = parse_config_file('/etc/bashrc')
 
-  describe bashrc_file do
-    its('TMOUT') { should_not eq nil }
-  end
-  describe bashrc_file.params('TMOUT') do
-    it { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
-  end
-
-  profiled_files = command("find /etc/profile.d/*").stdout.split("\n")
-  profiled_files.each do |file|
-    profile_file = parse_config_file(file)
-
-    describe profile_file do
-      its('TMOUT') { should_not eq nil }
+  describe.one do
+    describe bashrc_file do
+      its('TMOUT') { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
     end
-    describe profile_file.params('TMOUT') do
-      it { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
+
+    profiled_files = command("find /etc/profile.d/*").stdout.split("\n")
+    profiled_files.each do |file|
+      profile_file = parse_config_file(file)
+      describe profile_file do
+        its('TMOUT') { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
+      end
     end
   end
 end
