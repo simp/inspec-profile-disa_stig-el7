@@ -52,7 +52,7 @@ Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78517r5_fix"
 
-  @audit_files = ['/etc/sudoers', '/etc/sudoers.d/']
+  @audit_files = ['/etc/sudoers', '/etc/sudoers.d']
 
   @audit_files.each do |audit_file|
     describe auditd.file(audit_file) do
