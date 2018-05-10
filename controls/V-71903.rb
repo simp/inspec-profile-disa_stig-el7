@@ -41,6 +41,7 @@ possible combinations that need to be tested before the password is compromised.
   tag "stig_id": "RHEL-07-010120"
   tag "cci": "CCI-000192"
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "Note: The value to require a number of upper-case characters to be
 set is expressed as a negative number in \"/etc/security/pwquality.conf\".
 

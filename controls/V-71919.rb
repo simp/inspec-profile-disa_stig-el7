@@ -35,6 +35,7 @@ algorithm are no more protected than if they are kept in plain text."
   tag "stig_id": "RHEL-07-010200"
   tag "cci": "CCI-000196"
   tag "nist": ["IA-5 (1) (c)", "Rev_4"]
+  tag "subsystems": ['pam', 'password']
   tag "check": "Verify the PAM system service is configured to store only encrypted
 representations of passwords. The strength of encryption that must be used to hash
 passwords for all accounts is SHA512.
@@ -56,7 +57,7 @@ password sufficient pam_unix.so sha512
 
 and run the \"authconfig\" command."
 
-  describe file("/etc/pam.d/system-auth-ac") do
-    its('content') { should match /^password\s+sufficient\s+pam_unix.so .*sha512.*$/ }
+  describe pam("/etc/pam.d/system-auth") do
+    its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
   end
 end

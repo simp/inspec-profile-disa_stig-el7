@@ -67,10 +67,13 @@ fail_interval=900 unlock_time=604800
 
 and run the \"authconfig\" command."
 
-  describe file("/etc/pam.d/password-auth-ac") do
-    its('content') { should match /auth\s+required\s+pam_faillock.so .*even_deny_root.*\nauth\s+\[default=die\]\s+pam_faillock.so.*even_deny_root.*/ }
-  end
-  describe file("/etc/pam.d/password-auth-ac") do
-    its('content') { should match /auth\s+\[default=die\]\s+pam_faillock.so .*even_deny_root.*\nauth\s+required\s+pam_faillock.so.*even_deny_root.*/ }
+  describe pam('/etc/pam.d/password-auth') do
+    required_lines = [
+      'auth required pam_faillock.so even_deny_root',
+      'auth sufficient pam_unix.so try_first_pass',
+      'auth [default=die] pam_faillock.so even_deny_root'
+    ]
+
+    its('lines') { should match_pam_rules(required_lines) }
   end
 end
