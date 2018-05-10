@@ -74,9 +74,10 @@ If NTP was not running, it must be started:
   end
   describe.one do
     describe command('grep maxpoll /etc/ntp.conf') do
-      its('stdout.strip') { should_not match %r{^maxpoll\s+17$} }
+      its('stdout.strip') { should match %r{^\s*maxpoll\s+[1-9][0-9]*$} }
+      its('stdout.strip') { should_not match %r{^\s*maxpoll\s+17$} }
     end
-    # Case where maxpoll empty @todo - test for empty maxpoll
+    # Case where maxpoll empty
     describe file('/etc/cron.daily/ntpdate') do
       it { should exist }
     end
