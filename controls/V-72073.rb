@@ -62,7 +62,16 @@ directory selection lists."
   describe package("aide") do
     it { should be_installed }
   end
-  describe aide_conf.all_have_rule('sha512') do
-    it { should eq true }
+
+  findings = []
+  aide_conf.where { !selection_line.start_with? '!' }.entries.each do |selection|
+    unless selection.rules.include? 'sha512'
+      findings.append(selection.selection_line)
+    end
+  end
+
+  describe "List of monitored files/directories without 'sha512' rule" do
+    subject { findings }
+    it { should be_empty }
   end
 end
