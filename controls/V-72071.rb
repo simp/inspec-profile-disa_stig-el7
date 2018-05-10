@@ -56,8 +56,16 @@ directory selection lists."
   describe package("aide") do
     it { should be_installed }
   end
-  describe aide_conf.all_have_rule('xattrs') do
-    it { should eq true }
+
+  findings = []
+  aide_conf.where { !selection_line.start_with? '!' }.entries.each do |selection|
+    unless selection.rules.include? 'xattrs'
+      findings.append(selection.selection_line)
+    end
+  end
+
+  describe "List of monitored files/directories without 'xattrs' rule" do
+    subject { findings }
+    it { should be_empty }
   end
 end
-
