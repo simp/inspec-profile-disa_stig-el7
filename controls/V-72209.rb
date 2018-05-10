@@ -46,7 +46,7 @@ line to send all \"rsyslog\" output to a log aggregation system:
 *.* @@<log aggregation system name>"
   tag "fix_id": "F-78563r1_fix"
 
-  describe command("grep @ #{log_pkg_path}") do
+  describe command("grep @ #{log_pkg_path} | grep -v \"^#\"") do
     its('stdout.strip') { should_not be_empty }
   end
 end
