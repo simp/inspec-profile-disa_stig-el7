@@ -41,6 +41,7 @@ possible combinations that need to be tested before the password is compromised.
   tag "stig_id": "RHEL-07-010190"
   tag "cci": "CCI-000195"
   tag "nist": ["IA-5 (1) (b)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "The \"maxclassrepeat\" option sets the maximum number of allowed
 same consecutive characters in the same class in the new password.
 

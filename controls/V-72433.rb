@@ -63,6 +63,7 @@ SRG-OS-000375-GPOS-0016.
   tag "nist": ["IA-2 (12)", "Rev_4"]
   tag "cci": "CCI-001954"
   tag "nist": ["IA-2 (12)", "Rev_4"]
+  tag "subsystems": ['pam_pkcs11']
   tag "check": "Verify the operating system implements certificate status checking
 for PKI authentication.
 
@@ -85,7 +86,7 @@ PKI authentication.
 Modify all of the \"cert_policy\" lines in \"/etc/pam_pkcs11/pam_pkcs11.conf\" to
 include \"ocsp_on\"."
 
-  describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf") do
+  describe file("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf") do
     its('stdout') { should include 'ocsp_on' }
   end
 

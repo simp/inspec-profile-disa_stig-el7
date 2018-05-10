@@ -33,29 +33,32 @@ facilitates user recognition and reporting of unauthorized account use."
   tag "stig_id": "RHEL-07-040530"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": [ "ssh"]
+  tag "subsystems": ['pam', 'lastlog', 'ssh']
   tag "check": "Verify users are provided with feedback on when account accesses
 last occurred.
 
 Check that \"pam_lastlog\" is used and not silent with the following command:
 
-# grep PrintLastLog /etc/ssh/sshd_config  
+# grep pam_lastlog /etc/pam.d/postlogin-ac
 
-nd make sure it is not set to silent.
+session     required      pam_lastlog.so showfailed silent
 
-Also this requires the following pam fix which is checked in V-72275a.
 If \"pam_lastlog\" is missing from \"/etc/pam.d/postlogin-ac\" file, or the silent
 option is present on the line check for the \"PrintLastLog\" keyword in the sshd
 daemon configuration file, this is a finding."
   tag "fix": "Configure the operating system to provide users with feedback on when
 account accesses last occurred by setting the required configuration options in
-\"/etc/pam.d/postlogin-ac\" as well as the ssh configuration here.
+\"/etc/pam.d/postlogin-ac\".
 
 Add the following line to the top of \"/etc/pam.d/postlogin-ac\":
 
-check that sshd_config is configured to PrintLastLog"
+session     required      pam_lastlog.so showfailed"
 
   describe sshd_config do
     its('PrintLastLog') { should_not cmp 'silent' }
+  end
+
+  describe pam('/etc/pam.d/postlogin') do
+    its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed') }
   end
 end

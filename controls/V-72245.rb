@@ -33,7 +33,7 @@ occurred facilitates user recognition and reporting of unauthorized account use.
   tag "stig_id": "RHEL-07-040360"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ["ssh"]
+  tag "subsystems": ['pam', 'ssh', 'lastlog']
   tag "check": "Verify SSH provides users with feedback on when account accesses
 last occurred.
 
@@ -62,7 +62,15 @@ PrintLastLog yes
 
 The SSH service must be restarted for changes to \"sshd_config\" to take effect."
 
-  describe sshd_config do
-    its('PrintLastLog') { should cmp 'yes' }
+  ssh_conf = sshd_config
+
+  if ssh_conf.params['printlastlog'] == 'yes'
+    describe sshd_config do
+      its('PrintLastLog') { should cmp 'yes' }
+    end
+  else
+    describe pam('/etc/pam.d/sshd') do
+      its('lines') { should match_pam_rule('session required pam_lastlog.so showfailed') }
+    end
   end
 end
