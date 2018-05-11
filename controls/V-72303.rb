@@ -54,6 +54,6 @@ X11Fowarding yes
 The SSH service must be restarted for changes to take effect."
 
   describe sshd_config do
-    its('X11Fowarding') { should cmp 'yes' }
+    its('X11Forwarding') { should cmp 'yes' }
   end
 end
