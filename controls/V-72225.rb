@@ -89,6 +89,7 @@ Agreement for details.\"
   tag "documentable": false
   tag "nist": ["AC-8 a", "AC-8 b", "AC-8 c 1", "AC-8 c 2", "AC-8 c 2", "AC-8 c
 2", "AC-8 c 3", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify any publicly accessible connection to the operating
 system displays the Standard Mandatory DoD Notice and Consent Banner before
 granting access to the system.
