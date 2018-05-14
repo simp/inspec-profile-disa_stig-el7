@@ -105,7 +105,7 @@ account required pam_faillock.so"
     its('stdout.to_i') { should cmp <= FAIL_INTERVAL }
   end
 
-  describe command('grep -Po "^auth\s+\[default=die\]\s+pam_faillock.so.*$" /etc/pam.d/system-auth-ac | grep -Po "(?<=pam_faillock.so).*$" | grep -Po "fail_interval\s*=\s*[0-9]+" | cut -d "="-f2') do
+  describe command('grep -Po "^auth\s+\[default=die\]\s+pam_faillock.so.*$" /etc/pam.d/system-auth-ac | grep -Po "(?<=pam_faillock.so).*$" | grep -Po "fail_interval\s*=\s*[0-9]+" | cut -d "=" -f2') do
     its('stdout.to_i') { should cmp <= FAIL_INTERVAL }
   end
 
