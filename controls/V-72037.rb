@@ -1,23 +1,4 @@
 # encoding: utf-8
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
 
 DISABLE_SLOW_CONTROLS = attribute(
   'disable_slow_controls',
@@ -44,41 +25,42 @@ control "V-72037" do
     desc "This control consistently takes a long to run and has been disabled
           using the DISABLE_SLOW_CONTROLS attribute."
   else
-    desc  "If user start-up files execute world-writable programs, especially in
-           unprotected directories, they could be maliciously modified to destroy
-           user files or otherwise compromise the system at the user level. If
-           the system is compromised at the user level, it is easier to elevate
-           privileges to eventually compromise the system at the root and
-           network level."
+  desc  "If user start-up files execute world-writable programs, especially in
+unprotected directories, they could be maliciously modified to destroy user
+files or otherwise compromise the system at the user level. If the system is
+compromised at the user level, it is easier to elevate privileges to eventually
+compromise the system at the root and network level."
   end
   impact 0.5
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72037"
   tag "rid": "SV-86661r1_rule"
   tag "stig_id": "RHEL-07-020730"
-  tag "cci": "CCI-000366"
+  tag "cci": ["CCI-000366"]
+  tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify that local initialization files do not execute world-writable
-programs.
+  tag "check": "Verify that local initialization files do not execute
+world-writable programs.
 
 Check the system for world-writable files with the following command:
 
 # find / -perm -002 -type f -exec ls -ld {} \\; | more
 
-For all files listed, check for their presence in the local initialization files
-with the following commands:
+For all files listed, check for their presence in the local initialization
+files with the following commands:
 
 Note: The example will be for a system that is configured to create users’ home
 directories in the \"/home\" directory.
 
 # grep <file> /home/*/.*
 
-If any local initialization files are found to reference world-writable files, this
-is a finding."
-  tag "fix": "Set the mode on files being executed by the local initialization files
-with the following command:
+If any local initialization files are found to reference world-writable files,
+this is a finding."
+  tag "fix": "Set the mode on files being executed by the local initialization
+files with the following command:
 
 # chmod 0755  <file>"
+  tag "fix_id": "F-78389r1_fix"
 
   if DISABLE_SLOW_CONTROLS
     describe "This control consistently takes a long to run and has been disabled
@@ -116,3 +98,4 @@ with the following command:
     end
   end
 end
+
