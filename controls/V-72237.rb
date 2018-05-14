@@ -57,6 +57,7 @@ resources associated with that session.
   tag "nist": ["SC-10", "Rev_4"]
   tag "cci": "CCI-002361"
   tag "nist": ["AC-12", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system automatically terminates a user session
 after inactivity time-outs have expired.
 

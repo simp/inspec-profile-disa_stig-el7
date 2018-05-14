@@ -64,7 +64,6 @@ The SSH service must be restarted for changes to \"sshd_config\" to take effect.
 
   ssh_conf = sshd_config
 
-  
   if ssh_conf.params['printlastlog'] == 'yes'
     describe sshd_config do
       its('PrintLastLog') { should cmp 'yes' }

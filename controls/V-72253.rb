@@ -34,6 +34,7 @@ is SHA."
   tag "stig_id": "RHEL-07-040400"
   tag "cci": "CCI-001453"
   tag "nist": ["AC-17 (2)", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon is configured to only use MACs employing FIPS
 140-2-approved ciphers.
 

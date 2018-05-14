@@ -43,6 +43,7 @@ authentication must be disabled unless needed."
   tag "nist": ["CM-5 (1)", "Rev_4"]
   tag "cci": "CCI-001814"
   tag "nist": ["CM-5 (1)", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon does not permit GSSAPI authentication unless
 approved.
 
