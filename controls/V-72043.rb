@@ -40,7 +40,6 @@ systems that are associated with removable media."
   tag "fix_id": "F-78395r1_fix"
 
   file_systems = etc_fstab.params
-  puts "size: "+file_systems.empty?.to_s
   if !file_systems.nil? and !file_systems.empty?
     file_systems.each do |file_sys_line|
       if !"#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) then
