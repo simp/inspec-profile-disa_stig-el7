@@ -35,9 +35,16 @@ systems that are being exported via NFS."
   tag "fix_id": "F-79607r1_fix"
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
-  nfs_systems.each do |file_system|
-    describe file_system do
-      its ('mount_options') { should include 'noexec' }
+  if !nfs_systems.nil? and !nfs_systems.empty?
+    nfs_systems.each do |file_system|
+      describe file_system do
+        its ('mount_options') { should include 'noexec' }
+      end
+    end
+  else
+    describe "No NFS file systems were found." do
+      subject { nfs_systems.nil? or nfs_systems.empty? }
+      it { should eq true }
     end
   end
 end
