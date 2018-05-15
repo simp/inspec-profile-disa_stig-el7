@@ -40,14 +40,24 @@ systems that are associated with removable media."
   tag "fix_id": "F-78395r1_fix"
 
   file_systems = etc_fstab.params
-
-  if !file_systems.nil?
+  puts "size: "+file_systems.empty?.to_s
+  if !file_systems.nil? and !file_systems.empty?
     file_systems.each do |file_sys_line|
       if !"#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) then
         describe file_sys_line['mount_options'] do
           it { should include 'nosuid' }
         end
+      else
+        describe "File system \"#{file_sys_line['file_system_type']}\" does not correspond to removable media." do
+          subject { "#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) }
+          it { should eq true }          
+        end
       end
+    end
+  else
+    describe "No file systems were found." do
+      subject { file_systems.nil? }
+      it { should eq true }
     end
   end
 end

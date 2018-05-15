@@ -46,10 +46,17 @@ environment variables."
 
   # @todo - test for values more restrictive than 077
   file_lines = command('grep -i -s umask /home/*/.*').stdout.split("\n")
-  file_lines.each do |curr_line|
-    file_name = curr_line.split(':').first
-    describe command("grep -i umask #{file_name}") do
-      its('stdout.strip') { should match %r{^umask\s+.*077} }
+  if !file_lines.nil? and !file_lines.empty?
+    file_lines.each do |curr_line|
+      file_name = curr_line.split(':').first
+      describe command("grep -i umask #{file_name}") do
+        its('stdout.strip') { should match %r{^umask\s+.*077} }
+      end      
+    end
+  else
+    describe "No interactive files with a less restrictive umask were found." do
+      subject { file_lines.nil? or file_lines.empty? }
+      it { should eq true }
     end
   end
 end
