@@ -36,15 +36,22 @@ If any file has a mode more permissive than \"0600\", this is a finding."
   tag "fix_id": "F-78611r3_fix"
 
   key_files = command("find /etc/ssh -xdev -name '*ssh_host*key' -perm /177").stdout.split("\n")
-  key_files.each do |keyfile|
-    describe file(keyfile) do
-      it { should_not be_executable.by('user') }
-      it { should_not be_readable.by('group') }
-      it { should_not be_writable.by('group') }
-      it { should_not be_executable.by('group') }
-      it { should_not be_readable.by('others') }
-      it { should_not be_writable.by('others') }
-      it { should_not be_executable.by('others') }
+  if !key_files.nil? and !key_files.empty?
+    key_files.each do |keyfile|
+      describe file(keyfile) do
+        it { should_not be_executable.by('user') }
+        it { should_not be_readable.by('group') }
+        it { should_not be_writable.by('group') }
+        it { should_not be_executable.by('group') }
+        it { should_not be_readable.by('others') }
+        it { should_not be_writable.by('others') }
+        it { should_not be_executable.by('others') }
+      end
+    end
+  else
+    describe "No files have a more permissive mode." do
+      subject { key_files.nil? or key_files.empty? }
+      it { should eq true }
     end
   end
 end
