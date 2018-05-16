@@ -35,9 +35,16 @@ Ensure the \"sec\" option is defined as \"krb5:krb5i:krb5p\"."
   tag "fix_id": "F-78665r2_fix"
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
-  nfs_systems.each do |file_system|
-    describe file_system do
-      its ('mount_options') { should include 'sec=krb5:krb5i:krb5p' }
+  if !nfs_systems.nil? and !nfs_systems.empty?    
+    nfs_systems.each do |file_system|
+      describe file_system do
+        its ('mount_options') { should include 'sec=krb5:krb5i:krb5p' }
+      end
+    end
+  else
+    describe "No NFS file systems were found." do
+      subject { nfs_systems.nil? or nfs_systems.empty? }
+      it { should eq true }
     end
   end
 end

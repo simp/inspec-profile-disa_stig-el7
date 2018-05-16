@@ -37,13 +37,20 @@ the following command:
   tag "fix_id": "F-78609r1_fix"
 
   pub_files = command("find /etc/ssh -xdev -name '*.pub' -perm /133").stdout.split("\n")
-  pub_files.each do |pubfile|
-    describe file(pubfile) do
-      it { should_not be_executable.by('user') }
-      it { should_not be_executable.by('group') }
-      it { should_not be_writable.by('group') }
-      it { should_not be_executable.by('others') }
-      it { should_not be_writable.by('others') }
+  if !pub_files.nil? and !pub_files.empty?
+    pub_files.each do |pubfile|
+      describe file(pubfile) do
+        it { should_not be_executable.by('user') }
+        it { should_not be_executable.by('group') }
+        it { should_not be_writable.by('group') }
+        it { should_not be_executable.by('others') }
+        it { should_not be_writable.by('others') }
+      end
+    end
+  else
+     describe "No files have a more permissive mode." do
+      subject { pub_files.nil? or pub_files.empty? }
+      it { should eq true }
     end
   end
 end

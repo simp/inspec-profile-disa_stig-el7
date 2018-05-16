@@ -16,7 +16,11 @@ default. Disabling the user’s ability to disengage the graphical user interfac
 session lock provides the assurance that all sessions will lock after the
 specified period of time.
   "
+  if package('gnome-desktop3').installed?
   impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-78997"
   tag "rid": "SV-93703r1_rule"
