@@ -11,12 +11,6 @@ privileged postfix commands. The organization must maintain audit trails in
 sufficient detail to reconstruct events to determine the cause and impact of
 compromise.
   "
-if file(@audit_file).exist?
-  impact 0.5
-else
-  impact 0.0
-end
-
   tag "gtitle": "SRG-OS-000042-GPOS-00020"
   tag "satisfies": ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172"]
   tag "gid": "V-72175"
@@ -47,25 +41,29 @@ Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78529r4_fix"
 
-  FILE_NAME = '/usr/sbin/postdrop'
+  audit_file = '/usr/sbin/postdrop'
 
-  @audit_file = inspec.command('find /etc -type f -name "#{FILE_NAME}"').stdout.strip
+  if file(audit_file).exist?
+    impact 0.5
+  else
+    impact 0.0
+  end
 
-  describe auditd.file(@audit_file) do
+  describe auditd.file(audit_file) do
     its('permissions') { should_not cmp [] }
     its('action') { should_not include 'never' }
-  end if file(@audit_file).exist?
+  end if file(audit_file).exist?
 
   # Resource creates data structure including all usages of file
-  @perms = auditd.file(@audit_file).permissions
+  perms = auditd.file(audit_file).permissions
 
-  @perms.each do |perm|
+  perms.each do |perm|
     describe perm do
       it { should include 'x' }
     end
-  end if file(@audit_file).exist?
+  end if file(audit_file).exist?
 
-  describe "The #{FILE_NAME} file does not exist" do
-    skip "The #{FILE_NAME} file does not exist, this requirement is Not Applicable."
-  end if !file(@audit_file).exist?
+  describe "The #{audit_file} file does not exist" do
+    skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  end if !file(audit_file).exist?
 end

@@ -13,11 +13,6 @@ responsible for one.
     Audit records can be generated from various components within the
 information system (e.g., module or policy filter).
   "
-if file(@audit_file).exist?
-  impact 0.5
-else
-  impact 0.0
-end
   tag "gtitle": "SRG-OS-000004-GPOS-00004"
   tag "gid": "V-73173"
   tag "rid": "SV-87825r4_rule"
@@ -51,27 +46,31 @@ Add or update the following file system rule in
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-79619r5_fix"
 
-  FILE_NAME = '/etc/security/opasswd'
+  audit_file = '/etc/security/opasswd'
 
-  @audit_file = inspec.command('find /etc -type f -name "#{FILE_NAME}"').stdout.strip
+  if file(audit_file).exist?
+    impact 0.5
+  else
+    impact 0.0
+  end
 
-  describe auditd.file(@audit_file) do
+  describe auditd.file(audit_file) do
     its('permissions') { should_not cmp [] }
     its('action') { should_not include 'never' }
-  end if file(@audit_file).exist?
+  end if file(audit_file).exist?
 
   # Resource creates data structure including all usages of file
-  @perms = auditd.file(@audit_file).permissions
+  perms = auditd.file(audit_file).permissions
 
-  @perms.each do |perm|
+  perms.each do |perm|
     describe perm do
       it { should include 'w' }
       it { should include 'a' }
     end
-  end if file(@audit_file).exist?
+  end if file(audit_file).exist?
 
-  describe "The #{FILE_NAME} file does not exist" do
-    skip "The #{FILE_NAME} file does not exist, this requirement is Not Applicable."
-  end if !file(@audit_file).exist?
+  describe "The #{audit_file} file does not exist" do
+    skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  end if !file(audit_file).exist?
 
 end
