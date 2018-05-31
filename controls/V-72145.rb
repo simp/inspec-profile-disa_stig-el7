@@ -12,7 +12,6 @@ responsible for one.
     Audit records can be generated from various components within the
 information system (e.g., module or policy filter).
   "
-  impact 0.5
   tag "gtitle": "SRG-OS-000392-GPOS-00172"
   tag "satisfies": ["SRG-OS-000392-GPOS-00172", "SRG-OS-000470-GPOS-00214",
 "SRG-OS-000473-GPOS-00218"]
@@ -44,21 +43,30 @@ Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78497r4_fix"
 
-  @audit_file = '/var/run/faillock'
+  audit_file = '/var/run/faillock'
 
-  describe auditd.file(@audit_file) do
-    its('permissions') { should_not cmp [] }
-    its('action') { should_not include 'never' }
+  if file(audit_file).exist?
+    impact 0.5
+  else
+    impact 0.0
   end
 
-  # Resource creates data structure including all usages of file
-  @perms = auditd.file(@audit_file).permissions
+  describe auditd.file(audit_file) do
+    its('permissions') { should_not cmp [] }
+    its('action') { should_not include 'never' }
+  end if file(audit_file).exist?
 
-  @perms.each do |perm|
+  # Resource creates data structure including all usages of file
+  perms = auditd.file(audit_file).permissions
+
+  perms.each do |perm|
     describe perm do
       it { should include 'w' }
       it { should include 'a' }
     end
-  end
-  only_if { file(@audit_file).exist? }
+  end if file(audit_file).exist?
+
+  describe "The #{audit_file} file does not exist" do
+    skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  end if !file(audit_file).exist?
 end
