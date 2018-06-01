@@ -34,6 +34,7 @@ from an unauthenticated connection, potentially with root privileges."
   tag "stig_id": "RHEL-07-040470"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon performs compression after a user successfully
 authenticates.
 

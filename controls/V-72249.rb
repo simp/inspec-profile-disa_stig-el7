@@ -34,6 +34,7 @@ misconfiguration elsewhere."
   tag "stig_id": "RHEL-07-040380"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon does not allow authentication using known
 hosts authentication.
 

@@ -57,6 +57,7 @@ SRG-OS-000108-GPOS-00057, SRG-OS-000108-GPOS-0005.
   tag "stig_id": "RHEL-07-010500"
   tag "cci": "CCI-000766"
   tag "nist": ["IA-2 (2)", "Rev_4"]
+  tag "subsystems": ['pam', 'smartcard']
   tag "check": "Verify the operating system requires multifactor authentication to
 uniquely identify organizational users using multifactor authentication.
 
@@ -86,7 +87,6 @@ Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey module if
 required."
 
   describe command("authconfig --test | grep -i smartcard") do
-    its('stdout') { should match /use only smartcard for login is enabled/ }
     its('stdout') { should match /smartcard module = ".+"/ }
     its('stdout') { should match /smartcard removal action = ".+"/ }
   end

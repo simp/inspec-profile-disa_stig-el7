@@ -58,6 +58,7 @@ SRG-OS-000423-GPOS-00189, SRG-OS-000423-GPOS-0019.
   tag "nist": ["SC-8 (1)", "Rev_4"]
   tag "cci": "CCI-002422"
   tag "nist": ["SC-8 (2)", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify SSH is loaded and active with the following command:
 
 # systemctl status sshd

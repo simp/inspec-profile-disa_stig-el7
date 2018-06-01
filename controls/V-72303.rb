@@ -32,6 +32,7 @@ commands remotely."
   tag "stig_id": "RHEL-07-040710"
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify remote X connections for interactive users are encrypted.
 
 Check that remote X connections are encrypted with the following command:
@@ -53,6 +54,6 @@ X11Fowarding yes
 The SSH service must be restarted for changes to take effect."
 
   describe sshd_config do
-    its('X11Fowarding') { should cmp 'yes' }
+    its('X11Forwarding') { should cmp 'yes' }
   end
 end

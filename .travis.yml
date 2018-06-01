@@ -14,24 +14,36 @@ addons:
 jobs:
   fast_finish: true
   allow_failures:
-    - stage: system_test
+    - stage: spec_test
 
   include:
-    - stage: spec_test
+    - stage: syntax
       sudo: false
-      rvm: 2.3
+      rvm: 2.4
       before_install:
         - rm Gemfile.lock || true
       before_script:
         - bundle
       script:
+        - ruby -c controls/*.rb libraries/*.rb
+
+    - stage: spec_test
+      sudo: false
+      rvm: 2.4
+      before_install:
+        - rm Gemfile.lock || true
+      before_script:
+        - bundle
+      script:
+        # This currently doesn't work due to a bug in inspec that fails on
+        # skipped checks
         - bundle exec rake profile:check
 
     - stage: system_test
       sudo: required
       services:
         - docker
-      rvm: 2.3
+      rvm: 2.4
       before_script:
         - bundle
       script:

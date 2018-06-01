@@ -51,6 +51,7 @@ SRG-OS-000125-GPOS-00065, SRG-OS-000250-GPOS-00093, SRG-OS-000393-GPOS-0017.
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "cci": "CCI-000803"
   tag "nist": ["IA-7", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system uses mechanisms meeting the requirements
 of applicable federal laws, Executive orders, directives, policies, regulations,
 standards, and guidance for authentication to a cryptographic module.

@@ -38,7 +38,7 @@ Limits are imposed by locking the account.
   tag "stig_id": "RHEL-07-010320"
   tag "cci": "CCI-002238"
   tag "nist": ["AC-7 b", "Rev_4"]
-  tag "subsystems": ['pam']
+  tag "subsystems": ['pam', 'faillock']
   tag "check": "Verify the operating system automatically locks an account for the
 maximum period for which the system can be configured.
 
@@ -68,14 +68,22 @@ fail_interval=900 unlock_time=604800
 
 and run the \"authconfig\" command."
 
-  auth_file = file('/etc/pam.d/password-auth-ac')
+  describe pam('/etc/pam.d/password-auth') do
+    required_rules = [
+      'auth required pam_faillock.so unlock_time=(604800|0|never)',
+      'auth sufficient pam_unix.so try_first_pass',
+      'auth [default=die] pam_faillock.so unlock_time=(604800|0|never)'
+    ]
+    alternate_rules = [
+      'auth required pam_faillock.so unlock_time=(604800|0|never)',
+      'auth sufficient pam_sss.so forward_pass',
+      'auth sufficient pam_unix.so try_first_pass',
+      'auth [default=die] pam_faillock.so unlock_time=(604800|0|never)'
+    ]
 
-  only_if { auth_file.exist? }
-
-  describe auth_file do
-    its('content') { should match(/^auth\s+required\s+pam_faillock.so\s.*unlock_time=604800/) }
-  end
-  describe auth_file do
-    its('content') { should match(/^auth\s+\[default=die\]\s+pam_faillock.so\s.*unlock_time=604800/) }
+    its('lines') {
+      should match_pam_rules(required_rules).exactly.or \
+             match_pam_rules(alternate_rules).exactly
+    }
   end
 end

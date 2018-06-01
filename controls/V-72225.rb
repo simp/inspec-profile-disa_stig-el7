@@ -85,6 +85,7 @@ SRG-OS-000228-GPOS-0008.
   tag "nist": ["AC-8 c 2", "Rev_4"]
   tag "cci": "CCI-001388"
   tag "nist": ["AC-8 c 3", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify any publicly accessible connection to the operating system
 displays the Standard Mandatory DoD Notice and Consent Banner before granting access
 to the system.

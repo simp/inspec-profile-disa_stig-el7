@@ -41,6 +41,7 @@ possible combinations that need to be tested before the password is compromised.
   tag "stig_id": "RHEL-07-010180"
   tag "cci": "CCI-000195"
   tag "nist": ["IA-5 (1) (b)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "The \"maxrepeat\" option sets the maximum number of allowed same
 consecutive characters in a new password.
 
@@ -48,9 +49,9 @@ Check for the value of the \"maxrepeat\" option in \"/etc/security/pwquality.con
 with the following command:
 
 # grep maxrepeat /etc/security/pwquality.conf
-maxrepeat = 2
+maxrepeat = 3
 
-If the value of \"maxrepeat\" is set to more than \"2\", this is a finding."
+If the value of \"maxrepeat\" is set to more than \"3\", this is a finding."
   tag "fix": "Configure the operating system to require the change of the number of
 repeating consecutive characters when passwords are changed by setting the
 \"maxrepeat\" option.
@@ -58,9 +59,9 @@ repeating consecutive characters when passwords are changed by setting the
 Add the following line to \"/etc/security/pwquality.conf conf\" (or modify the line
 to have the required value):
 
-maxrepeat = 2"
+maxrepeat = 3"
 
   describe parse_config_file("/etc/security/pwquality.conf") do
-    its('maxrepeat.to_i') { should cmp <= 2 }
+    its('maxrepeat.to_i') { should cmp <= 3 }
   end
 end

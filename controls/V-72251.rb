@@ -39,6 +39,7 @@ access to the system.
   tag "nist": ["IA-5 (1) (c)", "Rev_4"]
   tag "cci": "CCI-000366"
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon is configured to only use the SSHv2 protocol.
 
 Check that the SSH daemon is configured to only use the SSHv2 protocol with the

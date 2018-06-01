@@ -36,6 +36,7 @@ system."
   tag "stig_id": "RHEL-07-010119"
   tag "cci": "CCI-000192"
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "Verify the operating system uses \"pwquality\" to enforce the
 password complexity rules.
 
@@ -56,7 +57,7 @@ required value):
 password    required    pam_pwquality.so retry=3"
 
   # @todo - pam resource
-  describe command('grep pwquality /etc/pam.d/passwd') do
-    its('stdout.strip') { should match /^password\s+required\s+pam_pwquality.so/}
+  describe pam('/etc/pam.d/passwd') do
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so')}
   end
 end
