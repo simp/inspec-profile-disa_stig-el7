@@ -52,13 +52,4 @@ address of the log aggregation server."
       skip "File '/etc/audisp/audisp-remote.conf' cannot be found. This check must be performed manually"
     end
   end
-
-#  describe rsyslog_conf('/etc/rsyslog.conf') do
-#    it { should be_sending_to_remote_server}
-#  end if file('/etc/rsyslog.conf').exist?
-
-#  describe syslog_ng_conf('/etc/syslog-ng/syslog-ng.conf') do
-#    it { should be_sending_to_remote_server}
-#  end if file('/etc/syslog-ng/syslog-ng.conf').exist?
 end
-
