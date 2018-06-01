@@ -49,11 +49,11 @@ Uncomment the \"network_failure_action\" option in
   tag "fix_id": "F-78439r3_fix"
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('disk_full_action'.strip) { should match %r{^(syslog|single|halt)$} }
+    its('disk_full_action.strip') { should match %r{^(syslog|single|halt)$} }
   end
 
 # Test matches ./inspec-profiles/controls/V-73163.rb
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('network_failure_action'.strip) { should match %r{^(syslog|single|halt)$} }
+    its('network_failure_action.strip') { should match %r{^(syslog|single|halt)$} }
   end
 end
