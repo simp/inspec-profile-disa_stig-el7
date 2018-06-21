@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-MONITOR_KERNEL_LOG = attribute(
+monitor_kernel_log = attribute(
   'monitor_kernel_log',
   description: 'Set this to false if your system availability concern is not documented or
   there is no monitoring of the kernel log',
@@ -29,15 +29,13 @@ distinct information system component where audit records are stored), the
 centralized audit storage capacity of organizations (i.e., all audit data
 storage repositories combined), or both.
   "
-if auditd.status['failure'].nil?
-  impact 0.7
-elsif auditd.status['failure'].match?(%r{1|2})
-  impact 0.5
-elsif auditd.status['failure'].eql?(1) && !MONITOR_KERNEL_LOG
-  impact 0.3
-else
-   impact 0.5
- end
+  if auditd.status['failure'].nil?
+    impact 0.7
+  elsif auditd.status['failure'].match?(%r{^1$}) && !monitor_kernel_log
+    impact 0.3
+  else
+    impact 0.5
+  end
 
   tag "gtitle": "SRG-OS-000046-GPOS-00022"
   tag "satisfies": ["SRG-OS-000046-GPOS-00022", "SRG-OS-000047-GPOS-00023"]
@@ -101,7 +99,13 @@ staff.
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78433r2_fix"
 
-  describe auditd.status['failure'] do
-    it { should match %r{^(1|2)$} }
+  if !monitor_kernel_log
+    describe auditd.status['failure'] do
+      it { should match %r{^2$} }
+    end
+  else
+    describe auditd.status['failure'] do
+      it { should match %r{^(1|2)$} }
+    end
   end
 end
