@@ -41,10 +41,5 @@ default\"
 
   describe command("grep -i execstart /usr/lib/systemd/system/rescue.service") do
     its('stdout.strip') { should match %r{/usr/sbin/sulogin} }
-  end if package('gnome-desktop3').installed?
-  describe "The GNOME desktop is not installed" do
-    skip "The GNOME desktop is not installed, this control is Not Applicable."
-  end if !package('gnome-desktop3').installed?
-
-
+  end
 end
