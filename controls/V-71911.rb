@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-DIFOK = attribute('difok', default: '8', description: 'The acceptable range of
+difok = attribute('difok', default: '8', description: 'The acceptable range of
 values for difok which specifies the maximum number of characters that must
 change when a password is changed.')
 
@@ -48,6 +48,6 @@ to have the required value):
 difok = 8"
   tag "fix_id": "F-78263r1_fix"
   describe parse_config_file("/etc/security/pwquality.conf") do
-    its('difok.to_i') { should cmp >= DIFOK }
-end
+    its('difok.to_i') { should cmp >= difok }
+  end
 end

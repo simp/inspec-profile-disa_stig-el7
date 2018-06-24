@@ -4,7 +4,7 @@
 # TODO update attrib to use the same `style` as the other PAM/PASSWD attributes
 # TODO we should also have a PAM_PWQUALITY_PATH attrib I think
 
-MIN_LEN = attribute('min_len', default: '15',
+min_len = attribute('min_len', default: '15',
 description: 'The minimum number of characters for passwords.')
 
 control "V-71935" do
@@ -50,6 +50,6 @@ to have the required value):
 minlen = 15"
   tag "fix_id": "F-78287r1_fix"
   describe parse_config_file("/etc/security/pwquality.conf") do
-    its('minlen.to_i') { should cmp >= MIN_LEN }
+    its('minlen.to_i') { should cmp >= min_len }
   end
 end
