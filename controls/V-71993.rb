@@ -44,7 +44,8 @@ Add the setting to disable the Ctrl-Alt_Delete sequence for GNOME:
 logout=’’"
   tag "fix_id": "F-78345r2_fix"
 
-  describe systemd_service('ctrl-alt-del.service') do
+  describe systemd_service('ctrl-alt-del.target') do
     it { should_not be_running }
+    it { should_not be_enabled }
   end
 end
