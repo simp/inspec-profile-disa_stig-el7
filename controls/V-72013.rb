@@ -32,6 +32,6 @@ CREATE_HOME yes"
   tag "fix_id": "F-78365r1_fix"
 
   describe login_defs do
-    its('CREATE_HOME') { should match %r{yes}i }
+    its('CREATE_HOME') { should eq 'yes' }
   end
 end

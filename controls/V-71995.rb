@@ -45,6 +45,5 @@ UMASK  077"
 
   describe login_defs do
     its('UMASK') { should eq '077' }
-    its('UMASK') { should_not eq '000' }
   end
 end
