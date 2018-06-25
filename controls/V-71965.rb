@@ -8,7 +8,7 @@
 # users may be unable to log into the system.
 #
 
-SMART_CARD_STATUS = attribute(
+smart_card_status = attribute(
   'smart_card_status',
   default: "enabled", # values(enabled|disabled)
   description: 'Smart Card Status'
@@ -39,7 +39,7 @@ without individual authentication. Organizations may require unique
 identification of individuals in group accounts (e.g., shared privilege
 accounts) or for detailed accountability of individual activity.
   "
-  if SMART_CARD_STATUS.eql?('enabled')
+  if smart_card_status.eql?('enabled')
   impact 0.5
   else
     impact 0.0
@@ -85,12 +85,12 @@ Modify the \"/etc/pam_pkcs11/pam_pkcs11.conf\" file to use the cackey module if
 required."
   tag "fix_id": "F-78317r1_fix"
   describe command("authconfig --test | grep -i smartcard") do
-    its('stdout') { should match %r{use\sonly\ssmartcard\sfor\slogin\sis\s#{SMART_CARD_STATUS}} }
+    its('stdout') { should match %r{use\sonly\ssmartcard\sfor\slogin\sis\s#{smart_card_status}} }
     its('stdout') { should match %r{smartcard\smodule\s=\s".+"} }
     its('stdout') { should match %r{smartcard\sremoval\saction\s=\s".+"} }
-  end if SMART_CARD_STATUS.eql?('enabled')
+  end if smart_card_status.eql?('enabled')
 
   describe "The system is not smartcard enabled" do
     skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
-  end if !SMART_CARD_STATUS.eql?('enabled')
+  end if !smart_card_status.eql?('enabled')
 end

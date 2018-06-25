@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-SMART_CARD_STATUS = attribute(
+smart_card_status = attribute(
   'smart_card_status',
   default: "enabled", # values(enabled|disabled)
   description: 'Smart Card Status'
@@ -37,7 +37,7 @@ configuring the device itself (management).
 
     Requires further clarification from NIST.
   "
-if SMART_CARD_STATUS.eql?('enabled')
+if smart_card_status.eql?('enabled')
   impact 0.5
 else
   impact 0.0
@@ -79,13 +79,13 @@ to include \"ocsp_on\"."
 
   describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf") do
     its('stdout') { should include 'ocsp_on' }
-  end if SMART_CARD_STATUS.eql?('enabled')
+  end if smart_card_status.eql?('enabled')
 
   describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | wc -l") do
     its('stdout.strip.to_i') { should cmp >= 3 }
-  end if SMART_CARD_STATUS.eql?('enabled')
+  end if smart_card_status.eql?('enabled')
 
   describe "The system is not smartcard enabled" do
     skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
-  end if !SMART_CARD_STATUS.eql?('enabled')
+  end if !smart_card_status.eql?('enabled')
 end
