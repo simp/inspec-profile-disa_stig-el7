@@ -47,6 +47,6 @@ A reboot is required for the changes to take effect."
 
   # TODO SELinux resource?? (https://github.com/chef/inspec/issues/534)
   describe command('getenforce') do
-    its('stdout.strip') { should match %r{^Enforcing} }
+    its('stdout.strip') { should eq 'Enforcing' }
   end
 end

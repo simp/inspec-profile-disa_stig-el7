@@ -145,7 +145,7 @@ Use the following command to map an existing user to the \"user_u\" role:
     # Case when account isn't documented
     else
       describe command("semanage login -l | grep #{result[0]}") do
-        its('stdout') { should match %r{^$} }
+        its('stdout.strip') { should be_empty }
       end
     end
   end
