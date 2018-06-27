@@ -1,25 +1,5 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
-
 control "V-72181" do
   title "All uses of the pt_chown command must be audited."
   desc  "
@@ -33,7 +13,6 @@ reconstruct events to determine the cause and impact of compromise.
     Satisfies: SRG-OS-000042-GPOS-00020, SRG-OS-000392-GPOS-00172,
 SRG-OS-000471-GPOS-0021.
   "
-  impact 0.5
   tag "severity": "medium"
   tag "gtitle": "SRG-OS-000042-GPOS-00020"
   tag "gid": "V-72181"
@@ -68,20 +47,29 @@ auid!=4294967295 -k privileged_terminal
 
 The audit daemon must be restarted for the changes to take effect."
 
-  @audit_file = '/usr/libexec/pt_chown'
+  audit_file = '/usr/libexec/pt_chown'
 
-  describe auditd.file(@audit_file) do
-    its('permissions') { should_not cmp [] }
-    its('action') { should_not include 'never' }
+  if file(audit_file).exist?
+    impact 0.5
+  else
+    impact 0.0
   end
 
-  # Resource creates data structure including all usages of file
-  @perms = auditd.file(@audit_file).permissions
+  describe auditd.file(audit_file) do
+    its('permissions') { should_not cmp [] }
+    its('action') { should_not include 'never' }
+  end if file(audit_file).exist?
 
-  @perms.each do |perm|
+  # Resource creates data structure including all usages of file
+  perms = auditd.file(audit_file).permissions
+
+  perms.each do |perm|
     describe perm do
       it { should include 'x' }
     end
-  end
-  only_if { file(@audit_file).exist? }
+  end if file(audit_file).exist?
+
+  describe "The #{audit_file} file does not exist" do
+    skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  end if !file(audit_file).exist?
 end
