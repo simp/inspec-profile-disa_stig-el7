@@ -36,6 +36,6 @@ HostbasedAuthentication no
 The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78311r3_fix"
   describe sshd_config do
-    its('HostbasedAuthentication') { should match %r{no}i }
+    its('HostbasedAuthentication') { should eq 'no' }
   end
 end

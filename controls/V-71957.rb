@@ -37,6 +37,6 @@ The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78309r2_fix"
   # the `i` will ignore case
   describe sshd_config do
-    its('PermitUserEnvironment') { should match %r{no}i }
+    its('PermitUserEnvironment') { should eq 'no' }
   end
 end
