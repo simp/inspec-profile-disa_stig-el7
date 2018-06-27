@@ -1,19 +1,19 @@
 # encoding: utf-8
 
-DISABLE_SLOW_CONTROLS = attribute(
+disable_slow_controls = attribute(
   'disable_slow_controls',
   default: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.'
 )
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
   default: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
   default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
@@ -21,9 +21,9 @@ NON_INTERACTIVE_SHELLS = attribute(
 
 control "V-72037" do
   title "Local initialization files must not execute world-writable programs."
-  if DISABLE_SLOW_CONTROLS
+  if disable_slow_controls
     desc "This control consistently takes a long to run and has been disabled
-          using the DISABLE_SLOW_CONTROLS attribute."
+          using the disable_slow_controls attribute."
   else
   desc  "If user start-up files execute world-writable programs, especially in
 unprotected directories, they could be maliciously modified to destroy user
@@ -62,19 +62,19 @@ files with the following command:
 # chmod 0755  <file>"
   tag "fix_id": "F-78389r1_fix"
 
-  if DISABLE_SLOW_CONTROLS
+  if disable_slow_controls
     describe "This control consistently takes a long to run and has been disabled
-  using the DISABLE_SLOW_CONTROLS attribute." do
+  using the disable_slow_controls attribute." do
       skip "This control consistently takes a long to run and has been disabled
-  using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
+  using the disable_slow_controls attribute. You must enable this control for a
   full accredidation for production."
   end
   else
-    IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+    ignore_shells = non_interactive_shells.join('|')
 
     #Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
     dotfiles = Set[]
-    u = users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries
+    u = users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries
     #For each user, build and execute a find command that identifies initialization files
     #in a user's home directory.
     u.each do |user|
