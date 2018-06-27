@@ -1,8 +1,8 @@
 # encoding: utf-8
 #
 
-FILE_INTEGRITY_TOOL = attribute(
-  'file_integ_tool',
+file_integrity_tool = attribute(
+  'file_integrity_tool',
   default: 'aide',
   description: "Tool used to determine file integrity"
 )
@@ -76,14 +76,14 @@ to send email at the completion of the analysis.
 # more /etc/cron.daily/aide
 0 0 * * * /usr/sbin/aide --check | /bin/mail -s \"$HOSTNAME - Daily aide integrity check run\" root@sysname.mil"
   tag "fix_id": "F-78327r1_fix"
-  describe package(FILE_INTEGRITY_TOOL) do
+  describe package(file_integrity_tool) do
     it { should be_installed }
   end
   describe.one do
-    describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+    describe file("/etc/cron.daily/#{file_integrity_tool}") do
       its('content') { should match %r{/bin/mail} }
     end
-    describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
+    describe file("/etc/cron.weekly/#{file_integrity_tool}") do
       its('content') { should match %r{/bin/mail} }
     end
   end

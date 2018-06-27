@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-FILE_INTEGRITY_TOOL = attribute('file_integrity_tool', default: 'aide',
+file_integrity_tool = attribute('file_integrity_tool', default: 'aide',
 description: 'Tool used to determine file integrity')
-FILE_INTEGRITY_INTERVAL = attribute('file_integrity_interval', default: 'weekly',
+file_integrity_interval = attribute('file_integrity_interval', default: 'weekly',
 description: 'Interval for running the file integrity tool.')
 
 control "V-71973" do
@@ -64,32 +64,32 @@ cron to run AIDE daily, but other file integrity tools may be used:
 # cat /etc/cron.daily/aide
 0 0 * * * /usr/sbin/aide --check | /bin/mail -s \"aide integrity check run for <system name>\" root@sysname.mil"
   tag "fix_id": "F-78325r1_fix"
-  describe package(FILE_INTEGRITY_TOOL) do
+  describe package(file_integrity_tool) do
     it { should be_installed }
   end
-  if FILE_INTEGRITY_INTERVAL == 'monthly'
+  if file_integrity_interval == 'monthly'
     describe.one do
-      describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+      describe file("/etc/cron.daily/#{file_integrity_tool}") do
         it { should exist }
       end
-      describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
+      describe file("/etc/cron.weekly/#{file_integrity_tool}") do
         it { should exist }
       end
-      describe file("/etc/cron.monthly/#{FILE_INTEGRITY_TOOL}") do
+      describe file("/etc/cron.monthly/#{file_integrity_tool}") do
         it { should exist }
       end
     end
-  elsif FILE_INTEGRITY_INTERVAL == 'weekly'
+  elsif file_integrity_interval == 'weekly'
     describe.one do
-      describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+      describe file("/etc/cron.daily/#{file_integrity_tool}") do
         it { should exist }
       end
-      describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
+      describe file("/etc/cron.weekly/#{file_integrity_tool}") do
         it { should exist }
       end
     end
-  elsif FILE_INTEGRITY_INTERVAL == 'daily'
-    describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+  elsif file_integrity_interval == 'daily'
+    describe file("/etc/cron.daily/#{file_integrity_tool}") do
       it { should exist }
     end
   end
