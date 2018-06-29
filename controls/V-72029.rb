@@ -10,7 +10,7 @@ exempt_home_users = attribute(
 non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72029" do
