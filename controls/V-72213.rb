@@ -1,13 +1,5 @@
 # encoding: utf-8
 #
-
-# Should we verify the virus software installation?
-ENABLE_AV = attribute(
-  'enable_av',
-  default: true,
-  description: 'Check Virus Software is Installed and Running'
-)
-
 control "V-72213" do
   title "The system must use a virus scan program."
   desc  "
@@ -66,9 +58,5 @@ If no antivirus scan program is active on the system, this is a finding."
     describe service('clamav-daemon.socket') do
 	    it { should be_running }
 	  end
-  end if ENABLE_AV
-
-  describe "The system is not required to have AntiVirus Installed" do
-    skip "The system does not require AntiVirus to be enabled"
-  end if !ENABLE_AV
+  end
 end
