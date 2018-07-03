@@ -5,7 +5,7 @@
 # TODO this can happen if `authconfig` has not been run on the system yet and
 # TODO the system is still using the `non-ac` versions of the files yet.
 
-MIN_REUSE_GENERATIONS = attribute('min_reuse_generations', default: 5,
+min_reuse_generations = attribute('min_reuse_generations', default: 5,
 description: 'The minimum number of generations before a password can be
 reused.')
 
@@ -48,6 +48,6 @@ password sufficient pam_unix.so use_authtok sha512 shadow remember=5"
   tag "fix_id": "F-78285r2_fix"
 
   describe pam("/etc/pam.d/system-auth") do
-    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').all_with_integer_arg('remember', :>=, MIN_REUSE_GENERATIONS) }
+    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').all_with_integer_arg('remember', :>=, min_reuse_generations) }
   end
 end

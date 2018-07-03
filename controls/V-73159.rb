@@ -1,8 +1,9 @@
 # encoding: utf-8
 #
-MAX_RETRY = attribute('max_retry', default: 3,
+max_retry = attribute('max_retry', default: 3,
 description: 'The operating system must limit password
 failures.')
+
 control "V-73159" do
   title "When passwords are changed or new passwords are established, pwquality
 must be used."
@@ -47,6 +48,6 @@ Note: The value of \"retry\" should be between \"1\" and \"3\"."
   describe pam('/etc/pam.d/passwd') do
     its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so') }
     its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', :>=, 1) }
-    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', :<=, MAX_RETRY) }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', :<=, max_retry) }
   end
 end

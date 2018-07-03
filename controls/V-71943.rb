@@ -1,10 +1,10 @@
 # encoding: utf-8
 #
 
-UNSUCCESSFUL_ATTEMPTS = attribute('unsuccessful_attempts', default: 3,
+unsuccessful_attempts = attribute('unsuccessful_attempts', default: 3,
 description: 'The account is denied access after the specified number of
 consecutive failed logon attempts.')
-FAIL_INTERVAL = attribute('fail_interval', default: 900,
+fail_interval = attribute('fail_interval', default: 900,
 description: 'The interval of time in which the consecutive failed logon
 attempts must occur in order for the account to be locked out.')
 
@@ -78,8 +78,8 @@ account required pam_faillock.so"
       should match_pam_rules(required_rules).exactly.or \
              match_pam_rules(alternate_rules).exactly
     }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', :<=, UNSUCCESSFUL_ATTEMPTS) }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', :<=, FAIL_INTERVAL) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', :<=, unsuccessful_attempts) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', :<=, fail_interval) }
     its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(604800|0|never)') }
   end
 
@@ -88,8 +88,8 @@ account required pam_faillock.so"
       should match_pam_rules(required_rules).exactly.or \
              match_pam_rules(alternate_rules).exactly
     }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', :<=, UNSUCCESSFUL_ATTEMPTS) }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', :<=, FAIL_INTERVAL) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', :<=, unsuccessful_attempts) }
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', :<=, fail_interval) }
     its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(604800|0|never)') }
   end
 end
