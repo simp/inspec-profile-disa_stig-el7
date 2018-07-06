@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-RANDOMIZE_VA_SPACE = attribute('randomize_va_space', default: 2,
+randomize_va_space = attribute('randomize_va_space', default: 2,
 description: 'The value for the randomize virtual address space
 kernel parameter.')
 
@@ -43,7 +43,7 @@ kernel.randomize_va_space=2"
   tag "fix_id": "F-84531r1_fix"
 
 describe kernel_parameter('kernel.randomize_va_space') do
-  its('value') { should eq RANDOMIZE_VA_SPACE }
+  its('value') { should eq randomize_va_space }
 end
 
 end

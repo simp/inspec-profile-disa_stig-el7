@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-LOG_AGGREGATION_SERVER = attribute(
+log_aggregation_server = attribute(
   'log_aggregation_server',
   description: 'The system is intented to be a log aggregation server.',
   default: false
@@ -49,7 +49,7 @@ imtcp\" configuration line, or document the system as being used for log
 aggregation."
   tag "fix_id": "F-78565r1_fix"
 
-  if LOG_AGGREGATION_SERVER
+  if log_aggregation_server
     describe file('/etc/rsyslog.conf') do
       its('content') { should match %r{^\$ModLoad\s+imtcp.*\n?$} }
     end
