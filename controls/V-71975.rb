@@ -86,5 +86,13 @@ to send email at the completion of the analysis.
     describe file("/etc/cron.weekly/#{file_integrity_tool}") do
       its('content') { should match %r{/bin/mail} }
     end
+    describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      its('commands.flatten') { should include(match %r{/bin/mail}) }
+    end
+    if file("/etc/cron.d/#{file_integrity_tool}").exist?
+      describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+        its('commands') { should include(match %r{/bin/mail}) }
+      end
+    end
   end
 end
