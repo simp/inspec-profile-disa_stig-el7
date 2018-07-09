@@ -72,8 +72,11 @@ Add the setting to lock the screensaver lock-enabled setting:
 "
   tag "fix_id": "F-85745r1_fix"
 
-  describe command("grep -i lock-enabled /etc/dconf/db/local.d/locks/*").stdout do
-    it { should_not eq "" }
+  describe command("gsettings writable org.gnome.desktop.screensaver lock-enabled") do
+    its('stdout.strip') { should cmp 'false' }
   end if package('gnome-desktop3').installed?
 
+  describe "The GNOME desktop is not installed" do
+    skip "The GNOME desktop is not installed, this control is Not Applicable."
+  end if !package('gnome-desktop3').installed?
 end

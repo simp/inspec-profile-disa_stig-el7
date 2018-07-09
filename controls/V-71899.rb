@@ -14,11 +14,11 @@ user's session has idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-if package('gnome-desktop3').installed?
-  impact 0.5
-else
-  impact 0.0
-end
+  if package('gnome-desktop3').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-71899"
   tag "rid": "SV-86523r3_rule"
@@ -60,8 +60,9 @@ Update the system databases:
 Users must log out and back in again before the system-wide settings take
 effect."
   tag "fix_id": "F-78251r2_fix"
-  describe command("grep -i idle_activation_enabled /etc/dconf/db/local.d/*") do
-    its('stdout') { should match %(^\[org\/gnome\/desktop\/screensaver\]\s+idle-activation-enabled=true\n?$) }
+
+  describe command('gsettings get org.gnome.desktop.screensaver idle-activation-enabled') do
+    its('stdout.strip') { should cmp 'true' }
   end if package('gnome-desktop3').installed?
 
   describe "The system does not have GNOME installed" do

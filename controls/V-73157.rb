@@ -1,12 +1,6 @@
 # encoding: utf-8
 #
 
-system_db_path = attribute(
-  'system_db_path',
-  default: '/etc/dconf/db/local.d',
-  description: "Path to the system database"
-)
-
 control "V-73157" do
   title "The operating system must prevent a user from overriding the session
 idle-delay setting for the graphical user interface."
@@ -21,11 +15,11 @@ user's session has idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-if package('gnome-desktop3').installed?
-  impact 0.5
-else
-  impact 0.0
-end
+  if package('gnome-desktop3').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000029-GPOS-00010"
   tag "gid": "V-73157"
   tag "rid": "SV-87809r3_rule"
@@ -75,10 +69,10 @@ Add the setting to lock the session idle delay:
 /org/gnome/desktop/session/idle-delay"
   tag "fix_id": "F-79603r1_fix"
 
-  # @todo - dynamically gather system_db_path?
-  describe command("grep -i idle_delay #{system_db_path}/locks/*") do
-    its('stdout') { should_not match %r{^$} }
+  describe command("gsettings writable org.gnome.desktop.session idle-delay") do
+    its('stdout.strip') { should cmp 'false' }
   end if package('gnome-desktop3').installed?
+
   describe "The GNOME desktop is not installed" do
     skip "The GNOME desktop is not installed, this control is Not Applicable."
   end if !package('gnome-desktop3').installed?
