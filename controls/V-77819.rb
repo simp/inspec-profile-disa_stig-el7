@@ -1,18 +1,17 @@
 # encoding: utf-8
 #
 
-SYSTEM_DB_PATH = attribute(
-                           'system_db_path',
-                           default: '/etc/dconf/db/local.d',
-                           description: "Path to the system database"
-                           )
+multifactor_enabled = attribute(
+  'multifactor_enabled',
+  default: "true",
+  description: "Path to the system database"
+)
 
-MULTIFACTOR_ENABLED = attribute(
-                           'multifactor_enabled',
-                           default: "true",
-                           description: "Path to the system database"
-                           )
-
+dconf_user = attribute(
+  'dconf_user',
+  default: '',
+  description: "User to use to check dconf settings"
+)
 
 control "V-77819" do
   title "The operating system must uniquely identify and must authenticate
@@ -82,14 +81,20 @@ Add the setting to enable smartcard login:
 enable-smartcard-authentication=true"
   tag "fix_id": "F-84519r2_fix"
 
-  only_if { command('dconf').exist? }
-
   # @todo - dynamically gather system_db_path?
-  describe command("dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
-    its('stdout.strip') { should eq MULTIFACTOR_ENABLED }
-  end if package('gnome-desktop3').installed?
-
-  describe "The GNOME desktop is not installed" do
-    skip "The GNOME desktop is not installed, this control is Not Applicable."
-  end if !package('gnome-desktop3').installed?
+  if package('gnome-desktop3').installed?
+    if !dconf_user.empty? and command('whoami').stdout.strip == 'root'
+      describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+        its('stdout.strip') { should eq multifactor_enabled.to_s }
+      end
+    else
+      describe command("dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+        its('stdout.strip') { should eq multifactor_enabled.to_s }
+      end
+    end
+  else
+    describe "The GNOME desktop is not installed" do
+      skip "The GNOME desktop is not installed, this control is Not Applicable."
+    end
+  end
 end
