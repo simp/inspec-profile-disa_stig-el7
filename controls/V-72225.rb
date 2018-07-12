@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-BANNER_MESSAGE_TEXT_RAL = attribute('banner_message_text_ral',
+banner_message_text_ral = attribute('banner_message_text_ral',
 default: "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized\
  use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions: -The USG r\
 outinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMS\
@@ -16,7 +16,7 @@ confidential. See User Agreement for details.",
 description: 'The banner message  must display the Standard Mandatory DoD Notice and
 Consent Banner before granting access.')
 
-BANNER_MESSAGE_TEXT_RAL_LIMITED = attribute('banner_message_text_ral_limited',
+banner_message_text_ral_limited = attribute('banner_message_text_ral_limited',
 default: "I've read & consent to terms in IS user agreem't.",
 description: 'The banner message must display the Standard Mandatory DoD Notice and Consent Bann\
 er before granting access.')
@@ -193,8 +193,8 @@ The SSH service must be restarted for changes to take effect."
     #Banner property provides a path to a file and it exists.
     describe.one do
       banner = file(banner_file).content.gsub(%r{[\r\n\s]}, '')
-      clean_banner = BANNER_MESSAGE_TEXT_RAL.gsub(%r{[\r\n\s]}, '')
-      clean_banner_limited = BANNER_MESSAGE_TEXT_RAL_LIMITED.gsub(%r{[\r\n\s]}, '')
+      clean_banner = banner_message_text_ral.gsub(%r{[\r\n\s]}, '')
+      clean_banner_limited = banner_message_text_ral_limited.gsub(%r{[\r\n\s]}, '')
 
       describe "The SSHD Banner is set to the standard banner and has the correct text" do
         subject { banner }

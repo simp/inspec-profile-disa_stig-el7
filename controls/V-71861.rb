@@ -1,12 +1,14 @@
 # encoding: utf-8
 #
-BANNER_MESSAGE_TEXT_GUI = attribute('banner_message_text_gui',
+banner_message_text_gui = attribute('banner_message_text_gui',
 default: "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions: -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations. -At any time, the USG may inspect and seize data stored on this IS. -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose. -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy. -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.",
 description: 'The banner message  must display the Standard Mandatory DoD Notice and Consent Banner before granting access.')
-BANNER_MESSAGE_TEXT_GUI_LIMITED = attribute('banner_message_text_gui_limited',
+
+banner_message_text_gui_limited = attribute('banner_message_text_gui_limited',
 default: "I've read & consent to terms in IS user agreem't.",
 description: 'The banner message must display the Standard Mandatory DoD Notice and Consent Bann\
 er before granting access.')
+
 control "V-71861" do
   title "The operating system must display the approved Standard Mandatory DoD
 Notice and Consent Banner before granting local or remote access to the system
@@ -152,43 +154,45 @@ on the GUI.
 Run the following command to update the database:
 # dconf update"
   tag "fix_id": "F-78213r5_fix"
-  #Get all files that have the banner-message-text specified.
-  banner_files =
-    command("grep -l banner-message-text /etc/dconf/db/local.d/*").stdout.split("\n")
+  if package('gnome-desktop3').installed?
+    #Get all files that have the banner-message-text specified.
+    banner_files =
+      command("grep -l banner-message-text /etc/dconf/db/local.d/*").stdout.split("\n")
 
-  #If there are no banner files then this is a finding.
-  banner_missing = banner_files.empty?
-  describe "If no files specify the banner text then this is a finding" do
-    subject { banner_missing }
-    it{should be false}
-  end if banner_missing
+    #If there are no banner files then this is a finding.
+    banner_missing = banner_files.empty?
+    describe "If no files specify the banner text then this is a finding" do
+      subject { banner_missing }
+      it{should be false}
+    end if banner_missing
 
-  #If there are banner files then check them to make sure they have the correct text.
-  banner_files.each do |banner_file|
-    banner_message =
-      parse_config_file(banner_file).params("banner-message-text").gsub(%r{[\r\n\s]}, '')
-    #dconf expects the banner-message-text to be quoted so remove leading and trailing quote.
-    #See https://developer.gnome.org/dconf/unstable/dconf-tool.html which states:
-    #  VALUE arguments must be in GVariant format, so e.g. a string must include
-    #  explicit quotes: "'foo'". This format is also used when printing out values.
-    if banner_message.start_with?('"') || banner_message.start_with?('\'')
-      banner_message = banner_message[1,banner_message.length]
-    end
-    if banner_message.end_with?('"') || banner_message.end_with?('\'')
-      banner_message = banner_message.chop
-    end
-    describe.one do
-      describe banner_message do
-        it{should cmp BANNER_MESSAGE_TEXT_GUI.gsub(%r{[\r\n\s]}, '')}
+    #If there are banner files then check them to make sure they have the correct text.
+    banner_files.each do |banner_file|
+      banner_message =
+        parse_config_file(banner_file).params("banner-message-text").gsub(%r{[\r\n\s]}, '')
+      #dconf expects the banner-message-text to be quoted so remove leading and trailing quote.
+      #See https://developer.gnome.org/dconf/unstable/dconf-tool.html which states:
+      #  VALUE arguments must be in GVariant format, so e.g. a string must include
+      #  explicit quotes: "'foo'". This format is also used when printing out values.
+      if banner_message.start_with?('"') || banner_message.start_with?('\'')
+        banner_message = banner_message[1,banner_message.length]
       end
-      describe banner_message do
-        it{should cmp BANNER_MESSAGE_TEXT_GUI_LIMITED.gsub(%r{[\r\n\s]}, '')}
+      if banner_message.end_with?('"') || banner_message.end_with?('\'')
+        banner_message = banner_message.chop
+      end
+      describe.one do
+        describe banner_message do
+          it{should cmp banner_message_text_gui.gsub(%r{[\r\n\s]}, '')}
+        end
+        describe banner_message do
+          it{should cmp banner_message_text_gui_limited.gsub(%r{[\r\n\s]}, '')}
+        end
       end
     end
-  end if package('gnome-desktop3').installed?
-
-  describe "The system does not have GNOME installed" do
-    skip "The system does not have GNOME installed, this requirement is Not
-      Applicable."
-  end if !package('gnome-desktop3').installed?
+  else
+    describe "The system does not have GNOME installed" do
+      skip "The system does not have GNOME installed, this requirement is Not
+        Applicable."
+    end
+  end
 end
