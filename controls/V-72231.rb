@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-LDAP_CA_CERT = attribute(
+ldap_ca_cert = attribute(
   'ldap_ca_cert',
   default: '/etc/openldap/ldap-cacert.pem',
   description: "Certificate file containing CA certificate for LDAP"
@@ -56,28 +56,22 @@ Set the \"tls_cacertfile\" option in \"/etc/pam_ldap.conf\" to point to the
 path for the X.509 certificates used for peer authentication."
   tag "fix_id": "F-78585r1_fix"
 
-  authconfig = parse_config_file('/etc/sysconfig/authconfig')
-
-  USESSSD_ldap_enabled = (authconfig.params['USESSSD'].eql? 'yes' and
+  sssd_id_ldap_enabled = (package('sssd').installed? and
     !command('grep "^\s*id_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
 
-  USESSSDAUTH_ldap_enabled = (authconfig.params['USESSSDAUTH'].eql? 'yes' and
+  sssd_ldap_enabled = (package('sssd').installed? and
     !command('grep "^\s*[a-z]*_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
 
-  USELDAPAUTH_ldap_enabled = (authconfig.params['USELDAPAUTH'].eql? 'yes')
+  pam_ldap_enabled = (!command('grep "^[^#]*pam_ldap\.so" /etc/pam.d/*').stdout.strip.empty?)
 
-  # @todo - verify best way to check this
-  VAS_QAS_ldap_enabled = (package('vasclnt').installed? or service('vasd').installed?)
-
-  if !(USESSSD_ldap_enabled or USESSSDAUTH_ldap_enabled or
-       USELDAPAUTH_ldap_enabled or VAS_QAS_ldap_enabled)
+  if !(sssd_id_ldap_enabled or sssd_ldap_enabled or pam_ldap_enabled)
     impact 0.0
     describe "LDAP not enabled" do
       skip "LDAP not enabled using any known mechanisms, this control is Not Applicable."
     end
   end
 
-  if USESSSD_ldap_enabled
+  if sssd_id_ldap_enabled
     ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
     describe ldap_id_use_start_tls do
       its('stdout.strip') { should match %r{^ldap_id_use_start_tls = true$}}
@@ -90,32 +84,23 @@ path for the X.509 certificates used for peer authentication."
     end
   end
 
-  if USESSSDAUTH_ldap_enabled
+  if sssd_ldap_enabled
     describe command('grep -i ldap_tls_cacert /etc/sssd/sssd.conf') do
-      its('stdout.strip') { should match %r{^ldap_tls_cacert = #{Regexp.escape(LDAP_CA_CERT)}$}}
+      its('stdout.strip') { should match %r{^ldap_tls_cacert\s*=\s*#{ldap_ca_cert}$} }
     end
-    describe file(LDAP_CA_CERT) do
+    describe file(ldap_ca_cert) do
       it { should exist }
       it { should be_file }
     end
   end
 
-  if USELDAPAUTH_ldap_enabled
+  if pam_ldap_enabled
     describe command('grep -i tls_cacertfile /etc/pam_ldap.conf') do
-      its('stdout.strip') { should match %r{^tls_cacertfile #{Regexp.escape(LDAP_CA_CERT)}$}}
+      its('stdout.strip') { should match %r{^tls_cacertfile\s+#{ldap_ca_cert}$}}
     end
-    describe file(LDAP_CA_CERT) do
+    describe file(ldap_ca_cert) do
       it { should exist }
       it { should be_file }
-    end
-  end
-
-  # @todo - not sure how USELDAP is implemented and how it affects the system, so ignore for now
-
-  if VAS_QAS_ldap_enabled
-    describe command('grep ldap-gsssasl-security-layers /etc/opt/quest/vas/vas.conf') do
-      its('stdout.strip') { should match %r{^ldap-gsssasl-security-layers = 0$}}
-      its('stdout.strip.lines.length') { should eq 1 }
     end
   end
 end
