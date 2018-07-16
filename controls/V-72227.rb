@@ -60,12 +60,12 @@ Set \"ssl start_tls\" in \"/etc/pam_ldap.conf\"."
   if sssd_id_ldap_enabled
     ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
     describe ldap_id_use_start_tls do
-      its('stdout.strip') { should match %r{^ldap_id_use_start_tls = true$}}
+      its('stdout.strip') { should match %r{^ldap_id_use_start_tls\s*=\s*true$}}
     end
 
     ldap_id_use_start_tls.stdout.strip.each_line do |line|
       describe line do
-        it { should match %r{^ldap_id_use_start_tls = true$}}
+        it { should match %r{^ldap_id_use_start_tls\s*=\s*true$}}
       end
     end
   end

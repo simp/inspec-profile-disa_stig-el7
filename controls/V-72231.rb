@@ -1,12 +1,6 @@
 # encoding: utf-8
 #
 
-ldap_ca_cert = attribute(
-  'ldap_ca_cert',
-  default: '/etc/openldap/ldap-cacert.pem',
-  description: "Certificate file containing CA certificate for LDAP"
-)
-
 control "V-72231" do
   title "The operating system must implement cryptography to protect the
 integrity of Lightweight Directory Access Protocol (LDAP) communications."
@@ -74,33 +68,43 @@ path for the X.509 certificates used for peer authentication."
   if sssd_id_ldap_enabled
     ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
     describe ldap_id_use_start_tls do
-      its('stdout.strip') { should match %r{^ldap_id_use_start_tls = true$}}
+      its('stdout.strip') { should match %r{^ldap_id_use_start_tls\s*=\s*true$}}
     end
 
     ldap_id_use_start_tls.stdout.strip.each_line do |line|
       describe line do
-        it { should match %r{^ldap_id_use_start_tls = true$}}
+        it { should match %r{^ldap_id_use_start_tls\s*=\s*true$}}
       end
     end
   end
 
   if sssd_ldap_enabled
-    describe command('grep -i ldap_tls_cacert /etc/sssd/sssd.conf') do
-      its('stdout.strip') { should match %r{^ldap_tls_cacert\s*=\s*#{ldap_ca_cert}$} }
+    ldap_tls_cacert = command('grep -i ldap_tls_cacert /etc/sssd/sssd.conf').
+      stdout.strip.scan(%r{^ldap_tls_cacert\s*=\s*(.*)}).last
+
+    describe "ldap_tls_cacert" do
+      subject { ldap_tls_cacert }
+      it { should_not eq nil }
     end
-    describe file(ldap_ca_cert) do
+
+    describe file(ldap_tls_cacert.last) do
       it { should exist }
       it { should be_file }
-    end
+    end if !ldap_tls_cacert.nil?
   end
 
   if pam_ldap_enabled
-    describe command('grep -i tls_cacertfile /etc/pam_ldap.conf') do
-      its('stdout.strip') { should match %r{^tls_cacertfile\s+#{ldap_ca_cert}$}}
+    tls_cacertfile = command('grep -i tls_cacertfile /etc/pam_ldap.conf').
+      stdout.strip.scan(%r{^tls_cacertfile\s+(.*)}).last
+
+    describe "tls_cacertfile" do
+      subject { tls_cacertfile }
+      it { should_not eq nil }
     end
-    describe file(ldap_ca_cert) do
+
+    describe file(tls_cacertfile.last) do
       it { should exist }
       it { should be_file }
-    end
+    end if !tls_cacertfile.nil?
   end
 end
