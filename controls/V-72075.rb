@@ -55,7 +55,7 @@ media or document the configuration to boot from removable media with the ISSO."
   blocks = roots.map { |root|
     root_file = file(root)
     root_file.symlink? ? root_file.link_path : root_file.path
-  }.uniq
+  }
 
   blocks.each { |block|
     block_file = file(block)
