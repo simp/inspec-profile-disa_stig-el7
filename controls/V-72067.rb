@@ -1,12 +1,6 @@
 # encoding: utf-8
 #
 
-GRUB_CONF_PATH = attribute(
-  'grub_conf_path',
-  description: 'the default path for the grub.conf file',
-  default: inspec.file('/boot/efi/EFI/redhat/grub.cfg').exist? ? '/boot/efi/EFI/redhat/grub.cfg' : '/boot/grub2/grub.cfg'
-)
-
 control "V-72067" do
   title "The operating system must implement NIST FIPS-validated cryptography
 for the following: to provision digital signatures, to generate cryptographic
@@ -131,9 +125,17 @@ Reboot the system for the changes to take effect.
   describe package('dracut-fips') do
     it { should be_installed }
   end
-  describe grub_conf(GRUB_CONF_PATH, 'default') do
-    its('kernel') { should include 'fips=1'}
-  end
+
+  all_args = command('grubby --info=ALL | grep "^args=" | sed "s/^args=//g"').
+    stdout.strip.split("\n").
+    map { |s| s.sub(%r{^"(.*)"$}, '\1') } # strip outer quotes if they exist
+
+  all_args.each { |args|
+    describe args do
+      it { should match %r{\bfips=1\b} }
+    end
+  }
+
   describe file('/proc/sys/crypto/fips_enabled') do
     its('content.strip') { should cmp 1 }
   end
