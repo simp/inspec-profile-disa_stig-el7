@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-KNOWN_SYSTEM_ACCOUNTS = attribute(
+known_system_accounts = attribute(
   'known_system_accounts',
   default: [
         'root',
@@ -40,7 +40,7 @@ KNOWN_SYSTEM_ACCOUNTS = attribute(
   description: 'System accounts that support approved system activities. (Array)'
 )
 
-DISALLOWED_ACCOUNTS = attribute(
+disallowed_accounts = attribute(
   'disallowed_accounts',
   description: 'Accounts that are not allowed on the system (Array)',
   default: [
@@ -50,7 +50,7 @@ DISALLOWED_ACCOUNTS = attribute(
   ]
 )
 
-USER_ACCOUNTS = attribute(
+user_accounts = attribute(
   'user_accounts',
   description: 'accounts of known managed users (Array)',
   default:[]
@@ -103,14 +103,14 @@ for a normal user to perform administrative-level actions.
 Document all authorized accounts on the system."
   tag "fix_id": "F-78353r1_fix"
 
-  ALLOWED_ACCOUNTS = (KNOWN_SYSTEM_ACCOUNTS + USER_ACCOUNTS).uniq
+  allowed_accounts = (known_system_accounts + user_accounts).uniq
 
   describe "The active system users" do
     subject { passwd }
-    its('users') { should be_in ALLOWED_ACCOUNTS }
+    its('users') { should be_in allowed_accounts }
   end
   describe "System" do
     subject { passwd }
-    its('users') { should_not be_in DISALLOWED_ACCOUNTS }
+    its('users') { should_not be_in disallowed_accounts }
   end
 end
