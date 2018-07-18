@@ -51,6 +51,7 @@ command:
 
 # sudo rpm -Uvh <packagename>"
   tag "fix_id": "F-78391r1_fix"
+  tag "dangerous": { :reason => "Uses global find command" }
 
   # @todo - check for host vm device files as mentioned and pass if found
   findings = Set[]
