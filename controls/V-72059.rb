@@ -1,13 +1,13 @@
 # encoding: utf-8
 #
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
   default: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
   default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/sync"]
@@ -58,11 +58,11 @@ finding."
 system/partition."
   tag "fix_id": "F-78411r1_fix"
 
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
 
   # excluding root because its home directory is usually "/root" (mountpoint "/")
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000)}.entries.each do |user_info|
-    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+  users.where{ !shell.match(ignore_shells) && (uid >= 1000)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
 
     home_mount = command(%(df #{user_info.home} --output=target | tail -1)).stdout.strip
     describe user_info.username do
