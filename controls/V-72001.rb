@@ -18,13 +18,11 @@ known_system_accounts = attribute(
         'systemd-bus-proxy',
         'systemd-network',
         'dbus',
-        'docker', # account used by the docker daemon
         'polkitd',
         'tss', #  Account used by the trousers package to sandbox the tcsd daemon
         'postfix', # Service Account for Postfix Mail Daemon
         'chrony', # Service Account for the Chrony Time Service
         'sshd', # Service Account for SSH
-        'ec2-user', # Service Account for EC2 Access in AWS
         'sssd', # Service Account for the SSSH Authentication service
         'rpc', # Service Account RPCBind Daemon
         'unbound', # Service Account UnBound Daemon
@@ -32,10 +30,7 @@ known_system_accounts = attribute(
         'vboxadd', # known Virtualbox user
         'nfsnobody', # service account for nsfd
         'vagrant', # known service account for vagrant / Virtualbox
-        'nginx', # known service account for nginx web-server
         'rpcuser', # known centos system account for nsf
-        'apache', # known apache system account
-        'mysql', # known mysql system account
   ],
   description: 'System accounts that support approved system activities. (Array)'
 )
