@@ -34,7 +34,16 @@ requirement or remove it from the system with the following command:
 "
   tag "fix_id": "F-78653r2_fix"
 
-  describe package('vsftpd') do
-    it { should_not be_installed }
+  describe.one do
+    describe package('vsftpd') do
+      it { should_not be_installed }
+    end
+    describe parse_config_file('/etc/vsftpd/vsftpd.conf') do
+      its('ssl_enable') { should cmp 'YES' }
+      its('force_anon_data_ssl') { should cmp 'YES' }
+      its('force_anon_logins_ssl') { should cmp 'YES' }
+      its('force_local_data_ssl') { should cmp 'YES' }
+      its('force_local_logins_ssl') { should cmp 'YES' }
+    end
   end
 end
