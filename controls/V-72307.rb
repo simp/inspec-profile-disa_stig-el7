@@ -3,7 +3,7 @@
 
 # TODO this needs to be reworked to allow `X11_NEEDED` attribute
 
-X11_ENABLED = attribute(
+x11_enabled = attribute(
   'x11_enabled',
   description: 'Set to `true` if a GUI or X11 is needed on the system',
   default: false
@@ -43,9 +43,9 @@ remove the related packages with the following commands:
 
   describe package('xorg-x11-server-common') do
     it { should_not be_installed }
-  end if !X11_ENABLED
+  end if !x11_enabled
 
   describe package('xorg-x11-server-common') do
     it { should be_installed }
-  end if X11_ENABLED
+  end if x11_enabled
 end
