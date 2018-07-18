@@ -1,10 +1,17 @@
 # encoding: utf-8
 #
-DISABLE_SLOW_CONTROLS = attribute(
+disable_slow_controls = attribute(
   'disable_slow_controls',
   default: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.')
+
+rpm_verify_integrity_except = attribute(
+  'rpm_verify_integrity_except',
+  default: [],
+  description: 'This is a list of system files that should be allowed to change
+                from an rpm verify point of view.')
+
 control "V-71855" do
   title "The cryptographic hash of system files and commands must match vendor
 values."
@@ -53,24 +60,19 @@ command:
 
 # sudo rpm -Uvh <packagename>"
   tag "fix_id": "F-78207r1_fix"
-# Command expects that we will only have changed config files (i.e. files denoted with 'c')
-# We have purposely excluded /etc/inittab as this isn't considered a config file by RPM
-# but will be changed stig::inittab cookbook to make the system STIG compliant for single-user
-# mode booting. Excluding this file in your check below prevents a false positive finding.
-# Broken - caused a false positive for /etc/inittab
-#  describe command("rpm -Va | grep '^..5' | awk -F' ' '{ print $2 }'") do
-#    its('stdout.strip') { should_not include 'b' }
-  if DISABLE_SLOW_CONTROLS
+
+  if disable_slow_controls
     describe "This control consistently takes a long to run and has been disabled
-    using the DISABLE_SLOW_CONTROLS attribute." do
+    using the disable_slow_controls attribute." do
       skip "This control consistently takes a long to run and has been disabled
-      using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
+      using the disable_slow_controls attribute. You must enable this control for a
       full accredidation for production."
-end
-  else
-    # Fixed to avoid false positive finding by excluding /etc/inittab from changed files list
-    describe command("rpm -Va | grep '^..5' | grep -v '/etc/inittab' | awk -F' ' '{ print $2 }'") do
-      its('stdout.strip') { should match %r{^((c)*(\\n)*)*$} }
     end
+  else
+    # grep excludes files that are marked with 'c' attribute (config files)
+    describe command("rpm -Va | grep '^..5' | grep -E -v '[a-z]*c[a-z]*\\s+\\S+$' | awk 'NF>1{print $NF}'").
+      stdout.strip.split("\n") do
+        it { should all(be_in rpm_verify_integrity_except) }
+      end
   end
 end

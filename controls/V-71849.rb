@@ -1,23 +1,24 @@
 # encoding: utf-8
 #
 # Support for passed in Atrributes
-DISABLE_SLOW_CONTROLS = attribute(
+disable_slow_controls = attribute(
   'disable_slow_controls',
   default: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.'
 )
-FILES_TO_SKIP = attribute(
-  'FILES_TO_SKIP',
-  default: "grep -v 'cron' | grep -v '/var/cache/yum' | grep -v 'etc/sysconfig/iptables' | grep -v 'useradd' | grep -v 'ntp' | grep -v 'sysctl'",
-  description: 'Files that should be skipped'
-)
+rpm_verify_perms_except = attribute(
+  'rpm_verify_perms_except',
+  default: [],
+  description: 'This is a list of system files that should be allowed to change
+                permission attributes from an rpm verify point of view.')
+
 control "V-71849" do
   title "The file permissions, ownership, and group membership of system files
 and commands must match the vendor values."
-   if DISABLE_SLOW_CONTROLS
+   if disable_slow_controls
     desc "This control consistently takes a long to run and has been disabled
-using the DISABLE_SLOW_CONTROLS attribute."
+using the disable_slow_controls attribute."
    else
   desc  "Discretionary access control is weakened if a user or group has access
 permissions to system files and directories greater than the default."
@@ -77,16 +78,16 @@ command:
 #SM5....T.  c /etc/sysconfig/iptables
 # /var/cache/yum -  if you ever clear out the yum cache to free system space
 #.M.......    /var/cache/yum
-  if DISABLE_SLOW_CONTROLS
+  if disable_slow_controls
     describe "This control consistently takes a long time to run and has been disabled
-    using the DISABLE_SLOW_CONTROLS attribute." do
+    using the disable_slow_controls attribute." do
       skip "This control consistently takes a long time to run and has been disabled
-            using the DISABLE_SLOW_CONTROLS attribute. You must enable this control for a
+            using the disable_slow_controls attribute. You must enable this control for a
             full accredidation for production."
     end
   else
-    describe command("rpm -Va | grep '^.M' | #{FILES_TO_SKIP} | wc -l") do
-      its('stdout.strip') { should eq '0' }
+    describe command("rpm -Va | grep '^.M' | awk 'NF>1{print $NF}'").stdout.strip.split("\n") do
+      it { should all(be_in rpm_verify_perms_except) }
     end
   end
 end
