@@ -21,7 +21,7 @@ RSpec::Matchers.define :match_pam_rule do |expected|
           expected_line = Pam::Rule.new(expected, {:service_name => service})
 
           potentials = actual.find_all do |line|
-            line.match? expected_line
+            line.match?(expected_line)
           end
 
           if potentials && !potentials.empty?
@@ -37,12 +37,15 @@ RSpec::Matchers.define :match_pam_rule do |expected|
                 retval = potential.module_arguments.join(' ').match(@args)
                 throw :stop_searching unless retval
               when :all_with_integer_arg
-                module_int_args = potential.module_arguments.map { |a| a.split('=') }
-                  .find_all { |a| a.length == 2 && a[1].match?(/^-?[0-9]+$/) }
-                retval = module_int_args.any? {
-                  |kv| (kv[0] == @args[:key]) && (kv[1].to_i.send @args[:operator], @args[:value])
-                }
-                throw :stop_searching unless retval
+                potential.module_arguments.each do |arg|
+                  key, value = arg.split('=')
+
+                  if value && @args[:key] == key
+                    retval = "#{value}".to_i.send(@args[:operator].to_sym, @args[:value])
+                  end
+
+                  throw :stop_searching unless retval
+                end
               when :any_with_args
                 retval = !potential.module_arguments.join(' ').match(@args).nil?
                 throw :stop_searching if retval

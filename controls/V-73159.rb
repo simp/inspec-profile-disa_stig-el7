@@ -47,7 +47,7 @@ Note: The value of \"retry\" should be between \"1\" and \"3\"."
 
   describe pam('/etc/pam.d/passwd') do
     its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so') }
-    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', :>=, 1) }
-    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', :<=, max_retry) }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '>=', 1) }
+    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=', max_retry) }
   end
 end
