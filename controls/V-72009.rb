@@ -34,7 +34,10 @@ the system with the \"chgrp\" command:
 # chgrp <group> <file>"
   tag "fix_id": "F-78361r1_fix"
 
-  describe command('find / -fstype xfs -nogroup') do
-    its('stdout.strip') { should match %r{^$} }
-  end
+  command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
+    stdout.strip.split("\n").each do |fs|
+      describe command("find / -xautofs -fstype #{fs} -nogroup") do
+        its('stdout.strip') { should be_empty }
+      end
+    end
 end

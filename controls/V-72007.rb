@@ -31,15 +31,10 @@ directories on the system with the \"chown\" command:
 # chown <user> <file>"
   tag "fix_id": "F-78359r1_fix"
 
-  findings = Set[]
-  partitions = etc_fstab.params.map{|partition| partition['file_system_type']}.uniq
-
-  partitions.each do |part|
-    findings = findings + command("find / -xdev -fstype #{part} -nouser").stdout.lines.map(&:chomp)
-  end
-
-  describe "All files should have an existing and assigned owner" do
-    subject { findings.to_a }
-    it { should be_empty }
-  end
+  command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
+    stdout.strip.split("\n").each do |fs|
+      describe command("find / -xautofs -fstype #{fs} -nouser") do
+        its('stdout.strip') { should be_empty }
+      end
+    end
 end
