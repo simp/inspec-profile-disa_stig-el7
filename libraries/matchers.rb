@@ -5,9 +5,9 @@
 RSpec::Matchers.define :match_pam_rule do |expected|
   match do |actual|
     case @args_type
-    when :all_with_args, :all_without_args, :all_with_integer_arg
+    when :all_with_args, :all_without_args
       retval = true
-    when :any_with_args
+    when :any_with_args, :all_with_integer_arg
       retval = false
     end
 
@@ -37,14 +37,19 @@ RSpec::Matchers.define :match_pam_rule do |expected|
                 retval = potential.module_arguments.join(' ').match(@args)
                 throw :stop_searching unless retval
               when :all_with_integer_arg
+                unless Numeric.method_defined?(@args[:operator])
+                  fail("Error: Operator '#{@args[:operator]}' is an invalid numeric comparison operator.")
+                end
+
                 potential.module_arguments.each do |arg|
                   key, value = arg.split('=')
 
-                  if value && @args[:key] == key
+                  if value && (@args[:key] == key) && value.match?(/^-?\d+$/)
                     retval = "#{value}".to_i.send(@args[:operator].to_sym, @args[:value])
-                  end
 
-                  throw :stop_searching unless retval
+                    # Immediately stop if we've found a match
+                    throw :stop_searching if retval
+                  end
                 end
               when :any_with_args
                 retval = !potential.module_arguments.join(' ').match(@args).nil?
