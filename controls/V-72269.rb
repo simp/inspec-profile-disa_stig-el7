@@ -72,10 +72,11 @@ If NTP was not running, it must be started:
   describe service('ntpd') do
     it { should be_running }
   end
+
   describe.one do
-    describe command('grep maxpoll /etc/ntp.conf') do
-      its('stdout.strip') { should match %r{^\s*maxpoll\s+[1-9][0-9]*$} }
-      its('stdout.strip') { should_not match %r{^\s*maxpoll\s+17$} }
+    describe command('ntpd --saveconfigquit=/dev/stdout | grep -E "^server\s"') do
+      its('stdout.strip') { should_not be_empty }
+      its('stdout.strip.lines') { should all(match %r{\smaxpoll\s+([1-9]|1[0-6])\b}) }
     end
     # Case where maxpoll empty
     describe file('/etc/cron.daily/ntpdate') do
