@@ -67,7 +67,10 @@ assigned\" in \"/etc/passwd\".
 
   ignore_shells = non_interactive_shells.join('|')
 
-  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+  uid_min = login_defs.read_params['UID_MIN'].to_i
+  uid_min = 1000 if uid_min.nil?
+
+  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
     next if exempt_home_users.include?("#{user_info.username}")
     describe directory(user_info.home) do
       it { should exist }

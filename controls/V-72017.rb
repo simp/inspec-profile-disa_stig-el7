@@ -52,8 +52,11 @@ Note: The example will be for the user \"smithj\".
 
   ignore_shells = non_interactive_shells.join('|')
 
+  uid_min = login_defs.read_params['UID_MIN'].to_i
+  uid_min = 1000 if uid_min.nil?
+
   findings = Set[]
-  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
     next if exempt_home_users.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -maxdepth 0 -perm /027").stdout.split("\n")
   end
