@@ -60,18 +60,39 @@ active, this is a finding."
 with the ISSO."
   tag "fix_id": "F-78671r1_fix"
 
-    @grep_ipsec_conf = inspec.command("grep -i conn /etc/ipsec.conf").stdout.split("\n")
-    @grep_ipsec_d = inspec.command("grep -i conn /etc/ipsec.d/*.conf").stdout.split("\n")
+  if package('libreswan').installed? && service('ipsec.service').running?
+    processed = []
+    to_process = ['/etc/ipsec.conf']
 
-    @conn_grep_results = @grep_ipsec_conf + @grep_ipsec_d
-    @conn_grep_results.each do |curr_line|
-        describe curr_line do
-          it { should be_in tunnels }
-        end
-    end if package('libreswan').installed? && service('ipsec.service').running?
+    while !to_process.empty?
+      in_process = to_process.pop
+      next if processed.include? in_process
+      processed.push in_process
 
-  describe "The system does not have openswan installed or the ipsec.service isn't running" do
-    skip "The system does not have openswan installed or the ipsec.service isn't running, this requirement is Not Applicable."
-  end if !package('libreswan').installed? || !service('ipsec.service').running?
+      to_process.concat(
+        command("grep -E '^\\s*include\\s+' #{in_process} | sed 's/^[[:space:]]*include[[:space:]]*//g'").
+          stdout.strip.split(%r{\s*\n+\s*}).
+          map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }.
+          map { |f|
+            dir = f.sub(%r{[^/]*[\*\?\[].*$}, '') # gets the longest ancestor path which doesn't contain wildcards
+            command("find #{dir} -wholename '#{f}'").stdout.strip.split("\n")
+          }.
+          flatten.
+          select { |f| file(f).file? }
+      )
+    end
 
+    conn_grep = processed.map do |conf|
+      command("grep -E '^\\s*conn\\s+' #{conf}").
+        stdout.strip.split(%r{\s*\n\s*})
+    end.flatten
+
+    describe conn_grep do
+      it { should all(be_in tunnels) }
+    end
+  else
+    describe "The system does not have libreswan installed or the ipsec.service isn't running" do
+      skip "The system does not have libreswan installed or the ipsec.service isn't running, this requirement is Not Applicable."
+    end
+  end
 end
