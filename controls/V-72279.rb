@@ -27,7 +27,7 @@ If any \"shosts.equiv\" files are found on the system, this is a finding."
 # rm /[path]/[to]/[file]/shosts.equiv"
   tag "fix_id": "F-78633r1_fix"
 
-  describe command('find / -name shots.equiv') do
-    its('stdout') { should match %r{^$} }
+  describe command('find / -xautofs -name shosts.equiv') do
+    its('stdout.strip') { should match %r{^$} }
   end
 end

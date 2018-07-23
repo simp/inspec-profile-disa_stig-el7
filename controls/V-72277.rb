@@ -27,7 +27,7 @@ If any \".shosts\" files are found on the system, this is a finding."
 # rm /[path]/[to]/[file]/.shosts"
   tag "fix_id": "F-78631r1_fix"
 
-  describe command("find / -name '*.shosts'") do
+  describe command("find / -xautofs -name '*.shosts'") do
     its('stdout.strip') { should match %r{^$} }
   end
 end
