@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-SYSTEM_INACTIVITY_TIMEOUT = attribute(
+system_activity_timeout = attribute(
 'system_activity_timeout',
 default: 600,
 description: 'The length of inactivity from the user in which the network connections associated with a session in terminated.'
@@ -71,14 +71,14 @@ export TMOUT"
 
   describe.one do
     describe bashrc_file do
-      its('TMOUT') { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
+      its('TMOUT') { should cmp <= system_activity_timeout }
     end
 
     profiled_files = command("find /etc/profile.d/*").stdout.split("\n")
     profiled_files.each do |file|
       profile_file = parse_config_file(file)
       describe profile_file do
-        its('TMOUT') { should cmp <= SYSTEM_INACTIVITY_TIMEOUT }
+        its('TMOUT') { should cmp <= system_activity_timeout }
       end
     end
   end
