@@ -75,7 +75,7 @@ Note: The example will be for the user smithj, who has a home directory of
       # some key files and secure dirs (like .ssh) are group owned 'root'
       find_args = find_args + "-not -group #{curr_group} -o root"
     }
-    findings = findings + command("find #{user_info.home} #{find_args}").stdout.split("\n")
+    findings = findings + command("find #{user_info.home} -xdev -xautofs #{find_args}").stdout.split("\n")
   end
   describe "Home directory files with incorrect group ownership or not 'root' owned" do
     subject { findings.to_a }

@@ -61,7 +61,7 @@ Note: The example will be for the user smithj, who has a home directory of
   findings = Set[]
   users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
     next if exempt_home_users.include?("#{user_info.username}")
-    findings = findings + command("find #{user_info.home} -not -user #{user_info.username}").stdout.split("\n")
+    findings = findings + command("find #{user_info.home} -xdev -xautofs -not -user #{user_info.username}").stdout.split("\n")
   end
   describe "Files and directories that are not owned by the user" do
     subject { findings.to_a }
