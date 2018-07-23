@@ -26,8 +26,9 @@ If any \".shosts\" files are found on the system, this is a finding."
 
 # rm /[path]/[to]/[file]/.shosts"
   tag "fix_id": "F-78631r1_fix"
+  tag "dangerous": { :reason => "Uses global find command" }
 
   describe command("find / -xautofs -name '*.shosts'") do
-    its('stdout.strip') { should match %r{^$} }
+    its('stdout.strip') { should be_empty }
   end
 end
