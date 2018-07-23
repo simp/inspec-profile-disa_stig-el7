@@ -1,13 +1,13 @@
 # encoding: utf-8
 #
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
   default: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
   default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
@@ -62,11 +62,11 @@ Note: The example will be for the user smithj, who has a home directory of
 # chgrp users /home/smithj/<file>"
   tag "fix_id": "F-78377r1_fix"
 
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
     find_args = ""
     user_info.groups.each { |curr_group|
       # some key files and secure dirs (like .ssh) are group owned 'root'
