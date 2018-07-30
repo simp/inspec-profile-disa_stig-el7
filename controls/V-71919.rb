@@ -42,6 +42,6 @@ password sufficient pam_unix.so sha512"
 
   describe pam("/etc/pam.d/system-auth") do
     its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }
-    its('lines') { should match_pam_rule('password sufficient pam_unix.so').all_without_args('^(md5|bigcrypt|sha256|blowfish)$') }
+    its('lines') { should match_pam_rule('password .* pam_unix.so').all_without_args('^(md5|bigcrypt|sha256|blowfish)$') }
   end
 end
