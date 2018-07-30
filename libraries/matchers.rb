@@ -3,12 +3,27 @@
 # TODO explain somewhere that :all_with_args, :all_without_args, :all_with_integer_arg
 # will cause match_pam_rule to return true when there are no potential matches
 RSpec::Matchers.define :match_pam_rule do |expected|
+  def matching_integer_arg? (line)
+    line.module_arguments.any? do |arg|
+      key, value = arg.split('=')
+
+      value && (@args[:key] == key) && value.match?(/^-?\d+$/) &&
+        value.to_i.send(@args[:operator].to_sym, @args[:value])
+    end
+  end
+
   match do |actual|
     case @args_type
     when :all_with_args, :all_without_args, :all_with_integer_arg
       retval = true
-    when :any_with_args
+    when :any_with_args, :any_with_integer_arg
       retval = false
+    end
+
+    if [:all_with_integer_arg, :any_with_integer_arg].include? @args_type
+      unless Numeric.method_defined?(@args[:operator])
+        fail("Error: Operator '#{@args[:operator]}' is an invalid numeric comparison operator.")
+      end
     end
 
     actual_munge = {}
@@ -21,7 +36,7 @@ RSpec::Matchers.define :match_pam_rule do |expected|
           expected_line = Pam::Rule.new(expected, {:service_name => service})
 
           potentials = actual.find_all do |line|
-            line.match? expected_line
+            line.match?(expected_line)
           end
 
           if potentials && !potentials.empty?
@@ -31,20 +46,19 @@ RSpec::Matchers.define :match_pam_rule do |expected|
             potentials.each do |potential|
               case @args_type
               when :all_without_args
-                retval = !potential.module_arguments.join(' ').match(@args)
+                retval = !potential.module_arguments.join(' ').match?(@args)
                 throw :stop_searching unless retval
               when :all_with_args
-                retval = potential.module_arguments.join(' ').match(@args)
+                retval = potential.module_arguments.join(' ').match?(@args)
                 throw :stop_searching unless retval
               when :all_with_integer_arg
-                module_int_args = potential.module_arguments.map { |a| a.split('=') }
-                  .find_all { |a| a.length == 2 && a[1].match?(/^-?[0-9]+$/) }
-                retval = module_int_args.any? {
-                  |kv| (kv[0] == @args[:key]) && (kv[1].to_i.send @args[:operator], @args[:value])
-                }
+                retval = matching_integer_arg? potential
                 throw :stop_searching unless retval
+              when :any_with_integer_arg
+                retval = matching_integer_arg? potential
+                throw :stop_searching if retval
               when :any_with_args
-                retval = !potential.module_arguments.join(' ').match(@args).nil?
+                retval = potential.module_arguments.join(' ').match?(@args)
                 throw :stop_searching if retval
               end
             end
@@ -93,6 +107,11 @@ RSpec::Matchers.define :match_pam_rule do |expected|
     @args = {:key => key, :operator => op, :value => value}
   end
 
+  chain :any_with_integer_arg do |key, op, value|
+    @args_type = :any_with_integer_arg
+    @args = {:key => key, :operator => op, :value => value}
+  end
+
   description do
     res = "include #{expected}"
     case @args_type
@@ -102,6 +121,8 @@ RSpec::Matchers.define :match_pam_rule do |expected|
       res += ", all without args #{@args}"
     when :all_with_integer_arg
       res += ", all with arg #{@args[:key]} #{@args[:operator]} #{@args[:value]}"
+    when :any_with_integer_arg
+      res += ", any with arg #{@args[:key]} #{@args[:operator]} #{@args[:value]}"
     when :any_with_args
       res += ", any with args #{@args}"
     end

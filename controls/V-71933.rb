@@ -48,6 +48,6 @@ password sufficient pam_unix.so use_authtok sha512 shadow remember=5"
   tag "fix_id": "F-78285r2_fix"
 
   describe pam("/etc/pam.d/system-auth") do
-    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').all_with_integer_arg('remember', :>=, min_reuse_generations) }
+    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg('remember', '>=', min_reuse_generations) }
   end
 end
