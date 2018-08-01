@@ -1,66 +1,90 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
-
 control "V-72313" do
   title "SNMP community strings must be changed from the default."
-  desc  "Whether active or not, default Simple Network Management Protocol (SNMP)
-community strings must be changed to maintain security. If the service is running
-with the default authenticators, anyone can gather data about the system and the
-network and use the information to potentially compromise the integrity of the
-system or network(s). It is highly recommended that SNMP version 3 user
-authentication and message encryption be used in place of the version 2 community
-strings."
-  impact 0.7
-  tag "severity": "high"
+  desc  "Whether active or not, default Simple Network Management Protocol
+(SNMP) community strings must be changed to maintain security. If the service
+is running with the default authenticators, anyone can gather data about the
+system and the network and use the information to potentially compromise the
+integrity of the system or network(s). It is highly recommended that SNMP
+version 3 user authentication and message encryption be used in place of the
+version 2 community strings."
+  if file('/etc/snmp/snmpd.conf').exist?
+    impact 0.7
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72313"
   tag "rid": "SV-86937r1_rule"
   tag "stig_id": "RHEL-07-040800"
-  tag "cci": "CCI-000366"
+  tag "cci": ["CCI-000366"]
+  tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "check": "Verify that a system using SNMP is not using default community
 strings.
 
-Check to see if the \"/etc/snmp/snmpd.conf\" file exists with the following command:
+Check to see if the \"/etc/snmp/snmpd.conf\" file exists with the following
+command:
 
 # ls -al /etc/snmp/snmpd.conf
  -rw-------   1 root root      52640 Mar 12 11:08 snmpd.conf
 
 If the file does not exist, this is Not Applicable.
 
-If the file does exist, check for the default community strings with the following
-commands:
+If the file does exist, check for the default community strings with the
+following commands:
 
 # grep public /etc/snmp/snmpd.conf
 # grep private /etc/snmp/snmpd.conf
 
 If either of these commands returns any output, this is a finding."
+  tag "fix": "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines
+that contain a community string value of \"public\" or \"private\" to another
+string value."
+  tag "fix_id": "F-78667r1_fix"
 
-  tag "fix": "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines that
-contain a community string value of \"public\" or \"private\" to another string
-value."
+  if file('/etc/snmp/snmpd.conf').exist?
+    processed = []
+    to_process = ['/etc/snmp/snmpd.conf']
 
-  describe file('/etc/snmp/snmpd.conf') do
-    its('content') { should_not include /public|private/ }
+    while !to_process.empty?
+      in_process = to_process.pop
+      next if processed.include? in_process
+      processed.push in_process
+
+      if file(in_process).directory?
+        to_process.concat(
+          command("find #{in_process} -maxdepth 1 -mindepth 1 -name '*.conf'").
+            stdout.strip.split("\n").
+            select { |f| file(f).file? }
+        )
+      elsif file(in_process).file?
+        to_process.concat(
+          command("grep -E '^\\s*includeFile\\s+' #{in_process} | sed 's/^[[:space:]]*includeFile[[:space:]]*//g'").
+            stdout.strip.split(%r{\n+}).
+            map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }.
+            select { |f| file(f).file? }
+        )
+        to_process.concat(
+          command("grep -E '^\\s*includeDir\\s+' #{in_process} | sed 's/^[[:space:]]*includeDir[[:space:]]*//g'").
+            stdout.strip.split(%r{\n+}).
+            map { |f| f.start_with?('/') ? f : File.join('/', f) }. # relative dirs are treated as absolute
+            select { |f| file(f).directory? }
+        )
+      end
+    end
+
+    config_files = processed.select { |f| file(f).file? }
+
+    config_files.each do |config|
+      describe file(config) do
+        its('content') { should_not match %r{^[^#]*(public|private)} }
+      end
+    end
+  else
+    describe "The `snmpd.conf` does not exist" do
+      skip "The snmpd.conf file does not exist, this control is Not Applicable"
+    end
   end
-  only_if { file('/etc/snmp/snmpd.conf').exist? }
 end
