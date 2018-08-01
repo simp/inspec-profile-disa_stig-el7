@@ -24,7 +24,7 @@ class Pam < Inspec.resource(1)
     # You can use a Ruby regexp match for everything except arguments
 
     describe pam('/etc/pam.d') do
-      its('rules') { should match_pam_rule('.* .* pam_unix.so').without_args('nullok' }
+      its('rules') { should match_pam_rule('.* .* pam_unix.so').all_without_args('nullok' }
     end
 
     # Query for multiple lines
@@ -34,7 +34,7 @@ class Pam < Inspec.resource(1)
         'auth required pam_faillock.so',
         'auth sufficient pam_unix.so try_first_pass'
       ]
-      its('rules') { should match_pam_ruiles(required_rules) }
+      its('rules') { should match_pam_rules(required_rules) }
     end
 
     # Query for multiple rules without any rules in between them
@@ -44,7 +44,7 @@ class Pam < Inspec.resource(1)
         'auth required pam_faillock.so',
         'auth sufficient pam_unix.so try_first_pass'
       ]
-      its('rules') { should match_pam_ruiles(required_rules).exactly }
+      its('rules') { should match_pam_rules(required_rules).exactly }
     end
   "
 
@@ -334,7 +334,7 @@ class Pam < Inspec.resource(1)
       match_data = rule.match(Regexp.new(rule_regex, Regexp::EXTENDED))
 
       unless match_data
-        raise PamError, "Invalid PAM configuraiton rule: '#{rule}'"
+        raise PamError, "Invalid PAM configuration rule: '#{rule}'"
       end
 
       @service          = opts[:service_name] ? opts[:service_name] : match_data[:service_name]
@@ -345,8 +345,8 @@ class Pam < Inspec.resource(1)
       @module_arguments = match_data[:module_args] ? match_data[:module_args].strip.split(/\s+/) : []
     end
 
-    def ==(to_cmp)
-      to_cmp = Pam::Line.new(to_cmp) if to_cmp.is_a?(String)
+    def match?(to_cmp)
+      to_cmp = Pam::Rule.new(to_cmp, {:service_name => @service}) if to_cmp.is_a?(String)
 
       # The simple match first
       self.class == to_cmp.class &&
@@ -355,14 +355,15 @@ class Pam < Inspec.resource(1)
         @control.match(Regexp.new("^#{to_cmp.control.gsub(/(\[|\])/, '\\\\\\1')}$")) &&
         @module_path.match(Regexp.new("^#{to_cmp.module_path}$")) &&
         (
-          # Fast match if everything is identical
+          # Quick test to pass if to_cmp module_arguments are a subset
           (to_cmp.module_arguments - @module_arguments).empty? ||
-            # Regex match if there are differences
-            to_cmp.module_arguments.find do |arg|
+            # All module_arguments in to_cmp should Regex match something
+            to_cmp.module_arguments.all? do |arg|
               !@module_arguments.grep(Regexp.new("^#{arg}$")).empty?
             end
         )
     end
+    alias_method :==, :match?
     alias_method :eql?, :==
   end
 end
