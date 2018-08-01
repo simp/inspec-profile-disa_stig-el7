@@ -1,49 +1,29 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
-
 control "V-71905" do
   title "When passwords are changed or new passwords are established, the new
 password must contain at least one lower-case character."
   desc  "
-    Use of a complex password helps to increase the time and resources required to
-compromise the password. Password complexity, or strength, is a measure of the
-effectiveness of a password in resisting attempts at guessing and brute-force
-attacks.
+    Use of a complex password helps to increase the time and resources required
+to compromise the password. Password complexity, or strength, is a measure of
+the effectiveness of a password in resisting attempts at guessing and
+brute-force attacks.
 
-    Password complexity is one factor of several that determines how long it takes
-to crack a password. The more complex the password, the greater the number of
-possible combinations that need to be tested before the password is compromised.
+    Password complexity is one factor of several that determines how long it
+takes to crack a password. The more complex the password, the greater the
+number of possible combinations that need to be tested before the password is
+compromised.
   "
   impact 0.5
-  tag "severity": "medium"
   tag "gtitle": "SRG-OS-000070-GPOS-00038"
   tag "gid": "V-71905"
-  tag "rid": "SV-86529r2_rule"
+  tag "rid": "SV-86529r4_rule"
   tag "stig_id": "RHEL-07-010130"
-  tag "cci": "CCI-000193"
+  tag "cci": ["CCI-000193"]
+  tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
-  tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "Note: The value to require a number of lower-case characters to be
-set is expressed as a negative number in \"/etc/security/pwquality.conf\".
+  tag "check": "Note: The value to require a number of lower-case characters to
+be set is expressed as a negative number in \"/etc/security/pwquality.conf\".
 
 Check the value for \"lcredit\" in \"/etc/security/pwquality.conf\" with the
 following command:
@@ -59,7 +39,7 @@ Modify the first three lines of the \"auth\" section of the
 \"/etc/pam.d/system-auth-ac\" and \"/etc/pam.d/password-auth-ac\" files to match the
 following lines:
 
-Note: RHEL 7.3 and later allows for a value of “never” for \"unlock_time\". This is
+Note: RHEL 7.3 and later allows for a value of \"never\" for \"unlock_time\". This is
 an acceptable value but should be used with caution if availability is a concern.
 
 auth        required       pam_faillock.so preauth silent audit deny=3
