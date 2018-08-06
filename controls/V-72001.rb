@@ -25,7 +25,6 @@ known_system_accounts = attribute(
         'sshd', # Service Account for SSH
         'sssd', # Service Account for the SSSH Authentication service
         'rpc', # Service Account RPCBind Daemon
-        'unbound', # Service Account UnBound Daemon
         'ntp', # Service Account for NTPD Daemon
         'vboxadd', # known Virtualbox user
         'nfsnobody', # service account for nsfd
