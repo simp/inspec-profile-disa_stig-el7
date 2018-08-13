@@ -3,8 +3,8 @@
 
 multifactor_enabled = attribute(
   'multifactor_enabled',
-  default: "true",
-  description: "Path to the system database"
+  default: 'true',
+  description: "Should dconf have smart card authentication"
 )
 
 dconf_user = attribute(

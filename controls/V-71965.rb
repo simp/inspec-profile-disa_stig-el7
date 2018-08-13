@@ -10,7 +10,7 @@
 
 smart_card_status = attribute(
   'smart_card_status',
-  default: "enabled", # values(enabled|disabled)
+  default: 'enabled', # values(enabled|disabled)
   description: 'Smart Card Status'
 )
 

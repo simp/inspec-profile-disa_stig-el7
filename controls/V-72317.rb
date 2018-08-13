@@ -1,8 +1,8 @@
 # encoding: utf-8
 #
 
-tunnels = attribute(
-  'tunnels',
+approved_tunnels = attribute(
+  'approved_tunnels',
   default: [
     # Example
     # 'conn myTunnel'
@@ -88,7 +88,7 @@ with the ISSO."
     end.flatten
 
     describe conn_grep do
-      it { should all(be_in tunnels) }
+      it { should all(be_in approved_tunnels) }
     end
   else
     describe "The system does not have libreswan installed or the ipsec.service isn't running" do

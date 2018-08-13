@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-difok = attribute('difok', default: '8', description: 'The acceptable range of
+difok = attribute('difok', default: 8, description: 'The acceptable range of
 values for difok which specifies the maximum number of characters that must
 change when a password is changed.')
 
