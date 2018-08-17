@@ -7,6 +7,9 @@ consecutive failed logon attempts.')
 fail_interval = attribute('fail_interval', default: 900,
 description: 'The interval of time in which the consecutive failed logon
 attempts must occur in order for the account to be locked out.')
+lockout_time = attribute('lockout_time', default: 604800,
+description: 'The amount of time that an account must be locked out for
+after the specified number of unsuccessful logon attempts.')
 
 control "V-71943" do
   title "Accounts subject to three unsuccessful logon attempts within 15
@@ -62,15 +65,15 @@ account required pam_faillock.so"
   tag "fix_id": "F-78295r4_fix"
 
   required_rules = [
-    'auth required pam_faillock.so unlock_time=(604800|0|never)',
+    'auth required pam_faillock.so unlock_time=.*',
     'auth sufficient pam_unix.so try_first_pass',
-    'auth [default=die] pam_faillock.so unlock_time=(604800|0|never)'
+    'auth [default=die] pam_faillock.so unlock_time=.*'
   ]
   alternate_rules = [
-    'auth required pam_faillock.so unlock_time=(604800|0|never)',
+    'auth required pam_faillock.so unlock_time=.*',
     'auth sufficient pam_sss.so forward_pass',
     'auth sufficient pam_unix.so try_first_pass',
-    'auth [default=die] pam_faillock.so unlock_time=(604800|0|never)'
+    'auth [default=die] pam_faillock.so unlock_time=.*'
   ]
 
   describe pam('/etc/pam.d/password-auth') do
@@ -80,7 +83,11 @@ account required pam_faillock.so"
     }
     its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=', unsuccessful_attempts) }
     its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=', fail_interval) }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(604800|0|never)') }
+    its('lines') {
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
+            (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=', 604800).and \
+             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=', lockout_time))
+    }
   end
 
   describe pam('/etc/pam.d/system-auth') do
@@ -90,6 +97,10 @@ account required pam_faillock.so"
     }
     its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('deny', '<=', unsuccessful_attempts) }
     its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('fail_interval', '<=', fail_interval) }
-    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(604800|0|never)') }
+    its('lines') {
+      should match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_args('unlock_time=(0|never)').or \
+            (match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '<=', 604800).and \
+             match_pam_rule('auth [default=die]|required pam_faillock.so').all_with_integer_arg('unlock_time', '>=', lockout_time))
+    }
   end
 end
