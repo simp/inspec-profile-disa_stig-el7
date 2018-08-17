@@ -180,6 +180,8 @@ days_of_inactivity: 0
 unsuccessful_attempts: 3
 # (time in seconds)
 fail_interval: 900
+# minimum amount of time account must be locked out after failed logins
+lockout_time: 604800
 
 # V-71973
 # name of tool

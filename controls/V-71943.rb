@@ -8,7 +8,7 @@ fail_interval = attribute('fail_interval', default: 900,
 description: 'The interval of time in which the consecutive failed logon
 attempts must occur in order for the account to be locked out.')
 lockout_time = attribute('lockout_time', default: 604800,
-description: 'The amount of time that an account must be locked out for
+description: 'The minimum amount of time that an account must be locked out for
 after the specified number of unsuccessful logon attempts.')
 
 control "V-71943" do
