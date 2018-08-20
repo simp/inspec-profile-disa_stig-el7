@@ -178,8 +178,14 @@ days_of_inactivity: 0
 # V-71943
 # number of unsuccessful attempts
 unsuccessful_attempts: 3
+# interval of time in which the consecutive failed logon
+# attempts must occur in order for the account to be locked out
 # (time in seconds)
 fail_interval: 900
+# minimum amount of time account must be locked out after failed logins.
+# this attribute should never be set greater than 604800.
+# (time in seconds)
+lockout_time: 604800
 
 # V-71973
 # name of tool
