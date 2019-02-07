@@ -268,3 +268,7 @@ non_removable_media_fs: ['xfs', 'ext4', 'swap', 'tmpfs']
 # approved configured tunnels prepended with word 'conn'
 # Example: ['conn myTunnel']
 approved_tunnels: []
+
+# V-72039
+# Is the target expected to be a virtual machine
+virtual_machine: false

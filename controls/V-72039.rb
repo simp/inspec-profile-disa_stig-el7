@@ -1,5 +1,11 @@
 # encoding: utf-8
 #
+
+virtual_machine = attribute(
+  'virtual_machine',
+  default: false,
+  description: 'Is the target expected to be a virtual machine')
+
 control "V-72039" do
   title "All system device files must be correctly labeled to prevent
 unauthorized modification."
@@ -50,14 +56,21 @@ Alternatively, the package can be reinstalled from trusted media using the
 command:
 
 # sudo rpm -Uvh <packagename>"
+
   tag "fix_id": "F-78391r1_fix"
   tag "dangerous": { :reason => "Uses global find command" }
 
-  # @todo - check for host vm device files as mentioned and pass if found
   findings = Set[]
   findings = findings + command('find / -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
   findings = findings + command('find / -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+  findings = findings + command('find / -context *:vmci_device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+
   describe findings do
-    its ('length') { should cmp 0 }
+    if virtual_machine
+      its ('length') { should cmp 1 }
+      its ('first') { should include '/dev/vmci' }
+    else
+      its ('length') { should cmp 0 }
+    end
   end
 end
