@@ -25,7 +25,7 @@ If a TFTP server is not installed, this is Not Applicable.
 If a TFTP server is installed, check for the server arguments with the
 following command:
 
-# grep server_arge /etc/xinetd.d/tftp
+# grep server_args /etc/xinetd.d/tftp
 server_args = -s /var/lib/tftpboot
 
 If the \"server_args\" line does not have a \"-s\" option and a subdirectory is
@@ -37,11 +37,14 @@ required value):
 server_args = -s /var/lib/tftpboot"
   tag "fix_id": "F-78659r1_fix"
 
-  describe command('grep server_args /etc/xinetd.d/tftp') do
-    its('stdout.strip') { should match %r{^\s*server_args\s+=\s+-s\s\S+\s*$} }
-  end if package('tftp').installed?
-
-  describe "The TFTP package is not installed" do
-    skip "If a TFTP server is not installed, this is Not Applicable."
-  end if !package('tftp').installed?
+  if package('tftp-server').installed?
+    describe command('grep server_args /etc/xinetd.d/tftp') do
+      its('stdout.strip') { should match %r{^\s*server_args\s+=\s+(-s|--secure)\s(\/\S+)$} }
+    end
+  else
+    describe "The TFTP package is not installed" do
+      impact 0.0
+      skip "If a TFTP server is not installed, this is Not Applicable."
+    end
+  end
 end
