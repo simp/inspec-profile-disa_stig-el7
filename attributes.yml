@@ -2,7 +2,7 @@
 # used in the RHEL 7 DISA STIG.
 
 # Controls that are known to consistently have long run times can be disabled with this attribute
-disable_slow_controls: false
+disable_slow_controls: true
 
 # V-72081 - 'monitor_kernel_log', (bool)
 # Set this to false if your system availability concern is not documented or
@@ -201,7 +201,7 @@ system_activity_timeout: 600
 # (time in seconds)
 client_alive_interval: 600
 
-# V-71965
+# V-71965, V-72417, V-72433
 # (enabled or disabled)
 smart_card_status: 'enabled'
 
