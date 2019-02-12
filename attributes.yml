@@ -209,8 +209,10 @@ smart_card_status: 'enabled'
 # The path to the logging package
 log_pkg_path: '/etc/rsyslog.conf'
 
-# V-72011
-# list of users exempt from needing a home drive in array format
+# V-72011, V-72015, V-72017, V-72019, V-72021, V-72023, V-72025
+# V-72027, V-72029, V-72031, V-72033, V-72035, V-72037, V-72059
+# Users exempt from home directory-based controls
+# array format
 exempt_home_users: []
 
 # V-71961
