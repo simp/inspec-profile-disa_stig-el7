@@ -27,6 +27,7 @@ determined and/or controlled.
   tag "cci": ["CCI-000057"]
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["gnome3"]
   tag "check": "Verify the operating system prevents a user from overriding a
 screensaver lock after a 15-minute period of inactivity for graphical user
 interfaces.

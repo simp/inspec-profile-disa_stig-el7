@@ -21,6 +21,7 @@ configured.
   tag "cci": ["CCI-000057"]
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["screen", "lock", "session"]
   tag "check": "Verify the operating system has the screen package installed.
 
 Check to see if the screen package is installed with the following command:

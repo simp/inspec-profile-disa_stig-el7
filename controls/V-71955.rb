@@ -8,7 +8,7 @@ control "V-71955" do
 system."
   desc  "Failure to restrict system access to authenticated users negatively
 impacts operating system security."
-if package('gnome-desktop3').installed?
+if package('gdm').installed?
   impact 0.7
 else
   impact 0.0
@@ -20,6 +20,7 @@ end
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["gdm"]
   tag "check": "Verify the operating system does not allow an unrestricted
 logon to the system via a graphical user interface.
 
@@ -52,9 +53,9 @@ TimedLoginEnable=false"
     context 'TimedLoginEnable' do
       it { expect(ini(custom_conf.path)['daemon'][subject]).to cmp 'false' }
     end
-  end if package('gnome-desktop3').installed?
+  end if package('gdm').installed?
 
-  describe "The system does not have GNOME installed" do
-    skip "The system does not have GNOME installed, this requirement is Not Applicable."
-  end if !package('gnome-desktop3').installed?
+  describe "The system does not have GDM installed" do
+    skip "The system does not have GDM installed, this requirement is Not Applicable."
+  end if !package('gdm').installed?
 end

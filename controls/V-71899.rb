@@ -26,6 +26,7 @@ determined and/or controlled.
   tag "cci": ["CCI-000057"]
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["gnome3", "session", "lock"]
   tag "check": "Verify the operating system initiates a session lock after a
 15-minute period of inactivity for graphical user interfaces. The screen
 program must be installed to lock sessions on the console.

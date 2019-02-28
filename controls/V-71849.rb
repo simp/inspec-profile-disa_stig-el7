@@ -32,6 +32,7 @@ permissions to system files and directories greater than the default."
   tag "cci": ["CCI-001494", "CCI-001496"]
   tag "documentable": false
   tag "nist": ["AU-9", "AU-9 (3)", "Rev_4"]
+  tag "subsystems" [ "permissions", "package", "rpm" ]
   tag "check": "Verify the file permissions, ownership, and group membership of
 system files and commands match the vendor values.
 

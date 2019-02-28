@@ -16,6 +16,7 @@ reduced because the user will be prompted before any action is taken."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["gnome", "general"]
   tag "check": "Verify the operating system is not configured to reboot the
 system when Ctrl-Alt-Delete is pressed.
 

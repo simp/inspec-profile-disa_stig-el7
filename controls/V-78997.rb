@@ -28,6 +28,7 @@ specified period of time.
   tag "cci": ["CCI-000057"]
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["gnome3"]
   tag "check": "Verify the operating system prevents a user from overriding the
 screensaver idle-activation-enabled setting for the graphical user interface.
 

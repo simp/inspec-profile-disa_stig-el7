@@ -32,6 +32,7 @@ determined and/or controlled.
   tag "cci": ["CCI-000057"]
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["gnome3", "screensaver", "lock", "session"]
   tag "check": "Verify the operating system initiates a session lock a for
 graphical user interfaces when the screensaver is activated.
 

@@ -27,7 +27,7 @@ time-based or challenge-response authenticators and smart cards such as the
 U.S. Government Personal Identity Verification card and the DoD Common Access
 Card.
   "
-  if package('gnome-desktop3').installed?
+  if package('gnome-desktop3').installed? and (package('pcsc-lite').installed? or package('esc').installed?)
     impact 0.5
   else
     impact 0.0
@@ -40,6 +40,7 @@ Card.
   tag "cci": ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag "documentable": false
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
+  tag "subsystems": ["gnome3"]
   tag "check": "Verify the operating system uniquely identifies and
 authenticates users using multifactor authentication via a graphical user logon.
 
@@ -82,7 +83,7 @@ enable-smartcard-authentication=true"
   tag "fix_id": "F-84519r2_fix"
 
   # @todo - dynamically gather system_db_path?
-  if package('gnome-desktop3').installed?
+  if package('gnome-desktop3').installed? and (package('pcsc-lite').installed? or package('esc').installed?)
     if !dconf_user.empty? and command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
