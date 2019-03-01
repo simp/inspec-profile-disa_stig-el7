@@ -1,5 +1,6 @@
 ---
 language: ruby
+cache: bundler
 
 notifications:
   email: false
@@ -11,6 +12,16 @@ addons:
     packages:
       - inspec
 
+before_install:
+  - rm -f Gemfile.lock
+  # Unvendor
+  - rm -f inspec.lock
+  - rm -rf vendor
+
+before_script:
+  - bundle
+  - inspec vendor
+
 jobs:
   fast_finish: true
   allow_failures:
@@ -20,20 +31,12 @@ jobs:
     - stage: syntax
       sudo: false
       rvm: 2.4
-      before_install:
-        - rm Gemfile.lock || true
-      before_script:
-        - bundle
       script:
         - ruby -c controls/*.rb libraries/*.rb
 
     - stage: spec_test
       sudo: false
       rvm: 2.4
-      before_install:
-        - rm Gemfile.lock || true
-      before_script:
-        - bundle
       script:
         # This currently doesn't work due to a bug in inspec that fails on
         # skipped checks
@@ -44,7 +47,5 @@ jobs:
       services:
         - docker
       rvm: 2.4
-      before_script:
-        - bundle
       script:
         - bundle exec rake beaker:suites[default,docker]
