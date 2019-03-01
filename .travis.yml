@@ -22,8 +22,6 @@ before_script:
 
 jobs:
   fast_finish: true
-  allow_failures:
-    - stage: spec_test
 
   include:
     - stage: syntax
@@ -36,8 +34,6 @@ jobs:
       sudo: false
       rvm: 2.4
       script:
-        # This currently doesn't work due to a bug in inspec that fails on
-        # skipped checks
         - bundle exec rake profile:check
 
     - stage: system_test
