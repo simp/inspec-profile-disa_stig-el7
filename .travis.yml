@@ -1,6 +1,5 @@
 ---
 language: ruby
-cache: bundler
 
 notifications:
   email: false
@@ -19,8 +18,7 @@ before_install:
   - rm -rf vendor
 
 before_script:
-  - bundle
-  - inspec vendor --overwrite
+  - bundle exec inspec vendor --overwrite
 
 jobs:
   fast_finish: true
