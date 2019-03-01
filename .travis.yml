@@ -20,7 +20,7 @@ before_install:
 
 before_script:
   - bundle
-  - inspec vendor
+  - inspec vendor --overwrite
 
 jobs:
   fast_finish: true
