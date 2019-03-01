@@ -5,7 +5,11 @@ control "V-72305" do
 TFTP daemon must be configured to operate in secure mode."
   desc  "Restricting TFTP to a specific directory prevents remote users from
 copying, transferring, or overwriting system files."
-  impact 0.5
+  if package('tftp-server').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72305"
   tag "rid": "SV-86929r2_rule"
@@ -43,7 +47,6 @@ server_args = -s /var/lib/tftpboot"
     end
   else
     describe "The TFTP package is not installed" do
-      impact 0.0
       skip "If a TFTP server is not installed, this is Not Applicable."
     end
   end
