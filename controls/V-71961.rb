@@ -1,10 +1,10 @@
 # encoding: utf-8
 #
 
-grub_superusers = attribute(
-  'grub_superusers',
-  description: 'superusers for grub boot ( array )',
-  default: ['root']
+grub_superuser = attribute(
+  'grub_superuser',
+  description: 'superuser for grub boot',
+  default: 'root'
 )
 grub_user_boot_files = attribute(
  'grub_user_boot_files',
@@ -74,17 +74,43 @@ commands:
 # mv /tmp/grub2.cfg /boot/grub2/grub.cfg
 "
   tag "fix_id": "F-78313r2_fix"
-  describe file(grub_main_cfg) do
-    its('content') { should match %r{^\s*password_pbkdf2\s+root } }
+
+  pattern = %r{\s*set superusers=\"(\w+)\"}i
+
+  matches = file(grub_main_cfg).content.match(pattern)
+  superusers = matches.nil? ? [] : matches.captures
+  describe "There must be only one grub2 superuser, and it must have the value #{grub_superuser}" do
+    subject { superusers }
+    its('length') { should cmp 1 }
+    its('first') { should cmp grub_superuser }
   end
 
+  # Need each password entry that has the superuser
+  pattern = %r{(.*)\s#{grub_superuser}\s}i
+  matches = file(grub_main_cfg).content.match(pattern)
+  password_entries = matches.nil? ? [] : matches.captures
+  describe 'The grub2 superuser password entry must begin with \'password_pbkdf2\'' do
+    subject { password_entries }
+    its('length') { is_expected.to be >= 1}
+    password_entries.each do |entry|
+      subject { entry }
+      it { should include 'password_pbkdf2'}
+    end
+  end
+
+  pattern = %r{.*\sroot\s(\${\w+})}i
+  matches = file(grub_main_cfg).content.match(pattern)
+  env_vars = matches.nil? ? [] : matches.captures
+  # Is there a problem if there is no environment variable?
+  # Maybe only if there is also not the 'grub.pbkdf2' stuff...
+
+  # Sort through these first to avoid cases where we don't hit a describe.
+  next unless file(user_cfg_file).exist?
+
+
   grub_user_boot_files.each do |user_cfg_file|
-    next if !file(user_cfg_file).exist?
-    describe.one do
-      grub_superusers.each do |user|
-        describe file(user_cfg_file) do
-          its('content') { should match %r{^\s*password_pbkdf2\s+#{user} } }
-        end
+    describe file(user_cfg_file) do
+        its('content') { should match %r{^GRUB2_PASSWORD=grub.pbkdf2 } }
       end
     end
   end
