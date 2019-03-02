@@ -29,6 +29,7 @@ No other activity aside from reauthentication must unlock the system.
   tag "cci": ["CCI-000056"]
   tag "documentable": false
   tag "nist": ["AC-11 b", "Rev_4"]
+  tag "subsystems": [ "session", "lock", "gnome", "screensaver" ]
   tag "check": "Verify the operating system enables a user's session lock until
 that user re-establishes access using established identification and
 authentication procedures. The screen program must be installed to lock

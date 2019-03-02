@@ -73,6 +73,7 @@ the number of characters that can be displayed in the banner:
   tag "cci": ["CCI-000048"]
   tag "documentable": false
   tag "nist": ["AC-8 a", "Rev_4"]
+  tag "subsystem": [ "gdm" ]
   tag "check": "Verify the operating system displays the Standard Mandatory DoD
 Notice and Consent Banner before granting access to the operating system via a
 graphical user logon.
