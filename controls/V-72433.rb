@@ -77,15 +77,20 @@ Modify all of the \"cert_policy\" lines in \"/etc/pam_pkcs11/pam_pkcs11.conf\"
 to include \"ocsp_on\"."
   tag "fix_id": "F-78785r3_fix"
 
-  describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf") do
-    its('stdout') { should include 'ocsp_on' }
-  end if smart_card_status.eql?('enabled')
 
-  describe command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | wc -l") do
-    its('stdout.strip.to_i') { should cmp >= 3 }
-  end if smart_card_status.eql?('enabled')
-
-  describe "The system is not smartcard enabled" do
-    skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
-  end if !smart_card_status.eql?('enabled')
+  if smart_card_status.eql?('enabled')
+    cert_policy_lines = command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf").stdout.split("\n")
+    describe 'The pam_pkcs11.conf file' do
+      subject { cert_policy_lines }
+      its('length') { should cmp >= 3 }
+      cert_policy_lines.each do |line|
+        subject { line }
+        it { should match %r{=[^\n;]*oscp_on}i }
+      end
+    end
+  else
+    describe "The system is not smartcard enabled" do
+      skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
+    end
+  end
 end
