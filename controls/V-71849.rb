@@ -14,15 +14,10 @@ rpm_verify_perms_except = attribute(
                 permission attributes from an rpm verify point of view.')
 
 control "V-71849" do
-  title "The file permissions, ownership, and group membership of system files
-and commands must match the vendor values."
-   if disable_slow_controls
-    desc "This control consistently takes a long to run and has been disabled
-using the disable_slow_controls attribute."
-   else
-  desc  "Discretionary access control is weakened if a user or group has access
-permissions to system files and directories greater than the default."
-   end
+  title "The file permissions, ownership, and group membership of system files and commands must match the vendor" \
+        " values."
+  desc  "Discretionary access control is weakened if a user or group has access" \
+        " permissions to system files and directories greater than the default."
   impact 0.7
   tag "gtitle": "SRG-OS-000257-GPOS-00098"
   tag "satisfies": ["SRG-OS-000257-GPOS-00098", "SRG-OS-000278-GPOS-00108"]
