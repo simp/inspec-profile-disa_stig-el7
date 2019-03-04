@@ -75,9 +75,11 @@ commands:
 "
   tag "fix_id": "F-78313r2_fix"
 
-  pattern = %r{\s*set superusers=\"(\w+)\"}i
+  grub_main_content = file(grub_main_cfg).content
 
-  matches = file(grub_main_cfg).content.match(pattern)
+  # Check if any additional superusers are set
+  pattern = %r{\s*set superusers=\"(\w+)\"}i
+  matches = grub_main_content.match(pattern)
   superusers = matches.nil? ? [] : matches.captures
   describe "There must be only one grub2 superuser, and it must have the value #{grub_superuser}" do
     subject { superusers }
@@ -87,8 +89,9 @@ commands:
 
   # Need each password entry that has the superuser
   pattern = %r{(.*)\s#{grub_superuser}\s}i
-  matches = file(grub_main_cfg).content.match(pattern)
+  matches = grub_main_content.match(pattern)
   password_entries = matches.nil? ? [] : matches.captures
+  # Each of the entries should start with password_pbkdf2
   describe 'The grub2 superuser password entry must begin with \'password_pbkdf2\'' do
     subject { password_entries }
     its('length') { is_expected.to be >= 1}
@@ -98,20 +101,33 @@ commands:
     end
   end
 
-  pattern = %r{.*\sroot\s(\${\w+})}i
-  matches = file(grub_main_cfg).content.match(pattern)
+  # Get lines such as 'password_pbkdf2 root ${ENV}'
+  pattern = %r{password_pbkdf2\s#{grub_superuser}\s(\${\w+})}i
+  matches = grub_main_content.match(pattern)
   env_vars = matches.nil? ? [] : matches.captures
-  # Is there a problem if there is no environment variable?
-  # Maybe only if there is also not the 'grub.pbkdf2' stuff...
-
-  # Sort through these first to avoid cases where we don't hit a describe.
-  next unless file(user_cfg_file).exist?
-
-
-  grub_user_boot_files.each do |user_cfg_file|
-    describe file(user_cfg_file) do
-        its('content') { should match %r{^GRUB2_PASSWORD=grub.pbkdf2 } }
+  if env_vars.length > 0
+    # If there is an environment variable in the configuration file check that it is set with correct values by looking
+    # in user.cfg files.
+    env_vars = env_vars.map { |env_var| env_var.gsub(/[${}]/, '') }
+    present_user_boot_files = grub_user_boot_files.select { |user_boot_file| file(user_boot_file).exist? }
+    describe 'grub2 user configuration files for the superuser should be present if they set an environment variable' do
+      subject { present_user_boot_files }
+      its('length') { is_expected.to be >= 1 }
+      present_user_boot_files.each do |user_boot_file|
+        env_vars.each do |env_var|
+          describe "#{user_boot_file} should set #{env_var} to a pbkdf2 value" do
+              subject { file(user_boot_file) }
+              its('content') { should match %r{^#{env_var}=grub.pbkdf2}i }
+          end
+        end
       end
+    end
+  else
+    # If there are no environment variable set, look for pbkdf2 after the superuser name
+    pattern = %r{password_pbkdf2\s#{grub_superuser}\sgrub\.pbkdf2}i
+    describe 'The grub2 superuser account password should be encrypted with pbkdf2.' do
+      subject { grub_main_content }
+      it { should match pattern }
     end
   end
 end
