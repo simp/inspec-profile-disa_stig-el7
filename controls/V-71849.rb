@@ -53,27 +53,7 @@ command:
 
 #rpm --setugids <packagename>"
   tag "fix_id": "F-78201r3_fix"
-  # @todo add puppet content to fix any rpms that get out of wack
-# The following are known to be different and must be excluded. These are changed by the following
-# Chef Manage Cookbooks:
-# cron entries - stig/recipies/file_permissions.rb
-#.M.......  /etc/cron.d
-#.M.......  /etc/cron.daily
-#.M.......  /etc/cron.hourly
-#.M.......  /etc/cron.monthly
-#.M.......  /etc/cron.weekly
-#.M.......  c /etc/crontab
-# /etc/default/useradd - stig/recipies/login_defs.rb
-#.M5....T.  c /etc/default/useradd
-# /etc/ntp.conf - stig/recipies/ntp.rb
-#.M.......  c /etc/ntp.conf
-# /etc/sysctl.conf - stig
-#SM5....T.  c /etc/sysctl.conf
-#
-#/etc/default/useradd - stig/recipies/ipv6.rb
-#SM5....T.  c /etc/sysconfig/iptables
-# /var/cache/yum -  if you ever clear out the yum cache to free system space
-#.M.......    /var/cache/yum
+
   if disable_slow_controls
     describe "This control consistently takes a long time to run and has been disabled
     using the disable_slow_controls attribute." do
