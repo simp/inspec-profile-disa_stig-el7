@@ -59,7 +59,7 @@ Note: The example will be for the user smithj, who has a home directory of
   findings = Set[]
   users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     next if exempt_home_users.include?("#{user_info.username}")
-    findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -perm /027").stdout.split("\n")
+    findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -perm /027 ! -type l")   .stdout.split("\n")
   end
   describe "Home directories with excessive permissions" do
     subject { findings.to_a }
