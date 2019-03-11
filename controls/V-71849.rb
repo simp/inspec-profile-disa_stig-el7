@@ -14,15 +14,10 @@ rpm_verify_perms_except = attribute(
                 permission attributes from an rpm verify point of view.')
 
 control "V-71849" do
-  title "The file permissions, ownership, and group membership of system files
-and commands must match the vendor values."
-   if disable_slow_controls
-    desc "This control consistently takes a long to run and has been disabled
-using the disable_slow_controls attribute."
-   else
-  desc  "Discretionary access control is weakened if a user or group has access
-permissions to system files and directories greater than the default."
-   end
+  title "The file permissions, ownership, and group membership of system files and commands must match the vendor" \
+        " values."
+  desc  "Discretionary access control is weakened if a user or group has access" \
+        " permissions to system files and directories greater than the default."
   impact 0.7
   tag "gtitle": "SRG-OS-000257-GPOS-00098"
   tag "satisfies": ["SRG-OS-000257-GPOS-00098", "SRG-OS-000278-GPOS-00108"]
@@ -32,7 +27,7 @@ permissions to system files and directories greater than the default."
   tag "cci": ["CCI-001494", "CCI-001496"]
   tag "documentable": false
   tag "nist": ["AU-9", "AU-9 (3)", "Rev_4"]
-  tag "subsystems" [ "permissions", "package", "rpm" ]
+  tag "subsystems": [ "permissions", "package", "rpm" ]
   tag "check": "Verify the file permissions, ownership, and group membership of
 system files and commands match the vendor values.
 
@@ -58,27 +53,7 @@ command:
 
 #rpm --setugids <packagename>"
   tag "fix_id": "F-78201r3_fix"
-  # @todo add puppet content to fix any rpms that get out of wack
-# The following are known to be different and must be excluded. These are changed by the following
-# Chef Manage Cookbooks:
-# cron entries - stig/recipies/file_permissions.rb
-#.M.......  /etc/cron.d
-#.M.......  /etc/cron.daily
-#.M.......  /etc/cron.hourly
-#.M.......  /etc/cron.monthly
-#.M.......  /etc/cron.weekly
-#.M.......  c /etc/crontab
-# /etc/default/useradd - stig/recipies/login_defs.rb
-#.M5....T.  c /etc/default/useradd
-# /etc/ntp.conf - stig/recipies/ntp.rb
-#.M.......  c /etc/ntp.conf
-# /etc/sysctl.conf - stig
-#SM5....T.  c /etc/sysctl.conf
-#
-#/etc/default/useradd - stig/recipies/ipv6.rb
-#SM5....T.  c /etc/sysconfig/iptables
-# /var/cache/yum -  if you ever clear out the yum cache to free system space
-#.M.......    /var/cache/yum
+
   if disable_slow_controls
     describe "This control consistently takes a long time to run and has been disabled
     using the disable_slow_controls attribute." do
