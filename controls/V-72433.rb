@@ -79,13 +79,13 @@ to include \"ocsp_on\"."
 
 
   if smart_card_status.eql?('enabled')
-    cert_policy_lines = command("grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf").stdout.split("\n")
+    cert_policy_lines = file('/etc/pam_pkcs11/pam_pkcs11.conf').content.lines.grep(%r{^(?!.+#).*cert_policy}i)
     describe 'The pam_pkcs11.conf file' do
       subject { cert_policy_lines }
       its('length') { should cmp >= 3 }
       cert_policy_lines.each do |line|
         subject { line }
-        it { should match %r{=[^\n;]*oscp_on}i }
+        it { should match %r{=[^;]*oscp_on}i }
       end
     end
   else
