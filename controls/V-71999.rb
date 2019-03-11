@@ -55,14 +55,16 @@ Vulnerability Management (IAVM) process, this is a finding."
   tag "fix": "Install the operating system patches or updated packages
 available from Red Hat within 30 days or sooner as local policy dictates."
   tag "fix_id": "F-78351r1_fix"
-  describe.one
-    describe "All packages are up to date" do
-      subject { linux_update.updates.length }
-      it { should eq 0 }
+  describe.one do
+    describe 'List of out-of-date packages' do
+      subject { linux_update.updates }
+      it { should be_empty }
     end
+
     linux_update.updates.each do |update|
       describe package(update['name']) do
         its('version') { should eq update['version'] }
       end
     end
+  end
 end
