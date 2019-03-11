@@ -246,9 +246,21 @@ max_retry: 3
 # V-72417
 # the list of packages needed for MFA on RHEL
 mfa_pkg_list: [
+    'nss-tools',
+    'nss-pam-ldapd',
     'esc',
     'pam_pkcs11',
+    'pam_krb5',
+    'opensc',
+    'pcsc-lite-ccid',
+    'gdm',
+    'authconfig',
     'authconfig-gtk',
+    'krb5-libs',
+    'krb5-workstation',
+    'krb5-pkinit',
+    'pcsc-lite',
+    'pcsc-lite-libs'
 ]
 
 # V-77819
