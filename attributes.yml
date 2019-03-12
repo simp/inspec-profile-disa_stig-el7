@@ -201,7 +201,7 @@ system_activity_timeout: 600
 # (time in seconds)
 client_alive_interval: 600
 
-# V-71965
+# V-71965, V-72417, V-72433
 # (enabled or disabled)
 smart_card_status: 'enabled'
 
@@ -209,8 +209,10 @@ smart_card_status: 'enabled'
 # The path to the logging package
 log_pkg_path: '/etc/rsyslog.conf'
 
-# V-72011
-# list of users exempt from needing a home drive in array format
+# V-72011, V-72015, V-72017, V-72019, V-72021, V-72023, V-72025
+# V-72027, V-72029, V-72031, V-72033, V-72035, V-72037, V-72059
+# Users exempt from home directory-based controls in array
+# format
 exempt_home_users: []
 
 # V-71961
@@ -280,3 +282,7 @@ non_removable_media_fs: ['xfs', 'ext4', 'swap', 'tmpfs']
 # approved configured tunnels prepended with word 'conn'
 # Example: ['conn myTunnel']
 approved_tunnels: []
+
+# V-72039
+# Is the target expected to be a virtual machine
+virtual_machine: false
