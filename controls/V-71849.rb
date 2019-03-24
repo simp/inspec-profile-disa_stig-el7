@@ -1,44 +1,33 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
+# Support for passed in Atrributes
+disable_slow_controls = attribute(
+  'disable_slow_controls',
+  default: false,
+  description: 'If enabled, this attribute disables this control and other
+                controls that consistently take a long time to complete.'
+)
+rpm_verify_perms_except = attribute(
+  'rpm_verify_perms_except',
+  default: [],
+  description: 'This is a list of system files that should be allowed to change
+                permission attributes from an rpm verify point of view.')
 
 control "V-71849" do
-  title "The file permissions, ownership, and group membership of system files and
-commands must match the vendor values."
-  desc  "
-    Discretionary access control is weakened if a user or group has access
-permissions to system files and directories greater than the default.
-
-    Satisfies: SRG-OS-000257-GPOS-00098, SRG-OS-000278-GPOS-0010.
-  "
+  title "The file permissions, ownership, and group membership of system files and commands must match the vendor" \
+        " values."
+  desc  "Discretionary access control is weakened if a user or group has access" \
+        " permissions to system files and directories greater than the default."
   impact 0.7
-  tag "severity": "high"
   tag "gtitle": "SRG-OS-000257-GPOS-00098"
+  tag "satisfies": ["SRG-OS-000257-GPOS-00098", "SRG-OS-000278-GPOS-00108"]
   tag "gid": "V-71849"
   tag "rid": "SV-86473r2_rule"
   tag "stig_id": "RHEL-07-010010"
-  tag "cci": "CCI-001494"
-  tag "nist": ["AU-9", "Rev_4"]
-  tag "cci": "CCI-001496"
-  tag "nist": ["AU-9 (3)", "Rev_4"]
+  tag "cci": ["CCI-001494", "CCI-001496"]
+  tag "documentable": false
+  tag "nist": ["AU-9", "AU-9 (3)", "Rev_4"]
+  tag "subsystems": [ "permissions", "package", "rpm" ]
   tag "check": "Verify the file permissions, ownership, and group membership of
 system files and commands match the vendor values.
 
@@ -47,11 +36,11 @@ commands with the following command:
 
 # rpm -Va | grep '^.M'
 
-If there is any output from the command indicating that the ownership or group of a
-system file or command, or a system file, has permissions less restrictive than the
-default, this is a finding."
-
-  tag "fix": "Run the following command to determine which package owns the file:
+If there is any output from the command indicating that the ownership or group
+of a system file or command, or a system file, has permissions less restrictive
+than the default, this is a finding."
+  tag "fix": "Run the following command to determine which package owns the
+file:
 
 # rpm -qf <filename>
 
@@ -63,10 +52,18 @@ Reset the user and group ownership of files within a package with the following
 command:
 
 #rpm --setugids <packagename>"
+  tag "fix_id": "F-78201r3_fix"
 
-  # @todo add puppet content to fix any rpms that get out of wack
-  describe command("rpm -Va | grep '^.M' | wc -l") do
-    its('stdout.strip') { should eq '0' }
+  if disable_slow_controls
+    describe "This control consistently takes a long time to run and has been disabled
+    using the disable_slow_controls attribute." do
+      skip "This control consistently takes a long time to run and has been disabled
+            using the disable_slow_controls attribute. You must enable this control for a
+            full accredidation for production."
+    end
+  else
+    describe command("rpm -Va | grep '^.M' | awk 'NF>1{print $NF}'").stdout.strip.split("\n") do
+      it { should all(be_in rpm_verify_perms_except) }
+    end
   end
-
 end

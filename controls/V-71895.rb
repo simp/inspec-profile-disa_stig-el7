@@ -42,6 +42,7 @@ determined and/or controlled.
   tag "stig_id": "RHEL-07-010080"
   tag "cci": "CCI-000057"
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["gnome3"]
   tag "check": "Verify the operating system prevents a user from overriding session
 lock after a 15-minute period of inactivity for graphical user interfaces. The
 screen program must be installed to lock sessions on the console.
