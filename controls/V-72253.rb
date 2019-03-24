@@ -44,7 +44,7 @@ The SSH service must be restarted for changes to take effect."
     # fail fast
     describe 'The `sshd_config` setting for `MACs`' do
     subject { @macs }
-      it 'should be explicity set and not commented out' do
+      it 'should be explicitly set and not commented out' do
         expect(subject).not_to be_nil
       end
     end
