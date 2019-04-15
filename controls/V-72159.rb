@@ -28,7 +28,7 @@ successful/unsuccessful attempts to use the \"su\" command occur.
 Check for the following system call being audited by performing the following
 command to check the file system rules in \"/etc/audit/audit.rules\":
 
-# grep -i /bin/su /etc/audit/audit.rules
+# grep -i /usr/bin/su /etc/audit/audit.rules
 
 -a always,exit -F path=/usr/bin/su -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-priv_change
 
@@ -43,7 +43,7 @@ Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78511r5_fix"
 
-  audit_file = '/bin/su'
+  audit_file = '/usr/bin/su'
 
   if file(audit_file).exist?
     impact 0.5
