@@ -16,6 +16,11 @@ provisioner:
 verifier:
   name: inspec
   sudo: true
+  reporter:
+    - cli
+    - json:./sec_results/inspec/%{platform}_%{suite}_<%= Time.now.strftime("%m-%d-%Y_%H:%M:%S") %>.json
+  attr:
+    - disable_slow_controls: true
 
 platforms:
   - name: centos-7
@@ -29,12 +34,13 @@ suites:
     verifier:
       inspec_tests:
         # if you want to use your local code
-        - file://<%= ENV[('PWD')] %>
+        #- name: happy
+        #  path: <%= ENV[('PWD')] %>/spec/fixtures/inspec_profiles/CentOS-7-disa_stig
         # If you want to use your local code on a Windows machine from the parent directory
-        #- path: ./profiles/disa_stig-rhel7-baseline
+        #- path: ./spec/fixtures/inspec_profiles/RedHat-7-disa_stig
         # if you want to use the current profile in the git repo
-        #- git: https://github.com/<...>-baseline.git
+        - git: https://github.com/simp/inspec-profile-disa_stig-el7.git
       #controls:
       #  - V-72309
-     #attrs:
-     #  - attributes.yml
+      attrs:
+        - <%= ENV[('PWD')] %>/attributes.yml
