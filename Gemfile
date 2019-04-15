@@ -7,7 +7,7 @@ gem_sources.each { |gem_source| source gem_source }
 
 gem 'rake'
 gem 'simp-rake-helpers', '~> 5.6'
-gem 'simp-beaker-helpers', '~> 1.13'
+gem 'simp-beaker-helpers', '~> 1.14.1'
 gem 'beaker-rspec'
 gem 'highline'
 gem 'kitchen-puppet'
