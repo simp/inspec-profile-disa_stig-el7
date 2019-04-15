@@ -6,5 +6,3 @@ copyright_email: simp-dev@googlegroups.com
 license: Apache-2.0
 summary: 'The `disa_stig-el7` inspec profile helps scan your system aginst the DISA RHEL7 STIG'
 version: 0.2.0
-
-inspec_version: "~> 3.0"
