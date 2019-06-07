@@ -39,7 +39,7 @@ If any file has a mode more permissive than \"0600\", this is a finding."
   if !key_files.nil? and !key_files.empty?
     key_files.each do |keyfile|
       describe file(keyfile) do
-        it { should_not be_executable.by('user') }
+        it { should_not be_executable.by('all') }
         it { should_not be_readable.by('group') }
         it { should_not be_writable.by('group') }
         it { should_not be_executable.by('group') }

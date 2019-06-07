@@ -41,7 +41,7 @@ the following command:
   if !pub_files.nil? and !pub_files.empty?
     pub_files.each do |pubfile|
       describe file(pubfile) do
-        it { should_not be_executable.by('user') }
+        it { should_not be_executable.by('all') }
         it { should_not be_executable.by('group') }
         it { should_not be_writable.by('group') }
         it { should_not be_executable.by('others') }
