@@ -28,7 +28,7 @@ jobs:
       sudo: false
       rvm: 2.4
       script:
-        - ruby -c controls/*.rb libraries/*.rb
+        - bundle exec ruby -c controls/*.rb libraries/*.rb
 
     - stage: spec_test
       sudo: false
