@@ -4,13 +4,6 @@ language: ruby
 notifications:
   email: false
 
-addons:
-  apt:
-    sources:
-      - chef-current-trusty
-    packages:
-      - inspec
-
 before_install:
   - rm -f Gemfile.lock
   # Unvendor
