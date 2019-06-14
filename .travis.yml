@@ -2,6 +2,7 @@
 language: ruby
 cache: bundler
 sudo: false
+rvm: 2.4
 bundler_args: --path vendor
 notifications:
   email: false
@@ -15,7 +16,8 @@ before_install:
   - rm -f Gemfile.lock
   - rm -f inspec.lock
 
-rvm: 2.4
+before_script:
+  - bundle exec inspec vendor --overwrite
 
 jobs:
   fast_finish: true
@@ -23,7 +25,6 @@ jobs:
   include:
     - stage: syntax
       script:
-        - bundle exec inspec vendor --overwrite
         - bundle exec ruby -c controls/*.rb libraries/*.rb
 
     - stage: spec
