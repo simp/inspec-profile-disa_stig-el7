@@ -17,7 +17,7 @@ before_install:
   - rm -f inspec.lock
 
 before_script:
-  - bundle exec inspec vendor --overwrite
+  - bundle exec inspec --chef-license accept vendor --overwrite
 
 jobs:
   fast_finish: true
