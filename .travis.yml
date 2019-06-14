@@ -18,6 +18,7 @@ before_install:
   - rm -rf vendor
 
 before_script:
+  - bundle update
   - bundle exec inspec vendor --overwrite
 
 jobs:
