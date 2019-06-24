@@ -13,6 +13,7 @@ and file metadata with security implications."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['aide']
   tag "check": "Verify the file integrity tool is configured to verify extended
 attributes.
 
