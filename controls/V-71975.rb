@@ -31,6 +31,7 @@ when there is an unauthorized modification of a configuration item.
   tag "cci": ["CCI-001744"]
   tag "documentable": false
   tag "nist": ["CM-3 (5)", "Rev_4"]
+  tag "subsystems": ['aide']
   tag "check": "Verify the operating system notifies designated personnel if
 baseline configurations are changed in an unauthorized manner.
 
