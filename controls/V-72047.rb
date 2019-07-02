@@ -4,7 +4,7 @@
 application_groups = attribute(
   'application_groups',
   description: 'Known application groups that are allowed to have world-writeable files or directories',
-  default: []
+  value: []
 )
 
 control "V-72047" do

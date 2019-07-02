@@ -3,7 +3,7 @@
 
 file_integrity_tool = attribute(
   'file_integrity_tool',
-  default: 'aide',
+  value: 'aide',
   description: "Tool used to determine file integrity"
 )
 

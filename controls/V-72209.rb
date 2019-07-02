@@ -3,7 +3,7 @@
 
 log_pkg_path = attribute(
   'log_pkg_path',
-  default: '/etc/rsyslog.conf',
+  value: '/etc/rsyslog.conf',
   description: "The path to the logging package"
 )
 

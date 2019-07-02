@@ -3,7 +3,7 @@
 
 virtual_machine = attribute(
   'virtual_machine',
-  default: false,
+  value: false,
   description: 'Is the target expected to be a virtual machine')
 
 control "V-72039" do

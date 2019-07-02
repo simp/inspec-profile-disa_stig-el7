@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-max_retry = attribute('max_retry', default: 3,
+max_retry = attribute('max_retry', value: 3,
 description: 'The operating system must limit password
 failures.')
 

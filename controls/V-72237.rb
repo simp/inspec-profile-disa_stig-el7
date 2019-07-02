@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-client_alive_interval = attribute('client_alive_interval', default: 600,
+client_alive_interval = attribute('client_alive_interval', value: 600,
 description: "Value expected for ClientAliveInterval in sshd_config")
 
 control "V-72237" do

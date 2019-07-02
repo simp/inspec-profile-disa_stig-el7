@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 banner_message_text_gui = attribute('banner_message_text_gui',
-default:
+value:
 "You are accessing a U.S. Government (USG) Information System (IS) that is \
 provided for USG-authorized use only. By using this IS (which includes any \
 device attached to this IS), you consent to the following conditions: -The USG \
@@ -23,7 +23,7 @@ Agreement for details.",
 description: 'The banner message must display the designated banner before granting access.')
 
 banner_message_text_gui_limited = attribute('banner_message_text_gui_limited',
-default: "I've read & consent to terms in IS user agreem't.",
+value: "I've read & consent to terms in IS user agreem't.",
 description: 'The banner message must display the designated banner before granting access.')
 
 control "V-71861" do

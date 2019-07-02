@@ -6,7 +6,7 @@
 x11_enabled = attribute(
   'x11_enabled',
   description: 'Set to `true` if a GUI or X11 is needed on the system',
-  default: false
+  value: false
 )
 
 control "V-72307" do
