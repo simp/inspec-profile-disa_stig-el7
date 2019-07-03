@@ -3,7 +3,7 @@
 
 system_activity_timeout = attribute(
 'system_activity_timeout',
-default: 600,
+value: 600,
 description: 'The length of inactivity from the user in which the network connections associated with a session in terminated.'
 )
 

@@ -4,17 +4,17 @@
 grub_superusers = attribute(
   'grub_superusers',
   description: 'superusers for grub boot ( array )',
-  default: ['root']
+  value: ['root']
 )
 grub_user_boot_files = attribute(
  'grub_user_boot_files',
  description: 'grub boot config files',
- default: ['/boot/grub2/user.cfg']
+ value: ['/boot/grub2/user.cfg']
 )
 grub_main_cfg = attribute(
  'grub_main_cfg',
  description: 'main grub boot config file',
- default: '/boot/grub2/grub.cfg'
+ value: '/boot/grub2/grub.cfg'
 )
 
 control "V-71961" do

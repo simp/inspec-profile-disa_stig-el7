@@ -3,7 +3,7 @@
 
 known_system_accounts = attribute(
   'known_system_accounts',
-  default: [
+  value: [
         'root',
         'bin',
         'daemon',
@@ -37,7 +37,7 @@ known_system_accounts = attribute(
 disallowed_accounts = attribute(
   'disallowed_accounts',
   description: 'Accounts that are not allowed on the system (Array)',
-  default: [
+  value: [
     'games',
     'gopher',
     'ftp',
@@ -47,7 +47,7 @@ disallowed_accounts = attribute(
 user_accounts = attribute(
   'user_accounts',
   description: 'accounts of known managed users (Array)',
-  default:[]
+  value:[]
 )
 
 control "V-72001" do

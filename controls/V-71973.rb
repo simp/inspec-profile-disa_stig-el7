@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-file_integrity_tool = attribute('file_integrity_tool', default: 'aide',
+file_integrity_tool = attribute('file_integrity_tool', value: 'aide',
 description: 'Tool used to determine file integrity')
-file_integrity_interval = attribute('file_integrity_interval', default: 'weekly',
+file_integrity_interval = attribute('file_integrity_interval', value: 'weekly',
 description: 'Interval for running the file integrity tool.')
 
 control "V-71973" do

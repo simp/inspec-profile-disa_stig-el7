@@ -4,7 +4,7 @@
 log_aggregation_server = attribute(
   'log_aggregation_server',
   description: 'The system is intented to be a log aggregation server.',
-  default: false
+  value: false
 )
 
 # TODO account for using other log systems. `syslog-ng`

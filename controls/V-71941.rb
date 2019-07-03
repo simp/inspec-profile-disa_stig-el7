@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-days_of_inactivity = attribute('days_of_inactivity', default: 0, description: 'The
+days_of_inactivity = attribute('days_of_inactivity', value: 0, description: 'The
 number of days of inactivity before an account is disabled.')
 
 control "V-71941" do

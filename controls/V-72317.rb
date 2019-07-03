@@ -3,7 +3,7 @@
 
 approved_tunnels = attribute(
   'approved_tunnels',
-  default: [
+  value: [
     # Example
     # 'conn myTunnel'
   ],

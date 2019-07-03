@@ -4,7 +4,7 @@
 # TODO update attrib to use the same `style` as the other PAM/PASSWD attributes
 # TODO we should also have a PAM_PWQUALITY_PATH attrib I think
 
-min_len = attribute('min_len', default: 15,
+min_len = attribute('min_len', value: 15,
 description: 'The minimum number of characters for passwords.')
 
 control "V-71935" do

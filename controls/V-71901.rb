@@ -2,7 +2,7 @@
 #
 
 lock_delay = attribute('lock_delay',
-default: 5,
+value: 5,
 description: 'The scereensaver lock-delay must be less than or equal to the
 specified value.')
 

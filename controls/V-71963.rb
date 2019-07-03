@@ -4,17 +4,17 @@
 efi_superusers = attribute(
   'efi_superusers',
   description: 'superusers for efi boot ( array )',
-  default: ['root']
+  value: ['root']
 )
 efi_user_boot_files = attribute(
  'efi_user_boot_files',
  description: 'efi boot config files',
- default: ['/boot/efi/EFI/redhat/user.cfg']
+ value: ['/boot/efi/EFI/redhat/user.cfg']
 )
 efi_main_cfg = attribute(
  'efi_main_cfg',
  description: 'main efi boot config file',
- default: '/boot/efi/EFI/redhat/grub.cfg'
+ value: '/boot/efi/EFI/redhat/grub.cfg'
 )
 
 control "V-71963" do

@@ -4,7 +4,7 @@
 mfa_pkg_list = attribute(
     'mfa_pkg_list',
     description: 'The list of packages needed for MFA on RHEL',
-    default: [
+    value: [
       'esc',
       'pam_pkcs11',
       'authconfig-gtk',
@@ -12,7 +12,7 @@ mfa_pkg_list = attribute(
 
 smart_card_status = attribute(
   'smart_card_status',
-  default: 'enabled', # values(enabled|disabled)
+  value: 'enabled', # values(enabled|disabled)
   description: 'Smart Card Status'
 )
 

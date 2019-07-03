@@ -3,13 +3,13 @@
 
 multifactor_enabled = attribute(
   'multifactor_enabled',
-  default: 'true',
+  value: 'true',
   description: "Should dconf have smart card authentication"
 )
 
 dconf_user = attribute(
   'dconf_user',
-  default: '',
+  value: '',
   description: "User to use to check dconf settings"
 )
 
