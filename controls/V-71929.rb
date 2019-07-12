@@ -19,6 +19,7 @@ compromised."
   tag "cci": ["CCI-000199"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (d)", "Rev_4"]
+  tag "subsystems": ['useradd', 'password']
   tag "check": "Verify the operating system enforces a 60-day maximum password
 lifetime restriction for new user accounts.
 

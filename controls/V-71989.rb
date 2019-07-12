@@ -24,6 +24,7 @@ functionality.
   tag "cci": ["CCI-002165", "CCI-002696"]
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "SI-6 a", "Rev_4"]
+  tag "subsystems": ['selinux']
   tag "check": "Verify the operating system verifies correct operation of all
 security functions.
 
