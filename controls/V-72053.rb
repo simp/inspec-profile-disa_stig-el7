@@ -13,6 +13,7 @@ information."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['cron']
   tag "check": "Verify that the \"cron.allow\" file is owned by root.
 
 Check the owner of the \"cron.allow\" file with the following command:

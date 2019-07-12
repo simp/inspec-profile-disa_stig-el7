@@ -64,6 +64,7 @@ applications not installed on the system."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['useradd']
   tag "check": "Verify all accounts on the system are assigned to an active
 system, application, or user account.
 

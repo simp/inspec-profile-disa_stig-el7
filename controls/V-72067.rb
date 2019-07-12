@@ -22,6 +22,7 @@ government since this provides assurance they have been tested and validated."
   tag "cci": ["CCI-000068", "CCI-001199", "CCI-002450", "CCI-002476"]
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "SC-28", "SC-13", "SC-28 (1)", "Rev_4"]
+  tag "subsystems": ['fips']
   tag "check": "Verify the operating system implements DoD-approved encryption
 to protect the confidentiality of remote access sessions.
 
