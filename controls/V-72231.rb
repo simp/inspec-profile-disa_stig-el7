@@ -21,6 +21,7 @@ maintaining the confidentiality of the key used to generate the hash.
   tag "cci": ["CCI-001453"]
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "Rev_4"]
+  tag "subsystems": ['sssd', 'ldap']
   tag "check": "Verify the operating system implements cryptography to protect
 the integrity of remote ldap access sessions.
 

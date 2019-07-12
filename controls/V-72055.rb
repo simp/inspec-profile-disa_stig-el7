@@ -12,6 +12,7 @@ sensitive information could be viewed or edited by unauthorized users."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['cron']
   tag "check": "Verify that the \"cron.allow\" file is group-owned by root.
 
 Check the group owner of the \"cron.allow\" file with the following command:

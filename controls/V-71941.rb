@@ -24,6 +24,7 @@ application identifiers after zero days of inactivity.
   tag "cci": ["CCI-000795"]
   tag "documentable": false
   tag "nist": ["IA-4 e", "Rev_4"]
+  tag "subsystems": ['useradd']
   tag "check": "Verify the operating system disables account identifiers
 (individuals, groups, roles, and devices) after the password expires with the
 following command:
