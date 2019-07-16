@@ -17,6 +17,7 @@ copying, transferring, or overwriting system files."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['tftp']
   tag "check": "Verify the TFTP daemon is configured to operate in secure mode.
 
 Check to see if a TFTP server has been installed with the following commands:

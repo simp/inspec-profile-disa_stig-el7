@@ -15,6 +15,7 @@ time synchronization, centralized authentication, and remote system logging."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['dns', 'resolv']
   tag "check": "Determine whether the system is using local or DNS name
 resolution with the following command:
 

@@ -26,6 +26,7 @@ susceptibility to some DoS attacks.
   tag "cci": ["CCI-002385"]
   tag "documentable": false
   tag "nist": ["SC-5", "Rev_4"]
+  tag "subsystems": ['firewalld', 'iptables']
   tag "check": "Verify the operating system protects against or limits the
 effects of DoS attacks by ensuring the operating system is implementing
 rate-limiting measures on impacted network interfaces.

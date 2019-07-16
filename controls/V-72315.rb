@@ -17,7 +17,7 @@ services may be accessible to unauthorized hosts."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ["iptables"]
+  tag "subsystems": ["iptables", 'firewall']
   tag "check": "If the \"firewalld\" package is not installed, ask the System
 Administrator (SA) if another firewall application (such as iptables) is
 installed. If an application firewall is not installed, this is a finding.
