@@ -20,6 +20,7 @@ the cron facility by unauthorized and malicious users."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['cron', 'rsyslog']
   tag "check": "Verify that \"rsyslog\" is configured to log cron events.
 
 Check the configuration of \"/etc/rsyslog.conf\" for the cron facility with the

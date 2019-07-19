@@ -33,6 +33,7 @@ to boot into single-user mode or make modifications to the boot menu."
   tag "cci": ["CCI-000213"]
   tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
+  tag "subsystems": ['grub']
   tag "check": "For systems that use BIOS, this is Not Applicable.
 
 Check to see if an encrypted root password is set. On systems that use UEFI,
