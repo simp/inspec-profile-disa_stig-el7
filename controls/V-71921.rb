@@ -19,7 +19,7 @@ plain text."
   tag "cci": ["CCI-000196"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (c)", "Rev_4"]
-  tag "subsystems": ['useradd', 'password']
+  tag "subsystems": ['login_defs', 'password']
   tag "check": "Verify the system's shadow file is configured to store only
 encrypted representations of passwords. The strength of encryption that must be
 used to hash passwords for all accounts is SHA512.
