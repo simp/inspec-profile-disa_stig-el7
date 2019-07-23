@@ -26,7 +26,7 @@ allow unauthorized access to user files by other users."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ['useradd']
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify the assigned home directory of all local interactive
 users has a mode of \"0750\" or less permissive.
 
