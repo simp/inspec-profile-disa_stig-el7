@@ -27,7 +27,7 @@ not be able to access their own files."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ['useradd']
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify the assigned home directory of all local interactive
 users on the system exists.
 
