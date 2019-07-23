@@ -35,6 +35,7 @@ and releases the resources associated with that session.
   tag "cci": ["CCI-001133", "CCI-002361"]
   tag "documentable": false
   tag "nist": ["SC-10", "AC-12", "Rev_4"]
+  tag "subsystems": ['user_profile']
   tag "check": "Verify the operating system terminates all network connections
 associated with a communications session at the end of the session or based on
 inactivity.

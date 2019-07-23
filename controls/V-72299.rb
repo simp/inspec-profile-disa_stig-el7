@@ -16,6 +16,7 @@ methods must be used in place of this service."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['vsftpd']
   tag "check": "Verify an FTP server has not been installed on the system.
 
 Check to see if an FTP server has been installed with the following commands:
