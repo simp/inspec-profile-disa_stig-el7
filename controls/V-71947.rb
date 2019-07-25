@@ -18,6 +18,7 @@ capability, it is critical the user re-authenticate.
   tag "cci": ["CCI-002038"]
   tag "documentable": false
   tag "nist": ["IA-11", "Rev_4"]
+  tag "subsystems": ['sudo']
   tag "check": "If passwords are not being used for authentication, this is Not
 Applicable.
 
