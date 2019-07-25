@@ -22,6 +22,7 @@ configured to scan all received mail.
   tag "cci": ["CCI-001668"]
   tag "documentable": false
   tag "nist": ["SI-3 a", "Rev_4"]
+  tag "subsystems": ['clamav', 'nails', 'virus_scan']
   tag "check": "Verify the system is using a virus scan program.
 
 Check for the presence of \"McAfee VirusScan Enterprise for Linux\" with the
