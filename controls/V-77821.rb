@@ -13,6 +13,7 @@ in the protocol implementation."
   tag "cci": ["CCI-001958"]
   tag "documentable": false
   tag "nist": ["IA-3", "Rev_4"]
+  tag "subsystems": ['dccp', 'kernel_module']
   tag "check": "Verify the operating system disables the ability to load the
 DCCP kernel module.
 
