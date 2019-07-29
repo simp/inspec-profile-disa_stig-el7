@@ -16,6 +16,7 @@ account."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['accounts']
   tag "check": "Check the system for duplicate UID \"0\" assignments with the
 following command:
 
