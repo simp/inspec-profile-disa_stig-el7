@@ -15,7 +15,7 @@ software automatically from the information system."
   tag "cci": ["CCI-002617"]
   tag "documentable": false
   tag "nist": ["SI-2 (6)", "Rev_4"]
-  tag "subsystems": ['71987']
+  tag "subsystems": ['yum']
   tag "check": "Verify the operating system removes all software components
 after updated versions have been installed.
 
