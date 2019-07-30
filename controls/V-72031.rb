@@ -27,6 +27,7 @@ could compromise accounts upon logon."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['init_files']
   tag "check": "Verify the local initialization files of all local interactive
 users are group-owned by that user’s primary Group Identifier (GID).
 
