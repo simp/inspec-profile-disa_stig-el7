@@ -34,6 +34,7 @@ Officer (ISSO)."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['init_files']
   tag "check": "Verify that all local interactive user initialization files'
 executable search path statements do not contain statements that will reference
 a working directory other than the users’ home directory.
