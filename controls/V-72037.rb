@@ -39,6 +39,7 @@ compromise the system at the root and network level."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['init_files']
   tag "check": "Verify that local initialization files do not execute
 world-writable programs.
 
