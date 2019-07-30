@@ -29,6 +29,7 @@ password could be compromised.
   tag "cci": ["CCI-000381"]
   tag "documentable": false
   tag "nist": ["CM-7 a", "Rev_4"]
+  tag "subsystems": ['packages']
   tag "check": "Check to see if the rsh-server package is installed with the
 following command:
 
