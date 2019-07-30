@@ -27,6 +27,7 @@ owned by the user, this could be an indication of system compromise."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify all files and directories in a local interactive user’s
 home directory are owned by the user.
 
