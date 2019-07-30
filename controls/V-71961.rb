@@ -4,17 +4,17 @@
 grub_superusers = attribute(
   'grub_superusers',
   description: 'superusers for grub boot ( array )',
-  default: ['root']
+  value: ['root']
 )
 grub_user_boot_files = attribute(
  'grub_user_boot_files',
  description: 'grub boot config files',
- default: ['/boot/grub2/user.cfg']
+ value: ['/boot/grub2/user.cfg']
 )
 grub_main_cfg = attribute(
  'grub_main_cfg',
  description: 'main grub boot config file',
- default: '/boot/grub2/grub.cfg'
+ value: '/boot/grub2/grub.cfg'
 )
 
 control "V-71961" do
@@ -33,6 +33,7 @@ to boot into single-user mode or make modifications to the boot menu."
   tag "cci": ["CCI-000213"]
   tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
+  tag "subsystems": ['grub']
   tag "check": "For systems that use UEFI, this is Not Applicable.
 
 Check to see if an encrypted root password is set. On systems that use a BIOS,

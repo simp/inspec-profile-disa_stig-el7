@@ -3,7 +3,7 @@
 
 smart_card_status = attribute(
   'smart_card_status',
-  default: 'enabled', # values(enabled|disabled)
+  value: 'enabled', # values(enabled|disabled)
   description: 'Smart Card Status'
 )
 
@@ -51,7 +51,7 @@ end
   tag "cci": ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag "documentable": false
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
-  tag "subsystems": ['pam_pkcs11']
+  tag "subsystems": ['pam_pkcs11', 'pam' , 'pkcs11']
   tag "check": "Verify the operating system implements certificate status
 checking for PKI authentication.
 

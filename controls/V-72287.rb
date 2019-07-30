@@ -13,6 +13,7 @@ provides a vector for amplification attacks."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['kernel_parameter']
   tag "check": "Verify the system does not respond to IPv4 ICMP echoes sent to
 a broadcast address.
 

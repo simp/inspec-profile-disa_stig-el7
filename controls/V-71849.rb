@@ -3,13 +3,13 @@
 # Support for passed in Atrributes
 disable_slow_controls = attribute(
   'disable_slow_controls',
-  default: false,
+  value: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.'
 )
 rpm_verify_perms_except = attribute(
   'rpm_verify_perms_except',
-  default: [],
+  value: [],
   description: 'This is a list of system files that should be allowed to change
                 permission attributes from an rpm verify point of view.')
 

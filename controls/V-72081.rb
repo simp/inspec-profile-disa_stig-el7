@@ -5,7 +5,7 @@ monitor_kernel_log = attribute(
   'monitor_kernel_log',
   description: 'Set this to false if your system availability concern is not documented or
   there is no monitoring of the kernel log',
-  default: true
+  value: true
 )
 
 control "V-72081" do

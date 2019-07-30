@@ -16,6 +16,7 @@ forwarding is enabled and the system is functioning as a router."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['kernel_parameter']
   tag "check": "Verify the system does not accept IPv4 source-routed packets by
 default.
 

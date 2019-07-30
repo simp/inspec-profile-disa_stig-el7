@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-days_of_inactivity = attribute('days_of_inactivity', default: 0, description: 'The
+days_of_inactivity = attribute('days_of_inactivity', value: 0, description: 'The
 number of days of inactivity before an account is disabled.')
 
 control "V-71941" do
@@ -24,6 +24,7 @@ application identifiers after zero days of inactivity.
   tag "cci": ["CCI-000795"]
   tag "documentable": false
   tag "nist": ["IA-4 e", "Rev_4"]
+  tag "subsystems": ['useradd']
   tag "check": "Verify the operating system disables account identifiers
 (individuals, groups, roles, and devices) after the password expires with the
 following command:

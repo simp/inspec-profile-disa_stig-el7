@@ -3,7 +3,7 @@
 
 non_removable_media_fs = attribute(
   'non_removable_media_fs',
-  default: ['xfs', 'ext4', 'swap', 'tmpfs'],
+  value: ['xfs', 'ext4', 'swap', 'tmpfs'],
   description: "File systems that don't correspond to removable media"
 )
 

@@ -1,13 +1,13 @@
 # encoding: utf-8
 #
 
-banner_message_enabled = attribute('banner_message_enabled', default: "true",
+banner_message_enabled = attribute('banner_message_enabled', value: "true",
   description: 'The banner message must display the Standard Mandatory DoD notice
   before granting access.')
 
 dconf_user = attribute(
   'dconf_user',
-  default: '',
+  value: '',
   description: "User to use to check dconf settings"
 )
 

@@ -4,13 +4,13 @@
 exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
 non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72017" do
@@ -26,6 +26,7 @@ allow unauthorized access to user files by other users."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify the assigned home directory of all local interactive
 users has a mode of \"0750\" or less permissive.
 

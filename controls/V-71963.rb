@@ -4,17 +4,17 @@
 efi_superusers = attribute(
   'efi_superusers',
   description: 'superusers for efi boot ( array )',
-  default: ['root']
+  value: ['root']
 )
 efi_user_boot_files = attribute(
  'efi_user_boot_files',
  description: 'efi boot config files',
- default: ['/boot/efi/EFI/redhat/user.cfg']
+ value: ['/boot/efi/EFI/redhat/user.cfg']
 )
 efi_main_cfg = attribute(
  'efi_main_cfg',
  description: 'main efi boot config file',
- default: '/boot/efi/EFI/redhat/grub.cfg'
+ value: '/boot/efi/EFI/redhat/grub.cfg'
 )
 
 control "V-71963" do
@@ -33,6 +33,7 @@ to boot into single-user mode or make modifications to the boot menu."
   tag "cci": ["CCI-000213"]
   tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
+  tag "subsystems": ['grub']
   tag "check": "For systems that use BIOS, this is Not Applicable.
 
 Check to see if an encrypted root password is set. On systems that use UEFI,

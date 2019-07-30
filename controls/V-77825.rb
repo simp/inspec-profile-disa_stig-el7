@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-randomize_va_space = attribute('randomize_va_space', default: 2,
+randomize_va_space = attribute('randomize_va_space', value: 2,
 description: 'The value for the randomize virtual address space
 kernel parameter.')
 
@@ -21,6 +21,7 @@ techniques."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['ASLR', 'kernel_parameter']
   tag "check": "Verify the operating system implements virtual address space
 randomization.
 

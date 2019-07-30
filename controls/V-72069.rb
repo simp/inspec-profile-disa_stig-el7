@@ -13,6 +13,7 @@ mode and must be verified by file integrity tools."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['aide']
   tag "check": "Verify the file integrity tool is configured to verify ACLs.
 
 Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on

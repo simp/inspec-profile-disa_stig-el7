@@ -15,6 +15,7 @@ more securely authenticate the remote mount request."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['nfs']
   tag "check": "Verify \"AUTH_GSS\" is being used to authenticate NFS mounts.
 
 To check if the system is importing an NFS file system, look for any entries in

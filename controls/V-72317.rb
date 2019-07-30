@@ -3,7 +3,7 @@
 
 approved_tunnels = attribute(
   'approved_tunnels',
-  default: [
+  value: [
     # Example
     # 'conn myTunnel'
   ],
@@ -27,6 +27,7 @@ end
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['libreswan', 'ipsec']
   tag "check": "Verify the system does not have unauthorized IP tunnels
 configured.
 

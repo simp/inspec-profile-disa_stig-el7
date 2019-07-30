@@ -4,7 +4,7 @@
 mfa_pkg_list = attribute(
     'mfa_pkg_list',
     description: 'The list of packages needed for MFA on RHEL',
-    default: [
+    value: [
       'esc',
       'pam_pkcs11',
       'authconfig-gtk',
@@ -12,7 +12,7 @@ mfa_pkg_list = attribute(
 
 smart_card_status = attribute(
   'smart_card_status',
-  default: 'enabled', # values(enabled|disabled)
+  value: 'enabled', # values(enabled|disabled)
   description: 'Smart Card Status'
 )
 
@@ -60,6 +60,7 @@ configuring the device itself (management).
   tag "cci": ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag "documentable": false
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
+  tag "subsystems": ['pki', 'pam', 'MFA', 'pkcs11']
   tag "pki","MFA","pam","pkcs11","networking"
   tag "check": "Verify the operating system has the packages required for
 multifactor authentication installed.
