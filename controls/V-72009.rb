@@ -16,7 +16,7 @@ without a valid group owner."
   tag "cci": ["CCI-002165"]
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "Rev_4"]
-  tag "subsystems": ['filesystems', 'users' ,'files']
+  tag "subsystems": ['filesystem', 'groups' ,'files']
   tag "check": "Verify all files and directories on the system have a valid
 group.
 
