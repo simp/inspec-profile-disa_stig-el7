@@ -14,6 +14,7 @@ unknown devices, thereby facilitating malicious activity."
   tag "cci": ["CCI-000366", "CCI-000778", "CCI-001958"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "IA-3", "IA-3", "Rev_4"]
+  tag "subsystems": ['file_system', 'nfs', 'autofs']
   tag "check": "Verify the operating system disables the ability to automount
 devices.
 
