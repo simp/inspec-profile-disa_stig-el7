@@ -16,7 +16,7 @@ users to attain unauthorized administrative access."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ['home_dirs', 'filesystem']
+  tag "subsystems": ['home_dirs', 'file_system']
   tag "check": "Verify file systems that contain user home directories are
 mounted with the \"nosuid\" option.
 
