@@ -17,7 +17,7 @@ class Pam < Inspec.resource(1)
     # Query for a match:
 
     describe pam('/etc/pam.d/system-auth') do
-      its('rules') { should match_pam_rule('password sufficient pam_unix.so sha512' }
+      its('rules') { should match_pam_rule('password sufficient pam_unix.so sha512') }
     end
 
     # Query everything for a match without specific arguments
