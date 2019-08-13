@@ -27,6 +27,7 @@ which the user is not a member, unintended users may be able to access them."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify all files and directories in a local interactive user
 home directory are group-owned by a group the user is a member of.
 

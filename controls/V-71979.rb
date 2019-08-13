@@ -31,6 +31,7 @@ used to verify the software must be from an approved CA.
   tag "cci": ["CCI-001749"]
   tag "documentable": false
   tag "nist": ["CM-5 (3)", "Rev_4"]
+  tag "subsystems": ['yum']
   tag "check": "Verify the operating system prevents the installation of
 patches, service packs, device drivers, or operating system components of local
 packages without verification that they have been digitally signed using a

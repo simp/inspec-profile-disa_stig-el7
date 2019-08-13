@@ -27,6 +27,7 @@ mission, but which cannot be disabled.
   tag "cci": ["CCI-000381"]
   tag "documentable": false
   tag "nist": ["CM-7 a", "Rev_4"]
+  tag "subsystems": ['packages']
   tag "check": "Verify the operating system is configured to disable
 non-essential capabilities. The most secure way of ensuring a non-essential
 capability is disabled is to not have the capability installed.

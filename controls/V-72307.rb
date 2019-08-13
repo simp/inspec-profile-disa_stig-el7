@@ -23,6 +23,7 @@ unless approved and documented."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['packages']
   tag "check": "Verify that if the system has X Windows System installed, it is
 authorized.
 

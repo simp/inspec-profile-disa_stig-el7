@@ -15,6 +15,7 @@ the use of two-factor authentication."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['ssh']
   tag "check": "Verify there are no \"shosts.equiv\" files on the system.
 
 Check the system for the existence of these files with the following command:

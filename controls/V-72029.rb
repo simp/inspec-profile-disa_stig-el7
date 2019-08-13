@@ -27,6 +27,7 @@ accounts upon logon."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['init_files']
   tag "check": "Verify all local initialization files for interactive users are
 owned by the home directory user or root.
 

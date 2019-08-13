@@ -20,7 +20,7 @@ information system (e.g., module or policy filter).
   tag "cci": ["CCI-000018", "CCI-000172", "CCI-001403", "CCI-002130"]
   tag "documentable": false
   tag "nist": ["AC-2 (4)", "AU-12 c", "AC-2 (4)", "AC-2 (4)", "Rev_4"]
-  tag "subsystems": ['audit', 'auditd', 'audit_rule']
+  tag "subsystems": ['audit', 'auditd', 'audit_rule', 'gshadow']
   tag "check": "Verify the operating system must generate audit records for all
 account creations, modifications, disabling, and termination events that affect
 \"/etc/gshadow\".

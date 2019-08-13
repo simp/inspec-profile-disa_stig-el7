@@ -23,6 +23,7 @@ for unprivileged users to attain unauthorized administrative access."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['file_system', 'removable_media']
   tag "check": "Verify file systems that are used for removable media are
 mounted with the \"nouid\" option.
 

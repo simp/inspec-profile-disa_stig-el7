@@ -26,6 +26,7 @@ unintended users may be able to access or modify them."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify all files and directories contained in a local
 interactive user home directory, excluding local initialization files, have a
 mode of \"0750\".

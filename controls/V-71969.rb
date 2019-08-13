@@ -12,6 +12,7 @@ control "V-71969" do
   tag "cci": ["CCI-000381"]
   tag "documentable": false
   tag "nist": ["CM-7 a", "Rev_4"]
+  tag "subsystems": ['packages']
   tag "check": "The NIS service provides an unencrypted authentication service
 that does not provide for the confidentiality and integrity of user passwords
 or the remote session.
