@@ -20,7 +20,8 @@ non_interactive_shells = attribute(
 )
 
 control "V-72037" do
-  title "Local initialization files must not execute world-writable programs."
+    title "The Red Hat Enterprise Linux operating system must be configured so
+ that local initialization files do not execute world-writable programs."
   if disable_slow_controls
     desc "This control consistently takes a long to run and has been disabled
           using the disable_slow_controls attribute."
@@ -45,12 +46,12 @@ world-writable programs.
 
 Check the system for world-writable files with the following command:
 
-# find / -perm -002 -type f -exec ls -ld {} \\; | more
+# find / -xdev -perm -002 -type f -exec ls -ld {} \\; | more
 
 For all files listed, check for their presence in the local initialization
 files with the following commands:
 
-Note: The example will be for a system that is configured to create users’ home
+Note: The example will be for a system that is configured to create users' home
 directories in the \"/home\" directory.
 
 # grep <file> /home/*/.*
@@ -82,7 +83,7 @@ files with the following command:
       dotfiles = dotfiles + command("find #{user.home} -xdev -maxdepth 2 -name '.*' -type f").stdout.split("\n")
     end
     ww_files = Set[]
-    ww_files = command('find / -perm -002 -type f -exec ls {} \;').stdout.lines
+    ww_files = command('find / -xdev -perm -002 -type f -exec ls {} \;').stdout.lines
     #Check each dotfile for existence of each world-writeable file
     findings = Set[]
     dotfiles.each do |dotfile|
