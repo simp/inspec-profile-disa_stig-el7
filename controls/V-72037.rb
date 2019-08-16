@@ -86,11 +86,11 @@ files with the following command:
     ww_files = command('find / -xdev -perm -002 -type f -exec ls {} \;').stdout.lines
     #Check each dotfile for existence of each world-writeable file
     findings = Set[]
-    dotfiles.each do |dotfile|
-      dotfile = dotfile.strip
-      ww_files.each do |ww_file|
-        ww_file = ww_file.strip
-        count = command("grep -c \"#{ww_file}\" \"#{dotfile}\"").stdout.strip.to_i
+    unless ww_files.empty?
+      dotfiles.each do |dotfile|
+        dotfile = dotfile.strip
+        ww_combined = ww_files.map(&:strip).join("\n")
+        count = command("grep -c -f <(echo \"#{ww_combined}\") \"#{dotfile}\"").stdout.strip.to_i
         findings << dotfile if count > 0
       end
     end
