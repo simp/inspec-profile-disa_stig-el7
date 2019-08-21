@@ -80,7 +80,7 @@ files with the following command:
     #For each user, build and execute a find command that identifies initialization files
     #in a user's home directory.
     u.each do |user|
-      dotfiles = dotfiles + command("find #{user.home} -xdev -maxdepth 2 -name '.*' -type f").stdout.split("\n")
+      dotfiles = dotfiles + command("find #{user.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
     end
     ww_files = Set[]
     ww_files = command('find / -xdev -perm -002 -type f -exec ls {} \;').stdout.lines
