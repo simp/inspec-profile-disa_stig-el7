@@ -84,13 +84,33 @@ files with the following command:
     end
     ww_files = Set[]
     ww_files = command('find / -xdev -perm -002 -type f -exec ls {} \;').stdout.lines
+
+    #To reduce the number of commands ran, we use a pattern file in the grep command below
+    #So we don't have too long of a grep command, we chunk the list of ww_files
+    #into strings not longer than PATTERN_FILE_MAX_LENGTH
+    PATTERN_FILE_MAX_LENGTH=100000
+    ww_chunked=[""]
+    ww_files.each do |item|
+      item = item.strip
+      if item.length + "\n".length > PATTERN_FILE_MAX_LENGTH
+        raise "Single pattern is longer than PATTERN_FILE_MAX_LENGTH"
+      end
+      if ww_chunked[-1].length + "\n".length + item.length > PATTERN_FILE_MAX_LENGTH
+        ww_chunked.append("")
+      end
+      ww_chunked[-1] += "\n" + item  # This will leave an extra newline at the beginning of chunks
+    end
+    ww_chunked = ww_chunked.map(&:strip)  # This gets rid of the beginning newlines
+    if ww_chunked[0] == ""
+      ww_chunked = []  # If we didn't have any ww_files, this will prevent an empty grep pattern
+    end
+
     #Check each dotfile for existence of each world-writeable file
     findings = Set[]
-    unless ww_files.empty?
-      dotfiles.each do |dotfile|
-        dotfile = dotfile.strip
-        ww_combined = ww_files.map(&:strip).join("\n")
-        count = command("grep -c -f <(echo \"#{ww_combined}\") \"#{dotfile}\"").stdout.strip.to_i
+    dotfiles.each do |dotfile|
+      dotfile = dotfile.strip
+      ww_chunked.each do |ww_pattern_file|
+        count = command("grep -c -f <(echo \"#{ww_pattern_file}\") \"#{dotfile}\"").stdout.strip.to_i
         findings << dotfile if count > 0
       end
     end
