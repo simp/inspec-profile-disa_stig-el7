@@ -88,7 +88,9 @@ files with the following command:
     #To reduce the number of commands ran, we use a pattern file in the grep command below
     #So we don't have too long of a grep command, we chunk the list of ww_files
     #into strings not longer than PATTERN_FILE_MAX_LENGTH
-    PATTERN_FILE_MAX_LENGTH=100000
+    #Based on MAX_ARG_STRLEN, /usr/include/linux/binfmts.h
+    #We cut off 100 to leave room for the rest of the arguments
+    PATTERN_FILE_MAX_LENGTH=command("getconf PAGE_SIZE").stdout.to_i * 32 - 100
     ww_chunked=[""]
     ww_files.each do |item|
       item = item.strip
