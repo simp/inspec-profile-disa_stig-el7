@@ -63,6 +63,7 @@ SRG-OS-000375-GPOS-0016.
   tag "nist": ["IA-2 (12)", "Rev_4"]
   tag "cci": "CCI-001954"
   tag "nist": ["IA-2 (12)", "Rev_4"]
+  tag "subsystems": ['smartcard', 'MFA']
   tag "check": "Verify the operating system requires smart card logons for
 multifactor authentication to uniquely identify privileged users.
 

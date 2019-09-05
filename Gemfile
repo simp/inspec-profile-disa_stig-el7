@@ -6,15 +6,13 @@ gem_sources = ENV.key?('SIMP_GEM_SERVERS') ? ENV['SIMP_GEM_SERVERS'].split(/[, ]
 gem_sources.each { |gem_source| source gem_source }
 
 gem 'rake'
-# For the fixtures.yml 'target' path functionality
-gem 'simp-rake-helpers', '~> 4.0'
-gem 'puppetlabs_spec_helper', :git => 'https://github.com/puppetlabs/puppetlabs_spec_helper', :ref => 'master'
-gem 'simp-beaker-helpers', '>= 1.8.5', '< 2.0.0'
+gem 'simp-rake-helpers', '~> 5.9'
+gem 'simp-beaker-helpers', ['>= 1.14.1', '< 2.0.0']
 gem 'beaker-rspec'
 gem 'highline'
-gem 'pry'
 gem 'kitchen-puppet'
 gem 'kitchen-inspec'
 gem 'kitchen-vagrant'
-gem 'inspec'
+gem 'inspec', '~> 4.0'
+gem 'inspec-bin', '~> 4.0'
 gem 'librarian-puppet'
