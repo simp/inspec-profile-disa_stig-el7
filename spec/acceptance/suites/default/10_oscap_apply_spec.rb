@@ -15,10 +15,20 @@ describe 'Use the SCAP Security Guide to remediate the system' do
   hosts.each do |host|
     context "on #{host}" do
       before(:all) do
-        @ssg = Simp::BeakerHelpers::SSG.new(host)
+        @os_str = fact_on(host, 'operatingsystem') + ' ' + fact_on(host, 'operatingsystemrelease')
+
+        @ssg_supported = true
+
+        begin
+          @ssg = Simp::BeakerHelpers::SSG.new(host)
+        rescue
+          @ssg_supported = false
+        end
       end
 
       it 'should remediate the system against the SSG' do
+
+        pending("SSG support for #{@os_str}") unless @ssg_supported
 
         # Were accepting all exit codes here because there have occasionally been
         # failures in the SSG content and we're not testing that.

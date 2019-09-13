@@ -11,19 +11,31 @@ describe 'pre-check the inspec content' do
     profiles_to_validate.each do |profile|
       context "for profile #{profile}" do
         context "on #{host}" do
-          before(:all) do
-            @inspec = Simp::BeakerHelpers::Inspec.new(host, profile)
-          end
+          profile_path = File.join(
+                fixtures_path,
+                'inspec_profiles',
+                "#{fact_on(host, 'operatingsystem')}-#{fact_on(host, 'operatingsystemmajrelease')}-#{profile}"
+              )
 
-          it 'should run inspec' do
-            @inspec.run
-          end
+          unless File.exist?(profile_path)
+            it 'should run inspec' do
+              skip("No matching profile available at #{profile_path}")
+            end
+          else
+            before(:all) do
+              @inspec = Simp::BeakerHelpers::Inspec.new(host, profile)
+            end
 
-          it 'should have an inspec report' do
-            inspec_report = @inspec.process_inspec_results
+            it 'should run inspec' do
+              @inspec.run
+            end
 
-            if inspec_report[:failed] > 0
-              puts inspec_report[:report]
+            it 'should have an inspec report' do
+              inspec_report = @inspec.process_inspec_results
+
+              if inspec_report[:failed] > 0
+                puts inspec_report[:report]
+              end
             end
           end
         end
