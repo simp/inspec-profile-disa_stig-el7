@@ -43,6 +43,7 @@ the required value):
 INACTIVE=0"
   tag "fix_id": "F-78293r1_fix"
   describe parse_config_file("/etc/default/useradd") do
+    its('INACTIVE') { should cmp >= 0 }
     its('INACTIVE') { should cmp <= days_of_inactivity }
   end
 end
