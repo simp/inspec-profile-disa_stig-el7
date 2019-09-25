@@ -25,6 +25,7 @@ compromised.
   tag "cci": ["CCI-000195"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (b)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "The \"minclass\" option sets the minimum number of required
 classes of characters for the new password (digits, upper-case, lower-case,
 others).

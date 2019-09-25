@@ -22,6 +22,8 @@ compromised.
   tag "cci": ["CCI-000193"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
+
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "Note: The value to require a number of lower-case characters to
 be set is expressed as a negative number in \"/etc/security/pwquality.conf\".
 
@@ -54,4 +56,3 @@ and run the \"authconfig\" command."
     its('lcredit.to_i') { should cmp < 0 }
   end
 end
-

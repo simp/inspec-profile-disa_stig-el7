@@ -12,6 +12,7 @@ host could be impersonated."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH private host key files have mode \"0600\" or
 less permissive.
 
@@ -38,7 +39,7 @@ If any file has a mode more permissive than \"0600\", this is a finding."
   if !key_files.nil? and !key_files.empty?
     key_files.each do |keyfile|
       describe file(keyfile) do
-        it { should_not be_executable.by('user') }
+        it { should_not be_executable.by('owner') }
         it { should_not be_readable.by('group') }
         it { should_not be_writable.by('group') }
         it { should_not be_executable.by('group') }
@@ -54,4 +55,3 @@ If any file has a mode more permissive than \"0600\", this is a finding."
     end
   end
 end
-

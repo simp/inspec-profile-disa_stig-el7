@@ -44,4 +44,3 @@ with the following command:
       its('stdout.strip') { should_not match %r{wifi connected} }
     end
 end
-

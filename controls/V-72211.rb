@@ -1,10 +1,10 @@
 # encoding: utf-8
 #
 
-LOG_AGGREGATION_SERVER = attribute(
+log_aggregation_server = attribute(
   'log_aggregation_server',
   description: 'The system is intented to be a log aggregation server.',
-  default: false
+  value: false
 )
 
 # TODO account for using other log systems. `syslog-ng`
@@ -31,6 +31,7 @@ documented with the ISSO.
 "CCI-001814"]
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
+  tag "subsystems": ['rsyslog']
   tag "check": "Verify that the system is not accepting \"rsyslog\" messages
 from other systems unless it is documented as a log aggregation server.
 
@@ -49,7 +50,7 @@ imtcp\" configuration line, or document the system as being used for log
 aggregation."
   tag "fix_id": "F-78565r1_fix"
 
-  if LOG_AGGREGATION_SERVER
+  if log_aggregation_server
     describe file('/etc/rsyslog.conf') do
       its('content') { should match %r{^\$ModLoad\s+imtcp.*\n?$} }
     end
@@ -64,4 +65,3 @@ aggregation."
     end
   end
 end
-

@@ -15,6 +15,7 @@ individual accountability of actions performed on the system."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify remote access using SSH prevents users from logging on
 directly as root.
 
@@ -43,4 +44,3 @@ The SSH service must be restarted for changes to take effect."
     its('PermitRootLogin') { should cmp 'no' }
   end
 end
-

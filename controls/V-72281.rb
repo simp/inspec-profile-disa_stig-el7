@@ -15,6 +15,7 @@ time synchronization, centralized authentication, and remote system logging."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['dns', 'resolv']
   tag "check": "Determine whether the system is using local or DNS name
 resolution with the following command:
 
@@ -64,7 +65,7 @@ must be documented with the Information System Security Officer (ISSO) and the
 file must be verified by the system file integrity tool."
   tag "fix_id": "F-78635r1_fix"
 
-  DNS_IN_HOST_LINE = parse_config_file("/etc/nsswitch.conf",
+  dns_in_host_line = parse_config_file("/etc/nsswitch.conf",
     {
       comment_char: '#',
       assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/,
@@ -72,14 +73,14 @@ file must be verified by the system file integrity tool."
   ).params['hosts'].include?('dns')
 
   describe "If `local` resolution is being used, a `hosts` entry in /etc/nsswitch.conf having `dns`" do
-    subject { DNS_IN_HOST_LINE }
+    subject { dns_in_host_line }
     it { should be false }
-  end if !DNS_IN_HOST_LINE
+  end if !dns_in_host_line
 
   describe "If `local` resoultion is being used, the /etc/resolv.conf file should" do
     subject { parse_config_file("/etc/resolv.conf", { comment_char: '#'}).params }
     it { should be_empty }
-  end if !DNS_IN_HOST_LINE
+  end if !dns_in_host_line
 
   nameservers = parse_config_file("/etc/resolv.conf",
     { comment_char: '#'}
@@ -88,11 +89,10 @@ file must be verified by the system file integrity tool."
   describe "The system's nameservers: #{nameservers}" do
   subject { nameservers }
     it { should_not be nil }
-  end if DNS_IN_HOST_LINE
+  end if dns_in_host_line
 
   describe "The number of nameservers" do
   subject { nameservers.count }
     it { should cmp >= 2 }
-  end if DNS_IN_HOST_LINE
+  end if dns_in_host_line
 end
-

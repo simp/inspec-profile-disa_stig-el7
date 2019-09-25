@@ -13,6 +13,7 @@ of misconfiguration elsewhere."
   tag "cci": ["CCI-000766"]
   tag "documentable": false
   tag "nist": ["IA-2 (2)", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "To determine how the SSH daemon's \"PermitEmptyPasswords\"
 option is set, run the following command:
 
@@ -32,18 +33,8 @@ The SSH service must be restarted for changes to take effect.  Any accounts
 with empty passwords should be disabled immediately, and PAM configuration
 should prevent users from being able to assign themselves empty passwords."
   tag "fix_id": "F-78291r2_fix"
-  # TODO: We should not allow a nil or unset value - as someday the defualt may change.
-  # TODO: Require that user be perscriptive about the state they want - yes or no.
-  
-  describe.one do
-    # case where value no line is returned ( i.e. unset or commented out )
-    describe sshd_config do
-      its('PermitEmptyPasswords') { should cmp nil }
-    end
-    # case where value no is returned
-    describe sshd_config do
-      its('PermitEmptyPasswords') { should eq 'no' }
-    end
+
+  describe sshd_config do
+    its('PermitEmptyPasswords') { should eq 'no' }
   end
 end
-

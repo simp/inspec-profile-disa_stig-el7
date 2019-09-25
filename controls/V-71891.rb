@@ -16,11 +16,11 @@ determined.
 invoked, the session lock must remain in place until the user reauthenticates.
 No other activity aside from reauthentication must unlock the system.
   "
-if package('gnome-desktop3').installed?
-  impact 0.5
-else
-  impact 0.0
-end
+  if package('gnome-desktop3').installed?
+    impact 0.5
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000028-GPOS-00009"
   tag "satisfies": ["SRG-OS-000028-GPOS-00009", "SRG-OS-000030-GPOS-00011"]
   tag "gid": "V-71891"
@@ -29,6 +29,7 @@ end
   tag "cci": ["CCI-000056"]
   tag "documentable": false
   tag "nist": ["AC-11 b", "Rev_4"]
+  tag "subsystems": [ "session", "lock", "gnome", "screensaver" ]
   tag "check": "Verify the operating system enables a user's session lock until
 that user re-establishes access using established identification and
 authentication procedures. The screen program must be installed to lock
@@ -65,8 +66,9 @@ Update the system databases:
 Users must log out and back in again before the system-wide settings take
 effect."
   tag "fix_id": "F-78243r7_fix"
-  describe parse_config_file('/etc/dconf/db/local.d/00-screensaver') do
-    its('lock-enabled') { should cmp 'true' }
+
+  describe command('gsettings get org.gnome.desktop.screensaver lock-enabled') do
+    its('stdout.strip') { should cmp 'true' }
   end if package('gnome-desktop3').installed?
 
   describe "The system does not have GNOME installed" do
@@ -74,4 +76,3 @@ effect."
     Applicable."
   end if !package('gnome-desktop3').installed?
 end
-

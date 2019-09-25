@@ -13,6 +13,7 @@ impacts operating system security."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system does not allow a non-certificate
 trusted host SSH logon to the system.
 
@@ -35,7 +36,6 @@ HostbasedAuthentication no
 The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78311r3_fix"
   describe sshd_config do
-    its('HostbasedAuthentication') { should match %r{no}i }
+    its('HostbasedAuthentication') { should eq 'no' }
   end
 end
-

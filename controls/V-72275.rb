@@ -13,6 +13,7 @@ facilitates user recognition and reporting of unauthorized account use."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['pam', 'lastlog', 'ssh']
   tag "check": "Verify users are provided with feedback on when account
 accesses last occurred.
 
@@ -39,11 +40,17 @@ Add the following line to the top of \"/etc/pam.d/postlogin-ac\":
 session     required      pam_lastlog.so showfailed"
   tag "fix_id": "F-78629r1_fix"
 
-  describe command('grep pam_lastlog /etc/pam.d/postlogin-ac') do
-    its('stdout') { should match %r{^session\s+required\s+pam_lastlog.so\s+showfailed\s*\n?$} }
+  describe pam('/etc/pam.d/postlogin') do
+    its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed') }
   end
-  describe sshd_config do
-    its('PrintLastLog') { should_not cmp 'silent' }
+
+  describe.one do
+    describe sshd_config do
+      its('PrintLastLog') { should cmp 'yes' }
+    end
+
+    describe pam('/etc/pam.d/postlogin') do
+      its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed').all_without_args('silent') }
+    end
   end
 end
-

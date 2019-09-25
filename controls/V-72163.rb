@@ -11,7 +11,6 @@ privileged access commands. The organization must maintain audit trails in
 sufficient detail to reconstruct events to determine the cause and impact of
 compromise.
   "
-  impact 0.5
   tag "gtitle": "SRG-OS-000037-GPOS-00015"
   tag "satisfies": ["SRG-OS-000037-GPOS-00015", "SRG-OS-000042-GPOS-00020",
 "SRG-OS-000392-GPOS-00172", "SRG-OS-000462-GPOS-00206",
@@ -52,24 +51,32 @@ Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78517r5_fix"
 
-  @audit_files = ['/etc/sudoers', '/etc/sudoers.d']
+  audit_files = ['/etc/sudoers', '/etc/sudoers.d']
 
-  @audit_files.each do |audit_file|
+  if audit_files.any? { |audit_file| file(audit_file).exist? }
+    impact 0.5
+  else
+    impact 0.0
+  end
+
+  audit_files.each do |audit_file|
     describe auditd.file(audit_file) do
       its('permissions') { should_not cmp [] }
       its('action') { should_not include 'never' }
-    end
+    end if file(audit_file).exist?
 
     # Resource creates data structure including all usages of file
-    @perms = auditd.file(audit_file).permissions
+    perms = auditd.file(audit_file).permissions
 
-    @perms.each do |perm|
+    perms.each do |perm|
       describe perm do
         it { should include 'w' }
         it { should include 'a' }
       end
-    end
-    only_if { file(audit_file).exist? }
+    end if file(audit_file).exist?
   end
-end
 
+  describe "The #{audit_files} files do not exist" do
+    skip "The #{audit_files} files do not exist, this requirement is Not Applicable."
+  end if !audit_files.any? { |audit_file| file(audit_file).exist? }
+end

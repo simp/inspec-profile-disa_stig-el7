@@ -23,7 +23,7 @@ describe 'Use the SCAP Security Guide to remediate the system' do
         # Were accepting all exit codes here because there have occasionally been
         # failures in the SSG content and we're not testing that.
 
-        @ssg.remediate(%(xccdf_org.ssgproject.content_profile_stig-#{@ssg.profile_target}-disa))
+        @ssg.remediate(%(xccdf_org.ssgproject.content_profile_stig))
       end
     end
   end

@@ -44,4 +44,3 @@ space_left_action = email"
     its('space_left_action.downcase') { should cmp 'email' }
   end
 end
-

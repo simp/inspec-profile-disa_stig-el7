@@ -14,6 +14,7 @@ approved cryptographic hashes."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['aide']
   tag "check": "Verify the file integrity tool is configured to use FIPS 140-2
 approved cryptographic hashes for validating file contents and directories.
 

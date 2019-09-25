@@ -3,24 +3,32 @@
 
 #TODO: Make sure this is actually an onlyif on the GUI - ssh banner, ftp banner also use /etc/issue
 
-#BANNER_MESSAGE_TEXT_CLI = attribute('banner_message_text_cli',
-#  default: "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
-#  By using this IS (which includes any device attached to this IS), you consent to the following conditions:
-#    - The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
-#    - At any time, the USG may inspect and seize data stored on this IS.
-#    - Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
-#    - This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
- #   - Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.",
-#  description: 'The banner message  must display the Standard Mandatory DoD Notice and Consent Banner before granting access.')
+banner_message_text_cli = attribute('banner_message_text_cli',
+value:
+"You are accessing a U.S. Government (USG) Information System (IS) that is \
+provided for USG-authorized use only. By using this IS (which includes any \
+device attached to this IS), you consent to the following conditions: -The USG \
+routinely intercepts and monitors communications on this IS for purposes \
+including, but not limited to, penetration testing, COMSEC monitoring, network \
+operations and defense, personnel misconduct (PM), law enforcement (LE), and \
+counterintelligence (CI) investigations. -At any time, the USG may inspect and \
+seize data stored on this IS. -Communications using, or data stored on, this \
+IS are not private, are subject to routine monitoring, interception, and \
+search, and may be disclosed or used for any USG-authorized purpose. -This IS \
+includes security measures (e.g., authentication and access controls) to \
+protect USG interests--not for your personal benefit or privacy. \
+-Notwithstanding the above, using this IS does not constitute consent to PM, \
+LE or CI investigative searching or monitoring of the content of privileged \
+communications, or work product, related to personal representation or \
+services by attorneys, psychotherapists, or clergy, and their assistants. Such \
+communications and work product are private and confidential. See User \
+Agreement for details.",
+description: 'The banner message must display the designated banner before granting access.')
 
-BANNER_MESSAGE_TEXT_CLI = attribute('banner_message_text_cli',
-  default:"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions: -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations. -At any time, the USG may inspect and seize data stored on this IS. -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose. -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy. -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.",
-description: 'The banner message  must display the Standard Mandatory DoD Notice and Consent Banner before granting access.')
+banner_message_text_cli_limited = attribute('banner_message_text_cli_limited',
+value: "I've read & consent to terms in IS user agreem't.",
+description: 'The banner message must display the designated banner before granting access.')
 
-BANNER_MESSAGE_TEXT_CLI_LIMITED = attribute('banner_message_text_cli_limited',
-default: "I've read & consent to terms in IS user agreem't.",
-description: 'The banner message must display the Standard Mandatory DoD Notice and Consent Bann\
-er before granting access.')
 control "V-71863" do
   title "The operating system must display the Standard Mandatory DoD Notice
 and Consent Banner before granting local or remote access to the system via a
@@ -77,6 +85,7 @@ the number of characters that can be displayed in the banner:
   tag "cci": ["CCI-000048"]
   tag "documentable": false
   tag "nist": ["AC-8 a", "Rev_4"]
+  tag "subsystems": [ "banner", "/etc/issue" ]
   tag "check": "Verify the operating system displays the Standard Mandatory DoD
 Notice and Consent Banner before granting access to the operating system via a
 command line user logon.
@@ -154,11 +163,11 @@ by attorneys, psychotherapists, or clergy, and their assistants. Such
 communications and work product are private and confidential. See User
 Agreement for details.\""
   tag "fix_id": "F-78217r1_fix"
-  clean_banner = BANNER_MESSAGE_TEXT_CLI.gsub(%r{[\r\n\s]}, '')
-  clean_banner_limited = BANNER_MESSAGE_TEXT_CLI_LIMITED.gsub(%r{[\r\n\s]}, '')
+  clean_banner = banner_message_text_cli.gsub(%r{[\r\n\s]}, '')
+  clean_banner_limited = banner_message_text_cli_limited.gsub(%r{[\r\n\s]}, '')
   banner_file = file("/etc/issue")
   banner_missing = !banner_file.exist?
-   
+
   describe "The banner text is not set because /etc/issue does not exist" do
     subject { banner_missing }
     it { should be false }
@@ -169,11 +178,10 @@ Agreement for details.\""
     describe "The banner text should match the standard banner" do
       subject { banner_message }
       it { should cmp clean_banner }
-    end 
+    end
     describe "The banner text should match the limited banner" do
       subject { banner_message }
       it{should cmp clean_banner_limited }
     end
   end if !banner_missing
 end
-

@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72031" do
@@ -27,6 +27,7 @@ could compromise accounts upon logon."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['init_files']
   tag "check": "Verify the local initialization files of all local interactive
 users are group-owned by that user’s primary Group Identifier (GID).
 
@@ -66,14 +67,13 @@ Note: The example will be for the user smithj, who has a home directory of
 # chgrp users /home/smithj/<file>"
   tag "fix_id": "F-78383r1_fix"
 
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
     findings = findings + command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
   end
   describe findings do
     its('length') { should == 0 }
   end
 end
-

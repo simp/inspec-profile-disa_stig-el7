@@ -12,6 +12,7 @@ service may be compromised."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH public host key files have mode \"0644\" or less
 permissive.
 
@@ -40,7 +41,7 @@ the following command:
   if !pub_files.nil? and !pub_files.empty?
     pub_files.each do |pubfile|
       describe file(pubfile) do
-        it { should_not be_executable.by('user') }
+        it { should_not be_executable.by('owner') }
         it { should_not be_executable.by('group') }
         it { should_not be_writable.by('group') }
         it { should_not be_executable.by('others') }
@@ -54,4 +55,3 @@ the following command:
     end
   end
 end
-

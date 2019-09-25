@@ -44,4 +44,3 @@ action_mail_acct = root"
     its('action_mail_acct') { should cmp 'root' }
   end
 end
-

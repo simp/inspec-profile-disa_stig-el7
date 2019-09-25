@@ -13,6 +13,7 @@ in the protocol implementation."
   tag "cci": ["CCI-001958"]
   tag "documentable": false
   tag "nist": ["IA-3", "Rev_4"]
+  tag "subsystems": ['dccp', 'kernel_module']
   tag "check": "Verify the operating system disables the ability to load the
 DCCP kernel module.
 
@@ -40,6 +41,5 @@ install dccp /bin/true"
   describe kernel_module('dccp') do
     it { should_not be_loaded }
     it { should be_blacklisted }
-  end  
+  end
 end
-

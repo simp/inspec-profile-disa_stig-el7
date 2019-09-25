@@ -3,16 +3,16 @@
 
 # TODO ENHANCE: 1. this needs to be enhanced, i.e. to check the right thing. like V-72017
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72015" do
@@ -31,6 +31,7 @@ them visibility to system files they normally would not be able to access."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['accounts']
   tag "check": "Verify the assigned home directory of all local interactive
 users on the system exists.
 
@@ -65,13 +66,15 @@ assigned\" in \"/etc/passwd\".
 # chmod 0750 /home/smithj"
   tag "fix_id": "F-78367r1_fix"
 
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
 
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+  uid_min = login_defs.read_params['UID_MIN'].to_i
+  uid_min = 1000 if uid_min.nil?
+
+  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
     describe directory(user_info.home) do
       it { should exist }
     end
   end
 end
-

@@ -18,6 +18,7 @@ compromised."
   tag "cci": ["CCI-000199"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (d)", "Rev_4"]
+  tag "subsystems": ['password', '/etc/shadow']
   tag "check": "Check whether the maximum time period for existing passwords is
 restricted to 60 days.
 
@@ -38,4 +39,3 @@ password lifetime restriction.
     end
   end
 end
-

@@ -22,6 +22,7 @@ compromised.
   tag "cci": ["CCI-000194"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "Note: The value to require a number of numeric characters to be
 set is expressed as a negative number in \"/etc/security/pwquality.conf\".
 

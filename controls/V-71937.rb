@@ -14,6 +14,7 @@ should never be used in operational environments."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['pam', 'password']
   tag "check": "To verify that null passwords cannot be used, run the following
 command:
 
@@ -34,12 +35,7 @@ Note: Any updates made to \"/etc/pam.d/system-auth-ac\" may be overwritten by
 the \"authconfig\" program. The \"authconfig\" program should not be used."
   tag "fix_id": "F-78289r2_fix"
 
-  nullok_files = command(%(grep -rle 'pam_unix.so .*nullok' /etc/pam.d/*)).stdout.lines.map(&:strip)
-
-  describe 'PAM authorization files' do
-    context nullok_files do
-      it { should be_empty }
-    end
+  describe pam('/etc/pam.d') do
+    its('lines') { should match_pam_rule('.* .* pam_unix.so').all_without_args('nullok') }
   end
 end
-

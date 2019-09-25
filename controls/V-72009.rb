@@ -16,6 +16,7 @@ without a valid group owner."
   tag "cci": ["CCI-002165"]
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "Rev_4"]
+  tag "subsystems": ['file_system', 'groups' ,'files']
   tag "check": "Verify all files and directories on the system have a valid
 group.
 
@@ -34,8 +35,10 @@ the system with the \"chgrp\" command:
 # chgrp <group> <file>"
   tag "fix_id": "F-78361r1_fix"
 
-  describe command('find / -fstype xfs -nogroup') do
-    its('stdout.strip') { should match %r{^$} }
-  end
+  command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
+    stdout.strip.split("\n").each do |fs|
+      describe command("find / -xautofs -fstype #{fs} -nogroup") do
+        its('stdout.strip') { should be_empty }
+      end
+    end
 end
-

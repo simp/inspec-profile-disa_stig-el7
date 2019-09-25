@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-LOCK_DELAY = attribute('lock_delay', 
-default: '5', 
-description: 'The scereensaver lock-delay must be less than or equal to the 
+lock_delay = attribute('lock_delay',
+value: 5,
+description: 'The scereensaver lock-delay must be less than or equal to the
 specified value.')
 
 control "V-71901" do
@@ -32,6 +32,7 @@ determined and/or controlled.
   tag "cci": ["CCI-000057"]
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["gnome3", "screensaver", "lock", "session"]
   tag "check": "Verify the operating system initiates a session lock a for
 graphical user interfaces when the screensaver is activated.
 
@@ -70,9 +71,12 @@ Users must log out and back in again before the system-wide settings take
 effect."
   tag "fix_id": "F-78253r2_fix"
 
-  only_if { package('gnome-desktop3').installed? and command('dconf').exist? }
- 
-  describe command("dconf read /org/gnome/desktop/screensaver/lock-delay | cut -d ' ' -f2") do
-    its('stdout.strip.to_s') { should <= LOCK_DELAY }
-  end 
+  describe command("gsettings get org.gnome.desktop.screensaver lock-delay | cut -d ' ' -f2") do
+    its('stdout.strip') { should cmp <= lock_delay }
+  end if package('gnome-desktop3').installed?
+
+  describe "The system does not have GNOME installed" do
+    skip "The system does not have GNOME installed, this requirement is Not
+    Applicable."
+  end if !package('gnome-desktop3').installed?
 end

@@ -18,6 +18,7 @@ defeat the organization's policy regarding password reuse."
   tag "cci": ["CCI-000198"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (d)", "Rev_4"]
+  tag "subsystems": ['password', '/etc/shadow']
   tag "check": "Check whether the minimum time period between password changes
 for each user account is one day or greater.
 

@@ -21,6 +21,7 @@ maintaining the confidentiality of the key used to generate the hash.
   tag "cci": ["CCI-001453"]
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "Rev_4"]
+  tag "subsystems": ['sssd', 'ldap']
   tag "check": "Verify the operating system implements cryptography to protect
 the integrity of remote LDAP authentication sessions.
 
@@ -45,33 +46,34 @@ Set the USELDAPAUTH=yes in \"/etc/sysconfig/authconfig\".
 Set \"ssl start_tls\" in \"/etc/pam_ldap.conf\"."
   tag "fix_id": "F-78581r1_fix"
 
-  authconfig = parse_config_file('/etc/sysconfig/authconfig')
+  sssd_id_ldap_enabled = (package('sssd').installed? and
+    !command('grep "^\s*id_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
 
-  USELDAPAUTH_ldap_enabled = (authconfig.params['USELDAPAUTH'].eql? 'yes')
+  pam_ldap_enabled = (!command('grep "^[^#]*pam_ldap\.so" /etc/pam.d/*').stdout.strip.empty?)
 
-  # @todo - verify best way to check this
-  VAS_QAS_ldap_enabled = (package('vasclnt').installed? or service('vasd').installed?)
-
-  if !(USELDAPAUTH_ldap_enabled or VAS_QAS_ldap_enabled )
+  if !(sssd_id_ldap_enabled or pam_ldap_enabled)
     impact 0.0
     describe "LDAP not enabled" do
       skip "LDAP not enabled using any known mechanisms, this control is Not Applicable."
     end
   end
 
-  if USELDAPAUTH_ldap_enabled
+  if sssd_id_ldap_enabled
+    ldap_id_use_start_tls = command('grep ldap_id_use_start_tls /etc/sssd/sssd.conf')
+    describe ldap_id_use_start_tls do
+      its('stdout.strip') { should match %r{^ldap_id_use_start_tls\s*=\s*true$}}
+    end
+
+    ldap_id_use_start_tls.stdout.strip.each_line do |line|
+      describe line do
+        it { should match %r{^ldap_id_use_start_tls\s*=\s*true$}}
+      end
+    end
+  end
+
+  if pam_ldap_enabled
     describe command('grep -i ssl /etc/pam_ldap.conf') do
       its('stdout.strip') { should match %r{^ssl start_tls$}}
     end
   end
-
-  # @todo - not sure how USELDAP is implemented and how it affects the system, so ignore for now
-
-  if VAS_QAS_ldap_enabled
-    describe command('grep ldap-gsssasl-security-layers /etc/opt/quest/vas/vas.conf') do
-      its('stdout.strip') { should match %r{^ldap-gsssasl-security-layers = 0$}}
-      its('stdout.strip.lines.length') { should eq 1 }
-    end
-  end
 end
-

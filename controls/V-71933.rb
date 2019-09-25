@@ -5,7 +5,7 @@
 # TODO this can happen if `authconfig` has not been run on the system yet and
 # TODO the system is still using the `non-ac` versions of the files yet.
 
-MIN_REUSE_GENERATIONS = attribute('min_reuse_generations', default: 5,
+min_reuse_generations = attribute('min_reuse_generations', value: 5,
 description: 'The minimum number of generations before a password can be
 reused.')
 
@@ -25,6 +25,7 @@ is a password that is not changed per policy requirements."
   tag "cci": ["CCI-000200"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (e)", "Rev_4"]
+  tag "subsystems": ['pam', 'password']
   tag "check": "Verify the operating system prohibits password reuse for a
 minimum of five generations.
 
@@ -46,7 +47,7 @@ have the required value):
 password sufficient pam_unix.so use_authtok sha512 shadow remember=5"
   tag "fix_id": "F-78285r2_fix"
 
-  describe command("grep -Po '^password\s+sufficient\s+pam_unix.so.*$' /etc/pam.d/system-auth-ac | grep -Po '(?<=pam_unix.so).*$' | grep -Po 'remember\s*=\s*[0-9]+' | cut -d '=' -f2") do
-    its('stdout.to_i') { should be >= MIN_REUSE_GENERATIONS }
+  describe pam("/etc/pam.d/system-auth") do
+    its('lines') { should match_pam_rule('password (required|requisite|sufficient) pam_(unix|pwhistory).so').any_with_integer_arg('remember', '>=', min_reuse_generations) }
   end
 end

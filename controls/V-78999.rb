@@ -20,6 +20,7 @@ information system (e.g., module or policy filter).
   tag "cci": ["CCI-000172"]
   tag "documentable": false
   tag "nist": ["AU-12 c", "Rev_4"]
+  tag "subsystems": ["audit"]
   tag "check": "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"create_module\" command occur.
 
@@ -67,4 +68,3 @@ The audit daemon must be restarted for the changes to take effect."
   end
 
 end
-

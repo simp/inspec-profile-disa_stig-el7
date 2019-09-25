@@ -44,6 +44,7 @@ configuring the device itself (management).
   tag "cci": ["CCI-001948", "CCI-001953", "CCI-001954"]
   tag "documentable": false
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
+  tag "subsystems": ['pam', 'nss', 'MFA', 'pki', 'sssd']
   tag "pam","nss","MFA","pki"
   tag "check": "Verify the operating system implements multifactor
 authentication for remote access to privileged accounts via pluggable
@@ -64,22 +65,27 @@ authentication modules (PAM).
 Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in configuration
 files found under \"/etc/sssd/conf.d\" to include pam."
   tag "fix_id": "F-78779r3_fix"
-  
+
   # its('services") doesn't appear to be working properly
   # added a test with grep to make sure one will pass if pam exists.
-  sssd_files = command("find /etc/sssd -name *.conf").stdout.split("\n")
-  sssd_files.each do |file|
-    describe.one do
-      describe parse_config_file(file) do
-        its('services') { should include 'pam' }
+  if (!(sssd_files = command("find /etc/sssd -name *.conf").stdout.split("\n")).empty?)
+    sssd_files.each do |file|
+      describe.one do
+        describe parse_config_file(file) do
+          its('services') { should include 'pam' }
+        end if package('sssd').installed?
+        describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' #{file}") do
+          its('stdout.strip') { should include 'pam' }
+        end if package('sssd').installed?
       end if package('sssd').installed?
-      describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' #{file}") do
-        its('stdout.strip') { should include 'pam' }
-      end if package('sssd').installed?
-    end if package('sssd').installed?
+    end
+  else
+    describe "The set of SSSD configuration files" do
+        subject { sssd_files.to_a }
+        it { should_not be_empty }
+    end
   end
   describe "The SSSD Package is not installed on the system" do
     skip "This control is Not Appliciable without the SSSD Package installed."
   end if !package('sssd').installed?
 end
-

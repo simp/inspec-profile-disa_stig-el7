@@ -16,6 +16,7 @@ could result in a man-in-the-middle attack."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "networking","kernel"
+  tag "subsystems": ['kernel_parameter']
   tag "check": "Verify the system ignores IPv4 ICMP redirect messages.
 
 Check the value of the \"accept_redirects\" variables with the following
@@ -38,4 +39,3 @@ net.ipv4.conf.all.accept_redirects = 0"
     its('value') { should eq 0 }
   end
 end
-

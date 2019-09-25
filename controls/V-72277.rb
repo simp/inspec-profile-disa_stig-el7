@@ -15,6 +15,7 @@ or for the use of two-factor authentication."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['ssh']
   tag "check": "Verify there are no \".shosts\" files on the system.
 
 Check the system for the existence of these files with the following command:
@@ -26,9 +27,9 @@ If any \".shosts\" files are found on the system, this is a finding."
 
 # rm /[path]/[to]/[file]/.shosts"
   tag "fix_id": "F-78631r1_fix"
+  tag "dangerous": { :reason => "Uses global find command" }
 
-  describe command("find / -name '*.shosts'") do
-    its('stdout.strip') { should match %r{^$} }
+  describe command("find / -xautofs -name '*.shosts'") do
+    its('stdout.strip') { should be_empty }
   end
 end
-

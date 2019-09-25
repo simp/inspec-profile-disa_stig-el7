@@ -14,6 +14,8 @@ requirement is SHA."
   tag "cci": ["CCI-001453"]
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "Rev_4"]
+  tag "subsystems": ["ssh"]
+  tag "fix_id": "F-78607r2_fix"
   tag "check": "Verify the SSH daemon is configured to only use MACs employing
 FIPS 140-2-approved ciphers.
 
@@ -36,23 +38,21 @@ location if using a version of SSH that is provided by a third-party vendor):
 MACs hmac-sha2-256,hmac-sha2-512
 
 The SSH service must be restarted for changes to take effect."
-  tag "fix_id": "F-78607r2_fix"
 
-  # Must be either or both of these ciphers
-  # TODO - replace with be_in when available
-  describe.one do
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-256,hmac-sha2-512$/ }
+  @macs = inspec.sshd_config.params("macs")
+  if @macs.nil?
+    # fail fast
+    describe 'The `sshd_config` setting for `MACs`' do
+    subject { @macs }
+      it 'should be explicitly set and not commented out' do
+        expect(subject).not_to be_nil
+      end
     end
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-256$/ }
-    end
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-512$/ }
-    end
-    describe sshd_config do
-      its('MACs') { should match /^hmac-sha2-512,hmac-sha2-256$/ }
+  else  
+    @macs.first.split(",").each do |mac|
+      describe mac do
+        it { should be_in ['hmac-sha2-256', 'hmac-sha2-512'] }
+      end
     end
   end
 end
-

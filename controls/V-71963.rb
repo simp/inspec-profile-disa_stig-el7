@@ -1,19 +1,20 @@
 # encoding: utf-8
 #
-EFI_SUPERUSERS = attribute(
+
+efi_superusers = attribute(
   'efi_superusers',
   description: 'superusers for efi boot ( array )',
-  default: ['root']
+  value: ['root']
 )
-EFI_USER_BOOT_FILES = attribute(
+efi_user_boot_files = attribute(
  'efi_user_boot_files',
  description: 'efi boot config files',
- default: ['/boot/efi/EFI/redhat/user.cfg']
+ value: ['/boot/efi/EFI/redhat/user.cfg']
 )
-EFI_MAIN_CFG = attribute(
+efi_main_cfg = attribute(
  'efi_main_cfg',
  description: 'main efi boot config file',
- default: '/boot/efi/EFI/redhat/grub.cfg'
+ value: '/boot/efi/EFI/redhat/grub.cfg'
 )
 
 control "V-71963" do
@@ -32,6 +33,7 @@ to boot into single-user mode or make modifications to the boot menu."
   tag "cci": ["CCI-000213"]
   tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
+  tag "subsystems": ['grub']
   tag "check": "For systems that use BIOS, this is Not Applicable.
 
 Check to see if an encrypted root password is set. On systems that use UEFI,
@@ -73,14 +75,14 @@ commands:
 # mv /tmp/grub2.cfg /boot/efi/EFI/redhat/grub.cfg
 "
   tag "fix_id": "F-78315r2_fix"
-  describe file(EFI_MAIN_CFG) do
+  describe file(efi_main_cfg) do
     its('content') { should match %r{^\s*password_pbkdf2\s+root } }
   end
 
-  EFI_USER_BOOT_FILES.each do |user_cfg_file|
+  efi_user_boot_files.each do |user_cfg_file|
     next if !file(user_cfg_file).exist?
     describe.one do
-      EFI_SUPERUSERS.each do |user|
+      efi_superusers.each do |user|
         describe file(user_cfg_file) do
           its('content') { should match %r{^\s*password_pbkdf2\s+#{user} } }
         end
@@ -88,4 +90,3 @@ commands:
     end
   end
 end
-

@@ -13,6 +13,7 @@ files."
   tag "cci": ["CCI-002165"]
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "Rev_4"]
+  tag "subsystems": ['file_system', 'users' ,'files']
   tag "check": "Verify all files and directories on the system have a valid
 owner.
 
@@ -31,16 +32,10 @@ directories on the system with the \"chown\" command:
 # chown <user> <file>"
   tag "fix_id": "F-78359r1_fix"
 
-  findings = Set[]
-  partitions = etc_fstab.params.map{|partition| partition['file_system_type']}.uniq
-
-  partitions.each do |part|
-    findings = findings + command("find / -xdev -fstype #{part} -nouser").stdout.lines.map(&:chomp)
-  end
-
-  describe "All files should have an existing and assigned owner" do
-    subject { findings.to_a }
-    it { should be_empty }
-  end
+  command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
+    stdout.strip.split("\n").each do |fs|
+      describe command("find / -xautofs -fstype #{fs} -nouser") do
+        its('stdout.strip') { should be_empty }
+      end
+    end
 end
-

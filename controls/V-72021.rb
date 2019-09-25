@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72021" do
@@ -28,6 +28,7 @@ may not be able to access files that they legitimately should."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify the assigned home directory of all local interactive
 users is group-owned by that user’s primary GID.
 
@@ -57,11 +58,14 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 # chgrp users /home/smithj"
   tag "fix_id": "F-78373r1_fix"
 
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
+
+  uid_min = login_defs.read_params['UID_MIN'].to_i
+  uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
     findings = findings + command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")
   end
   describe "Home directories that are not group-owned by the user's primary GID" do
@@ -69,4 +73,3 @@ Note: The example will be for the user \"smithj\", who has a home directory of
     it { should be_empty }
   end
 end
-

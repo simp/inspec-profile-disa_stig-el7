@@ -26,6 +26,7 @@ susceptibility to some DoS attacks.
   tag "cci": ["CCI-002385"]
   tag "documentable": false
   tag "nist": ["SC-5", "Rev_4"]
+  tag "subsystems": ['firewalld', 'iptables']
   tag "check": "Verify the operating system protects against or limits the
 effects of DoS attacks by ensuring the operating system is implementing
 rate-limiting measures on impacted network interfaces.
@@ -50,7 +51,7 @@ The firewalld service will need to be restarted for this to take effect:
 
 # systemctl restart firewalld"
   tag "fix_id": "F-78625r2_fix"
-  
+
   # @todo - firewall resource?
   describe.one do
     describe command('firewall-cmd --direct --get-rule ipv4 filter IN_public_allow') do
@@ -63,4 +64,3 @@ The firewalld service will need to be restarted for this to take effect:
     end
   end
 end
-

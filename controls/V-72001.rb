@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-KNOWN_SYSTEM_ACCOUNTS = attribute(
+known_system_accounts = attribute(
   'known_system_accounts',
-  default: [
+  value: [
         'root',
         'bin',
         'daemon',
@@ -18,42 +18,36 @@ KNOWN_SYSTEM_ACCOUNTS = attribute(
         'systemd-bus-proxy',
         'systemd-network',
         'dbus',
-        'docker', # account used by the docker daemon
         'polkitd',
         'tss', #  Account used by the trousers package to sandbox the tcsd daemon
         'postfix', # Service Account for Postfix Mail Daemon
         'chrony', # Service Account for the Chrony Time Service
         'sshd', # Service Account for SSH
-        'ec2-user', # Service Account for EC2 Access in AWS
         'sssd', # Service Account for the SSSH Authentication service
         'rpc', # Service Account RPCBind Daemon
-        'unbound', # Service Account UnBound Daemon
         'ntp', # Service Account for NTPD Daemon
         'vboxadd', # known Virtualbox user
         'nfsnobody', # service account for nsfd
         'vagrant', # known service account for vagrant / Virtualbox
-        'nginx', # known service account for nginx web-server
         'rpcuser', # known centos system account for nsf
-        'apache', # known apache system account
-        'mysql', # known mysql system account
   ],
   description: 'System accounts that support approved system activities. (Array)'
 )
 
-DISALLOWED_ACCOUNTS = attribute(
+disallowed_accounts = attribute(
   'disallowed_accounts',
   description: 'Accounts that are not allowed on the system (Array)',
-  default: [
+  value: [
     'games',
     'gopher',
     'ftp',
   ]
 )
 
-USER_ACCOUNTS = attribute(
+user_accounts = attribute(
   'user_accounts',
   description: 'accounts of known managed users (Array)',
-  default:[]
+  value:[]
 )
 
 control "V-72001" do
@@ -70,6 +64,7 @@ applications not installed on the system."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['accounts']
   tag "check": "Verify all accounts on the system are assigned to an active
 system, application, or user account.
 
@@ -103,15 +98,14 @@ for a normal user to perform administrative-level actions.
 Document all authorized accounts on the system."
   tag "fix_id": "F-78353r1_fix"
 
-  ALLOWED_ACCOUNTS = (KNOWN_SYSTEM_ACCOUNTS + USER_ACCOUNTS).uniq
+  allowed_accounts = (known_system_accounts + user_accounts).uniq
 
   describe "The active system users" do
     subject { passwd }
-    its('users') { should be_in ALLOWED_ACCOUNTS }
+    its('users') { should be_in allowed_accounts }
   end
   describe "System" do
     subject { passwd }
-    its('users') { should_not be_in DISALLOWED_ACCOUNTS }
+    its('users') { should_not be_in disallowed_accounts }
   end
 end
-

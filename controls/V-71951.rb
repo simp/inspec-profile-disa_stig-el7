@@ -29,6 +29,7 @@ functions, ports, protocols, services, and remote connections.
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['login_defs']
   tag "check": "Verify the operating system enforces a delay of at least four
 seconds between console logon prompts following a failed logon attempt.
 
@@ -52,4 +53,3 @@ FAIL_DELAY 4"
     its('FAIL_DELAY.to_i') { should cmp >= 4 }
   end
 end
-

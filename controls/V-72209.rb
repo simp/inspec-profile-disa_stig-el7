@@ -3,7 +3,7 @@
 
 log_pkg_path = attribute(
   'log_pkg_path',
-  default: '/etc/rsyslog.conf',
+  value: '/etc/rsyslog.conf',
   description: "The path to the logging package"
 )
 
@@ -50,4 +50,3 @@ line to send all \"rsyslog\" output to a log aggregation system:
     its('stdout.strip') { should_not be_empty }
   end
 end
-

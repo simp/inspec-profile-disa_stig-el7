@@ -66,4 +66,3 @@ The audit daemon must be restarted for the changes to take effect."
     end
   end
 end
-

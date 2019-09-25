@@ -25,12 +25,7 @@ If a separate entry for \"/var\" is not in use, this is a finding."
   tag "fix": "Migrate the \"/var\" path onto a separate file system."
   tag "fix_id": "F-78413r1_fix"
 
-  # @todo fstab resource?
-  # describe etc_fstab.where { mount_point == '/home' } do
-  #   it { should be_configured }
-  # end
   describe mount('/var') do
     it { should be_mounted }
   end
 end
-

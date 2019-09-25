@@ -19,6 +19,7 @@ forwarding is enabled and the system is functioning as a router."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "networking","kernel"
+  tag "subsystems": ['kernel_parameter']
   tag "check": "Verify the system does not accept IPv6 source-routed packets.
 
 Note: If IPv6 is not enabled, the key will not exist, and this is not a finding.
@@ -47,4 +48,3 @@ net.ipv6.conf.all.accept_source_route = 0"
     end
   end
 end
-

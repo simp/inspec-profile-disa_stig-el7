@@ -55,4 +55,3 @@ Enable the auditd service with the following command:
     it { should be_running }
   end
 end
-

@@ -13,6 +13,7 @@ impacts operating system security."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system does not allow users to override
 environment variables to the SSH daemon.
 
@@ -34,9 +35,8 @@ PermitUserEnvironment no
 
 The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78309r2_fix"
-  # the `i` will ignore case 
+  # the `i` will ignore case
   describe sshd_config do
-    its('PermitUserEnvironment') { should match %r{no}i }
+    its('PermitUserEnvironment') { should eq 'no' }
   end
 end
-

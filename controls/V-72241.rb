@@ -27,6 +27,7 @@ and releases the resources associated with that session.
   tag "cci": ["CCI-001133", "CCI-002361"]
   tag "documentable": false
   tag "nist": ["SC-10", "AC-12", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Check the version of the operating system with the following
 command:
 
@@ -58,8 +59,14 @@ ClientAliveCountMax 0
 The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78595r3_fix"
 
-  describe sshd_config do
-    its('ClientAliveCountMax') { should cmp '0' }
+  if os.release.to_f >= 7.4
+    impact 0.0
+    describe "The release is #{os.release}" do
+      skip "The release is newer than 7.4; this control is Not Applicable."
+    end
+  else
+    describe sshd_config do
+      its('ClientAliveCountMax') { should cmp '0' }
+    end
   end
 end
-

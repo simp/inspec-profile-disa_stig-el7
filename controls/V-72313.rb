@@ -9,11 +9,11 @@ system and the network and use the information to potentially compromise the
 integrity of the system or network(s). It is highly recommended that SNMP
 version 3 user authentication and message encryption be used in place of the
 version 2 community strings."
-if file('/etc/snmp/snmpd.conf').exist?
-  impact 0.7
-else
-  impact 0.0
-end
+  if file('/etc/snmp/snmpd.conf').exist?
+    impact 0.7
+  else
+    impact 0.0
+  end
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72313"
   tag "rid": "SV-86937r1_rule"
@@ -21,6 +21,7 @@ end
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['snmp']
   tag "check": "Verify that a system using SNMP is not using default community
 strings.
 
@@ -44,12 +45,47 @@ that contain a community string value of \"public\" or \"private\" to another
 string value."
   tag "fix_id": "F-78667r1_fix"
 
-  describe file('/etc/snmp/snmpd.conf') do
-    its('content') { should_not match %r{public|private} }
-  end if file('/etc/snmp/snmpd.conf').exist?
+  if file('/etc/snmp/snmpd.conf').exist?
+    processed = []
+    to_process = ['/etc/snmp/snmpd.conf']
 
-  describe "The `snmpd.conf` does not exist" do
-    skip "The snmpd.conf file does not exist, this control is Not Applicable"
-  end if !file('/etc/snmp/snmpd.conf').exist?
+    while !to_process.empty?
+      in_process = to_process.pop
+      next if processed.include? in_process
+      processed.push in_process
+
+      if file(in_process).directory?
+        to_process.concat(
+          command("find #{in_process} -maxdepth 1 -mindepth 1 -name '*.conf'").
+            stdout.strip.split("\n").
+            select { |f| file(f).file? }
+        )
+      elsif file(in_process).file?
+        to_process.concat(
+          command("grep -E '^\\s*includeFile\\s+' #{in_process} | sed 's/^[[:space:]]*includeFile[[:space:]]*//g'").
+            stdout.strip.split(%r{\n+}).
+            map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }.
+            select { |f| file(f).file? }
+        )
+        to_process.concat(
+          command("grep -E '^\\s*includeDir\\s+' #{in_process} | sed 's/^[[:space:]]*includeDir[[:space:]]*//g'").
+            stdout.strip.split(%r{\n+}).
+            map { |f| f.start_with?('/') ? f : File.join('/', f) }. # relative dirs are treated as absolute
+            select { |f| file(f).directory? }
+        )
+      end
+    end
+
+    config_files = processed.select { |f| file(f).file? }
+
+    config_files.each do |config|
+      describe file(config) do
+        its('content') { should_not match %r{^[^#]*(public|private)} }
+      end
+    end
+  else
+    describe "The `snmpd.conf` does not exist" do
+      skip "The snmpd.conf file does not exist, this control is Not Applicable"
+    end
+  end
 end
-

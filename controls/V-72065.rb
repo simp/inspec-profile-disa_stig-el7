@@ -31,4 +31,3 @@ If the \"tmp.mount\" service is not enabled, this is a finding."
     it { should be_enabled }
   end
 end
-

@@ -42,4 +42,3 @@ Set the promiscuous mode of an interface to off with the following command:
     its('stdout.strip') { should match %r{^$} }
   end
 end
-

@@ -1,10 +1,10 @@
 # encoding: utf-8
 #
 
-APPLICATION_GROUPS = attribute(
+application_groups = attribute(
   'application_groups',
   description: 'Known application groups that are allowed to have world-writeable files or directories',
-  default: []
+  value: []
 )
 
 control "V-72047" do
@@ -63,8 +63,7 @@ the following command:
   ww_dirs.to_a.each do |curr_dir|
     dir_arr = curr_dir.split(' ')
     describe file(dir_arr.last) do
-      its('group') { should be_in ["root","sys","bin"] + APPLICATION_GROUPS }
+      its('group') { should be_in ["root","sys","bin"] + application_groups }
     end
   end
 end
-

@@ -17,6 +17,7 @@ for unprivileged users to attain unauthorized administrative access."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystem": ['nfs', 'file_system']
   tag "check": "Verify file systems that are being NFS exported are mounted
 with the \"nosuid\" option.
 
@@ -48,4 +49,3 @@ systems that are being exported via NFS."
     end
   end
 end
-

@@ -1,20 +1,9 @@
 # encoding: utf-8
 #
-
 # Will need to be changed to reflect list of authorized system accounts
 admin_logins = attribute(
   'admin_logins',
-  default: [
-    'system_u'
-  ],
-  description: "System accounts that support approved system activities."
-)
-
-non_admin_logins = attribute(
-  'non_admin_logins',
-  default: [
-    '__default__'
-  ],
+  value: [],
   description: "System accounts that support approved system activities."
 )
 
@@ -37,6 +26,7 @@ mechanisms or malicious code protection mechanisms are examples of privileged
 functions that require protection from non-privileged users.
   "
   impact 0.5
+
   tag "gtitle": "SRG-OS-000324-GPOS-00125"
   tag "gid": "V-71971"
   tag "rid": "SV-86595r1_rule"
@@ -44,6 +34,7 @@ functions that require protection from non-privileged users.
   tag "cci": ["CCI-002165", "CCI-002235"]
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "AC-6 (10)", "Rev_4"]
+  tag "subsystems": ["selinux"]
   tag "check": "Verify the operating system prevents non-privileged users from
 executing privileged functions to include disabling, circumventing, or altering
 implemented security safeguards/countermeasures.
@@ -96,58 +87,53 @@ Use the following command to map an existing user to the \"user_u\" role:
 # semanage login -m -s user_u <username>"
   tag "fix_id": "F-78323r1_fix"
 
-  # TODO should this be an onlyif or a force skip if not installed?
-  # Make sure semanage is installed
-
-  describe package("policycoreutils-python") do
-    it { should be_installed }
+  describe command('selinuxenabled') do
+    its('exist?') { should be true }
+    its('exit_status') { should eq 0 }
   end
 
-  semanage_results = command("semanage login -l").stdout.split("\n")
-  # Remove Header Row
-  semanage_results.shift
+  describe command('semanage') do
+    its('exist?') { should be true }
+  end
 
-  semanage_results.each do |result|
-    result = result.gsub(/\s_/m, ' ').strip.split(" ")
-    # Next if for some reason we still have header row
-    next if ( result[0] == 'Login')
-    # Next if root
-    next if ( result[0] == 'root')
+  semanage_results = command('semanage login -l -n')
+
+  describe semanage_results do
+    its('stdout.lines') { should_not be_empty }
+  end
+
+  semanage_results.stdout.lines.each do |result|
+    login, seuser = result.split(/\s+/)
+
     # Skip Blank Lines
-    next if ( /\S/ !~  result[0])
+    next unless login
 
-    if admin_logins.include? "#{result[0]}"
-      describe.one do
-        describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match %r{sysadm_u} }
-        end
-        describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match %{system_u} }
-        end
-        describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match %r{staff_u} }
-        end
+    # Next if for some reason we still have header row
+    next if ( login == 'Login')
+
+    # Next if root
+    next if ( login == 'root')
+
+    describe "SELinux login #{login}" do
+      # This is required by the STIG
+      if login == '__default__'
+        let(:valid_users){[ 'user_u' ]}
+      elsif admin_logins.include?(login)
+        let(:valid_users){[
+          'sysadm_u',
+          'staff_u'
+        ]}
+      else
+        let(:valid_users){[
+          'user_u',
+          'guest_u',
+          'xguest_u'
+        ]}
       end
-    elsif non_admin_logins.include? "#{result[0]}"
-      describe.one do
-	      describe command("semanage login -l | grep #{result[0]}") do
-          its('stdout') { should match %r{user_u} }
-        end
-        if( result[0] == '__default__')
-          # all real users should be mapped to a context (i.e. user_u)
-          # but the system isn't forced to map them by default to a context
-          # This will enable defualt to be unconfined like it is by default
-	        describe command("semanage login -l | grep #{result[0]}") do
-            its('stdout') { should match %r{unconfined_u} }
-          end
-        end
-      end
-    # Case when account isn't documented
-    else
-      describe command("semanage login -l | grep #{result[0]}") do
-        its('stdout') { should match %r{^$} }
-      end
+
+      it { expect(seuser).to be_in(valid_users) }
     end
   end
 end
 
+# vim: set expandtab:ts=2:sw=2

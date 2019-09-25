@@ -13,6 +13,7 @@ vulnerabilities in the unprivileged section."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon performs privilege separation.
 
 Check that the SSH daemon performs privilege separation with the following
@@ -43,4 +44,3 @@ The SSH service must be restarted for changes to take effect."
     end
   end
 end
-

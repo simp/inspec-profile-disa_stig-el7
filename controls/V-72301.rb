@@ -16,6 +16,7 @@ have access control rules established."
 "CCI-001814"]
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
+  tag "subsystems": ['tftp']
   tag "check": "Verify a TFTP server has not been installed on the system.
 
 Check to see if a TFTP server has been installed with the following command:
@@ -35,4 +36,3 @@ command:
     it { should_not be_installed }
   end
 end
-

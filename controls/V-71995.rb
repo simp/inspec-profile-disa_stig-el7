@@ -18,6 +18,7 @@ end
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['login_defs']
   tag "check": "Verify the operating system defines default permissions for all
 authenticated users in such a way that the user can only read and modify their
 own files.
@@ -45,7 +46,5 @@ UMASK  077"
 
   describe login_defs do
     its('UMASK') { should eq '077' }
-    its('UMAKS') { should_not eq '000' }
   end
 end
-

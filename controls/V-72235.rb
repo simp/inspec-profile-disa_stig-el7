@@ -32,6 +32,7 @@ not have to be employed, and vice versa.
   tag "cci": ["CCI-002418", "CCI-002420", "CCI-002421", "CCI-002422"]
   tag "documentable": false
   tag "nist": ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify SSH is loaded and active with the following command:
 
 # systemctl status sshd
@@ -56,4 +57,3 @@ with the following command:
     it { should be_running }
   end
 end
-

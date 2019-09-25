@@ -22,6 +22,7 @@ compromised.
   tag "cci": ["CCI-001619"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "Verify the operating system enforces password complexity by
 requiring that at least one special character be used.
 

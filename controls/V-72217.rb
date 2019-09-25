@@ -22,6 +22,7 @@ based on mission needs and the operational environment for each system.
   tag "cci": ["CCI-000054"]
   tag "documentable": false
   tag "nist": ["AC-10", "Rev_4"]
+  tag "subsystems": ['session']
   tag "check": "Verify the operating system limits the number of concurrent
 sessions to \"10\" for all accounts and/or account types by issuing the
 following command:
@@ -62,4 +63,3 @@ Add the following line to the top of the /etc/security/limits.conf:
     its('*') { should include ["hard", "maxlogins", "10"] }
   end
 end
-

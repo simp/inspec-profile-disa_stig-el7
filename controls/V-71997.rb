@@ -35,4 +35,3 @@ If the release is not supported by the vendor, this is a finding."
     its('content') { should match %r{Release (6.7*|7.[2-9].*)}i }
   end
 end
-

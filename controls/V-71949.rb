@@ -18,6 +18,7 @@ capability, it is critical the user reauthenticate.
   tag "cci": ["CCI-002038"]
   tag "documentable": false
   tag "nist": ["IA-11", "Rev_4"]
+  tag "subsystems": ['sudo']
   tag "check": "Verify the operating system requires users to reauthenticate
 for privilege escalation.
 
@@ -39,4 +40,3 @@ Remove any occurrences of \"!authenticate\" tags in the file."
     its('stdout') { should_not match %r{!authenticate} }
   end
 end
-

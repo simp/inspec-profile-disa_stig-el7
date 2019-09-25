@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-CLIENT_ALIVE_INTERVAL = attribute('client_alive_interval', default: '600',
+client_alive_interval = attribute('client_alive_interval', value: 600,
 description: "Value expected for ClientAliveInterval in sshd_config")
 
 control "V-72237" do
@@ -32,6 +32,7 @@ and releases the resources associated with that session.
   tag "cci": ["CCI-001133", "CCI-002361"]
   tag "documentable": false
   tag "nist": ["SC-10", "AC-12", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system automatically terminates a user
 session after inactivity time-outs have expired.
 
@@ -60,16 +61,14 @@ ClientAliveInterval 600
 
 The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78591r2_fix"
- 
-  #This may show slightly confusing results when a ClientAliveInterValue is not 
-  #specified. Specifically, because the value will be nil and when you try to 
-  #convert it to an integer using to_i it will convert it to 0 and pass the 
-  #<= CLIENT_ALIVE_INTERVAL check. However, the control as a whole will still fail.
+
+  #This may show slightly confusing results when a ClientAliveInterValue is not
+  #specified. Specifically, because the value will be nil and when you try to
+  #convert it to an integer using to_i it will convert it to 0 and pass the
+  #<= client_alive_interval check. However, the control as a whole will still fail.
   describe sshd_config do
-    its("ClientAliveInterval.to_i"){should be >= 1}
-    its("ClientAliveInterval.to_i"){should be <= CLIENT_ALIVE_INTERVAL}
+    its("ClientAliveInterval.to_i"){should cmp >= 1}
+    its("ClientAliveInterval.to_i"){should cmp <= client_alive_interval}
     its("ClientAliveInterval"){should_not eq nil}
   end
 end
-
-

@@ -14,6 +14,7 @@ rights to any files associated with the group."
   tag "cci": ["CCI-000764"]
   tag "documentable": false
   tag "nist": ["IA-2", "Rev_4"]
+  tag "subsystems": ['accounts']
   tag "check": "Verify all GIDs referenced in the \"/etc/passwd\" file are
 defined in the \"/etc/group\" file.
 
@@ -35,4 +36,3 @@ referenced in the \"/etc/passwd\" file to a group that exists in
     end
   end
 end
-

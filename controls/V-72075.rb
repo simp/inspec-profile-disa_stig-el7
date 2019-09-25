@@ -16,6 +16,7 @@ the Information System Security Officer (ISSO)."
 "CCI-001814"]
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
+  tag "subsystems": ['grub']
   tag "check": "Verify the system is not configured to use a boot loader on
 removable media.
 
@@ -49,15 +50,27 @@ finding."
 media or document the configuration to boot from removable media with the ISSO."
   tag "fix_id": "F-78427r1_fix"
 
-  describe "The list of unapproved boot loader configuration files" do
-    subject {
-      command('find / -name grub.cfg -type f').stdout.chomp.split
-    }
-    before {
-      subject.delete("/boot/grub2/grub.cfg")
-      subject.delete("/boot/efi/EFI/redhat/grub.cfg")
-    }
-    its ('length') { should == 0 }
-  end
-end
+  roots = command('grubby --info=ALL | grep "^root=" | sed "s/^root=//g"').
+    stdout.strip.split("\n")
 
+  blocks = roots.map { |root|
+    root_file = file(root)
+    root_file.symlink? ? root_file.link_path : root_file.path
+  }
+
+  blocks.each { |block|
+    block_file = file(block)
+    describe block_file do
+      it { should exist }
+      its('path') { should match %r{^/dev/} }
+    end
+
+    if block_file.exist? and block_file.path.match? %r{^/dev/}
+      removable = ['/sys/block', block.sub(%r{^/dev/}, ''), 'removable'].join('/')
+      describe file(removable) do
+        it { should exist }
+        its('content.strip') { should eq '0' }
+      end
+    end
+  }
+end

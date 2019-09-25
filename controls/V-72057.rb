@@ -42,4 +42,3 @@ If kernel core dumps are required, document the need with the ISSO."
     it { should_not be_running }
   end
 end
-

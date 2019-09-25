@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-DAYS_OF_INACTIVITY = attribute('days_of_inactivity', default: '0', description: 'The
+days_of_inactivity = attribute('days_of_inactivity', value: 0, description: 'The
 number of days of inactivity before an account is disabled.')
 
 control "V-71941" do
@@ -24,6 +24,7 @@ application identifiers after zero days of inactivity.
   tag "cci": ["CCI-000795"]
   tag "documentable": false
   tag "nist": ["IA-4 e", "Rev_4"]
+  tag "subsystems": ['user']
   tag "check": "Verify the operating system disables account identifiers
 (individuals, groups, roles, and devices) after the password expires with the
 following command:
@@ -42,7 +43,7 @@ the required value):
 INACTIVE=0"
   tag "fix_id": "F-78293r1_fix"
   describe parse_config_file("/etc/default/useradd") do
-    its('INACTIVE') { should cmp <= DAYS_OF_INACTIVITY }
+    its('INACTIVE') { should cmp >= 0 }
+    its('INACTIVE') { should cmp <= days_of_inactivity }
   end
 end
-

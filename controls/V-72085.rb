@@ -48,4 +48,3 @@ enable_krb5 = yes"
     its('enable_krb5.strip') { should cmp 'yes' }
   end
 end
-

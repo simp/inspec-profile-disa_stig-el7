@@ -17,7 +17,7 @@ session lock provides the assurance that all sessions will lock after the
 specified period of time.
   "
   if package('gnome-desktop3').installed?
-  impact 0.5
+    impact 0.5
   else
     impact 0.0
   end
@@ -28,6 +28,7 @@ specified period of time.
   tag "cci": ["CCI-000057"]
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
+  tag "subsystems": ["gnome3"]
   tag "check": "Verify the operating system prevents a user from overriding the
 screensaver idle-activation-enabled setting for the graphical user interface.
 
@@ -69,9 +70,11 @@ Add the setting to lock the screensaver idle-activation-enabled setting:
 /org/gnome/desktop/screensaver/idle-activation-enabled"
   tag "fix_id": "F-85747r1_fix"
 
-  describe command("grep -i idle-activation-enabled /etc/dconf/db/local.d/locks/*").stdout do
-    it { should_not eq "" }
+  describe command("gsettings writable org.gnome.desktop.screensaver idle-activation-enabled") do
+    its('stdout.strip') { should cmp 'false' }
   end if package('gnome-desktop3').installed?
 
+  describe "The GNOME desktop is not installed" do
+    skip "The GNOME desktop is not installed, this control is Not Applicable."
+  end if !package('gnome-desktop3').installed?
 end
-

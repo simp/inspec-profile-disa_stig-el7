@@ -15,6 +15,7 @@ more securely authenticate the remote mount request."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['nfs']
   tag "check": "Verify \"AUTH_GSS\" is being used to authenticate NFS mounts.
 
 To check if the system is importing an NFS file system, look for any entries in
@@ -35,7 +36,7 @@ Ensure the \"sec\" option is defined as \"krb5:krb5i:krb5p\"."
   tag "fix_id": "F-78665r2_fix"
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
-  if !nfs_systems.nil? and !nfs_systems.empty?    
+  if !nfs_systems.nil? and !nfs_systems.empty?
     nfs_systems.each do |file_system|
       describe file_system do
         its ('mount_options') { should include 'sec=krb5:krb5i:krb5p' }
@@ -48,4 +49,3 @@ Ensure the \"sec\" option is defined as \"krb5:krb5i:krb5p\"."
     end
   end
 end
-

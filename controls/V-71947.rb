@@ -18,6 +18,7 @@ capability, it is critical the user re-authenticate.
   tag "cci": ["CCI-002038"]
   tag "documentable": false
   tag "nist": ["IA-11", "Rev_4"]
+  tag "subsystems": ['sudo']
   tag "check": "If passwords are not being used for authentication, this is Not
 Applicable.
 
@@ -40,16 +41,42 @@ with the following command:
 
 Remove any occurrences of \"NOPASSWD\" tags in the file."
   tag "fix_id": "F-78299r1_fix"
-  # @todo update logic in case of multiple NOPASSWD findings
-  describe.one do
-    # case where NOPASSWD line is commented out
-    describe command("grep -ir nopasswd /etc/sudoers /etc/sudoers.d/*") do
-      its('stdout') { should match %r{.*#.*NOPASSWD} }
+
+  processed = []
+  to_process = ['/etc/sudoers', '/etc/sudoers.d']
+
+  while !to_process.empty?
+    in_process = to_process.pop
+    next if processed.include? in_process
+    processed.push in_process
+
+    if file(in_process).directory?
+      to_process.concat(
+        command("find #{in_process} -maxdepth 1 -mindepth 1").
+          stdout.strip.split("\n").
+          select { |f| file(f).file? }
+      )
+    elsif file(in_process).file?
+      to_process.concat(
+        command("grep -E '#include\\s+' #{in_process} | sed 's/.*#include[[:space:]]*//g'").
+          stdout.strip.split("\n").
+          map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }.
+          select { |f| file(f).exist? }
+      )
+      to_process.concat(
+        command("grep -E '#includedir\\s+' #{in_process} | sed 's/.*#includedir[[:space:]]*//g'").
+          stdout.strip.split("\n").
+          map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }.
+          select { |f| file(f).exist? }
+      )
     end
-    # case where NOPASSWD is found in uncommented line
-    describe command("grep -ir nopasswd /etc/sudoers /etc/sudoers.d/*") do
-      its('stdout') { should_not match %r{NOPASSWD} }
+  end
+
+  sudoers = processed.select { |f| file(f).file? }
+
+  sudoers.each do |sudoer|
+    describe command("grep -i nopasswd #{sudoer}") do
+      its('stdout') { should_not match %r{^[^#]*NOPASSWD} }
     end
   end
 end
-

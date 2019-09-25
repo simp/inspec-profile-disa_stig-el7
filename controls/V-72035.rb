@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72035" do
@@ -34,6 +34,7 @@ Officer (ISSO)."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['init_files']
   tag "check": "Verify that all local interactive user initialization files'
 executable search path statements do not contain statements that will reference
 a working directory other than the users’ home directory.
@@ -58,11 +59,11 @@ directory.
 If a local interactive user requires path variables to reference a directory
 owned by the application, it must be documented with the ISSO. "
   tag "fix_id": "F-78387r3_fix"
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
     grep_results =  command("grep -i path --exclude=\".bash_history\" #{user_info.home}/.*").stdout.split("\\n")
     grep_results.each do |result|
       result.slice! "PATH="
@@ -84,7 +85,7 @@ owned by the application, it must be documented with the ISSO. "
             if curr_work_dir.start_with?("#{user_info.home}") then
               line = curr_work_dir
             end
-          end          
+          end
           # This will fail if non-home directory found in path
           if !line.start_with?(user_info.home)
             findings.add(line)
@@ -98,9 +99,8 @@ owned by the application, it must be documented with the ISSO. "
       its('home_mount_options') { should include 'nosuid' }
     end
     describe "Initialization files that include executable search paths that include directories outside their home directories" do
-      subject { findings.to_a } 
+      subject { findings.to_a }
       it { should be_empty }
     end
   end
 end
-

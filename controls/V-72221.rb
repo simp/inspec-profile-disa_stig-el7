@@ -27,6 +27,7 @@ general purpose computing system.
   tag "cci": ["CCI-000068", "CCI-000366", "CCI-000803"]
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "CM-6 b", "IA-7", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the operating system uses mechanisms meeting the
 requirements of applicable federal laws, Executive orders, directives,
 policies, regulations, standards, and guidance for authentication to a
@@ -68,4 +69,3 @@ The SSH service must be restarted for changes to take effect."
     it { should be_in ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'] }
   end
 end
-

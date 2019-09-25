@@ -1,8 +1,16 @@
 # encoding: utf-8
 #
-BANNER_MESSAGE_ENABLED = attribute('banner_message_enabled', default: "true",
-description: 'The banner message must display the Standard Mandatory DoD notice
-before granting access.')
+
+banner_message_enabled = attribute('banner_message_enabled', value: "true",
+  description: 'The banner message must display the Standard Mandatory DoD notice
+  before granting access.')
+
+dconf_user = attribute(
+  'dconf_user',
+  value: '',
+  description: "User to use to check dconf settings"
+)
+
 control "V-71859" do
   title "The operating system must display the Standard Mandatory DoD Notice
 and Consent Banner before granting local or remote access to the system via a
@@ -52,7 +60,7 @@ the number of characters that can be displayed in the banner:
   \"I've read & consent to terms in IS user agreem't.\""
 
   if package('gnome-desktop3').installed?
-  impact 0.5
+    impact 0.5
   else
     impact 0.0
   end
@@ -65,6 +73,7 @@ the number of characters that can be displayed in the banner:
   tag "cci": ["CCI-000048"]
   tag "documentable": false
   tag "nist": ["AC-8 a", "Rev_4"]
+  tag "subsystem": [ "gdm" ]
   tag "check": "Verify the operating system displays the Standard Mandatory DoD
 Notice and Consent Banner before granting access to the operating system via a
 graphical user logon.
@@ -105,9 +114,19 @@ Users must log out and back in again before the system-wide settings take
 effect."
   tag "fix_id": "F-78211r4_fix"
 
-  only_if { command('dconf').exist? or file('/etc/gdm/custom.conf').exist? }
-
-  describe command("dconf read /org/gnome/login-screen/banner-message-enable") do
-    its('stdout.strip.to_s') { should cmp BANNER_MESSAGE_ENABLED.to_s }
+  if package('gnome-desktop3').installed?
+    if !dconf_user.empty? and command('whoami').stdout.strip == 'root'
+      describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/banner-message-enable") do
+        its('stdout.strip') { should cmp banner_message_enabled.to_s }
+      end
+    else
+      describe command("dconf read /org/gnome/login-screen/banner-message-enable") do
+        its('stdout.strip') { should cmp banner_message_enabled.to_s }
+      end
+    end
+  else
+    describe "The GNOME desktop is not installed" do
+      skip "The GNOME desktop is not installed, this control is Not Applicable."
+    end
   end
 end

@@ -16,6 +16,7 @@ applications are allowed to communicate over the network."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['firewalld', 'iptables']
   tag "check": "Verify the operating system enabled an application firewall.
 
 Check to see if \"firewalld\" is installed with the following command:
@@ -74,4 +75,3 @@ Start the firewall via \"systemctl\" with the following command:
     end
   end
 end
-

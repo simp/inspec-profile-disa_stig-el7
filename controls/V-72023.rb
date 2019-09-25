@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72023" do
@@ -27,6 +27,7 @@ owned by the user, this could be an indication of system compromise."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['home_dirs']
   tag "check": "Verify all files and directories in a local interactive user’s
 home directory are owned by the user.
 
@@ -53,16 +54,18 @@ Note: The example will be for the user smithj, who has a home directory of
 # chown smithj /home/smithj/<file or directory>"
   tag "fix_id": "F-78375r1_fix"
 
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
+
+  uid_min = login_defs.read_params['UID_MIN'].to_i
+  uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
-    findings = findings + command("find #{user_info.home} -not -user #{user_info.username}").stdout.split("\n")
+  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
+    findings = findings + command("find #{user_info.home} -xdev -xautofs -not -user #{user_info.username}").stdout.split("\n")
   end
   describe "Files and directories that are not owned by the user" do
     subject { findings.to_a }
     it { should be_empty }
   end
 end
-

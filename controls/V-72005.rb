@@ -16,6 +16,7 @@ account."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['accounts']
   tag "check": "Check the system for duplicate UID \"0\" assignments with the
 following command:
 
@@ -35,4 +36,3 @@ assign a UID of greater than \"1000\" that has not already been assigned."
     its('entries.length') { should eq 1 }
   end
 end
-

@@ -16,6 +16,7 @@ reduced because the user will be prompted before any action is taken."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["gnome", "general"]
   tag "check": "Verify the operating system is not configured to reboot the
 system when Ctrl-Alt-Delete is pressed.
 
@@ -44,8 +45,8 @@ Add the setting to disable the Ctrl-Alt_Delete sequence for GNOME:
 logout=’’"
   tag "fix_id": "F-78345r2_fix"
 
-  describe systemd_service('ctrl-alt-del.service') do
+  describe systemd_service('ctrl-alt-del.target') do
     it { should_not be_running }
+    it { should_not be_enabled }
   end
 end
-

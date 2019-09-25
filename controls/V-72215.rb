@@ -1,13 +1,5 @@
 # encoding: utf-8
 #
-
-# Should we verify the virus software installation?
-ENABLE_AV = attribute(
-  'enable_av',
-  default: true,
-  description: 'Check Virus Software is Installed and Running'
-)
-
 control "V-72215" do
   title "The system must update the virus scan program every seven days or more
 frequently."
@@ -28,6 +20,7 @@ must be documented with the Information System Security Officer (ISSO).
   tag "cci": ["CCI-001668"]
   tag "documentable": false
   tag "nist": ["SI-3 a", "Rev_4"]
+  tag "subsystems": ['clamav', 'nails', 'virus_scan']
   tag "check": "Verify the system is using a virus scan program and the virus
 definition file is less than seven days old.
 
@@ -82,29 +75,23 @@ this is a finding."
 	  describe systemd_service('clamav-daemon.socket') do
 	    it { should be_running }
 	  end
-  end if ENABLE_AV
+  end
 
   if systemd_service('nails').running?
 	  virus_defs = Dir["/opt/NAI/LinuxShield/engine/dat/*.dat"]
-
     virus_defs.each do |curr_def|
 	    describe file(curr_def).mtime.to_i do
 		    it { should >= Time.now.to_i - sec_per_wk }
 	    end
     end
-  end if ENABLE_AV
+  end
 
   if systemd_service('clamav-daemon.socket').running?
 	  cvd_files = Dir["/var/lib/clamav/*.cvd"]
-	    cvd_files.each do |curr_file|
-	      describe file(curr_file).mtime.to_i do
-		      it { should >= Time.now.to_i - sec_per_wk }
-	      end
-	    end
-  end if ENABLE_AV
-
-  describe "The system is not required to have AntiVirus Installed" do
-    skip "The system does not require AntiVirus to be enabled"
-  end if !ENABLE_AV
+    cvd_files.each do |curr_file|
+      describe file(curr_file).mtime.to_i do
+	      it { should >= Time.now.to_i - sec_per_wk }
+      end
+    end
+  end
 end
-

@@ -17,6 +17,7 @@ interactive user defaults for each account on the system."
 "CCI-001814"]
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
+  tag "subsystems": ['init_files', 'home_dirs']
   tag "check": "Verify that the default umask for all local interactive users
 is \"077\".
 
@@ -51,7 +52,7 @@ environment variables."
       file_name = curr_line.split(':').first
       describe command("grep -i umask #{file_name}") do
         its('stdout.strip') { should match %r{^umask\s+.*077} }
-      end      
+      end
     end
   else
     describe "No interactive files with a less restrictive umask were found." do
@@ -60,4 +61,3 @@ environment variables."
     end
   end
 end
-

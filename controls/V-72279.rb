@@ -15,6 +15,7 @@ the use of two-factor authentication."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['ssh']
   tag "check": "Verify there are no \"shosts.equiv\" files on the system.
 
 Check the system for the existence of these files with the following command:
@@ -26,9 +27,9 @@ If any \"shosts.equiv\" files are found on the system, this is a finding."
 
 # rm /[path]/[to]/[file]/shosts.equiv"
   tag "fix_id": "F-78633r1_fix"
+  tag "dangerous": { :reason => "Uses global find command" }
 
-  describe command('find / -name shots.equiv') do
-    its('stdout') { should match %r{^$} }
+  describe command('find / -xautofs -name shosts.equiv') do
+    its('stdout.strip') { should be_empty }
   end
 end
-

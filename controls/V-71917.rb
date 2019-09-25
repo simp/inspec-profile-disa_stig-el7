@@ -25,6 +25,7 @@ compromised.
   tag "cci": ["CCI-000195"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (b)", "Rev_4"]
+  tag "subsystems": ['pam', 'pwquality', 'password']
   tag "check": "The \"maxclassrepeat\" option sets the maximum number of
 allowed same consecutive characters in the same class in the new password.
 

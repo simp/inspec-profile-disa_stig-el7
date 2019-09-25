@@ -14,6 +14,7 @@ immediate root access to the system."
   tag "cci": ["CCI-000197", "CCI-000366"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (c)", "CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Check the version of the operating system with the following
 command:
 
@@ -42,8 +43,14 @@ Protocol 2
 The SSH service must be restarted for changes to take effect."
   tag "fix_id": "F-78605r2_fix"
 
-  describe sshd_config do
-    its('Protocol') { should cmp '2' }
+  if os.release.to_f >= 7.4
+    impact 0.0
+    describe "The release is #{os.release}" do
+      skip "The release is newer than 7.4; this control is Not Applicable."
+    end
+  else
+    describe sshd_config do
+      its('Protocol') { should cmp '2' }
+    end
   end
 end
-

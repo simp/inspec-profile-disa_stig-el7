@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-EXEMPT_HOME_USERS = attribute(
+exempt_home_users = attribute(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-NON_INTERACTIVE_SHELLS = attribute(
+non_interactive_shells = attribute(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/sync"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72059" do
@@ -26,6 +26,7 @@ system from failures resulting from a file system becoming full or failing."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['home_dirs', 'file_system']
   tag "check": "Verify that a separate file system/partition has been created
 for non-privileged local interactive user home directories.
 
@@ -58,11 +59,14 @@ finding."
 system/partition."
   tag "fix_id": "F-78411r1_fix"
 
-  IGNORE_SHELLS = NON_INTERACTIVE_SHELLS.join('|')
+  ignore_shells = non_interactive_shells.join('|')
+
+  uid_min = login_defs.read_params['UID_MIN'].to_i
+  uid_min = 1000 if uid_min.nil?
 
   # excluding root because its home directory is usually "/root" (mountpoint "/")
-  users.where{ !shell.match(IGNORE_SHELLS) && (uid >= 1000)}.entries.each do |user_info|
-    next if EXEMPT_HOME_USERS.include?("#{user_info.username}")
+  users.where{ !shell.match(ignore_shells) && (uid >= uid_min)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
 
     home_mount = command(%(df #{user_info.home} --output=target | tail -1)).stdout.strip
     describe user_info.username do
@@ -75,4 +79,3 @@ system/partition."
     end
   end
 end
-

@@ -14,6 +14,7 @@ use."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['pam', 'ssh', 'lastlog']
   tag "check": "Verify SSH provides users with feedback on when account
 accesses last occurred.
 
@@ -45,8 +46,14 @@ The SSH service must be restarted for changes to \"sshd_config\" to take
 effect."
   tag "fix_id": "F-78599r2_fix"
 
-  describe sshd_config do
-    its('PrintLastLog') { should cmp 'yes' }
+  if sshd_config.params['printlastlog'] == ['yes']
+    describe sshd_config do
+      its('PrintLastLog') { should cmp 'yes' }
+    end
+  else
+    describe pam('/etc/pam.d/sshd') do
+      its('lines') { should match_pam_rule('session required pam_lastlog.so showfailed') }
+      its('lines') { should match_pam_rule('session required pam_lastlog.so showfailed').all_without_args('silent') }
+    end
   end
 end
-

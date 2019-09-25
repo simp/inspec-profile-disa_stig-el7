@@ -36,6 +36,7 @@ business or to address authorized quality of life issues.
   tag "cci": ["CCI-000382", "CCI-002314"]
   tag "documentable": false
   tag "nist": ["CM-7 b", "AC-17 (1)", "Rev_4"]
+  tag "subsystems": ['firewall', 'manual']
   tag "check": "Inspect the firewall configuration and running services to
 verify that it is configured to prohibit or restrict the use of functions,
 ports, protocols, and/or services that are unnecessary or prohibited.
@@ -67,4 +68,3 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
     skip "This check must be preformed manually"
   end
 end
-

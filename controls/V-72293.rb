@@ -15,6 +15,7 @@ network topology."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['kernel_parameter']
   tag "check": "Verify the system does not send IPv4 ICMP redirect messages.
 
 Check the value of the \"all send_redirects\" variables with the following
@@ -39,4 +40,3 @@ net.ipv4.conf.all.send_redirects=0"
     its('value') { should eq 0 }
   end
 end
-

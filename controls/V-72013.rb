@@ -13,6 +13,7 @@ there is no place for the storage and control of files they should own."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['login_defs']
   tag "check": "Verify all local interactive users on the system are assigned a
 home directory upon creation.
 
@@ -32,7 +33,6 @@ CREATE_HOME yes"
   tag "fix_id": "F-78365r1_fix"
 
   describe login_defs do
-    its('CREATE_HOME') { should match %r{yes}i }
+    its('CREATE_HOME') { should eq 'yes' }
   end
 end
-

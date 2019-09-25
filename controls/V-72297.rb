@@ -17,6 +17,7 @@ end
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['postfix']
   tag "check": "Verify the system is configured to prevent unrestricted mail
 relaying.
 
@@ -62,4 +63,3 @@ command:
     skip "The `postfix` package is not installed, this control is Not Applicable"
   end if !package('postfix').installed?
 end
-

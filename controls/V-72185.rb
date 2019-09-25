@@ -6,7 +6,6 @@ control "V-72185" do
 mission needs of the organization, it would be difficult to establish,
 correlate, and investigate the events relating to an incident or identify those
 responsible for one."
-  impact 0.5
   tag "gtitle": "SRG-OS-000471-GPOS-00215"
   tag "gid": "V-72185"
   tag "rid": "SV-86809r3_rule"
@@ -38,21 +37,29 @@ Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78539r3_fix"
 
-  @audit_file = '/sbin/pam_timestamp_check'
+  audit_file = '/sbin/pam_timestamp_check'
 
-  describe auditd.file(@audit_file) do
-    its('permissions') { should_not cmp [] }
-    its('action') { should_not include 'never' }
+  if file(audit_file).exist?
+    impact 0.5
+  else
+    impact 0.0
   end
 
-  # Resource creates data structure including all usages of file
-  @perms = auditd.file(@audit_file).permissions
+  describe auditd.file(audit_file) do
+    its('permissions') { should_not cmp [] }
+    its('action') { should_not include 'never' }
+  end if file(audit_file).exist?
 
-  @perms.each do |perm|
+  # Resource creates data structure including all usages of file
+  perms = auditd.file(audit_file).permissions
+
+  perms.each do |perm|
     describe perm do
       it { should include 'x' }
     end
-  end
-  only_if { file(@audit_file).exist? }
-end
+  end if file(audit_file).exist?
 
+  describe "The #{audit_file} file does not exist" do
+    skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+  end if !file(audit_file).exist?
+end

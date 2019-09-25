@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-FILE_INTEGRITY_TOOL = attribute(
-  'file_integ_tool',
-  default: 'aide',
+file_integrity_tool = attribute(
+  'file_integrity_tool',
+  value: 'aide',
   description: "Tool used to determine file integrity"
 )
 
@@ -31,6 +31,7 @@ when there is an unauthorized modification of a configuration item.
   tag "cci": ["CCI-001744"]
   tag "documentable": false
   tag "nist": ["CM-3 (5)", "Rev_4"]
+  tag "subsystems": ['aide']
   tag "check": "Verify the operating system notifies designated personnel if
 baseline configurations are changed in an unauthorized manner.
 
@@ -76,16 +77,23 @@ to send email at the completion of the analysis.
 # more /etc/cron.daily/aide
 0 0 * * * /usr/sbin/aide --check | /bin/mail -s \"$HOSTNAME - Daily aide integrity check run\" root@sysname.mil"
   tag "fix_id": "F-78327r1_fix"
-  describe package(FILE_INTEGRITY_TOOL) do
+  describe package(file_integrity_tool) do
     it { should be_installed }
   end
   describe.one do
-    describe file("/etc/cron.daily/#{FILE_INTEGRITY_TOOL}") do
+    describe file("/etc/cron.daily/#{file_integrity_tool}") do
       its('content') { should match %r{/bin/mail} }
     end
-    describe file("/etc/cron.weekly/#{FILE_INTEGRITY_TOOL}") do
+    describe file("/etc/cron.weekly/#{file_integrity_tool}") do
       its('content') { should match %r{/bin/mail} }
+    end
+    describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+      its('commands.flatten') { should include(match %r{/bin/mail}) }
+    end
+    if file("/etc/cron.d/#{file_integrity_tool}").exist?
+      describe crontab(path: "/etc/cron.d/#{file_integrity_tool}") do
+        its('commands') { should include(match %r{/bin/mail}) }
+      end
     end
   end
 end
-

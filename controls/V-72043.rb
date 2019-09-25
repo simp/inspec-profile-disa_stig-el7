@@ -1,10 +1,10 @@
 # encoding: utf-8
 #
 
-rhel7_fs_opts = attribute(
-  'rhel7_fs_opts',
-  default: ['xfs', 'ext4', 'swap', 'tmpfs'],
-  description: "File systems found in RHEL7 that don't correspond to removable media"
+non_removable_media_fs = attribute(
+  'non_removable_media_fs',
+  value: ['xfs', 'ext4', 'swap', 'tmpfs'],
+  description: "File systems that don't correspond to removable media"
 )
 
 control "V-72043" do
@@ -23,6 +23,7 @@ for unprivileged users to attain unauthorized administrative access."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['file_system', 'removable_media']
   tag "check": "Verify file systems that are used for removable media are
 mounted with the \"nouid\" option.
 
@@ -42,14 +43,14 @@ systems that are associated with removable media."
   file_systems = etc_fstab.params
   if !file_systems.nil? and !file_systems.empty?
     file_systems.each do |file_sys_line|
-      if !"#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) then
+      if !"#{non_removable_media_fs}".include?(file_sys_line['file_system_type']) then
         describe file_sys_line['mount_options'] do
           it { should include 'nosuid' }
         end
       else
         describe "File system \"#{file_sys_line['file_system_type']}\" does not correspond to removable media." do
-          subject { "#{rhel7_fs_opts}".include?(file_sys_line['file_system_type']) }
-          it { should eq true }          
+          subject { "#{non_removable_media_fs}".include?(file_sys_line['file_system_type']) }
+          it { should eq true }
         end
       end
     end
@@ -60,4 +61,3 @@ systems that are associated with removable media."
     end
   end
 end
-

@@ -14,6 +14,7 @@ of misconfiguration elsewhere."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ["ssh"]
   tag "check": "Verify the SSH daemon does not allow authentication using known
 hosts authentication.
 
@@ -39,4 +40,3 @@ IgnoreRhosts yes"
     its('IgnoreRhosts') { should cmp 'yes' }
   end
 end
-

@@ -15,6 +15,7 @@ network topology."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['kernel_parameter']
   tag "check": "Verify the system does not allow interfaces to perform IPv4
 ICMP redirects by default.
 
@@ -44,4 +45,3 @@ Issue the following command to make the changes take effect:
     its('value') { should eq 0 }
   end
 end
-
