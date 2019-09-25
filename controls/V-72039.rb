@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-virtual_machine = attribute(
+virtual_machine = input(
   'virtual_machine',
   value: false,
   description: 'Is the target expected to be a virtual machine')

@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-application_groups = attribute(
+application_groups = input(
   'application_groups',
   description: 'Known application groups that are allowed to have world-writeable files or directories',
   value: []

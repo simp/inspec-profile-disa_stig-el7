@@ -1,13 +1,13 @@
 # encoding: utf-8
 #
 
-multifactor_enabled = attribute(
+multifactor_enabled = input(
   'multifactor_enabled',
   value: 'true',
   description: "Should dconf have smart card authentication"
 )
 
-dconf_user = attribute(
+dconf_user = input(
   'dconf_user',
   value: '',
   description: "User to use to check dconf settings"
