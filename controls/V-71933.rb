@@ -5,7 +5,7 @@
 # TODO this can happen if `authconfig` has not been run on the system yet and
 # TODO the system is still using the `non-ac` versions of the files yet.
 
-min_reuse_generations = attribute('min_reuse_generations', value: 5,
+min_reuse_generations = input('min_reuse_generations', value: 5,
 description: 'The minimum number of generations before a password can be
 reused.')
 

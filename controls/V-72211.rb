@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-log_aggregation_server = attribute(
+log_aggregation_server = input(
   'log_aggregation_server',
   description: 'The system is intented to be a log aggregation server.',
   value: false

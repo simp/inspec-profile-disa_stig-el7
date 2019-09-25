@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-log_pkg_path = attribute(
+log_pkg_path = input(
   'log_pkg_path',
   value: '/etc/rsyslog.conf',
   description: "The path to the logging package"

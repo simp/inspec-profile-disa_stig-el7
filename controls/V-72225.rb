@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-banner_message_text_ral = attribute('banner_message_text_ral',
+banner_message_text_ral = input('banner_message_text_ral',
 value:
 "You are accessing a U.S. Government (USG) Information System (IS) that is \
 provided for USG-authorized use only. By using this IS (which includes any \
@@ -23,7 +23,7 @@ communications and work product are private and confidential. See User \
 Agreement for details.",
 description: 'The banner message must display the designated banner before granting access.')
 
-banner_message_text_ral_limited = attribute('banner_message_text_ral_limited',
+banner_message_text_ral_limited = input('banner_message_text_ral_limited',
 value: "I've read & consent to terms in IS user agreem't.",
 description: 'The banner message must display the designated banner before granting access.')
 

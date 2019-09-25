@@ -1,13 +1,13 @@
 # encoding: utf-8
 #
 # Support for passed in Atrributes
-disable_slow_controls = attribute(
+disable_slow_controls = input(
   'disable_slow_controls',
   value: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.'
 )
-rpm_verify_perms_except = attribute(
+rpm_verify_perms_except = input(
   'rpm_verify_perms_except',
   value: [],
   description: 'This is a list of system files that should be allowed to change
