@@ -12,6 +12,7 @@ system from failures resulting from a file system becoming full or failing."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['file_system', 'tmp']
   tag "check": "Verify that a separate file system/partition has been created
 for \"/tmp\".
 

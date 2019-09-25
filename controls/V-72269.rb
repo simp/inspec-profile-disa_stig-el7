@@ -29,6 +29,7 @@ endpoints).
   tag "cci": ["CCI-001891", "CCI-002046"]
   tag "documentable": false
   tag "nist": ["AU-8 (1) (a)", "AU-8 (1) (b)", "Rev_4"]
+  tag "subsystems": ['ntp']
   tag "check": "Check to see if NTP is running in continuous mode.
 
 # ps -ef | grep ntp

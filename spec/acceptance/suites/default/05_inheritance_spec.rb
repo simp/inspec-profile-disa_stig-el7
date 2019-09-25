@@ -1,9 +1,9 @@
 require 'spec_helper_acceptance'
 require 'json'
 
-test_name 'Validate Inspec Inheritance'
+test_name 'Inheritance Test'
 
-describe 'Ensure that inheritance works' do
+describe 'inheritance test' do
 
   profiles_to_validate = ['inheritance_test']
 
@@ -11,19 +11,53 @@ describe 'Ensure that inheritance works' do
     profiles_to_validate.each do |profile|
       context "for profile #{profile}" do
         context "on #{host}" do
-          before(:all) do
-            @inspec = Simp::BeakerHelpers::Inspec.new(host, profile)
-          end
+          profile_path = File.join(
+                fixtures_path,
+                'inspec_profiles',
+                "#{fact_on(host, 'operatingsystem')}-#{fact_on(host, 'operatingsystemmajrelease')}-#{profile}"
+              )
 
-          it 'should run inspec' do
-            @inspec.run
-          end
+          unless File.exist?(profile_path)
+            it 'should run inspec' do
+              skip("No matching profile available at #{profile_path}")
+            end
+          else
+            before(:all) do
+              @inspec = Simp::BeakerHelpers::Inspec.new(host, profile)
+              @inspec_report = {:data => nil}
+            end
 
-          it 'should have an inspec report' do
-            inspec_report = @inspec.process_inspec_results
+            it 'should run inspec' do
+              @inspec.run
+            end
 
-            if inspec_report[:failed] > 0
-              puts inspec_report[:report]
+            it 'should have an inspec report' do
+              @inspec_report[:data] = @inspec.process_inspec_results
+
+              info = [
+                'Results:',
+                "  * Passed: #{@inspec_report[:data][:passed]}",
+                "  * Failed: #{@inspec_report[:data][:failed]}",
+                "  * Skipped: #{@inspec_report[:data][:skipped]}"
+              ]
+
+              puts info.join("\n")
+
+              @inspec.write_report(@inspec_report[:data])
+            end
+
+            it 'should have run some tests' do
+
+              expect(@inspec_report[:data][:failed] + @inspec_report[:data][:passed]).to be > 0
+            end
+
+            it 'should not have any failing tests' do
+              pending 'the base system has not been hardened'
+
+              if @inspec_report[:data][:failed] > 0
+                puts @inspec_report[:data][:report]
+              end
+              expect( @inspec_report[:data][:failed] ).to eq(0)
             end
           end
         end
