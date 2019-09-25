@@ -2,6 +2,7 @@
 **/inspec.lock
 **/Puppetfile.lock
 .yardoc
+.beaker
 dist/
 sec_results/
 pkg/
