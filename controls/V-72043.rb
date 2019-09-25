@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-non_removable_media_fs = attribute(
+non_removable_media_fs = input(
   'non_removable_media_fs',
   value: ['xfs', 'ext4', 'swap', 'tmpfs'],
   description: "File systems that don't correspond to removable media"

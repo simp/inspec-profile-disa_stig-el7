@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-monitor_kernel_log = attribute(
+monitor_kernel_log = input(
   'monitor_kernel_log',
   description: 'Set this to false if your system availability concern is not documented or
   there is no monitoring of the kernel log',
