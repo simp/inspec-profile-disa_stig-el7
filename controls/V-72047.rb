@@ -29,6 +29,7 @@ global read/write access.
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['world_writable', 'ww_dirs']
   tag "check": "Verify all world-writable directories are group-owned by root,
 sys, bin, or an application group.
 
