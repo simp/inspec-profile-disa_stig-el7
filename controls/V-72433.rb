@@ -78,11 +78,15 @@ to include \"ocsp_on\"."
   tag "fix_id": "F-78785r3_fix"
 
   if smart_card_status.eql?('enabled')
-    describe file('/etc/pam_pkcs11/pam_pkcs11.conf') do
+    pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')
+    describe pam_file do
       it { should exist }
       it { should be_file }
+      let(:cert_policy_lines) {
+        (pam_file.content.nil?)?[]:
+        pam_file.content.lines.grep(%r{^(?!.+#).*cert_policy}i)
+      }
 
-      let(:cert_policy_lines) { file('/etc/pam_pkcs11/pam_pkcs11.conf').content.lines.grep(%r{^(?!.+#).*cert_policy}i) }
       it('should contain at least 3 cert policy lines, each of which include ocsp_on') do
         cert_policy_lines.length.should >= 3
         cert_policy_lines.each do |line|
