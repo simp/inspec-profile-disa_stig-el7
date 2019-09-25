@@ -35,7 +35,7 @@ Officer (ISSO)."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['init_files']
-  tag "check": "Verify that all local interactive user initialization files'
+  desc "check", "Verify that all local interactive user initialization files'
 executable search path statements do not contain statements that will reference
 a working directory other than the users’ home directory.
 
@@ -52,7 +52,7 @@ Note: The example will be for the smithj user, which has a home directory of
 If any local interactive user initialization files have executable search path
 statements that include directories outside of their home directory, this is a
 finding."
-  tag "fix": "Edit the local interactive user initialization files to change
+  desc "fix", "Edit the local interactive user initialization files to change
 any PATH variable statements that reference directories other than their home
 directory.
 

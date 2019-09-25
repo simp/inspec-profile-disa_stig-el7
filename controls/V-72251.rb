@@ -15,7 +15,7 @@ immediate root access to the system."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (c)", "CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Check the version of the operating system with the following
+  desc "check", "Check the version of the operating system with the following
 command:
 
 # cat /etc/redhat-release
@@ -33,7 +33,7 @@ Protocol 2
 
 If any protocol line other than \"Protocol 2\" is uncommented, this is a
 finding."
-  tag "fix": "Remove all Protocol lines that reference version \"1\" in
+  desc "fix", "Remove all Protocol lines that reference version \"1\" in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party
 vendor). The \"Protocol\" line must be as follows:

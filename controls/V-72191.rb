@@ -20,7 +20,7 @@ information system (e.g., module or policy filter).
   tag "documentable": false
   tag "nist": ["AU-12 c", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"insmod\" command occur.
 
 Check the auditing rules in \"/etc/audit/audit.rules\" with the following
@@ -33,7 +33,7 @@ If the command does not return the following output this is a finding.
 -w /sbin/insmod -p x -F auid!=4294967295 -k module-change
 
 If the command does not return any output, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"insmod\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

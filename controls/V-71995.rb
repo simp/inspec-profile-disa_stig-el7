@@ -19,7 +19,7 @@ end
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['login_defs']
-  tag "check": "Verify the operating system defines default permissions for all
+  desc "check", "Verify the operating system defines default permissions for all
 authenticated users in such a way that the user can only read and modify their
 own files.
 
@@ -34,7 +34,7 @@ UMASK  077
 
 If the value for the \"UMASK\" parameter is not \"077\", or the \"UMASK\"
 parameter is missing or is commented out, this is a finding."
-  tag "fix": "Configure the operating system to define default permissions for
+  desc "fix", "Configure the operating system to define default permissions for
 all authenticated users in such a way that the user can only read and modify
 their own files.
 

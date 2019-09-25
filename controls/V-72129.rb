@@ -22,7 +22,7 @@ information system (e.g., module or policy filter).
   tag "documentable": false
   tag "nist": ["AU-12 c", "MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"open_by_handle_at\" command occur.
 
 Check the file system rules in \"/etc/audit/audit.rules\" with the following
@@ -50,7 +50,7 @@ finding.
 
 If the output does not produce a rule containing \"-F exit=-EACCES\", this is a
 finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"open_by_handle_at\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

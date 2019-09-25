@@ -27,7 +27,7 @@ system from failures resulting from a file system becoming full or failing."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs', 'file_system']
-  tag "check": "Verify that a separate file system/partition has been created
+  desc "check", "Verify that a separate file system/partition has been created
 for non-privileged local interactive user home directories.
 
 Check the home directory assignment for all non-privileged users (those with a
@@ -55,7 +55,7 @@ UUID=333ada18    /home                   ext4    noatime,nobarrier,nodev  1 2
 If a separate entry for the file system/partition that contains the
 non-privileged interactive users' home directories does not exist, this is a
 finding."
-  tag "fix": "Migrate the \"/home\" directory onto a separate file
+  desc "fix", "Migrate the \"/home\" directory onto a separate file
 system/partition."
   tag "fix_id": "F-78411r1_fix"
 

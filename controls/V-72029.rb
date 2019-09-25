@@ -28,7 +28,7 @@ accounts upon logon."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['init_files']
-  tag "check": "Verify all local initialization files for interactive users are
+  desc "check", "Verify all local initialization files for interactive users are
 owned by the home directory user or root.
 
 Check the owner on all local initialization files with the following command:
@@ -44,7 +44,7 @@ Note: The example will be for the \"smithj\" user, who has a home directory of
 If any file that sets a local interactive user’s environment variables to
 override the system is not owned by the home directory owner or root, this is a
 finding."
-  tag "fix": "Set the owner of the local initialization files for interactive
+  desc "fix", "Set the owner of the local initialization files for interactive
 users to either the directory owner or root with the following command:
 
 Note: The example will be for the smithj user, who has a home directory of

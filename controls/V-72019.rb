@@ -28,7 +28,7 @@ not be able to access their own files."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs']
-  tag "check": "Verify the assigned home directory of all local interactive
+  desc "check", "Verify the assigned home directory of all local interactive
 users on the system exists.
 
 Check the home directory assignment for all local interactive users on the
@@ -40,7 +40,7 @@ system with the following command:
 
 If any home directories referenced in \"/etc/passwd\" are not owned by the
 interactive user, this is a finding."
-  tag "fix": "Change the owner of a local interactive user’s home directories
+  desc "fix", "Change the owner of a local interactive user’s home directories
 to that owner. To change the owner of a local interactive user’s home
 directory, use the following command:
 

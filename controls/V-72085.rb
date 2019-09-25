@@ -20,7 +20,7 @@ storage capacity.
   tag "documentable": false
   tag "nist": ["AU-4 (1)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audisp']
-  tag "check": "Verify the operating system encrypts audit records off-loaded
+  desc "check", "Verify the operating system encrypts audit records off-loaded
 onto a different system or media from the system being audited.
 
 To determine if the transfer is encrypted, use the following command:
@@ -34,7 +34,7 @@ off-loaded to a different system or media.
 
 If there is no evidence that the transfer of the audit logs being off-loaded to
 another system or media is encrypted, this is a finding."
-  tag "fix": "Configure the operating system to encrypt the transfer of
+  desc "fix", "Configure the operating system to encrypt the transfer of
 off-loaded audit records onto a different system or media from the system being
 audited.
 

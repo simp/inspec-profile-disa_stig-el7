@@ -25,7 +25,7 @@ functionality.
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "SI-6 a", "Rev_4"]
   tag "subsystems": ['selinux']
-  tag "check": "Verify the operating system verifies correct operation of all
+  desc "check", "Verify the operating system verifies correct operation of all
 security functions.
 
 Check if \"SELinux\" is active and in \"Enforcing\" mode with the following
@@ -35,7 +35,7 @@ command:
 Enforcing
 
 If \"SELinux\" is not active and not in \"Enforcing\" mode, this is a finding."
-  tag "fix": "Configure the operating system to verify correct operation of all
+  desc "fix", "Configure the operating system to verify correct operation of all
 security functions.
 
 Set the \"SELinux\" status and the \"Enforcing\" mode by modifying the

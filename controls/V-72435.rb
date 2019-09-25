@@ -64,7 +64,7 @@ SRG-OS-000375-GPOS-0016.
   tag "cci": "CCI-001954"
   tag "nist": ["IA-2 (12)", "Rev_4"]
   tag "subsystems": ['smartcard', 'MFA']
-  tag "check": "Verify the operating system requires smart card logons for
+  desc "check", "Verify the operating system requires smart card logons for
 multifactor authentication to uniquely identify privileged users.
 
 Check to see if smartcard authentication is enforced on the system with the
@@ -78,7 +78,7 @@ and smartcard removal actions must not be blank.
 If smartcard authentication is disabled or the smartcard and smartcard removal
 actions are blank, this is a finding."
 
-  tag "fix": "Configure the operating system to implement smart card logon for
+  desc "fix", "Configure the operating system to implement smart card logon for
 multifactor authentication to uniquely identify privileged users.
 
 Enable smart card logons with the following commands:

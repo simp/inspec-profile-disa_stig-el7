@@ -18,7 +18,7 @@ used to create a denial of service to valid network resources."
   tag "documentable": false
   tag "nist": ["AC-18 (1)", "AC-18 (1)", "SC-8", "Rev_4"]
   tag "networking","wifi"
-  tag "check": "Verify that there are no wireless interfaces configured on the
+  desc "check", "Verify that there are no wireless interfaces configured on the
 system.
 
 This is N/A for systems that do not have wireless network adapters.
@@ -34,7 +34,7 @@ lo loopback unmanaged
 If a wireless interface is configured and its use on the system is not
 documented with the Information System Security Officer (ISSO), this is a
 finding."
-  tag "fix": "Configure the system to disable all wireless network interfaces
+  desc "fix", "Configure the system to disable all wireless network interfaces
 with the following command:
 
 #nmcli radio wifi off"

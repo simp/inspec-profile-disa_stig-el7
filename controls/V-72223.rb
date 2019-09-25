@@ -36,7 +36,7 @@ and releases the resources associated with that session.
   tag "documentable": false
   tag "nist": ["SC-10", "AC-12", "Rev_4"]
   tag "subsystems": ['user_profile']
-  tag "check": "Verify the operating system terminates all network connections
+  desc "check", "Verify the operating system terminates all network connections
 associated with a communications session at the end of the session or based on
 inactivity.
 
@@ -48,7 +48,7 @@ TMOUT=600
 
 If \"TMOUT\" is not set to \"600\" or less in \"/etc/bashrc\" or in a script
 created to enforce session termination after inactivity, this is a finding."
-  tag "fix": "Configure the operating system to terminate all network
+  desc "fix", "Configure the operating system to terminate all network
 connections associated with a communications session at the end of the session
 or after a period of inactivity.
 

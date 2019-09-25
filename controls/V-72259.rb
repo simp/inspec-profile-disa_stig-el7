@@ -17,7 +17,7 @@ system. GSSAPI authentication must be disabled unless needed."
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH daemon does not permit GSSAPI authentication
+  desc "check", "Verify the SSH daemon does not permit GSSAPI authentication
 unless approved.
 
 Check that the SSH daemon does not permit GSSAPI authentication with the
@@ -29,7 +29,7 @@ GSSAPIAuthentication no
 If the \"GSSAPIAuthentication\" keyword is missing, is set to \"yes\" and is
 not documented with the Information System Security Officer (ISSO), or the
 returned line is commented out, this is a finding."
-  tag "fix": "Uncomment the \"GSSAPIAuthentication\" keyword in
+  desc "fix", "Uncomment the \"GSSAPIAuthentication\" keyword in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party
 vendor) and set the value to \"no\":

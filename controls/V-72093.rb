@@ -16,7 +16,7 @@ unable to expand the audit record storage capacity before records are lost."
   tag "documentable": false
   tag "nist": ["AU-5 (1)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd']
-  tag "check": "Verify the operating system immediately notifies the SA and
+  desc "check", "Verify the operating system immediately notifies the SA and
 ISSO (at a minimum) via email when the threshold for the repository maximum
 audit record storage capacity is reached.
 
@@ -29,7 +29,7 @@ action_mail_acct = root
 
 If the value of the \"action_mail_acct\" keyword is not set to \"root\" and
 other accounts for security personnel, this is a finding."
-  tag "fix": "Configure the operating system to immediately notify the SA and
+  desc "fix", "Configure the operating system to immediately notify the SA and
 ISSO (at a minimum) when the threshold for the repository maximum audit record
 storage capacity is reached.
 

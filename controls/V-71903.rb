@@ -23,7 +23,7 @@ compromised.
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
   tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "Note: The value to require a number of upper-case characters to
+  desc "check", "Note: The value to require a number of upper-case characters to
 be set is expressed as a negative number in \"/etc/security/pwquality.conf\".
 
 Check the value for \"ucredit\" in \"/etc/security/pwquality.conf\" with the
@@ -33,7 +33,7 @@ following command:
 ucredit = -1
 
 If the value of \"ucredit\" is not set to a negative value, this is a finding."
-  tag "fix": "Configure the operating system to enforce password complexity by
+  desc "fix", "Configure the operating system to enforce password complexity by
 requiring that at least one upper-case character be used by setting the
 \"ucredit\" option.
 

@@ -41,7 +41,7 @@ compromise the system at the root and network level."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['init_files']
-  tag "check": "Verify that local initialization files do not execute
+  desc "check", "Verify that local initialization files do not execute
 world-writable programs.
 
 Check the system for world-writable files with the following command:
@@ -58,7 +58,7 @@ directories in the \"/home\" directory.
 
 If any local initialization files are found to reference world-writable files,
 this is a finding."
-  tag "fix": "Set the mode on files being executed by the local initialization
+  desc "fix", "Set the mode on files being executed by the local initialization
 files with the following command:
 
 # chmod 0755  <file>"

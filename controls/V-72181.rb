@@ -25,7 +25,7 @@ SRG-OS-000471-GPOS-0021.
   tag "cci": "CCI-002884"
   tag "nist": ["MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"pt_chown\" command occur.
 
 Check for the following system call being audited by performing the following
@@ -37,7 +37,7 @@ command to check the file system rules in \"/etc/audit/audit.rules\":
 auid!=4294967295 -k privileged_terminal
 
 If the command does not return any output, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"pt_chown\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

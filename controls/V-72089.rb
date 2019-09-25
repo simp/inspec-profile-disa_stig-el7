@@ -17,7 +17,7 @@ storage capacity expansion."
   tag "documentable": false
   tag "nist": ["AU-5 (1)", "Rev_4"]
   tag "subsystems": ['auditd']
-  tag "check": "Verify the operating system immediately notifies the SA and
+  desc "check", "Verify the operating system immediately notifies the SA and
 ISSO (at a minimum) when allocated audit record storage volume reaches 75
 percent of the repository maximum audit record storage capacity.
 
@@ -49,7 +49,7 @@ space_left = 225
 
 If the value of the \"space_left\" keyword is not set to 25 percent of the
 total partition size, this is a finding."
-  tag "fix": "Configure the operating system to immediately notify the SA and
+  desc "fix", "Configure the operating system to immediately notify the SA and
 ISSO (at a minimum) when allocated audit record storage volume reaches 75
 percent of the repository maximum audit record storage capacity.
 

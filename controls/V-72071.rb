@@ -14,7 +14,7 @@ and file metadata with security implications."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['aide']
-  tag "check": "Verify the file integrity tool is configured to verify extended
+  desc "check", "Verify the file integrity tool is configured to verify extended
 attributes.
 
 Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on
@@ -47,7 +47,7 @@ All= p+i+n+u+g+s+m+S+sha512+acl+xattrs+selinux
 If the \"xattrs\" rule is not being used on all selection lines in the
 \"/etc/aide.conf\" file, or extended attributes are not being checked by
 another file integrity tool, this is a finding."
-  tag "fix": "Configure the file integrity tool to check file and directory
+  desc "fix", "Configure the file integrity tool to check file and directory
 extended attributes.
 
 If AIDE is installed, ensure the \"xattrs\" rule is present on all file and

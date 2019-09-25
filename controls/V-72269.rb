@@ -29,7 +29,7 @@ endpoints).
   tag "cci": ["CCI-001891", "CCI-002046"]
   tag "documentable": false
   tag "nist": ["AU-8 (1) (a)", "AU-8 (1) (b)", "Rev_4"]
-  tag "check": "Check to see if NTP is running in continuous mode.
+  desc "check", "Check to see if NTP is running in continuous mode.
 
 # ps -ef | grep ntp
 
@@ -54,7 +54,7 @@ ntp
 
 If a crontab file does not exist in the \"/etc/cron.daily\" that executes the
 \"ntpdate\" file, this is a finding."
-  tag "fix": "Edit the \"/etc/ntp.conf\" file and add or update an entry to
+  desc "fix", "Edit the \"/etc/ntp.conf\" file and add or update an entry to
 define \"maxpoll\" to \"10\" as follows:
 
 maxpoll 10

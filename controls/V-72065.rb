@@ -12,7 +12,7 @@ system from failures resulting from a file system becoming full or failing."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify that a separate file system/partition has been created
+  desc "check", "Verify that a separate file system/partition has been created
 for \"/tmp\".
 
 Check that a file system/partition has been created for \"/tmp\" with the
@@ -22,7 +22,7 @@ following command:
 enabled
 
 If the \"tmp.mount\" service is not enabled, this is a finding."
-  tag "fix": "Start the \"tmp.mount\" service with the following command:
+  desc "fix", "Start the \"tmp.mount\" service with the following command:
 
 # systemctl enable tmp.mount"
   tag "fix_id": "F-78417r1_fix"

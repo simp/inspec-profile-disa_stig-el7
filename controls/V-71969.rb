@@ -13,7 +13,7 @@ control "V-71969" do
   tag "documentable": false
   tag "nist": ["CM-7 a", "Rev_4"]
   tag "subsystems": ['packages']
-  tag "check": "The NIS service provides an unencrypted authentication service
+  desc "check", "The NIS service provides an unencrypted authentication service
 that does not provide for the confidentiality and integrity of user passwords
 or the remote session.
 
@@ -22,7 +22,7 @@ Check to see if the \"ypserve\" package is installed with the following command:
 # yum list installed ypserv
 
 If the \"ypserv\" package is installed, this is a finding."
-  tag "fix": "Configure the operating system to disable non-essential
+  desc "fix", "Configure the operating system to disable non-essential
 capabilities by removing the \"ypserv\" package from the system with the
 following command:
 

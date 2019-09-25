@@ -15,7 +15,7 @@ use."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['pam', 'ssh', 'lastlog']
-  tag "check": "Verify SSH provides users with feedback on when account
+  desc "check", "Verify SSH provides users with feedback on when account
 accesses last occurred.
 
 Check that \"PrintLastLog\" keyword in the sshd daemon configuration file is
@@ -26,7 +26,7 @@ PrintLastLog yes
 
 If the \"PrintLastLog\" keyword is set to \"no\", is missing, or is commented
 out, this is a finding."
-  tag "fix": "Configure SSH to provide users with feedback on when account
+  desc "fix", "Configure SSH to provide users with feedback on when account
 accesses last occurred by setting the required configuration options in
 \"/etc/pam.d/sshd\" or in the \"sshd_config\" file used by the system
 (\"/etc/ssh/sshd_config\" will be used in the example) (this file may be named

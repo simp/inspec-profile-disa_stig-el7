@@ -14,7 +14,7 @@ there is no place for the storage and control of files they should own."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['login_defs']
-  tag "check": "Verify all local interactive users on the system are assigned a
+  desc "check", "Verify all local interactive users on the system are assigned a
 home directory upon creation.
 
 Check to see if the system is configured to create home directories for local
@@ -25,7 +25,7 @@ CREATE_HOME yes
 
 If the value for \"CREATE_HOME\" parameter is not set to \"yes\", the line is
 missing, or the line is commented out, this is a finding."
-  tag "fix": "Configure the operating system to assign home directories to all
+  desc "fix", "Configure the operating system to assign home directories to all
 new local interactive users by setting the \"CREATE_HOME\" parameter in
 \"/etc/login.defs\" to \"yes\" as follows.
 

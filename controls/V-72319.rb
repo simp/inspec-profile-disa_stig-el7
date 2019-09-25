@@ -20,7 +20,7 @@ forwarding is enabled and the system is functioning as a router."
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "networking","kernel"
   tag "subsystems": ['kernel_parameter']
-  tag "check": "Verify the system does not accept IPv6 source-routed packets.
+  desc "check", "Verify the system does not accept IPv6 source-routed packets.
 
 Note: If IPv6 is not enabled, the key will not exist, and this is not a finding.
 
@@ -31,7 +31,7 @@ net.ipv6.conf.all.accept_source_route=0
 
 If the returned lines do not have a value of \"0\", or a line is not returned,
 this is a finding."
-  tag "fix": "Set the system to the required kernel parameter, if IPv6 is
+  desc "fix", "Set the system to the required kernel parameter, if IPv6 is
 enabled, by adding the following line to \"/etc/sysctl.conf\" (or modify the
 line to have the required value):
 

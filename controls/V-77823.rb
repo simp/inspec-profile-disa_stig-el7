@@ -14,7 +14,7 @@ maintenance mode is granted privileged access to all files on the system."
   tag "cci": ["CCI-000213"]
   tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
-  tag "check": "Verify the operating system must require authentication upon
+  desc "check", "Verify the operating system must require authentication upon
 booting into single-user and maintenance modes.
 
 Check that the operating system requires authentication upon booting into
@@ -28,7 +28,7 @@ default\"
 If \"ExecStart\" does not have \"/usr/sbin/sulogin\" as an option, this is a
 finding.
 "
-  tag "fix": "Configure the operating system to require authentication upon
+  desc "fix", "Configure the operating system to require authentication upon
 booting into single-user and maintenance modes.
 
 Add or modify the \"ExecStart\" line in

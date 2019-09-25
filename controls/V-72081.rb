@@ -46,7 +46,7 @@ storage repositories combined), or both.
   tag "documentable": false
   tag "nist": ["AU-5 a", "Rev_4"]
   tag "subsystems": ['audit', 'auditd']
-  tag "check": "Confirm the audit configuration regarding how auditing processing
+  desc "check", "Confirm the audit configuration regarding how auditing processing
 failures are handled.
 
 Check to see what level \"auditctl\" is set to with following command:
@@ -70,7 +70,7 @@ If the \"failure\" setting is set to \"1\" but the availability concern is not
 documented or there is no monitoring of the kernel log, this is a CAT III
 finding.
 "
-  tag "fix": "Configure the operating system to shut down in the event of an
+  desc "fix", "Configure the operating system to shut down in the event of an
 audit processing failure.
 
 Add or correct the option to shut down the operating system with the following

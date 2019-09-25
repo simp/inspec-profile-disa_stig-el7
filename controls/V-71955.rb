@@ -21,7 +21,7 @@ end
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["gdm"]
-  tag "check": "Verify the operating system does not allow an unrestricted
+  desc "check", "Verify the operating system does not allow an unrestricted
 logon to the system via a graphical user interface.
 
 Note: If the system does not have GNOME installed, this requirement is Not
@@ -35,7 +35,7 @@ TimedLoginEnable=false
 
 If the value of \"TimedLoginEnable\" is not set to \"false\", this is a
 finding."
-  tag "fix": "Configure the operating system to not allow an unrestricted
+  desc "fix", "Configure the operating system to not allow an unrestricted
 account to log on to the system via a graphical user interface.
 
 Note: If the system does not have GNOME installed, this requirement is Not

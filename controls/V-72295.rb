@@ -20,7 +20,7 @@ Officer (ISSO) and restricted to only authorized personnel.
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify network interfaces are not in promiscuous mode unless
+  desc "check", "Verify network interfaces are not in promiscuous mode unless
 approved by the ISSO and documented.
 
 Check for the status with the following command:
@@ -29,7 +29,7 @@ Check for the status with the following command:
 
 If network interfaces are found on the system in promiscuous mode and their use
 has not been approved by the ISSO and documented, this is a finding."
-  tag "fix": "Configure network interfaces to turn off promiscuous mode unless
+  desc "fix", "Configure network interfaces to turn off promiscuous mode unless
 approved by the ISSO and documented.
 
 Set the promiscuous mode of an interface to off with the following command:

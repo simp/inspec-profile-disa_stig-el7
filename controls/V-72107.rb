@@ -22,7 +22,7 @@ information system (e.g., module or policy filter).
   tag "documentable": false
   tag "nist": ["AU-12 c", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"fchmod\" command occur.
 
 Check the file system rules in \"/etc/audit/audit.rules\" with the following
@@ -40,7 +40,7 @@ must be present.
 
 If there are no audit rules defined for the \"fchmod\" command, this is a
 finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"fchmod\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

@@ -26,7 +26,7 @@ compromised.
   tag "documentable": false
   tag "nist": ["IA-5 (1) (b)", "Rev_4"]
   tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "The \"maxclassrepeat\" option sets the maximum number of
+  desc "check", "The \"maxclassrepeat\" option sets the maximum number of
 allowed same consecutive characters in the same class in the new password.
 
 Check for the value of the \"maxclassrepeat\" option in
@@ -37,7 +37,7 @@ maxclassrepeat = 4
 
 If the value of \"maxclassrepeat\" is set to more than \"4\", this is a
 finding."
-  tag "fix": "Configure the operating system to require the change of the
+  desc "fix", "Configure the operating system to require the change of the
 number of repeating characters of the same character class when passwords are
 changed by setting the \"maxclassrepeat\" option.
 

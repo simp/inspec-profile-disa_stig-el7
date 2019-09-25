@@ -12,7 +12,7 @@ system from failures resulting from a file system becoming full or failing."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify that a separate file system/partition has been created
+  desc "check", "Verify that a separate file system/partition has been created
 for \"/var\".
 
 Check that a file system/partition has been created for \"/var\" with the
@@ -22,7 +22,7 @@ following command:
 UUID=c274f65f /var ext4 noatime,nobarrier 1 2
 
 If a separate entry for \"/var\" is not in use, this is a finding."
-  tag "fix": "Migrate the \"/var\" path onto a separate file system."
+  desc "fix", "Migrate the \"/var\" path onto a separate file system."
   tag "fix_id": "F-78413r1_fix"
 
   describe mount('/var') do

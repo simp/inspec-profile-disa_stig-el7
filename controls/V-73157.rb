@@ -28,7 +28,7 @@ determined and/or controlled.
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
   tag "subsystems": ['gnome3']
-  tag "check": "Verify the operating system prevents a user from overriding
+  desc "check", "Verify the operating system prevents a user from overriding
 session idle delay after a 15-minute period of inactivity for graphical user
 interfaces.
 
@@ -52,7 +52,7 @@ other than \"local\" is being used.
 /org/gnome/desktop/session/idle-delay
 
 If the command does not return a result, this is a finding."
-  tag "fix": "Configure the operating system to prevent a user from overriding
+  desc "fix", "Configure the operating system to prevent a user from overriding
 a session lock after a 15-minute period of inactivity for graphical user
 interfaces.
 

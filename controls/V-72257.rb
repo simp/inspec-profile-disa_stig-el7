@@ -13,7 +13,7 @@ host could be impersonated."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH private host key files have mode \"0600\" or
+  desc "check", "Verify the SSH private host key files have mode \"0600\" or
 less permissive.
 
 The following command will find all SSH private key files on the system:
@@ -29,7 +29,7 @@ following command:
 -rw-------  1 root  wheel  887 Nov 28 06:43 ssh_host_rsa_key
 
 If any file has a mode more permissive than \"0600\", this is a finding."
-  tag "fix": "Configure the mode of SSH private host key files under
+  desc "fix", "Configure the mode of SSH private host key files under
 \"/etc/ssh\" to \"0600\" with the following command:
 
 # chmod 0600 /etc/ssh/ssh_host*key"

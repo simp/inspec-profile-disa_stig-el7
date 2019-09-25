@@ -21,7 +21,7 @@ the cron facility by unauthorized and malicious users."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['cron', 'rsyslog']
-  tag "check": "Verify that \"rsyslog\" is configured to log cron events.
+  desc "check", "Verify that \"rsyslog\" is configured to log cron events.
 
 Check the configuration of \"/etc/rsyslog.conf\" for the cron facility with the
 following command:
@@ -46,7 +46,7 @@ this is a finding.
 
 If the entry is in the \"/etc/rsyslog.conf\" file but is after the entry
 \"*.*\", this is a finding."
-  tag "fix": "Configure \"rsyslog\" to log all cron messages by adding or
+  desc "fix", "Configure \"rsyslog\" to log all cron messages by adding or
 updating the following line to \"/etc/rsyslog.conf\":
 
 cron.* /var/log/cron.log

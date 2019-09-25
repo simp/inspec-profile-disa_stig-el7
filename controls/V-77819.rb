@@ -41,7 +41,7 @@ Card.
   tag "documentable": false
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
   tag "subsystems": ["gnome3"]
-  tag "check": "Verify the operating system uniquely identifies and
+  desc "check", "Verify the operating system uniquely identifies and
 authenticates users using multifactor authentication via a graphical user logon.
 
 Note: If the system does not have GNOME installed, this requirement is Not
@@ -63,7 +63,7 @@ enable-smartcard-authentication=true
 
 If \"enable-smartcard-authentication\" is set to \"false\" or the keyword is
 missing, this is a finding."
-  tag "fix": "Configure the operating system to uniquely identify and
+  desc "fix", "Configure the operating system to uniquely identify and
 authenticate users using multifactor authentication via a graphical user logon.
 
 Note: If the system does not have GNOME installed, this requirement is Not

@@ -14,7 +14,7 @@ system software."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the version of the operating system is vendor supported.
+  desc "check", "Verify the version of the operating system is vendor supported.
 
 Check the version of the operating system with the following command:
 
@@ -27,7 +27,7 @@ Current End of Life for RHEL 7.2 is Q4 2020.
 Current End of Life for RHEL 7.3 is 30 June 2024.
 
 If the release is not supported by the vendor, this is a finding."
-  tag "fix": "Upgrade to a supported version of the operating system."
+  desc "fix", "Upgrade to a supported version of the operating system."
   tag "fix_id": "F-78349r1_fix"
 
   # TODO use an array attribute of supported DISTROS and use the be_in matcher?

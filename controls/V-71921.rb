@@ -20,7 +20,7 @@ plain text."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (c)", "Rev_4"]
   tag "subsystems": ['login_defs', 'password']
-  tag "check": "Verify the system's shadow file is configured to store only
+  desc "check", "Verify the system's shadow file is configured to store only
 encrypted representations of passwords. The strength of encryption that must be
 used to hash passwords for all accounts is SHA512.
 
@@ -32,7 +32,7 @@ ENCRYPT_METHOD SHA512
 
 If the \"/etc/login.defs\" configuration file does not exist or allows for
 password hashes other than SHA512 to be used, this is a finding."
-  tag "fix": "Configure the operating system to store only SHA512 encrypted
+  desc "fix", "Configure the operating system to store only SHA512 encrypted
 representations of passwords.
 
 Add or update the following line in \"/etc/login.defs\":

@@ -14,7 +14,7 @@ vulnerabilities in the unprivileged section."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH daemon performs privilege separation.
+  desc "check", "Verify the SSH daemon performs privilege separation.
 
 Check that the SSH daemon performs privilege separation with the following
 command:
@@ -25,7 +25,7 @@ UsePrivilegeSeparation sandbox
 
 If the \"UsePrivilegeSeparation\" keyword is set to \"no\", is missing, or the
 retuned line is commented out, this is a finding."
-  tag "fix": "Uncomment the \"UsePrivilegeSeparation\" keyword in
+  desc "fix", "Uncomment the \"UsePrivilegeSeparation\" keyword in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party
 vendor) and set the value to \"sandbox\" or \"yes\":

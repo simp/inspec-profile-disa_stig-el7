@@ -20,7 +20,7 @@ plain text."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (c)", "Rev_4"]
   tag "subsystems": ['libuser_conf', 'password']
-  tag "check": "Verify the user and group account administration utilities are
+  desc "check", "Verify the user and group account administration utilities are
 configured to store only encrypted representations of passwords. The strength
 of encryption that must be used to hash passwords for all accounts is
 \"SHA512\".
@@ -34,7 +34,7 @@ crypt_style = sha512
 
 If the \"crypt_style\" variable is not set to \"sha512\", is not in the
 defaults section, or does not exist, this is a finding."
-  tag "fix": "Configure the operating system to store only SHA512 encrypted
+  desc "fix", "Configure the operating system to store only SHA512 encrypted
 representations of passwords.
 
 Add or update the following line in \"/etc/libuser.conf\" in the [defaults]

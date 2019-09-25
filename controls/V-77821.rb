@@ -14,7 +14,7 @@ in the protocol implementation."
   tag "documentable": false
   tag "nist": ["IA-3", "Rev_4"]
   tag "subsystems": ['dccp', 'kernel_module']
-  tag "check": "Verify the operating system disables the ability to load the
+  desc "check", "Verify the operating system disables the ability to load the
 DCCP kernel module.
 
 Check to see if the DCCP kernel module is disabled with the following command:
@@ -26,7 +26,7 @@ install dccp /bin/true
 If the command does not return any output, or the line is commented out, and
 use of DCCP is not documented with the Information System Security Officer
 (ISSO) as an operational requirement, this is a finding."
-  tag "fix": "Configure the operating system to disable the ability to use the
+  desc "fix", "Configure the operating system to disable the ability to use the
 DCCP kernel module.
 
 Create a file under \"/etc/modprobe.d\" with the following command:

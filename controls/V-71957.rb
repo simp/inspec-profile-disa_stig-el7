@@ -14,7 +14,7 @@ impacts operating system security."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the operating system does not allow users to override
+  desc "check", "Verify the operating system does not allow users to override
 environment variables to the SSH daemon.
 
 Check for the value of the \"PermitUserEnvironment\" keyword with the following
@@ -25,7 +25,7 @@ PermitUserEnvironment no
 
 If the \"PermitUserEnvironment\" keyword is not set to \"no\", is missing, or
 is commented out, this is a finding."
-  tag "fix": "Configure the operating system to not allow users to override
+  desc "fix", "Configure the operating system to not allow users to override
 environment variables to the SSH daemon.
 
 Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for

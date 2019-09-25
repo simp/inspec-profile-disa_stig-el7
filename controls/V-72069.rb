@@ -14,7 +14,7 @@ mode and must be verified by file integrity tools."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['aide']
-  tag "check": "Verify the file integrity tool is configured to verify ACLs.
+  desc "check", "Verify the file integrity tool is configured to verify ACLs.
 
 Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on
 the system with the following command:
@@ -46,7 +46,7 @@ All= p+i+n+u+g+s+m+S+sha512+acl+xattrs+selinux
 If the \"acl\" rule is not being used on all selection lines in the
 \"/etc/aide.conf\" file, or ACLs are not being checked by another file
 integrity tool, this is a finding."
-  tag "fix": "Configure the file integrity tool to check file and directory
+  desc "fix", "Configure the file integrity tool to check file and directory
 ACLs.
 
 If AIDE is installed, ensure the \"acl\" rule is present on all file and

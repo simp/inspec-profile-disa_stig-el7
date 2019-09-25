@@ -14,7 +14,7 @@ impacts operating system security."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the operating system does not allow a non-certificate
+  desc "check", "Verify the operating system does not allow a non-certificate
 trusted host SSH logon to the system.
 
 Check for the value of the \"HostbasedAuthentication\" keyword with the
@@ -25,7 +25,7 @@ HostbasedAuthentication no
 
 If the \"HostbasedAuthentication\" keyword is not set to \"no\", is missing, or
 is commented out, this is a finding."
-  tag "fix": "Configure the operating system to not allow a non-certificate
+  desc "fix", "Configure the operating system to not allow a non-certificate
 trusted host SSH logon to the system.
 
 Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for

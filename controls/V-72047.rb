@@ -29,7 +29,7 @@ global read/write access.
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify all world-writable directories are group-owned by root,
+  desc "check", "Verify all world-writable directories are group-owned by root,
 sys, bin, or an application group.
 
 Check the system for world-writable directories with the following command:
@@ -44,7 +44,7 @@ drwxrwxrwt 14 root root 4096 Aug 26 13:29 /tmp
 
 If any world-writable directories are not owned by root, sys, bin, or an
 application group associated with the directory, this is a finding."
-  tag "fix": "Change the group of the world-writable directories to root with
+  desc "fix", "Change the group of the world-writable directories to root with
 the following command:
 
 # chgrp root <directory>"
