@@ -77,7 +77,7 @@ If \"firewalld\" is not \"active\", enable \"tcpwrappers\" by configuring
 specific hosts.   "
   tag "fix_id": "F-78669r2_fix"
 
-  describe "This control must be reviewd manually" do
+  describe "This control must be reviewed manually" do
     skip "You must review this control manually."
   end
 end

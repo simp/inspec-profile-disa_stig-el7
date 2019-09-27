@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-system_activity_timeout = attribute(
+system_activity_timeout = input(
 'system_activity_timeout',
 value: 600,
 description: 'The length of inactivity from the user in which the network connections associated with a session in terminated.'

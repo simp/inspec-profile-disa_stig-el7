@@ -18,6 +18,7 @@ used to create a denial of service to valid network resources."
   tag "documentable": false
   tag "nist": ["AC-18 (1)", "AC-18 (1)", "SC-8", "Rev_4"]
   tag "networking","wifi"
+  tag "subsystems": ['network', 'wifi', 'nmcli']
   tag "check": "Verify that there are no wireless interfaces configured on the
 system.
 

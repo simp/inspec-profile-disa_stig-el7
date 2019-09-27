@@ -14,6 +14,7 @@ maintenance mode is granted privileged access to all files on the system."
   tag "cci": ["CCI-000213"]
   tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
+  tag "subsystems": ['root', 'sulogin']
   tag "check": "Verify the operating system must require authentication upon
 booting into single-user and maintenance modes.
 
