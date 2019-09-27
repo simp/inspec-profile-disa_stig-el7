@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-application_groups = attribute(
+application_groups = input(
   'application_groups',
   description: 'Known application groups that are allowed to have world-writeable files or directories',
   value: []
@@ -29,6 +29,7 @@ global read/write access.
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['world_writable', 'ww_dirs']
   tag "check": "Verify all world-writable directories are group-owned by root,
 sys, bin, or an application group.
 

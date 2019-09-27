@@ -14,6 +14,7 @@ system software."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['redhat_release']
   tag "check": "Verify the version of the operating system is vendor supported.
 
 Check the version of the operating system with the following command:

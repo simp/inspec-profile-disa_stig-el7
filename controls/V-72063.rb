@@ -13,6 +13,7 @@ system from failures resulting from a file system becoming full or failing."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['file_system']
   tag "check": "Determine if the \"/var/log/audit\" path is a separate file
 system.
 

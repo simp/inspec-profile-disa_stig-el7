@@ -20,6 +20,7 @@ Officer (ISSO) and restricted to only authorized personnel.
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['network', 'ip_link']
   tag "check": "Verify network interfaces are not in promiscuous mode unless
 approved by the ISSO and documented.
 
