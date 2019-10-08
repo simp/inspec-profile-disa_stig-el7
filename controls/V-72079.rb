@@ -34,7 +34,7 @@ operating system.
   tag "documentable": false
   tag "nist": ["AU-2 d", "AU-3", "Rev_4"]
   tag "subsystems": ['audit', 'auditd']
-  tag "check": "Verify the operating system produces audit records containing
+  desc "check", "Verify the operating system produces audit records containing
 information to establish when (date and time) the events occurred.
 
 Check to see if auditing is active by issuing the following command:
@@ -43,7 +43,7 @@ Check to see if auditing is active by issuing the following command:
 Active: active (running) since Tue 2015-01-27 19:41:23 EST; 22h ago
 
 If the \"auditd\" status is not active, this is a finding."
-  tag "fix": "Configure the operating system to produce audit records
+  desc "fix", "Configure the operating system to produce audit records
 containing information to establish when (date and time) the events occurred.
 
 Enable the auditd service with the following command:

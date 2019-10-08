@@ -1,15 +1,15 @@
 # encoding: utf-8
 #
 # Support for passed in Atrributes
-disable_slow_controls = attribute(
+disable_slow_controls = input(
   'disable_slow_controls',
-  default: false,
+  value: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.'
 )
-rpm_verify_perms_except = attribute(
+rpm_verify_perms_except = input(
   'rpm_verify_perms_except',
-  default: [],
+  value: [],
   description: 'This is a list of system files that should be allowed to change
                 permission attributes from an rpm verify point of view.')
 
@@ -28,7 +28,7 @@ control "V-71849" do
   tag "documentable": false
   tag "nist": ["AU-9", "AU-9 (3)", "Rev_4"]
   tag "subsystems": [ "permissions", "package", "rpm" ]
-  tag "check": "Verify the file permissions, ownership, and group membership of
+  desc "check", "Verify the file permissions, ownership, and group membership of
 system files and commands match the vendor values.
 
 Check the file permissions, ownership, and group membership of system files and
@@ -39,7 +39,7 @@ commands with the following command:
 If there is any output from the command indicating that the ownership or group
 of a system file or command, or a system file, has permissions less restrictive
 than the default, this is a finding."
-  tag "fix": "Run the following command to determine which package owns the
+  desc "fix", "Run the following command to determine which package owns the
 file:
 
 # rpm -qf <filename>

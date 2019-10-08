@@ -1,13 +1,13 @@
 # encoding: utf-8
 #
 
-unsuccessful_attempts = attribute('unsuccessful_attempts', default: 3,
+unsuccessful_attempts = input('unsuccessful_attempts', value: 3,
 description: 'The account is denied access after the specified number of
 consecutive failed logon attempts.')
-fail_interval = attribute('fail_interval', default: 900,
+fail_interval = input('fail_interval', value: 900,
 description: 'The interval of time in which the consecutive failed logon
 attempts must occur in order for the account to be locked out (in seconds).')
-lockout_time = attribute('lockout_time', default: 604800,
+lockout_time = input('lockout_time', value: 604800,
 description: 'The minimum amount of time that an account must be locked out
 after the specified number of unsuccessful logon attempts (in seconds).
 This attribute should never be set greater than 604800.')
@@ -28,7 +28,7 @@ brute-forcing, is reduced. Limits are imposed by locking the account."
   tag "documentable": false
   tag "nist": ["AC-7 b", "Rev_4"]
   tag "subsystems": ['pam', 'faillock']
-  tag "check": "Verify the operating system automatically locks an account for the
+  desc "check", "Verify the operating system automatically locks an account for the
 maximum period for which the system can be configured.
 
 Check that the system locks an account for the maximum period after three
@@ -52,7 +52,7 @@ account required pam_faillock.so
 If the \"unlock_time\" setting is greater than \"604800\" on both lines with
 the \"pam_faillock.so\" module name or is missing from a line, this is a
 finding."
-  tag "fix": "Configure the operating system to lock an account for the maximum
+  desc "fix", "Configure the operating system to lock an account for the maximum
 period when three unsuccessful logon attempts in 15 minutes are made.
 
 Modify the first three lines of the auth section of the

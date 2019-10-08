@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72025" do
@@ -27,7 +27,8 @@ which the user is not a member, unintended users may be able to access them."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify all files and directories in a local interactive user
+  tag "subsystems": ['home_dirs']
+  desc "check", "Verify all files and directories in a local interactive user
 home directory are group-owned by a group the user is a member of.
 
 Check the group owner of all files and directories in a local interactive
@@ -51,7 +52,7 @@ smithj:x:521:smithj
 
 If the user is not a member of a group that group owns file(s) in a local
 interactive user’s home directory, this is a finding."
-  tag "fix": "Change the group of a local interactive user’s files and
+  desc "fix", "Change the group of a local interactive user’s files and
 directories to a group that the interactive user is a member of. To change the
 group owner of a local interactive user’s files and directories, use the
 following command:

@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-difok = attribute('difok', default: 8, description: 'The acceptable range of
+difok = input('difok', value: 8, description: 'The acceptable range of
 values for difok which specifies the maximum number of characters that must
 change when a password is changed.')
 
@@ -28,7 +28,7 @@ compromised.
   tag "documentable": false
   tag "nist": ["IA-5 (1) (b)", "Rev_4"]
   tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "The \"difok\" option sets the number of characters in a
+  desc "check", "The \"difok\" option sets the number of characters in a
 password that must not be present in the old password.
 
 Check for the value of the \"difok\" option in \"/etc/security/pwquality.conf\"
@@ -38,7 +38,7 @@ with the following command:
 difok = 8
 
 If the value of \"difok\" is set to less than \"8\", this is a finding."
-  tag "fix": "Configure the operating system to require the change of at least
+  desc "fix", "Configure the operating system to require the change of at least
 eight of the total number of characters when passwords are changed by setting
 the \"difok\" option.
 

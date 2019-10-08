@@ -4,7 +4,7 @@
 # TODO update attrib to use the same `style` as the other PAM/PASSWD attributes
 # TODO we should also have a PAM_PWQUALITY_PATH attrib I think
 
-min_len = attribute('min_len', default: 15,
+min_len = input('min_len', value: 15,
 description: 'The minimum number of characters for passwords.')
 
 control "V-71935" do
@@ -29,7 +29,7 @@ password.
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
   tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "Verify the operating system enforces a minimum 15-character
+  desc "check", "Verify the operating system enforces a minimum 15-character
 password length. The \"minlen\" option sets the minimum number of characters in
 a new password.
 
@@ -41,7 +41,7 @@ minlen = 15
 
 If the command does not return a \"minlen\" value of 15 or greater, this is a
 finding."
-  tag "fix": "Configure operating system to enforce a minimum 15-character
+  desc "fix", "Configure operating system to enforce a minimum 15-character
 password length.
 
 Add the following line to \"/etc/security/pwquality.conf\" (or modify the line

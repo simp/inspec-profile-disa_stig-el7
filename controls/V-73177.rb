@@ -17,28 +17,31 @@ used to create a denial of service to valid network resources."
   tag "cci": ["CCI-001443", "CCI-001444", "CCI-002418"]
   tag "documentable": false
   tag "nist": ["AC-18 (1)", "AC-18 (1)", "SC-8", "Rev_4"]
-  tag "networking","wifi"
-  tag "check": "Verify that there are no wireless interfaces configured on the
-system.
-
-This is N/A for systems that do not have wireless network adapters.
-
-Check for the presence of active wireless interfaces with the following command:
-
-# nmcli device
-DEVICE TYPE STATE
-eth0 ethernet connected
-wlp3s0 wifi disconnected
-lo loopback unmanaged
-
-If a wireless interface is configured and its use on the system is not
-documented with the Information System Security Officer (ISSO), this is a
-finding."
-  tag "fix": "Configure the system to disable all wireless network interfaces
-with the following command:
-
-#nmcli radio wifi off"
+  tag "subsystems": ['network', 'wifi', 'nmcli']
   tag "fix_id": "F-79623r1_fix"
+  tag "networking","wifi"
+
+  desc "check", "Verify that there are no wireless interfaces configured on the
+  system.
+
+  This is N/A for systems that do not have wireless network adapters.
+
+  Check for the presence of active wireless interfaces with the following command:
+
+  # nmcli device
+  DEVICE TYPE STATE
+  eth0 ethernet connected
+  wlp3s0 wifi disconnected
+  lo loopback unmanaged
+
+  If a wireless interface is configured and its use on the system is not
+  documented with the Information System Security Officer (ISSO), this is a
+  finding."
+
+  desc "fix", "Configure the system to disable all wireless network interfaces
+  with the following command:
+
+  # nmcli radio wifi off"
 
     describe command('nmcli device') do
       its('stdout.strip') { should_not match %r{wifi connected} }

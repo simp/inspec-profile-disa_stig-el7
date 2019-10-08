@@ -22,7 +22,8 @@ compromised.
   tag "cci": ["CCI-000193"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
-  tag "check": "Note: The value to require a number of lower-case characters to
+  tag "subsystems": ['pam', 'pwquality', 'password']
+  desc "check", "Note: The value to require a number of lower-case characters to
 be set is expressed as a negative number in \"/etc/security/pwquality.conf\".
 
 Check the value for \"lcredit\" in \"/etc/security/pwquality.conf\" with the
@@ -32,7 +33,7 @@ following command:
 lcredit = -1
 
 If the value of \"lcredit\" is not set to a negative value, this is a finding."
-  tag "fix": "Configure the operating system to lock an account for the maximum
+  desc "fix", "Configure the operating system to lock an account for the maximum
 period when three unsuccessful logon attempts in 15 minutes are made.
 
 Modify the first three lines of the \"auth\" section of the

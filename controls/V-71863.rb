@@ -3,8 +3,8 @@
 
 #TODO: Make sure this is actually an onlyif on the GUI - ssh banner, ftp banner also use /etc/issue
 
-banner_message_text_cli = attribute('banner_message_text_cli',
-default:
+banner_message_text_cli = input('banner_message_text_cli',
+value:
 "You are accessing a U.S. Government (USG) Information System (IS) that is \
 provided for USG-authorized use only. By using this IS (which includes any \
 device attached to this IS), you consent to the following conditions: -The USG \
@@ -25,8 +25,8 @@ communications and work product are private and confidential. See User \
 Agreement for details.",
 description: 'The banner message must display the designated banner before granting access.')
 
-banner_message_text_cli_limited = attribute('banner_message_text_cli_limited',
-default: "I've read & consent to terms in IS user agreem't.",
+banner_message_text_cli_limited = input('banner_message_text_cli_limited',
+value: "I've read & consent to terms in IS user agreem't.",
 description: 'The banner message must display the designated banner before granting access.')
 
 control "V-71863" do
@@ -86,7 +86,7 @@ the number of characters that can be displayed in the banner:
   tag "documentable": false
   tag "nist": ["AC-8 a", "Rev_4"]
   tag "subsystems": [ "banner", "/etc/issue" ]
-  tag "check": "Verify the operating system displays the Standard Mandatory DoD
+  desc "check", "Verify the operating system displays the Standard Mandatory DoD
 Notice and Consent Banner before granting access to the operating system via a
 command line user logon.
 
@@ -129,7 +129,7 @@ finding.
 
 If the text in the \"/etc/issue\" file does not match the Standard Mandatory
 DoD Notice and Consent Banner, this is a finding."
-  tag "fix": "Configure the operating system to display the Standard Mandatory
+  desc "fix", "Configure the operating system to display the Standard Mandatory
 DoD Notice and Consent Banner before granting access to the system via the
 command line by editing the \"/etc/issue\" file.
 

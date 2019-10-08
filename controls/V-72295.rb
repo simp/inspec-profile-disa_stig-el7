@@ -13,6 +13,7 @@ the use of these tools must be documented with the Information System Security
 Officer (ISSO) and restricted to only authorized personnel.
   "
   impact 0.5
+
   tag "gtitle": "SRG-OS-000480-GPOS-00227"
   tag "gid": "V-72295"
   tag "rid": "SV-86919r1_rule"
@@ -20,22 +21,25 @@ Officer (ISSO) and restricted to only authorized personnel.
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify network interfaces are not in promiscuous mode unless
-approved by the ISSO and documented.
-
-Check for the status with the following command:
-
-# ip link | grep -i promisc
-
-If network interfaces are found on the system in promiscuous mode and their use
-has not been approved by the ISSO and documented, this is a finding."
-  tag "fix": "Configure network interfaces to turn off promiscuous mode unless
-approved by the ISSO and documented.
-
-Set the promiscuous mode of an interface to off with the following command:
-
-#ip link set dev <devicename> multicast off promisc off"
+  tag "subsystems": ['network', 'ip_link']
   tag "fix_id": "F-78649r1_fix"
+
+  desc "check", "Verify network interfaces are not in promiscuous mode unless
+  approved by the ISSO and documented.
+
+  Check for the status with the following command:
+
+  # ip link | grep -i promisc
+
+  If network interfaces are found on the system in promiscuous mode and their use
+  has not been approved by the ISSO and documented, this is a finding."
+  
+  desc "fix", "Configure network interfaces to turn off promiscuous mode unless
+  approved by the ISSO and documented.
+
+  Set the promiscuous mode of an interface to off with the following command:
+
+  #ip link set dev <devicename> multicast off promisc off"
 
   # @todo - test against list of approved interfaces
   describe command("ip link | grep -i promisc") do

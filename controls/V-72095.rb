@@ -18,7 +18,7 @@ from insider threats and the advanced persistent threat."
   tag "nist": ["AC-6 (9)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   tag "filesystem_heavy": true
-  tag "check": "Verify the operating system audits the execution of privileged
+  desc "check", "Verify the operating system audits the execution of privileged
 functions.
 
 To find relevant setuid and setgid programs, use the following command once for
@@ -38,7 +38,7 @@ the \"setuid\"/\"setgid\" file.
 
 If all \"setuid\"/\"setgid\" files on the system do not have audit rule
 coverage, this is a finding."
-  tag "fix": "Configure the operating system to audit the execution of
+  desc "fix", "Configure the operating system to audit the execution of
 privileged functions.
 
 To find the relevant \"setuid\"/\"setgid\" programs, run the following command

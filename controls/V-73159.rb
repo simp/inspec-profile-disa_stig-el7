@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-max_retry = attribute('max_retry', default: 3,
+max_retry = input('max_retry', value: 3,
 description: 'The operating system must limit password
 failures.')
 
@@ -21,7 +21,7 @@ configuration and has the ability to limit brute-force attacks on the system."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
   tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "Verify the operating system uses \"pwquality\" to enforce the
+  desc "check", "Verify the operating system uses \"pwquality\" to enforce the
 password complexity rules.
 
 Check for the use of \"pwquality\" with the following command:
@@ -34,7 +34,7 @@ If the command does not return a line containing the value
 \"pam_pwquality.so\", this is a finding.
 
 If the value of \"retry\" is set to \"0\" or greater than \"3\", this is a finding."
-  tag "fix": "Configure the operating system to use \"pwquality\" to enforce
+  desc "fix", "Configure the operating system to use \"pwquality\" to enforce
 password complexity rules.
 
 Add the following line to \"/etc/pam.d/passwd\" (or modify the line to have the

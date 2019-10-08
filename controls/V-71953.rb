@@ -21,7 +21,7 @@ end
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["gdm"]
-  tag "check": "Verify the operating system does not allow an unattended or
+  desc "check", "Verify the operating system does not allow an unattended or
 automatic logon to the system via a graphical user interface.
 
 Note: If the system does not have GNOME installed, this requirement is Not
@@ -35,7 +35,7 @@ AutomaticLoginEnable=false
 
 If the value of \"AutomaticLoginEnable\" is not set to \"false\", this is a
 finding."
-  tag "fix": "Configure the operating system to not allow an unattended or
+  desc "fix", "Configure the operating system to not allow an unattended or
 automatic logon to the system via a graphical user interface.
 
 Note: If the system does not have GNOME installed, this requirement is Not

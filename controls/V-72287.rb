@@ -13,7 +13,8 @@ provides a vector for amplification attacks."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the system does not respond to IPv4 ICMP echoes sent to
+  tag "subsystems": ['kernel_parameter']
+  desc "check", "Verify the system does not respond to IPv4 ICMP echoes sent to
 a broadcast address.
 
 Check the value of the \"icmp_echo_ignore_broadcasts\" variable with the
@@ -24,7 +25,7 @@ net.ipv4.icmp_echo_ignore_broadcasts=1
 
 If the returned line does not have a value of \"1\", a line is not returned, or
 the retuned line is commented out, this is a finding."
-  tag "fix": "Set the system to the required kernel parameter by adding the
+  desc "fix", "Set the system to the required kernel parameter by adding the
 following line to \"/etc/sysctl.conf\" (or modify the line to have the required
 value):
 

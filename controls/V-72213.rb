@@ -22,7 +22,8 @@ configured to scan all received mail.
   tag "cci": ["CCI-001668"]
   tag "documentable": false
   tag "nist": ["SI-3 a", "Rev_4"]
-  tag "check": "Verify the system is using a virus scan program.
+  tag "subsystems": ['clamav', 'nails', 'virus_scan']
+  desc "check", "Verify the system is using a virus scan program.
 
 Check for the presence of \"McAfee VirusScan Enterprise for Linux\" with the
 following command:
@@ -48,7 +49,7 @@ Administrator if there is an antivirus package installed and active on the
 system.
 
 If no antivirus scan program is active on the system, this is a finding."
-  tag "fix": "Install an antivirus solution on the system."
+  desc "fix", "Install an antivirus solution on the system."
   tag "fix_id": "F-78567r2_fix"
 
   describe.one do

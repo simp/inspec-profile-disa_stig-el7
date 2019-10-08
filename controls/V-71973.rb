@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-file_integrity_tool = attribute('file_integrity_tool', default: 'aide',
+file_integrity_tool = input('file_integrity_tool', value: 'aide',
 description: 'Tool used to determine file integrity')
-file_integrity_interval = attribute('file_integrity_interval', default: 'weekly',
+file_integrity_interval = input('file_integrity_interval', value: 'weekly',
 description: 'Interval for running the file integrity tool.')
 
 control "V-71973" do
@@ -30,7 +30,8 @@ when there is an unauthorized modification of a configuration item.
   tag "cci": ["CCI-001744"]
   tag "documentable": false
   tag "nist": ["CM-3 (5)", "Rev_4"]
-  tag "check": "Verify the operating system routinely checks the baseline
+  tag "subsystems": ['aide']
+  desc "check", "Verify the operating system routinely checks the baseline
 configuration for unauthorized changes.
 
 Note: A file integrity tool other than Advanced Intrusion Detection Environment
@@ -57,7 +58,7 @@ installed on the system, use the following command:
 If the file integrity application does not exist, or a \"crontab\" file does
 not exist in the \"/etc/cron.daily\" or \"/etc/cron.weekly\" subdirectories,
 this is a finding."
-  tag "fix": "Configure the file integrity tool to automatically run on the
+  desc "fix", "Configure the file integrity tool to automatically run on the
 system at least weekly. The following example output is generic. It will set
 cron to run AIDE daily, but other file integrity tools may be used:
 

@@ -17,8 +17,8 @@ services may be accessible to unauthorized hosts."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ["iptables"]
-  tag "check": "If the \"firewalld\" package is not installed, ask the System
+  tag "subsystems": ["iptables", 'firewall']
+  desc "check", "If the \"firewalld\" package is not installed, ask the System
 Administrator (SA) if another firewall application (such as iptables) is
 installed. If an application firewall is not installed, this is a finding.
 
@@ -69,7 +69,7 @@ access to specific hosts or services.
 If \"firewalld\" is active and is not configured to grant access to specific
 hosts or \"tcpwrappers\" is not configured to grant or deny access to specific
 hosts, this is a finding."
-  tag "fix": "If \"firewalld\" is installed and active on the system, configure
+  desc "fix", "If \"firewalld\" is installed and active on the system, configure
 rules for allowing specific services and hosts.
 
 If \"firewalld\" is not \"active\", enable \"tcpwrappers\" by configuring
@@ -77,7 +77,7 @@ If \"firewalld\" is not \"active\", enable \"tcpwrappers\" by configuring
 specific hosts.   "
   tag "fix_id": "F-78669r2_fix"
 
-  describe "This control must be reviewd manually" do
+  describe "This control must be reviewed manually" do
     skip "You must review this control manually."
   end
 end

@@ -15,7 +15,8 @@ time synchronization, centralized authentication, and remote system logging."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Determine whether the system is using local or DNS name
+  tag "subsystems": ['dns', 'resolv']
+  desc "check", "Determine whether the system is using local or DNS name
 resolution with the following command:
 
 # grep hosts /etc/nsswitch.conf
@@ -44,7 +45,7 @@ nameserver 192.168.1.3
 
 If less than two lines are returned that are not commented out, this is a
 finding."
-  tag "fix": "Configure the operating system to use two or more name servers
+  desc "fix", "Configure the operating system to use two or more name servers
 for DNS resolution.
 
 Edit the \"/etc/resolv.conf\" file to uncomment or add the two or more

@@ -24,7 +24,7 @@ information system (e.g., module or policy filter).
   tag "documentable": false
   tag "nist": ["AC-2 (4)", "AU-12 c", "AC-2 (4)", "AC-2 (4)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system must generate audit records for all
+  desc "check", "Verify the operating system must generate audit records for all
 account creations, modifications, disabling, and termination events that affect
 \"/etc/passwd\".
 
@@ -37,7 +37,7 @@ command:
 
 If the command does not return a line, or the line is commented out, this is a
 finding."
-  tag "fix": "Configure the operating system to generate audit records for all
+  desc "fix", "Configure the operating system to generate audit records for all
 account creations, modifications, disabling, and termination events that affect
 \"/etc/passwd\".
 

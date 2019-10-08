@@ -20,7 +20,7 @@ compromise.
   tag "documentable": false
   tag "nist": ["AU-3 (1)", "MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"umount\" command occur.
 
 Check for the following system calls being audited by performing the following
@@ -32,7 +32,7 @@ series of commands to check the file system rules in
 -a always,exit -F path=/bin/umount -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-mount
 
 If the command does not return any output, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"umount\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-virtual_machine = attribute(
+virtual_machine = input(
   'virtual_machine',
-  default: false,
+  value: false,
   description: 'Is the target expected to be a virtual machine')
 
 control "V-72039" do
@@ -20,8 +20,9 @@ unauthorized operations."
   tag "cci": ["CCI-000318", "CCI-000368", "CCI-001812", "CCI-001813",
 "CCI-001814"]
   tag "documentable": false
+    tag "subsystems": ['system_device', 'device_files']
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
-  tag "check": "Verify that all system device files are correctly labeled to
+  desc "check", "Verify that all system device files are correctly labeled to
 prevent unauthorized modification.
 
 List all device files on the system that are incorrectly labeled with the
@@ -43,7 +44,7 @@ are not a finding.
 
 If there is output from either of these commands, other than already noted,
 this is a finding."
-  tag "fix": "Run the following command to determine which package owns the
+  desc "fix", "Run the following command to determine which package owns the
 device file:
 
 # rpm -qf <filename>
@@ -58,6 +59,7 @@ command:
 # sudo rpm -Uvh <packagename>"
 
   tag "fix_id": "F-78391r1_fix"
+  
   tag "dangerous": { :reason => "Uses global find command" }
 
   findings = Set[]

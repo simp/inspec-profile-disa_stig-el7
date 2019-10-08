@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 # Will need to be changed to reflect list of authorized system accounts
-admin_logins = attribute(
+admin_logins = input(
   'admin_logins',
-  default: [],
+  value: [],
   description: "System accounts that support approved system activities."
 )
 
@@ -35,7 +35,7 @@ functions that require protection from non-privileged users.
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "AC-6 (10)", "Rev_4"]
   tag "subsystems": ["selinux"]
-  tag "check": "Verify the operating system prevents non-privileged users from
+  desc "check", "Verify the operating system prevents non-privileged users from
 executing privileged functions to include disabling, circumventing, or altering
 implemented security safeguards/countermeasures.
 
@@ -58,7 +58,7 @@ All authorized non-administrative users must be mapped to the \"user_u\" role
 or the appropriate domain (user_t).
 
 If they are not mapped in this way, this is a finding."
-  tag "fix": "Configure the operating system to prevent non-privileged users
+  desc "fix", "Configure the operating system to prevent non-privileged users
 from executing privileged functions to include disabling, circumventing, or
 altering implemented security safeguards/countermeasures.
 

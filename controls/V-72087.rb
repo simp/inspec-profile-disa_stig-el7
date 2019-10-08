@@ -14,7 +14,7 @@ will minimize the possibility of losing audit records."
   tag "documentable": false
   tag "nist": ["AU-4 (1)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd']
-  tag "check": "Verify the action the operating system takes if the disk the audit
+  desc "check", "Verify the action the operating system takes if the disk the audit
 records are written to becomes full.
 
 To determine the action that takes place if the disk is full on the remote
@@ -34,7 +34,7 @@ If the value of the \"network_failure_action\" option is not \"syslog\",
 
 If the value of the \"disk_full_action\" option is not \"syslog\", \"single\",
 or \"halt\", or the line is commented out, this is a finding."
-  tag "fix": "Configure the action the operating system takes if the disk the
+  desc "fix", "Configure the action the operating system takes if the disk the
 audit records are written to becomes full.
 
 Uncomment or edit the \"disk_full_action\" option in

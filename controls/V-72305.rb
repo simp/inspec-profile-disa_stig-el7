@@ -17,7 +17,8 @@ copying, transferring, or overwriting system files."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the TFTP daemon is configured to operate in secure mode.
+  tag "subsystems": ['tftp']
+  desc "check", "Verify the TFTP daemon is configured to operate in secure mode.
 
 Check to see if a TFTP server has been installed with the following commands:
 
@@ -34,7 +35,7 @@ server_args = -s /var/lib/tftpboot
 
 If the \"server_args\" line does not have a \"-s\" option and a subdirectory is
 not assigned, this is a finding."
-  tag "fix": "Configure the TFTP daemon to operate in secure mode by adding the
+  desc "fix", "Configure the TFTP daemon to operate in secure mode by adding the
 following line to \"/etc/xinetd.d/tftp\" (or modify the line to have the
 required value):
 

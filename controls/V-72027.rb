@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72027" do
@@ -26,7 +26,8 @@ unintended users may be able to access or modify them."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify all files and directories contained in a local
+  tag "subsystems": ['home_dirs']
+  desc "check", "Verify all files and directories contained in a local
 interactive user home directory, excluding local initialization files, have a
 mode of \"0750\".
 
@@ -45,7 +46,7 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 
 If any files are found with a mode more permissive than \"0750\", this is a
 finding."
-  tag "fix": "Set the mode on files and directories in the local interactive
+  desc "fix", "Set the mode on files and directories in the local interactive
 user home directory with the following command:
 
 Note: The example will be for the user smithj, who has a home directory of

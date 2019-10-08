@@ -20,7 +20,7 @@ storage capacity.
   tag "documentable": false
   tag "nist": ["AU-4 (1)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audisp']
-  tag "check": "Verify the operating system off-loads audit records onto a different
+  desc "check", "Verify the operating system off-loads audit records onto a different
 system or media from the system being audited.
 
 To determine the remote server that the records are being sent to, use the
@@ -35,7 +35,7 @@ different system or media.
 
 If there is no evidence that the audit logs are being off-loaded to another
 system or media, this is a finding."
-  tag "fix": "Configure the operating system to off-load audit records onto a
+  desc "fix", "Configure the operating system to off-load audit records onto a
 different system or media from the system being audited.
 
 Set the remote server option in \"/etc/audisp/audisp-remote.conf\" with the IP

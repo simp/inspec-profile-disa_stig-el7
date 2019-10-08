@@ -4,16 +4,16 @@
 # TODO ENHANCE: 1. this needs to be enhanced, to loop though all the users
 # TODO 2. drop ones that have `gid` <= 999. I think If I read this right./s
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72011" do
@@ -29,7 +29,8 @@ there is no place for the storage and control of files they should own."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify local interactive users on the system have a home
+  tag "subsystems": ['home_dirs']
+  desc "check", "Verify local interactive users on the system have a home
 directory assigned.
 
 Check for missing local interactive user home directories with the following
@@ -50,7 +51,7 @@ command:
 
 If any interactive users do not have a home directory assigned, this is a
 finding."
-  tag "fix": "Assign home directories to all local interactive users that
+  desc "fix", "Assign home directories to all local interactive users that
 currently do not have a home directory assigned."
   tag "fix_id": "F-78363r1_fix"
 

@@ -18,7 +18,8 @@ capability, it is critical the user re-authenticate.
   tag "cci": ["CCI-002038"]
   tag "documentable": false
   tag "nist": ["IA-11", "Rev_4"]
-  tag "check": "If passwords are not being used for authentication, this is Not
+  tag "subsystems": ['sudo']
+  desc "check", "If passwords are not being used for authentication, this is Not
 Applicable.
 
 Verify the operating system requires users to supply a password for privilege
@@ -30,7 +31,7 @@ with the following command:
 # grep -i nopasswd /etc/sudoers /etc/sudoers.d/*
 
 If any uncommented line is found with a \"NOPASSWD\" tag, this is a finding."
-  tag "fix": "Configure the operating system to require users to supply a
+  desc "fix", "Configure the operating system to require users to supply a
 password for privilege escalation.
 
 Check the configuration of the \"/etc/sudoers\" and \"/etc/sudoers.d/*\" files

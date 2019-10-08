@@ -14,7 +14,8 @@ unknown devices, thereby facilitating malicious activity."
   tag "cci": ["CCI-000366", "CCI-000778", "CCI-001958"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "IA-3", "IA-3", "Rev_4"]
-  tag "check": "Verify the operating system disables the ability to automount
+  tag "subsystems": ['file_system', 'nfs', 'autofs']
+  desc "check", "Verify the operating system disables the ability to automount
 devices.
 
 Check to see if automounter service is active with the following command:
@@ -27,7 +28,7 @@ autofs.service - Automounts filesystems on demand
 If the \"autofs\" status is set to \"active\" and is not documented with the
 Information System Security Officer (ISSO) as an operational requirement, this
 is a finding."
-  tag "fix": "Configure the operating system to disable the ability to
+  desc "fix", "Configure the operating system to disable the ability to
 automount devices.
 
 Turn off the automount service with the following command:

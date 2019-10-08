@@ -15,7 +15,8 @@ network topology."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the system does not allow interfaces to perform IPv4
+  tag "subsystems": ['kernel_parameter']
+  desc "check", "Verify the system does not allow interfaces to perform IPv4
 ICMP redirects by default.
 
 Check the value of the \"default send_redirects\" variables with the following
@@ -27,7 +28,7 @@ net.ipv4.conf.default.send_redirects = 0
 
 If the returned line does not have a value of \"0\", or a line is not returned,
 this is a finding."
-  tag "fix": "Configure the system to not allow interfaces to perform IPv4 ICMP
+  desc "fix", "Configure the system to not allow interfaces to perform IPv4 ICMP
 redirects by default.
 
 Set the system to the required kernel parameter by adding the following line to

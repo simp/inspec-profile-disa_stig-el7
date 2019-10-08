@@ -29,13 +29,14 @@ password could be compromised.
   tag "cci": ["CCI-000381"]
   tag "documentable": false
   tag "nist": ["CM-7 a", "Rev_4"]
-  tag "check": "Check to see if the rsh-server package is installed with the
+  tag "subsystems": ['packages']
+  desc "check", "Check to see if the rsh-server package is installed with the
 following command:
 
 # yum list installed rsh-server
 
 If the rsh-server package is installed, this is a finding."
-  tag "fix": "Configure the operating system to disable non-essential
+  desc "fix", "Configure the operating system to disable non-essential
 capabilities by removing the rsh-server package from the system with the
 following command:
 

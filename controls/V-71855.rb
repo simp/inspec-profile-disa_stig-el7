@@ -1,14 +1,14 @@
 # encoding: utf-8
 #
-disable_slow_controls = attribute(
+disable_slow_controls = input(
   'disable_slow_controls',
-  default: false,
+  value: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.')
 
-rpm_verify_integrity_except = attribute(
+rpm_verify_integrity_except = input(
   'rpm_verify_integrity_except',
-  default: [],
+  value: [],
   description: 'This is a list of system files that should be allowed to change
                 from an rpm verify point of view.')
 
@@ -33,7 +33,7 @@ maintaining the confidentiality of the key used to generate the hash.
   tag "documentable": false
   tag "nist": ["SA-7", "Rev_4"]
   tag "subsystems": ['rpm', 'package']
-  tag "check": "Verify the cryptographic hash of system files and commands
+  desc "check", "Verify the cryptographic hash of system files and commands
 match the vendor values.
 
 Check the cryptographic hash of system files and commands with the following
@@ -46,7 +46,7 @@ through the system audit log.
 # rpm -Va | grep '^..5'
 
 If there is any output from the command for system binaries, this is a finding."
-  tag "fix": "Run the following command to determine which package owns the
+  desc "fix", "Run the following command to determine which package owns the
 file:
 
 # rpm -qf <filename>

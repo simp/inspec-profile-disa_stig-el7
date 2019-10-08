@@ -18,14 +18,15 @@ compromised."
   tag "cci": ["CCI-000199"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (d)", "Rev_4"]
-  tag "check": "Check whether the maximum time period for existing passwords is
+  tag "subsystems": ['password', '/etc/shadow']
+  desc "check", "Check whether the maximum time period for existing passwords is
 restricted to 60 days.
 
 # awk -F: '$5 > 60 {print $1}' /etc/shadow
 
 If any results are returned that are not associated with a system account, this
 is a finding."
-  tag "fix": "Configure non-compliant accounts to enforce a 60-day maximum
+  desc "fix", "Configure non-compliant accounts to enforce a 60-day maximum
 password lifetime restriction.
 
 # chage -M 60 [user]"

@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-randomize_va_space = attribute('randomize_va_space', default: 2,
+randomize_va_space = input('randomize_va_space', value: 2,
 description: 'The value for the randomize virtual address space
 kernel parameter.')
 
@@ -21,7 +21,8 @@ techniques."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the operating system implements virtual address space
+  tag "subsystems": ['ASLR', 'kernel_parameter']
+  desc "check", "Verify the operating system implements virtual address space
 randomization.
 
 Check that the operating system implements virtual address space randomization
@@ -33,7 +34,7 @@ kernel.randomize_va_space=2
 
 If \"kernel.randomize_va_space\" does not have a value of \"2\", this is a
 finding."
-  tag "fix": "Configure the operating system implement virtual address space
+  desc "fix", "Configure the operating system implement virtual address space
 randomization.
 
 Set the system to the required kernel parameter by adding the following line to

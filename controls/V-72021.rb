@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72021" do
@@ -28,7 +28,8 @@ may not be able to access files that they legitimately should."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the assigned home directory of all local interactive
+  tag "subsystems": ['home_dirs']
+  desc "check", "Verify the assigned home directory of all local interactive
 users is group-owned by that user’s primary GID.
 
 Check the home directory assignment for all local interactive users on the
@@ -47,7 +48,7 @@ users:x:250:smithj,jonesj,jacksons
 If the user home directory referenced in \"/etc/passwd\" is not group-owned by
 that user’s primary GID, this is a finding.
 "
-  tag "fix": "Change the group owner of a local interactive user’s home
+  desc "fix", "Change the group owner of a local interactive user’s home
 directory to the group found in \"/etc/passwd\". To change the group owner of a
 local interactive user’s home directory, use the following command:
 

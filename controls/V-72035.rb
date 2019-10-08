@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72035" do
@@ -34,7 +34,8 @@ Officer (ISSO)."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify that all local interactive user initialization files'
+  tag "subsystems": ['init_files']
+  desc "check", "Verify that all local interactive user initialization files'
 executable search path statements do not contain statements that will reference
 a working directory other than the users’ home directory.
 
@@ -51,7 +52,7 @@ Note: The example will be for the smithj user, which has a home directory of
 If any local interactive user initialization files have executable search path
 statements that include directories outside of their home directory, this is a
 finding."
-  tag "fix": "Edit the local interactive user initialization files to change
+  desc "fix", "Edit the local interactive user initialization files to change
 any PATH variable statements that reference directories other than their home
 directory.
 

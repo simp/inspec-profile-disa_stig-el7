@@ -15,14 +15,15 @@ or for the use of two-factor authentication."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify there are no \".shosts\" files on the system.
+  tag "subsystems": ['ssh']
+  desc "check", "Verify there are no \".shosts\" files on the system.
 
 Check the system for the existence of these files with the following command:
 
 # find / -name '*.shosts'
 
 If any \".shosts\" files are found on the system, this is a finding."
-  tag "fix": "Remove any found \".shosts\" files from the system.
+  desc "fix", "Remove any found \".shosts\" files from the system.
 
 # rm /[path]/[to]/[file]/.shosts"
   tag "fix_id": "F-78631r1_fix"

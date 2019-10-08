@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-client_alive_interval = attribute('client_alive_interval', default: 600,
+client_alive_interval = input('client_alive_interval', value: 600,
 description: "Value expected for ClientAliveInterval in sshd_config")
 
 control "V-72237" do
@@ -33,7 +33,7 @@ and releases the resources associated with that session.
   tag "documentable": false
   tag "nist": ["SC-10", "AC-12", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the operating system automatically terminates a user
+  desc "check", "Verify the operating system automatically terminates a user
 session after inactivity time-outs have expired.
 
 Check for the value of the \"ClientAliveInterval\" keyword with the following
@@ -49,7 +49,7 @@ If \"ClientAliveInterval\" is not configured, commented out, or has a value of
 If \"ClientAliveInterval\" has a value that is greater than \"600\" and is not
 documented with the Information System Security Officer (ISSO) as an
 operational requirement, this is a finding."
-  tag "fix": "Configure the operating system to automatically terminate a user
+  desc "fix", "Configure the operating system to automatically terminate a user
 session after inactivity time-outs have expired or at shutdown.
 
 Add the following line (or modify the line to have the required value) to the

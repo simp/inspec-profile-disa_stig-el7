@@ -18,7 +18,8 @@ capability, it is critical the user reauthenticate.
   tag "cci": ["CCI-002038"]
   tag "documentable": false
   tag "nist": ["IA-11", "Rev_4"]
-  tag "check": "Verify the operating system requires users to reauthenticate
+  tag "subsystems": ['sudo']
+  desc "check", "Verify the operating system requires users to reauthenticate
 for privilege escalation.
 
 Check the configuration of the \"/etc/sudoers\" and \"/etc/sudoers.d/*\" files
@@ -27,7 +28,7 @@ with the following command:
 # grep -i authenticate /etc/sudoers /etc/sudoers.d/*
 
 If any line is found with a \"!authenticate\" tag, this is a finding."
-  tag "fix": "Configure the operating system to require users to reauthenticate
+  desc "fix", "Configure the operating system to require users to reauthenticate
 for privilege escalation.
 
 Check the configuration of the \"/etc/sudoers\" and \"/etc/sudoers.d/*\" files

@@ -19,7 +19,8 @@ compromised."
   tag "cci": ["CCI-000199"]
   tag "documentable": false
   tag "nist": ["IA-5 (1) (d)", "Rev_4"]
-  tag "check": "Verify the operating system enforces a 60-day maximum password
+  tag "subsystems": ['login_defs', 'password']
+  desc "check", "Verify the operating system enforces a 60-day maximum password
 lifetime restriction for new user accounts.
 
 Check for the value of \"PASS_MAX_DAYS\" in \"/etc/login.defs\" with the
@@ -30,7 +31,7 @@ PASS_MAX_DAYS     60
 
 If the \"PASS_MAX_DAYS\" parameter value is not 60 or less, or is commented
 out, this is a finding."
-  tag "fix": "Configure the operating system to enforce a 60-day maximum
+  desc "fix", "Configure the operating system to enforce a 60-day maximum
 password lifetime restriction.
 
 Add the following line in \"/etc/login.defs\" (or modify the line to have the

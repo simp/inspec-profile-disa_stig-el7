@@ -1,8 +1,8 @@
 # encoding: utf-8
 #
 
-banner_message_text_ral = attribute('banner_message_text_ral',
-default:
+banner_message_text_ral = input('banner_message_text_ral',
+value:
 "You are accessing a U.S. Government (USG) Information System (IS) that is \
 provided for USG-authorized use only. By using this IS (which includes any \
 device attached to this IS), you consent to the following conditions: -The USG \
@@ -23,8 +23,8 @@ communications and work product are private and confidential. See User \
 Agreement for details.",
 description: 'The banner message must display the designated banner before granting access.')
 
-banner_message_text_ral_limited = attribute('banner_message_text_ral_limited',
-default: "I've read & consent to terms in IS user agreem't.",
+banner_message_text_ral_limited = input('banner_message_text_ral_limited',
+value: "I've read & consent to terms in IS user agreem't.",
 description: 'The banner message must display the designated banner before granting access.')
 
 control "V-72225" do
@@ -83,7 +83,7 @@ Agreement for details.\"
   tag "nist": ["AC-8 a", "AC-8 b", "AC-8 c 1", "AC-8 c 2", "AC-8 c 2", "AC-8 c
 2", "AC-8 c 3", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify any publicly accessible connection to the operating
+  desc "check", "Verify any publicly accessible connection to the operating
 system displays the Standard Mandatory DoD Notice and Consent Banner before
 granting access to the system.
 
@@ -131,7 +131,7 @@ match the Standard Mandatory DoD Notice and Consent Banner, this is a finding.
 
 If the text in the file does not match the Standard Mandatory DoD Notice and
 Consent Banner, this is a finding."
-  tag "fix": "Configure the operating system to display the Standard Mandatory
+  desc "fix", "Configure the operating system to display the Standard Mandatory
 DoD Notice and Consent Banner before granting access to the system via the ssh.
 
 Edit the \"/etc/ssh/sshd_config\" file to uncomment the banner keyword and

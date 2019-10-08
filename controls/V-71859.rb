@@ -1,13 +1,13 @@
 # encoding: utf-8
 #
 
-banner_message_enabled = attribute('banner_message_enabled', default: "true",
+banner_message_enabled = input('banner_message_enabled', value: "true",
   description: 'The banner message must display the Standard Mandatory DoD notice
   before granting access.')
 
-dconf_user = attribute(
+dconf_user = input(
   'dconf_user',
-  default: '',
+  value: '',
   description: "User to use to check dconf settings"
 )
 
@@ -74,7 +74,7 @@ the number of characters that can be displayed in the banner:
   tag "documentable": false
   tag "nist": ["AC-8 a", "Rev_4"]
   tag "subsystem": [ "gdm" ]
-  tag "check": "Verify the operating system displays the Standard Mandatory DoD
+  desc "check", "Verify the operating system displays the Standard Mandatory DoD
 Notice and Consent Banner before granting access to the operating system via a
 graphical user logon.
 
@@ -89,7 +89,7 @@ banner-message-enable=true
 
 If \"banner-message-enable\" is set to \"false\" or is missing, this is a
 finding."
-  tag "fix": "Configure the operating system to display the Standard Mandatory
+  desc "fix", "Configure the operating system to display the Standard Mandatory
 DoD Notice and Consent Banner before granting access to the system.
 
 Note: If the system does not have GNOME installed, this requirement is Not

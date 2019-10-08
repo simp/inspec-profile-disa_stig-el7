@@ -25,7 +25,7 @@ functionality.
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "SI-6 a", "Rev_4"]
   tag "subsystems": ['selinux']
-  tag "check": "Verify the operating system verifies correct operation of all
+  desc "check", "Verify the operating system verifies correct operation of all
 security functions.
 
 Check if \"SELinux\" is active and is enforcing the targeted policy with the
@@ -55,7 +55,7 @@ Max kernel policy version:      28
 If the \"Policy from config file\" is not set to \"targeted\", or the \"Loaded
 policy name\" is not set to \"targeted\", this is a finding.
 "
-  tag "fix": "Configure the operating system to verify correct operation of all
+  desc "fix", "Configure the operating system to verify correct operation of all
 security functions.
 
 Set the \"SELinuxtype\" to the \"targeted\" policy by modifying the

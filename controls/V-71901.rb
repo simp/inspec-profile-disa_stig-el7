@@ -1,8 +1,8 @@
 # encoding: utf-8
 #
 
-lock_delay = attribute('lock_delay',
-default: 5,
+lock_delay = input('lock_delay',
+value: 5,
 description: 'The scereensaver lock-delay must be less than or equal to the
 specified value.')
 
@@ -33,7 +33,7 @@ determined and/or controlled.
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
   tag "subsystems": ["gnome3", "screensaver", "lock", "session"]
-  tag "check": "Verify the operating system initiates a session lock a for
+  desc "check", "Verify the operating system initiates a session lock a for
 graphical user interfaces when the screensaver is activated.
 
 Note: If the system does not have GNOME installed, this requirement is Not
@@ -48,7 +48,7 @@ lock-delay=uint32 5
 
 If the \"lock-delay\" setting is missing, or is not set to \"5\" or less, this is
 a finding."
-  tag "fix": "Configure the operating system to initiate a session lock for
+  desc "fix", "Configure the operating system to initiate a session lock for
 graphical user interfaces when a screensaver is activated.
 
 Create a database to contain the system-wide screensaver settings (if it does

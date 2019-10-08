@@ -16,7 +16,8 @@ without a valid group owner."
   tag "cci": ["CCI-002165"]
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "Rev_4"]
-  tag "check": "Verify all files and directories on the system have a valid
+  tag "subsystems": ['file_system', 'groups' ,'files']
+  desc "check", "Verify all files and directories on the system have a valid
 group.
 
 Check the owner of all files and directories with the following command:
@@ -27,7 +28,7 @@ used as an example.
 # find / -fstype xfs -nogroup
 
 If any files on the system do not have an assigned group, this is a finding."
-  tag "fix": "Either remove all files and directories from the system that do
+  desc "fix", "Either remove all files and directories from the system that do
 not have a valid group, or assign a valid group to all files and directories on
 the system with the \"chgrp\" command:
 

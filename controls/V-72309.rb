@@ -18,7 +18,8 @@ across the network."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify the system is not performing packet forwarding, unless
+  tag "subsystems": ['kernel_parameter']
+  desc "check", "Verify the system is not performing packet forwarding, unless
 the system is a router.
 
 Check to see if IP forwarding is enabled using the following command:
@@ -28,7 +29,7 @@ net.ipv4.ip_forward=0
 
 If IP forwarding value is \"1\" and the system is hosting any application,
 database, or web servers, this is a finding."
-  tag "fix": "Set the system to the required kernel parameter by adding the
+  desc "fix", "Set the system to the required kernel parameter by adding the
 following line to \"/etc/sysctl.conf\" (or modify the line to have the required
 value):
 

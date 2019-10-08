@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-log_pkg_path = attribute(
+log_pkg_path = input(
   'log_pkg_path',
-  default: '/etc/rsyslog.conf',
+  value: '/etc/rsyslog.conf',
   description: "The path to the logging package"
 )
 
@@ -20,7 +20,8 @@ the cron facility by unauthorized and malicious users."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify that \"rsyslog\" is configured to log cron events.
+  tag "subsystems": ['cron', 'rsyslog']
+  desc "check", "Verify that \"rsyslog\" is configured to log cron events.
 
 Check the configuration of \"/etc/rsyslog.conf\" for the cron facility with the
 following command:
@@ -45,7 +46,7 @@ this is a finding.
 
 If the entry is in the \"/etc/rsyslog.conf\" file but is after the entry
 \"*.*\", this is a finding."
-  tag "fix": "Configure \"rsyslog\" to log all cron messages by adding or
+  desc "fix", "Configure \"rsyslog\" to log all cron messages by adding or
 updating the following line to \"/etc/rsyslog.conf\":
 
 cron.* /var/log/cron.log

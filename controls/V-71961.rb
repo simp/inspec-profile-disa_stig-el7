@@ -1,20 +1,19 @@
 # encoding: utf-8
 #
-
-grub_superuser = attribute(
-  'grub_superuser',
-  description: 'superuser for grub boot',
-  default: 'root'
+grub_superusers = input(
+  'grub_superusers',
+  description: 'superusers for grub boot ( array )',
+  value: ['root']
 )
-grub_user_boot_files = attribute(
+grub_user_boot_files = input(
  'grub_user_boot_files',
  description: 'grub boot config files',
- default: ['/boot/grub2/user.cfg']
+ value: ['/boot/grub2/user.cfg']
 )
-grub_main_cfg = attribute(
+grub_main_cfg = input(
  'grub_main_cfg',
  description: 'main grub boot config file',
- default: '/boot/grub2/grub.cfg'
+ value: '/boot/grub2/grub.cfg'
 )
 
 control "V-71961" do
@@ -33,7 +32,8 @@ to boot into single-user mode or make modifications to the boot menu."
   tag "cci": ["CCI-000213"]
   tag "documentable": false
   tag "nist": ["AC-3", "Rev_4"]
-  tag "check": "For systems that use UEFI, this is Not Applicable.
+  tag "subsystems": ['grub']
+  desc "check", "For systems that use UEFI, this is Not Applicable.
 
 Check to see if an encrypted root password is set. On systems that use a BIOS,
 use the following command:
@@ -46,7 +46,7 @@ If the root password entry does not begin with \"password_pbkdf2\", this is a
 finding.
 
 If the \"superusers-account\" is not set to \"root\", this is a finding."
-  tag "fix": "Configure the system to encrypt the boot password for root.
+  desc "fix", "Configure the system to encrypt the boot password for root.
 
 Generate an encrypted grub2 password for root with the following command:
 

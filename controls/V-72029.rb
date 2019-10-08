@@ -1,16 +1,16 @@
 # encoding: utf-8
 #
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
-  default: []
+  value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
-  default: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
+  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
 )
 
 control "V-72029" do
@@ -27,7 +27,8 @@ accounts upon logon."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify all local initialization files for interactive users are
+  tag "subsystems": ['init_files']
+  desc "check", "Verify all local initialization files for interactive users are
 owned by the home directory user or root.
 
 Check the owner on all local initialization files with the following command:
@@ -43,7 +44,7 @@ Note: The example will be for the \"smithj\" user, who has a home directory of
 If any file that sets a local interactive user’s environment variables to
 override the system is not owned by the home directory owner or root, this is a
 finding."
-  tag "fix": "Set the owner of the local initialization files for interactive
+  desc "fix", "Set the owner of the local initialization files for interactive
 users to either the directory owner or root with the following command:
 
 Note: The example will be for the smithj user, who has a home directory of

@@ -17,7 +17,8 @@ for unprivileged users to attain unauthorized administrative access."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Verify file systems that are being NFS exported are mounted
+  tag "subsystem": ['nfs', 'file_system']
+  desc "check", "Verify file systems that are being NFS exported are mounted
 with the \"nosuid\" option.
 
 Find the file system(s) that contain the directories being exported with the
@@ -30,7 +31,7 @@ rw,nosuid                                                    0 0
 
 If a file system found in \"/etc/fstab\" refers to NFS and it does not have the
 \"nosuid\" option set, this is a finding."
-  tag "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
+  desc "fix", "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
 systems that are being exported via NFS."
   tag "fix_id": "F-78397r1_fix"
 

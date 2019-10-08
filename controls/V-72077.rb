@@ -27,7 +27,8 @@ mission, but which cannot be disabled.
   tag "cci": ["CCI-000381"]
   tag "documentable": false
   tag "nist": ["CM-7 a", "Rev_4"]
-  tag "check": "Verify the operating system is configured to disable
+  tag "subsystems": ['packages']
+  desc "check", "Verify the operating system is configured to disable
 non-essential capabilities. The most secure way of ensuring a non-essential
 capability is disabled is to not have the capability installed.
 
@@ -44,7 +45,7 @@ command:
 # yum list installed | grep telnet-server
 
 If the telnet-server package is installed, this is a finding."
-  tag "fix": "Configure the operating system to disable non-essential
+  desc "fix", "Configure the operating system to disable non-essential
 capabilities by removing the telnet-server package from the system with the
 following command:
 

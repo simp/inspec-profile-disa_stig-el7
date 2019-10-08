@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
 
-file_integrity_tool = attribute(
+file_integrity_tool = input(
   'file_integrity_tool',
-  default: 'aide',
+  value: 'aide',
   description: "Tool used to determine file integrity"
 )
 
@@ -31,7 +31,8 @@ when there is an unauthorized modification of a configuration item.
   tag "cci": ["CCI-001744"]
   tag "documentable": false
   tag "nist": ["CM-3 (5)", "Rev_4"]
-  tag "check": "Verify the operating system notifies designated personnel if
+  tag "subsystems": ['aide']
+  desc "check", "Verify the operating system notifies designated personnel if
 baseline configurations are changed in an unauthorized manner.
 
 Note: A file integrity tool other than Advanced Intrusion Detection Environment
@@ -65,7 +66,7 @@ integrity run as in the following example:
 
 If the file integrity application does not notify designated personnel of
 changes, this is a finding."
-  tag "fix": "Configure the operating system to notify designated personnel if
+  desc "fix", "Configure the operating system to notify designated personnel if
 baseline configurations are changed in an unauthorized manner. The AIDE tool
 can be configured to email designated personnel through the use of the cron
 system.

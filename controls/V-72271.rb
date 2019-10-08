@@ -26,7 +26,8 @@ susceptibility to some DoS attacks.
   tag "cci": ["CCI-002385"]
   tag "documentable": false
   tag "nist": ["SC-5", "Rev_4"]
-  tag "check": "Verify the operating system protects against or limits the
+  tag "subsystems": ['firewalld', 'iptables']
+  desc "check", "Verify the operating system protects against or limits the
 effects of DoS attacks by ensuring the operating system is implementing
 rate-limiting measures on impacted network interfaces.
 
@@ -39,7 +40,7 @@ rule ipv4 filter IN_public_allow 0 -p tcp -m limit --limit 25/minute --limit-bur
 
 If a rule with both the limit and limit-burst arguments parameters does not
 exist, this is a finding."
-  tag "fix": "Create a direct firewall rule to protect against DoS attacks with
+  desc "fix", "Create a direct firewall rule to protect against DoS attacks with
 the following command:
 
 Note: The command is to add a rule to the public zone.

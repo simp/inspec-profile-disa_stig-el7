@@ -13,7 +13,7 @@ commands remotely."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify remote X connections for interactive users are encrypted.
+  desc "check", "Verify remote X connections for interactive users are encrypted.
 
 Check that remote X connections are encrypted with the following command:
 
@@ -23,7 +23,7 @@ X11Forwarding yes
 
 If the \"X11Forwarding\" keyword is set to \"no\", is missing, or is commented
 out, this is a finding."
-  tag "fix": "Configure SSH to encrypt connections for interactive users.
+  desc "fix", "Configure SSH to encrypt connections for interactive users.
 
 Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for the
 \"X11Forwarding\" keyword and set its value to \"yes\" (this file may be named

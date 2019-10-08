@@ -21,7 +21,7 @@ information system (e.g., module or policy filter).
   tag "documentable": false
   tag "nist": ["AU-12 c", "MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"chcon\" command occur.
 
 Check the file system rule in \"/etc/audit/audit.rules\" with the following
@@ -32,7 +32,7 @@ command:
 -a always,exit -F path=/usr/bin/chcon -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-priv_change
 
 If the command does not return any output, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"chcon\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

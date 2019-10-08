@@ -13,15 +13,16 @@ system from failures resulting from a file system becoming full or failing."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
-  tag "check": "Determine if the \"/var/log/audit\" path is a separate file
-system.
-
-# grep /var/log/audit /etc/fstab
-
-If no result is returned, \"/var/log/audit\" is not on a separate file system,
-and this is a finding."
-  tag "fix": "Migrate the system audit data path onto a separate file system."
+  tag "subsystems": ['file_system']
   tag "fix_id": "F-78415r1_fix"
+  desc "check", "Determine if the \"/var/log/audit\" path is a separate file
+  system.
+
+  # grep /var/log/audit /etc/fstab
+
+  If no result is returned, \"/var/log/audit\" is not on a separate file system,
+  and this is a finding."
+  desc "fix", "Migrate the system audit data path onto a separate file system."
 
   describe mount('/var/log/audit') do
     it {should be_mounted}

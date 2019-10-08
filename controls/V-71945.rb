@@ -16,7 +16,7 @@ brute-forcing, is reduced. Limits are imposed by locking the account."
   tag "documentable": false
   tag "nist": ["AC-7 b", "Rev_4"]
   tag "subsystems": ['pam']
-  tag "check": "Verify the operating system automatically locks the root
+  desc "check", "Verify the operating system automatically locks the root
 account until it is released by an administrator when three unsuccessful logon
 attempts in 15 minutes are made.
 
@@ -35,7 +35,7 @@ account required pam_faillock.so
 
 If the \"even_deny_root\" setting is not defined on both lines with the
 \"pam_faillock.so\" module name, this is a finding."
-  tag "fix": "Configure the operating system to automatically lock the root
+  desc "fix", "Configure the operating system to automatically lock the root
 account until the locked account is released by an administrator when three
 unsuccessful logon attempts in 15 minutes are made.
 

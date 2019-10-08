@@ -15,7 +15,7 @@ should never be used in operational environments."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['pam', 'password']
-  tag "check": "To verify that null passwords cannot be used, run the following
+  desc "check", "To verify that null passwords cannot be used, run the following
 command:
 
 # grep nullok /etc/pam.d/system-auth-ac
@@ -24,7 +24,7 @@ If this produces any output, it may be possible to log on with accounts with
 empty passwords.
 
 If null passwords can be used, this is a finding."
-  tag "fix": "If an account is configured for password authentication but does
+  desc "fix", "If an account is configured for password authentication but does
 not have an assigned password, it may be possible to log on to the account
 without authenticating.
 
