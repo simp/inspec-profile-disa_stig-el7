@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-lock_delay = attribute('lock_delay',
+lock_delay = input('lock_delay',
 value: 5,
 description: 'The scereensaver lock-delay must be less than or equal to the
 specified value.')

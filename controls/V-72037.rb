@@ -1,19 +1,19 @@
 # encoding: utf-8
 
-disable_slow_controls = attribute(
+disable_slow_controls = input(
   'disable_slow_controls',
   value: false,
   description: 'If enabled, this attribute disables this control and other
                 controls that consistently take a long time to complete.'
 )
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
   value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
   value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]

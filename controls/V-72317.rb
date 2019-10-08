@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-approved_tunnels = attribute(
+approved_tunnels = input(
   'approved_tunnels',
   value: [
     # Example

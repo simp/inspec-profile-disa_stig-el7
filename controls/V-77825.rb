@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-randomize_va_space = attribute('randomize_va_space', value: 2,
+randomize_va_space = input('randomize_va_space', value: 2,
 description: 'The value for the randomize virtual address space
 kernel parameter.')
 

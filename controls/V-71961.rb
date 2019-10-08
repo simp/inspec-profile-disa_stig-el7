@@ -1,17 +1,17 @@
 # encoding: utf-8
 #
 
-grub_superusers = attribute(
+grub_superusers = input(
   'grub_superusers',
   description: 'superusers for grub boot ( array )',
   value: ['root']
 )
-grub_user_boot_files = attribute(
+grub_user_boot_files = input(
  'grub_user_boot_files',
  description: 'grub boot config files',
  value: ['/boot/grub2/user.cfg']
 )
-grub_main_cfg = attribute(
+grub_main_cfg = input(
  'grub_main_cfg',
  description: 'main grub boot config file',
  value: '/boot/grub2/grub.cfg'

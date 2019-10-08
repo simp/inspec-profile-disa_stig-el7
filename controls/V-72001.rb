@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-known_system_accounts = attribute(
+known_system_accounts = input(
   'known_system_accounts',
   value: [
         'root',
@@ -34,7 +34,7 @@ known_system_accounts = attribute(
   description: 'System accounts that support approved system activities. (Array)'
 )
 
-disallowed_accounts = attribute(
+disallowed_accounts = input(
   'disallowed_accounts',
   description: 'Accounts that are not allowed on the system (Array)',
   value: [
@@ -44,7 +44,7 @@ disallowed_accounts = attribute(
   ]
 )
 
-user_accounts = attribute(
+user_accounts = input(
   'user_accounts',
   description: 'accounts of known managed users (Array)',
   value:[]

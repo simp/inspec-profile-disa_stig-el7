@@ -20,6 +20,8 @@ The lack of prompt attention to patching could result in a system compromise."
   tag "stig_id": "RHEL-07-020260"
   tag "cci": ["CCI-000366"]
   tag "documentable": false
+  tag "fix_id": "F-78351r1_fix"
+  tag "subsystems": ['packages']
   tag "nist": ["CM-6 b", "Rev_4"]
   desc "check", "Verify the operating system security patches and updates are
 installed and up to date. Updates are required to be applied with a frequency
@@ -54,7 +56,7 @@ If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding."
   desc "fix", "Install the operating system patches or updated packages
 available from Red Hat within 30 days or sooner as local policy dictates."
-  tag "fix_id": "F-78351r1_fix"
+
   describe.one do
     describe 'List of out-of-date packages' do
       subject { linux_update.updates }

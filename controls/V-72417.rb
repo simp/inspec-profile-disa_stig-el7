@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-mfa_pkg_list = attribute(
+mfa_pkg_list = input(
     'mfa_pkg_list',
     description: 'The list of packages needed for MFA on RHEL',
     value: [
@@ -10,7 +10,7 @@ mfa_pkg_list = attribute(
       'authconfig-gtk',
     ])
 
-smart_card_status = attribute(
+smart_card_status = input(
   'smart_card_status',
   value: 'enabled', # values(enabled|disabled)
   description: 'Smart Card Status'

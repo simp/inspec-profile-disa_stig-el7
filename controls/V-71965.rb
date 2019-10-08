@@ -8,7 +8,7 @@
 # users may be unable to log into the system.
 #
 
-smart_card_status = attribute(
+smart_card_status = input(
   'smart_card_status',
   value: 'enabled', # values(enabled|disabled)
   description: 'Smart Card Status'

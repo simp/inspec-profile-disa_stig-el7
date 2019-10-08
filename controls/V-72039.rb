@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 
-virtual_machine = attribute(
+virtual_machine = input(
   'virtual_machine',
   value: false,
   description: 'Is the target expected to be a virtual machine')
@@ -20,6 +20,7 @@ unauthorized operations."
   tag "cci": ["CCI-000318", "CCI-000368", "CCI-001812", "CCI-001813",
 "CCI-001814"]
   tag "documentable": false
+    tag "subsystems": ['system_device', 'device_files']
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
   desc "check", "Verify that all system device files are correctly labeled to
 prevent unauthorized modification.
@@ -58,6 +59,7 @@ command:
 # sudo rpm -Uvh <packagename>"
 
   tag "fix_id": "F-78391r1_fix"
+  
   tag "dangerous": { :reason => "Uses global find command" }
 
   findings = Set[]

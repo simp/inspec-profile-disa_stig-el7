@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 # Will need to be changed to reflect list of authorized system accounts
-admin_logins = attribute(
+admin_logins = input(
   'admin_logins',
   value: [],
   description: "System accounts that support approved system activities."

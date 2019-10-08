@@ -3,7 +3,7 @@
 
 # TODO this needs to be reworked to allow `X11_NEEDED` attribute
 
-x11_enabled = attribute(
+x11_enabled = input(
   'x11_enabled',
   description: 'Set to `true` if a GUI or X11 is needed on the system',
   value: false

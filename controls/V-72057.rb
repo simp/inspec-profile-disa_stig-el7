@@ -14,6 +14,7 @@ space on the target file system partition."
   tag "cci": ["CCI-000366"]
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
+  tag "subsystems": ['kdump', 'kernel']
   desc "check", "Verify that kernel core dumps are disabled unless needed.
 
 Check the status of the \"kdump\" service with the following command:

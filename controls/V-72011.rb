@@ -4,13 +4,13 @@
 # TODO ENHANCE: 1. this needs to be enhanced, to loop though all the users
 # TODO 2. drop ones that have `gid` <= 999. I think If I read this right./s
 
-exempt_home_users = attribute(
+exempt_home_users = input(
   'exempt_home_users',
   description: 'These are `home dir` exempt interactive accounts',
   value: []
 )
 
-non_interactive_shells = attribute(
+non_interactive_shells = input(
   'non_interactive_shells',
   description: 'These shells do not allow a user to login',
   value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
