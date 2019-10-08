@@ -18,7 +18,7 @@ end
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['postfix']
-  tag "check": "Verify the system is configured to prevent unrestricted mail
+  desc "check", "Verify the system is configured to prevent unrestricted mail
 relaying.
 
 Determine if \"postfix\" is installed with the following commands:
@@ -36,7 +36,7 @@ smtpd_client_restrictions = permit_mynetworks, reject
 
 If the \"smtpd_client_restrictions\" parameter contains any entries other than
 \"permit_mynetworks\" and \"reject\", this is a finding."
-  tag "fix": "If \"postfix\" is installed, modify the \"/etc/postfix/main.cf\"
+  desc "fix", "If \"postfix\" is installed, modify the \"/etc/postfix/main.cf\"
 file to restrict client connections to the local network with the following
 command:
 

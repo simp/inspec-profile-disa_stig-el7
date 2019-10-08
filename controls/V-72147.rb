@@ -22,7 +22,7 @@ information system (e.g., module or policy filter).
   tag "documentable": false
   tag "nist": ["AU-2 d", "AU-12 c", "MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when successful
+  desc "check", "Verify the operating system generates audit records when successful
 account access events occur.
 
 Check the file system rules in \"/etc/audit/audit.rules\" with the following
@@ -33,7 +33,7 @@ commands:
 -w /var/log/lastlog -p wa -k logins
 
 If the command does not return any output, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful account access events occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

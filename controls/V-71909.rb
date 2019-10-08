@@ -23,7 +23,7 @@ compromised.
   tag "documentable": false
   tag "nist": ["IA-5 (1) (a)", "Rev_4"]
   tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "Verify the operating system enforces password complexity by
+  desc "check", "Verify the operating system enforces password complexity by
 requiring that at least one special character be used.
 
 Note: The value to require a number of special characters to be set is
@@ -36,7 +36,7 @@ following command:
 ocredit=-1
 
 If the value of \"ocredit\" is not set to a negative value, this is a finding."
-  tag "fix": "Configure the operating system to enforce password complexity by
+  desc "fix", "Configure the operating system to enforce password complexity by
 requiring that at least one special character be used by setting the
 \"dcredit\" option.
 

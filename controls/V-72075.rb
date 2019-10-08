@@ -17,7 +17,7 @@ the Information System Security Officer (ISSO)."
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
   tag "subsystems": ['grub']
-  tag "check": "Verify the system is not configured to use a boot loader on
+  desc "check", "Verify the system is not configured to use a boot loader on
 removable media.
 
 Note: GRUB 2 reads its configuration from the \"/boot/grub2/grub.cfg\" file on
@@ -46,7 +46,7 @@ set root=(hd0,1)
 If the system is using an alternate boot loader on removable media, and
 documentation does not exist approving the alternate configuration, this is a
 finding."
-  tag "fix": "Remove alternate methods of booting the system from removable
+  desc "fix", "Remove alternate methods of booting the system from removable
 media or document the configuration to boot from removable media with the ISSO."
   tag "fix_id": "F-78427r1_fix"
 

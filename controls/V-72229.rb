@@ -22,7 +22,7 @@ maintaining the confidentiality of the key used to generate the hash.
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "Rev_4"]
   tag "subsystems": ['sssd', 'ldap']
-  tag "check": "Verify the operating system implements cryptography to protect
+  desc "check", "Verify the operating system implements cryptography to protect
 the integrity of remote LDAP access sessions.
 
 To determine if LDAP is being used for authentication, use the following
@@ -43,7 +43,7 @@ Verify the directory set with the \"tls_cacertdir\" option exists.
 
 If the directory does not exist or the option is commented out, this is a
 finding."
-  tag "fix": "Configure the operating system to implement cryptography to
+  desc "fix", "Configure the operating system to implement cryptography to
 protect the integrity of LDAP remote access sessions.
 
 Set the \"tls_cacertdir\" option in \"/etc/pam_ldap.conf\" to point to the

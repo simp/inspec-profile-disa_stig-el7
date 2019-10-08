@@ -32,7 +32,7 @@ documented with the ISSO.
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
   tag "subsystems": ['rsyslog']
-  tag "check": "Verify that the system is not accepting \"rsyslog\" messages
+  desc "check", "Verify that the system is not accepting \"rsyslog\" messages
 from other systems unless it is documented as a log aggregation server.
 
 Check the configuration of \"rsyslog\" with the following command:
@@ -45,7 +45,7 @@ to see the documentation for the system being used for log aggregation.
 
 If the documentation does not exist, or does not specify the server as a log
 aggregation system, this is a finding."
-  tag "fix": "Modify the \"/etc/rsyslog.conf\" file to remove the \"ModLoad
+  desc "fix", "Modify the \"/etc/rsyslog.conf\" file to remove the \"ModLoad
 imtcp\" configuration line, or document the system as being used for log
 aggregation."
   tag "fix_id": "F-78565r1_fix"

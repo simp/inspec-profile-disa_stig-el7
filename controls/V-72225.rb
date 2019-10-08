@@ -83,7 +83,7 @@ Agreement for details.\"
   tag "nist": ["AC-8 a", "AC-8 b", "AC-8 c 1", "AC-8 c 2", "AC-8 c 2", "AC-8 c
 2", "AC-8 c 3", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify any publicly accessible connection to the operating
+  desc "check", "Verify any publicly accessible connection to the operating
 system displays the Standard Mandatory DoD Notice and Consent Banner before
 granting access to the system.
 
@@ -131,7 +131,7 @@ match the Standard Mandatory DoD Notice and Consent Banner, this is a finding.
 
 If the text in the file does not match the Standard Mandatory DoD Notice and
 Consent Banner, this is a finding."
-  tag "fix": "Configure the operating system to display the Standard Mandatory
+  desc "fix", "Configure the operating system to display the Standard Mandatory
 DoD Notice and Consent Banner before granting access to the system via the ssh.
 
 Edit the \"/etc/ssh/sshd_config\" file to uncomment the banner keyword and

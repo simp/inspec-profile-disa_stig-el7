@@ -17,13 +17,13 @@ account."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['accounts']
-  tag "check": "Check the system for duplicate UID \"0\" assignments with the
+  desc "check", "Check the system for duplicate UID \"0\" assignments with the
 following command:
 
 # awk -F: '$3 == 0 {print $1}' /etc/passwd
 
 If any accounts other than root have a UID of \"0\", this is a finding."
-  tag "fix": "Change the UID of any account on the system, other than root,
+  desc "fix", "Change the UID of any account on the system, other than root,
 that has a UID of \"0\".
 
 If the account is associated with system commands or applications, the UID

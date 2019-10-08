@@ -17,7 +17,7 @@ have access control rules established."
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
   tag "subsystems": ['tftp']
-  tag "check": "Verify a TFTP server has not been installed on the system.
+  desc "check", "Verify a TFTP server has not been installed on the system.
 
 Check to see if a TFTP server has been installed with the following command:
 
@@ -26,7 +26,7 @@ tftp-server-0.49-9.el7.x86_64.rpm
 
 If TFTP is installed and the requirement for TFTP is not documented with the
 ISSO, this is a finding."
-  tag "fix": "Remove the TFTP package from the system with the following
+  desc "fix", "Remove the TFTP package from the system with the following
 command:
 
 # yum remove tftp"

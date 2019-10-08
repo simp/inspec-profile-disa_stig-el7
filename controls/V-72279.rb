@@ -16,14 +16,14 @@ the use of two-factor authentication."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['ssh']
-  tag "check": "Verify there are no \"shosts.equiv\" files on the system.
+  desc "check", "Verify there are no \"shosts.equiv\" files on the system.
 
 Check the system for the existence of these files with the following command:
 
 # find / -name shosts.equiv
 
 If any \"shosts.equiv\" files are found on the system, this is a finding."
-  tag "fix": "Remove any found \"shosts.equiv\" files from the system.
+  desc "fix", "Remove any found \"shosts.equiv\" files from the system.
 
 # rm /[path]/[to]/[file]/shosts.equiv"
   tag "fix_id": "F-78633r1_fix"

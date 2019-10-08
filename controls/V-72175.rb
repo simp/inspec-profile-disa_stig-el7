@@ -20,7 +20,7 @@ compromise.
   tag "documentable": false
   tag "nist": ["AU-3 (1)", "MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"postdrop\" command occur.
 
 Check for the following system call being audited by performing the following
@@ -31,7 +31,7 @@ command to check the file system rules in \"/etc/audit/audit.rules\":
 -a always,exit -F path=/usr/sbin/postdrop -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-postfix
 
 If the command does not return any output, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"postdrop\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

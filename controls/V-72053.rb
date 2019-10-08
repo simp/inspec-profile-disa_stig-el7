@@ -14,7 +14,7 @@ information."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['cron']
-  tag "check": "Verify that the \"cron.allow\" file is owned by root.
+  desc "check", "Verify that the \"cron.allow\" file is owned by root.
 
 Check the owner of the \"cron.allow\" file with the following command:
 
@@ -23,7 +23,7 @@ Check the owner of the \"cron.allow\" file with the following command:
 
 If the \"cron.allow\" file exists and has an owner other than root, this is a
 finding."
-  tag "fix": "Set the owner on the \"/etc/cron.allow\" file to root with the
+  desc "fix", "Set the owner on the \"/etc/cron.allow\" file to root with the
 following command:
 
 # chown root /etc/cron.allow"

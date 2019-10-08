@@ -15,7 +15,7 @@ approved cryptographic hashes."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['aide']
-  tag "check": "Verify the file integrity tool is configured to use FIPS 140-2
+  desc "check", "Verify the file integrity tool is configured to use FIPS 140-2
 approved cryptographic hashes for validating file contents and directories.
 
 Note: If RHEL-07-021350 is a finding, this is automatically a finding as the
@@ -52,7 +52,7 @@ If the \"sha512\" rule is not being used on all selection lines in the
 \"/etc/aide.conf\" file, or another file integrity tool is not using FIPS 140-2
 approved cryptographic hashes for validating file contents and directories,
 this is a finding."
-  tag "fix": "Configure the file integrity tool to use FIPS 140-2 cryptographic
+  desc "fix", "Configure the file integrity tool to use FIPS 140-2 cryptographic
 hashes for validating file and directory contents.
 
 If AIDE is installed, ensure the \"sha512\" rule is present on all file and

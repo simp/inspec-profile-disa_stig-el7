@@ -17,7 +17,7 @@ methods must be used in place of this service."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['vsftpd']
-  tag "check": "Verify an FTP server has not been installed on the system.
+  desc "check", "Verify an FTP server has not been installed on the system.
 
 Check to see if an FTP server has been installed with the following commands:
 
@@ -28,7 +28,7 @@ Check to see if an FTP server has been installed with the following commands:
 If \"vsftpd\" is installed and is not documented with the Information System
 Security Officer (ISSO) as an operational requirement, this is a finding.
 "
-  tag "fix": "Document the \"vsftpd\" package with the ISSO as an operational
+  desc "fix", "Document the \"vsftpd\" package with the ISSO as an operational
 requirement or remove it from the system with the following command:
 
 # yum remove vsftpd

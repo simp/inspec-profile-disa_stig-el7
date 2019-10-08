@@ -14,7 +14,7 @@ responsible for one."
   tag "documentable": false
   tag "nist": ["AU-12 c", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"pam_timestamp_check\" command
 occur.
 
@@ -26,7 +26,7 @@ command:
 -a always,exit -F path=/sbin/pam_timestamp_check -F perm=x -F auid>=1000 -F auid!=4294967295  -k privileged-pam
 
 If the command does not return any output, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"pam_timestamp_check\" command
 occur.
 

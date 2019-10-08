@@ -33,7 +33,7 @@ maintaining the confidentiality of the key used to generate the hash.
   tag "documentable": false
   tag "nist": ["SA-7", "Rev_4"]
   tag "subsystems": ['rpm', 'package']
-  tag "check": "Verify the cryptographic hash of system files and commands
+  desc "check", "Verify the cryptographic hash of system files and commands
 match the vendor values.
 
 Check the cryptographic hash of system files and commands with the following
@@ -46,7 +46,7 @@ through the system audit log.
 # rpm -Va | grep '^..5'
 
 If there is any output from the command for system binaries, this is a finding."
-  tag "fix": "Run the following command to determine which package owns the
+  desc "fix", "Run the following command to determine which package owns the
 file:
 
 # rpm -qf <filename>

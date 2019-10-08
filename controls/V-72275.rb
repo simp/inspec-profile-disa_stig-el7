@@ -14,7 +14,7 @@ facilitates user recognition and reporting of unauthorized account use."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['pam', 'lastlog', 'ssh']
-  tag "check": "Verify users are provided with feedback on when account
+  desc "check", "Verify users are provided with feedback on when account
 accesses last occurred.
 
 Check that \"pam_lastlog\" is used and not silent with the following command:
@@ -31,7 +31,7 @@ PrintLastLog yes
 If \"pam_lastlog\" is missing from \"/etc/pam.d/postlogin-ac\" file, or the
 silent option is present and PrintLastLog is missing from or set to \"no\" in
 the \"/etc/ssh/sshd_config\" file this is a finding."
-  tag "fix": "Configure the operating system to provide users with feedback on
+  desc "fix", "Configure the operating system to provide users with feedback on
 when account accesses last occurred by setting the required configuration
 options in \"/etc/pam.d/postlogin-ac\".
 

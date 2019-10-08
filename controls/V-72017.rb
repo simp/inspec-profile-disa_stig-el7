@@ -27,7 +27,7 @@ allow unauthorized access to user files by other users."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs']
-  tag "check": "Verify the assigned home directory of all local interactive
+  desc "check", "Verify the assigned home directory of all local interactive
 users has a mode of \"0750\" or less permissive.
 
 Check the home directory assignment for all non-privileged users on the system
@@ -42,7 +42,7 @@ log files containing system logon information.
 
 If home directories referenced in \"/etc/passwd\" do not have a mode of
 \"0750\" or less permissive, this is a finding."
-  tag "fix": "Change the mode of interactive user’s home directories to
+  desc "fix", "Change the mode of interactive user’s home directories to
 \"0750\". To change the mode of a local interactive user’s home directory, use
 the following command:
 

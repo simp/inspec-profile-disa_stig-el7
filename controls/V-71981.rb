@@ -30,7 +30,7 @@ used to verify the software must be from an approved Certificate Authority.
   tag "documentable": false
   tag "nist": ["CM-5 (3)", "Rev_4"]
   tag "subsystems": ['yum']
-  tag "check": "Verify the operating system prevents the installation of
+  desc "check", "Verify the operating system prevents the installation of
 patches, service packs, device drivers, or operating system components of local
 packages without verification of the repository metadata.
 
@@ -46,7 +46,7 @@ and other operating system components are verified.
 
 If there is no process to validate the metadata of packages that is approved by
 the organization, this is a finding."
-  tag "fix": "Configure the operating system to verify the repository metadata
+  desc "fix", "Configure the operating system to verify the repository metadata
 by setting the following options in the \"/etc/yum.conf\" file:
 
 repo_gpgcheck=1"

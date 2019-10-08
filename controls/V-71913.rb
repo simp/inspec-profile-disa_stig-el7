@@ -26,7 +26,7 @@ compromised.
   tag "documentable": false
   tag "nist": ["IA-5 (1) (b)", "Rev_4"]
   tag "subsystems": ['pam', 'pwquality', 'password']
-  tag "check": "The \"minclass\" option sets the minimum number of required
+  desc "check", "The \"minclass\" option sets the minimum number of required
 classes of characters for the new password (digits, upper-case, lower-case,
 others).
 
@@ -37,7 +37,7 @@ Check for the value of the \"minclass\" option in
 minclass = 4
 
 If the value of \"minclass\" is set to less than \"4\", this is a finding."
-  tag "fix": "Configure the operating system to require the change of at least
+  desc "fix", "Configure the operating system to require the change of at least
 four character classes when passwords are changed by setting the \"minclass\"
 option.
 

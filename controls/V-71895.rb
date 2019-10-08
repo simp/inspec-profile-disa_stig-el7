@@ -43,7 +43,7 @@ determined and/or controlled.
   tag "cci": "CCI-000057"
   tag "nist": ["AC-11 a", "Rev_4"]
   tag "subsystems": ["gnome3"]
-  tag "check": "Verify the operating system prevents a user from overriding session
+  desc "check", "Verify the operating system prevents a user from overriding session
 lock after a 15-minute period of inactivity for graphical user interfaces. The
 screen program must be installed to lock sessions on the console.
 
@@ -66,7 +66,7 @@ is \"/etc/dconf/db/local.d\". This path must be modified if a database other tha
 /org/gnome/desktop/screensaver/idle-delay
 
 If the command does not return a result, this is a finding."
-  tag "fix": "Configure the operating system to prevent a user from overriding a
+  desc "fix", "Configure the operating system to prevent a user from overriding a
 session lock after a 15-minute period of inactivity for graphical user interfaces.
 
 Create a database to contain the system-wide screensaver settings (if it does not

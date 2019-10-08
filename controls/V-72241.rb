@@ -28,7 +28,7 @@ and releases the resources associated with that session.
   tag "documentable": false
   tag "nist": ["SC-10", "AC-12", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Check the version of the operating system with the following
+  desc "check", "Check the version of the operating system with the following
 command:
 
 # cat /etc/redhat-release
@@ -46,7 +46,7 @@ ClientAliveCountMax 0
 
 If \"ClientAliveCountMax\" is not set to \"0\" in \"/etc/ ssh/sshd_config\",
 this is a finding."
-  tag "fix": "Configure the operating system to automatically terminate a user
+  desc "fix", "Configure the operating system to automatically terminate a user
 session after inactivity time-outs have expired or at shutdown.
 
 Add the following line (or modify the line to have the required value) to the

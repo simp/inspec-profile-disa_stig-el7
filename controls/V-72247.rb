@@ -16,7 +16,7 @@ individual accountability of actions performed on the system."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify remote access using SSH prevents users from logging on
+  desc "check", "Verify remote access using SSH prevents users from logging on
 directly as root.
 
 Check that SSH prevents users from logging on directly as root with the
@@ -27,7 +27,7 @@ PermitRootLogin no
 
 If the \"PermitRootLogin\" keyword is set to \"yes\", is missing, or is
 commented out, this is a finding."
-  tag "fix": "Configure SSH to stop users from logging on remotely as the root
+  desc "fix", "Configure SSH to stop users from logging on remotely as the root
 user.
 
 Edit the appropriate  \"/etc/ssh/sshd_config\" file to uncomment or add the

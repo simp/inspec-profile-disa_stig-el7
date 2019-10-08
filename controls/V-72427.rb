@@ -46,7 +46,7 @@ configuring the device itself (management).
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
   tag "subsystems": ['pam', 'nss', 'MFA', 'pki', 'sssd']
   tag "pam","nss","MFA","pki"
-  tag "check": "Verify the operating system implements multifactor
+  desc "check", "Verify the operating system implements multifactor
 authentication for remote access to privileged accounts via pluggable
 authentication modules (PAM).
 
@@ -58,7 +58,7 @@ being used with the following command:
 services = nss, pam
 
 If the \"pam\" service is not present, this is a finding."
-  tag "fix": "Configure the operating system to implement multifactor
+  desc "fix", "Configure the operating system to implement multifactor
 authentication for remote access to privileged accounts via pluggable
 authentication modules (PAM).
 

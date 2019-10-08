@@ -22,7 +22,7 @@ configured.
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
   tag "subsystems": ["screen", "lock", "session"]
-  tag "check": "Verify the operating system has the screen package installed.
+  desc "check", "Verify the operating system has the screen package installed.
 
 Check to see if the screen package is installed with the following command:
 
@@ -30,7 +30,7 @@ Check to see if the screen package is installed with the following command:
 screen-4.3.1-3-x86_64.rpm
 
 If is not installed, this is a finding."
-  tag "fix": "Install the screen package to allow the initiation a session lock
+  desc "fix", "Install the screen package to allow the initiation a session lock
 after a 15-minute period of inactivity for graphical users interfaces.
 
 Install the screen program (if it is not on the system) with the following

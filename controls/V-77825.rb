@@ -22,7 +22,7 @@ techniques."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['ASLR', 'kernel_parameter']
-  tag "check": "Verify the operating system implements virtual address space
+  desc "check", "Verify the operating system implements virtual address space
 randomization.
 
 Check that the operating system implements virtual address space randomization
@@ -34,7 +34,7 @@ kernel.randomize_va_space=2
 
 If \"kernel.randomize_va_space\" does not have a value of \"2\", this is a
 finding."
-  tag "fix": "Configure the operating system implement virtual address space
+  desc "fix", "Configure the operating system implement virtual address space
 randomization.
 
 Set the system to the required kernel parameter by adding the following line to

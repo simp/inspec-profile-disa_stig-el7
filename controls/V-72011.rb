@@ -30,7 +30,7 @@ there is no place for the storage and control of files they should own."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs']
-  tag "check": "Verify local interactive users on the system have a home
+  desc "check", "Verify local interactive users on the system have a home
 directory assigned.
 
 Check for missing local interactive user home directories with the following
@@ -51,7 +51,7 @@ command:
 
 If any interactive users do not have a home directory assigned, this is a
 finding."
-  tag "fix": "Assign home directories to all local interactive users that
+  desc "fix", "Assign home directories to all local interactive users that
 currently do not have a home directory assigned."
   tag "fix_id": "F-78363r1_fix"
 

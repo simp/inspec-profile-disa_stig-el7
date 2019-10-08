@@ -31,7 +31,7 @@ have to be employed, and vice versa.
   tag "documentable": false
   tag "nist": ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Check to see if sshd is installed with the following command:
+  desc "check", "Check to see if sshd is installed with the following command:
 
 # yum list installed | grep  ssh
 libssh2.x86_64                           1.4.3-8.el7               @anaconda/7.1
@@ -42,7 +42,7 @@ openssh-server.x86_64                    6.6.1p1-11.el7            @anaconda/7.1
 If the \"SSH server\" package is not installed, this is a finding.
 
 If the \"SSH client\" package is not installed, this is a finding."
-  tag "fix": "Install SSH packages onto the host with the following commands:
+  desc "fix", "Install SSH packages onto the host with the following commands:
 
 # yum install openssh-clients.x86_64
 # yum install openssh-server.x86_64

@@ -16,7 +16,7 @@ requirement is SHA."
   tag "nist": ["AC-17 (2)", "Rev_4"]
   tag "subsystems": ["ssh"]
   tag "fix_id": "F-78607r2_fix"
-  tag "check": "Verify the SSH daemon is configured to only use MACs employing
+  desc "check", "Verify the SSH daemon is configured to only use MACs employing
 FIPS 140-2-approved ciphers.
 
 Note: If RHEL-07-021350 is a finding, this is automatically a finding as the
@@ -30,7 +30,7 @@ MACs hmac-sha2-256,hmac-sha2-512
 
 If any ciphers other than \"hmac-sha2-256\" or \"hmac-sha2-512\" are listed or
 the retuned line is commented out, this is a finding."
-  tag "fix": "Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the
+  desc "fix", "Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the
 line for the \"MACs\" keyword and set its value to \"hmac-sha2-256\" and/or
 \"hmac-sha2-512\" (this file may be named differently or be in a different
 location if using a version of SSH that is provided by a third-party vendor):

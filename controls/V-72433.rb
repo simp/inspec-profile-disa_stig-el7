@@ -52,7 +52,7 @@ end
   tag "documentable": false
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
   tag "subsystems": ['pam_pkcs11', 'pam' , 'pkcs11']
-  tag "check": "Verify the operating system implements certificate status
+  desc "check", "Verify the operating system implements certificate status
 checking for PKI authentication.
 
 Check to see if Online Certificate Status Protocol (OCSP) is enabled on the
@@ -70,7 +70,7 @@ There should be at least three lines returned.
 If \"oscp_on\" is not present in all \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\", this is a finding.
 "
-  tag "fix": "Configure the operating system to do certificate status checking
+  desc "fix", "Configure the operating system to do certificate status checking
 for PKI authentication.
 
 Modify all of the \"cert_policy\" lines in \"/etc/pam_pkcs11/pam_pkcs11.conf\"

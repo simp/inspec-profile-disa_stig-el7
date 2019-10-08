@@ -22,7 +22,7 @@ version 2 community strings."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['snmp']
-  tag "check": "Verify that a system using SNMP is not using default community
+  desc "check", "Verify that a system using SNMP is not using default community
 strings.
 
 Check to see if the \"/etc/snmp/snmpd.conf\" file exists with the following
@@ -40,7 +40,7 @@ following commands:
 # grep private /etc/snmp/snmpd.conf
 
 If either of these commands returns any output, this is a finding."
-  tag "fix": "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines
+  desc "fix", "If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines
 that contain a community string value of \"public\" or \"private\" to another
 string value."
   tag "fix_id": "F-78667r1_fix"

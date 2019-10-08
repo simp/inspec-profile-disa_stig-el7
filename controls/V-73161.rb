@@ -17,7 +17,7 @@ attain unauthorized administrative access."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['nfs']
-  tag "check": "Verify file systems that are being NFS exported are mounted
+  desc "check", "Verify file systems that are being NFS exported are mounted
 with the \"noexec\" option.
 
 Find the file system(s) that contain the directories being exported with the
@@ -31,7 +31,7 @@ If a file system found in \"/etc/fstab\" refers to NFS and it does not have the
 \"noexec\" option set, and use of NFS exported binaries is not documented with
 the Information System Security Officer (ISSO) as an operational requirement,
 this is a finding."
-  tag "fix": "Configure the \"/etc/fstab\" to use the \"noexec\" option on file
+  desc "fix", "Configure the \"/etc/fstab\" to use the \"noexec\" option on file
 systems that are being exported via NFS."
   tag "fix_id": "F-79607r1_fix"
 

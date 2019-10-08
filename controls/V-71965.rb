@@ -56,7 +56,7 @@ accounts) or for detailed accountability of individual activity.
   tag "documentable": false
   tag "nist": ["IA-2 (2)", "Rev_4"]
   tag "subsystems": ['pam', 'smartcard']
-  tag "check": "Verify the operating system requires multifactor authentication
+  desc "check", "Verify the operating system requires multifactor authentication
 to uniquely identify organizational users using multifactor authentication.
 
 Check to see if smartcard authentication is enforced on the system:
@@ -68,7 +68,7 @@ module and smartcard removal actions must not be blank.
 
 If smartcard authentication is disabled or the smartcard and smartcard removal
 actions are blank, this is a finding."
-  tag "fix": "Configure the operating system to require individuals to be
+  desc "fix", "Configure the operating system to require individuals to be
 authenticated with a multifactor authenticator.
 
 Enable smartcard logons with the following commands:

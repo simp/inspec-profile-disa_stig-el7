@@ -15,7 +15,7 @@ space on the target file system partition."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['kdump', 'kernel']
-  tag "check": "Verify that kernel core dumps are disabled unless needed.
+  desc "check", "Verify that kernel core dumps are disabled unless needed.
 
 Check the status of the \"kdump\" service with the following command:
 
@@ -31,7 +31,7 @@ the service is required and documented with the Information System Security
 Officer (ISSO).
 
 If the service is active and is not documented, this is a finding."
-  tag "fix": "If kernel core dumps are not required, disable the \"kdump\"
+  desc "fix", "If kernel core dumps are not required, disable the \"kdump\"
 service with the following command:
 
 # systemctl disable kdump.service

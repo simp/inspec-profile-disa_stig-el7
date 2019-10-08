@@ -17,7 +17,7 @@ reduced because the user will be prompted before any action is taken."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["gnome", "general"]
-  tag "check": "Verify the operating system is not configured to reboot the
+  desc "check", "Verify the operating system is not configured to reboot the
 system when Ctrl-Alt-Delete is pressed.
 
 Check that the ctrl-alt-del.service is not active with the following command:
@@ -29,7 +29,7 @@ reboot.target - Reboot
      Docs: man:systemd.special(7)
 
 If the ctrl-alt-del.service is active, this is a finding."
-  tag "fix": "Configure the system to disable the Ctrl-Alt_Delete sequence for
+  desc "fix", "Configure the system to disable the Ctrl-Alt_Delete sequence for
 the command line with the following command:
 
 # systemctl mask ctrl-alt-del.target

@@ -28,7 +28,7 @@ brute-forcing, is reduced. Limits are imposed by locking the account."
   tag "documentable": false
   tag "nist": ["AC-7 b", "Rev_4"]
   tag "subsystems": ['pam', 'faillock']
-  tag "check": "Verify the operating system automatically locks an account for the
+  desc "check", "Verify the operating system automatically locks an account for the
 maximum period for which the system can be configured.
 
 Check that the system locks an account for the maximum period after three
@@ -52,7 +52,7 @@ account required pam_faillock.so
 If the \"unlock_time\" setting is greater than \"604800\" on both lines with
 the \"pam_faillock.so\" module name or is missing from a line, this is a
 finding."
-  tag "fix": "Configure the operating system to lock an account for the maximum
+  desc "fix", "Configure the operating system to lock an account for the maximum
 period when three unsuccessful logon attempts in 15 minutes are made.
 
 Modify the first three lines of the auth section of the

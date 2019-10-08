@@ -15,7 +15,7 @@ of misconfiguration elsewhere."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH daemon does not allow authentication using RSA
+  desc "check", "Verify the SSH daemon does not allow authentication using RSA
 rhosts authentication.
 
 To determine how the SSH daemon's \"RhostsRSAAuthentication\" option is set,
@@ -26,7 +26,7 @@ RhostsRSAAuthentication no
 
 If the value is returned as \"yes\", the returned line is commented out, or no
 output is returned, this is a finding."
-  tag "fix": "Configure the SSH daemon to not allow authentication using RSA
+  desc "fix", "Configure the SSH daemon to not allow authentication using RSA
 rhosts authentication.
 
 Add the following line in \"/etc/ssh/sshd_config\", or uncomment the line and

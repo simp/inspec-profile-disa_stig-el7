@@ -16,7 +16,7 @@ root privileges."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH daemon performs compression after a user
+  desc "check", "Verify the SSH daemon performs compression after a user
 successfully authenticates.
 
 Check that the SSH daemon performs compression after a user successfully
@@ -27,7 +27,7 @@ Compression delayed
 
 If the \"Compression\" keyword is set to \"yes\", is missing, or the retuned
 line is commented out, this is a finding."
-  tag "fix": "Uncomment the \"Compression\" keyword in \"/etc/ssh/sshd_config\"
+  desc "fix", "Uncomment the \"Compression\" keyword in \"/etc/ssh/sshd_config\"
 (this file may be named differently or be in a different location if using a
 version of SSH that is provided by a third-party vendor) on the system and set
 the value to \"delayed\" or \"no\":

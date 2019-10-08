@@ -17,7 +17,7 @@ users to attain unauthorized administrative access."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs', 'file_system']
-  tag "check": "Verify file systems that contain user home directories are
+  desc "check", "Verify file systems that contain user home directories are
 mounted with the \"nosuid\" option.
 
 Find the file system(s) that contain the user home directories with the
@@ -40,7 +40,7 @@ rw,relatime,discard,data=ordered,nosuid 0 2
 
 If a file system found in \"/etc/fstab\" refers to the user home directory file
 system and it does not have the \"nosuid\" option set, this is a finding."
-  tag "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
+  desc "fix", "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
 systems that contain user home directories."
   tag "fix_id": "F-78393r2_fix"
 

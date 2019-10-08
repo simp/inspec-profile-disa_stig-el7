@@ -21,7 +21,7 @@ must be documented with the Information System Security Officer (ISSO).
   tag "documentable": false
   tag "nist": ["SI-3 a", "Rev_4"]
   tag "subsystems": ['clamav', 'nails', 'virus_scan']
-  tag "check": "Verify the system is using a virus scan program and the virus
+  desc "check", "Verify the system is using a virus scan program and the virus
 definition file is less than seven days old.
 
 Check for the presence of \"McAfee VirusScan Enterprise for Linux\" with the
@@ -63,7 +63,7 @@ DatabaseDirectory /var/lib/clamav
 
 If the database file has a date older than seven days from the current date,
 this is a finding."
-  tag "fix": "Update the virus scan software and virus definition files."
+  desc "fix", "Update the virus scan software and virus definition files."
   tag "fix_id": "F-78569r2_fix"
 
   sec_per_wk = 604800

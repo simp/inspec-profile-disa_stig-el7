@@ -14,7 +14,7 @@ files."
   tag "documentable": false
   tag "nist": ["AC-3 (4)", "Rev_4"]
   tag "subsystems": ['file_system', 'users' ,'files']
-  tag "check": "Verify all files and directories on the system have a valid
+  desc "check", "Verify all files and directories on the system have a valid
 owner.
 
 Check the owner of all files and directories with the following command:
@@ -25,7 +25,7 @@ used as an example.
 # find / -fstype xfs -nouser
 
 If any files on the system do not have an assigned owner, this is a finding."
-  tag "fix": "Either remove all files and directories from the system that do
+  desc "fix", "Either remove all files and directories from the system that do
 not have a valid user, or assign a valid user to all unowned files and
 directories on the system with the \"chown\" command:
 

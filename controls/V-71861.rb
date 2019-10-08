@@ -89,7 +89,7 @@ the number of characters that can be displayed in the banner:
   tag "documentable": false
   tag "nist": ["AC-8 a", "Rev_4"]
   tag "subsystems": [ "gdm" ]
-  tag "check": "Verify the operating system displays the approved Standard
+  desc "check", "Verify the operating system displays the approved Standard
 Mandatory DoD Notice and Consent Banner before granting access to the operating
 system via a graphical user logon.
 
@@ -127,7 +127,7 @@ on the GUI.
 
 If the banner does not match the approved Standard Mandatory DoD Notice and
 Consent Banner, this is a finding."
-  tag "fix": "Configure the operating system to display the approved Standard
+  desc "fix", "Configure the operating system to display the approved Standard
 Mandatory DoD Notice and Consent Banner before granting access to the system.
 
 Note: If the system does not have GNOME installed, this requirement is Not

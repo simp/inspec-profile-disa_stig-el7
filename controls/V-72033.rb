@@ -27,7 +27,7 @@ accounts upon logon."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['init_files']
-  tag "check": "Verify that all local initialization files have a mode of
+  desc "check", "Verify that all local initialization files have a mode of
 \"0740\" or less permissive.
 
 Check the mode on all local initialization files with the following command:
@@ -42,7 +42,7 @@ Note: The example will be for the smithj user, who has a home directory of
 
 If any local initialization files have a mode more permissive than \"0740\",
 this is a finding."
-  tag "fix": "Set the mode of the local initialization files to \"0740\" with
+  desc "fix", "Set the mode of the local initialization files to \"0740\" with
 the following command:
 
 Note: The example will be for the smithj user, who has a home directory of

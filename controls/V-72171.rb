@@ -21,7 +21,7 @@ compromise.
   tag "documentable": false
   tag "nist": ["AU-3 (1)", "MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"mount\" command occur.
 
 Check for the following system calls being audited by performing the following
@@ -43,7 +43,7 @@ series of commands to check the file system rules in
 -a always,exit -F arch=b64 -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount
 
 If all uses of the mount command are not being audited, this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"mount\" command occur.
 
 Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
