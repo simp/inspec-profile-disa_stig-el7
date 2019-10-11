@@ -13,7 +13,7 @@ service may be compromised."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH public host key files have mode \"0644\" or less
+  desc "check", "Verify the SSH public host key files have mode \"0644\" or less
 permissive.
 
 Note: SSH public key files may be found in other directories on the system
@@ -28,7 +28,7 @@ The following command will find all SSH public key files on the system:
 -rw-r--r--  1 root  wheel  238 Nov 28 06:43 ssh_host_rsa_key.pub
 
 If any file has a mode more permissive than \"0644\", this is a finding."
-  tag "fix": "Note: SSH public key files may be found in other directories on
+  desc "fix", "Note: SSH public key files may be found in other directories on
 the system depending on the installation.
 
 Change the mode of public host key files under \"/etc/ssh\" to \"0644\" with

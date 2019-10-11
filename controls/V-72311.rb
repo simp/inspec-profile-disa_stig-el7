@@ -16,7 +16,7 @@ more securely authenticate the remote mount request."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['nfs']
-  tag "check": "Verify \"AUTH_GSS\" is being used to authenticate NFS mounts.
+  desc "check", "Verify \"AUTH_GSS\" is being used to authenticate NFS mounts.
 
 To check if the system is importing an NFS file system, look for any entries in
 the \"/etc/fstab\" file that have a file system type of \"nfs\" with the
@@ -28,7 +28,7 @@ following command:
 If the system is mounting file systems via NFS and has the sec option without
 the \"krb5:krb5i:krb5p\" settings, the \"sec\" option has the \"sys\" setting,
 or the \"sec\" option is missing, this is a finding."
-  tag "fix": "Update the \"/etc/fstab\" file so the option \"sec\" is defined
+  desc "fix", "Update the \"/etc/fstab\" file so the option \"sec\" is defined
 for each NFS mounted file system and the \"sec\" option does not have the
 \"sys\" setting.
 

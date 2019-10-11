@@ -21,7 +21,7 @@ information system (e.g., module or policy filter).
   tag "documentable": false
   tag "nist": ["AU-12 c", "Rev_4"]
   tag "subsystems": ["audit"]
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"finit_module\" command occur.
 
 Check the auditing rules in \"/etc/audit/audit.rules\" with the following
@@ -41,7 +41,7 @@ architecture), this is a finding.
 -a always,exit -F arch=b64 -S finit_module -k module-change
 
 If there are no audit rules defined for \"finit_module\", this is a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"finit_module\" command occur.
 
 Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":

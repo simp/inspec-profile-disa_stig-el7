@@ -37,7 +37,7 @@ business or to address authorized quality of life issues.
   tag "documentable": false
   tag "nist": ["CM-7 b", "AC-17 (1)", "Rev_4"]
   tag "subsystems": ['firewall', 'manual']
-  tag "check": "Inspect the firewall configuration and running services to
+  desc "check", "Inspect the firewall configuration and running services to
 verify that it is configured to prohibit or restrict the use of functions,
 ports, protocols, and/or services that are unnecessary or prohibited.
 
@@ -60,7 +60,7 @@ services allowed by the firewall match the PPSM CLSA.
 If there are additional ports, protocols, or services that are not in the PPSM
 CLSA, or there are ports, protocols, or services that are prohibited by the
 PPSM Category Assurance List (CAL), this is a finding."
-  tag "fix": "Update the host's firewall settings and/or running services to
+  desc "fix", "Update the host's firewall settings and/or running services to
 comply with the PPSM CLSA for the site or program and the PPSM CAL."
   tag "fix_id": "F-78573r1_fix"
 

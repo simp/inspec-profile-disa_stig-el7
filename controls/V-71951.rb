@@ -30,7 +30,7 @@ functions, ports, protocols, services, and remote connections.
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['login_defs']
-  tag "check": "Verify the operating system enforces a delay of at least four
+  desc "check", "Verify the operating system enforces a delay of at least four
 seconds between console logon prompts following a failed logon attempt.
 
 Check the value of the \"fail_delay\" parameter in the \"/etc/login.defs\" file
@@ -41,7 +41,7 @@ FAIL_DELAY 4
 
 If the value of \"FAIL_DELAY\" is not set to \"4\" or greater, this is a
 finding."
-  tag "fix": "Configure the operating system to enforce a delay of at least
+  desc "fix", "Configure the operating system to enforce a delay of at least
 four seconds between logon prompts following a failed console logon attempt.
 
 Modify the \"/etc/login.defs\" file to set the \"FAIL_DELAY\" parameter to

@@ -22,7 +22,7 @@ compromise.
   tag "documentable": false
   tag "nist": ["AU-3", "AU-3 (1)", "AU-12 c", "MA-4 (1) (a)", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  tag "check": "Verify the operating system generates audit records when
+  desc "check", "Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"sudoer\" command occur.
 
 Check for modification of the following files being audited by performing the
@@ -39,7 +39,7 @@ following commands to check the file system rules in
 
 If the commands do not return output that does not match the examples, this is
 a finding."
-  tag "fix": "Configure the operating system to generate audit records when
+  desc "fix", "Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"sudoer\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":

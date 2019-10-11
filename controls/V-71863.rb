@@ -86,7 +86,7 @@ the number of characters that can be displayed in the banner:
   tag "documentable": false
   tag "nist": ["AC-8 a", "Rev_4"]
   tag "subsystems": [ "banner", "/etc/issue" ]
-  tag "check": "Verify the operating system displays the Standard Mandatory DoD
+  desc "check", "Verify the operating system displays the Standard Mandatory DoD
 Notice and Consent Banner before granting access to the operating system via a
 command line user logon.
 
@@ -129,7 +129,7 @@ finding.
 
 If the text in the \"/etc/issue\" file does not match the Standard Mandatory
 DoD Notice and Consent Banner, this is a finding."
-  tag "fix": "Configure the operating system to display the Standard Mandatory
+  desc "fix", "Configure the operating system to display the Standard Mandatory
 DoD Notice and Consent Banner before granting access to the system via the
 command line by editing the \"/etc/issue\" file.
 

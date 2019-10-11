@@ -19,7 +19,7 @@ not using this capability."
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH daemon does not permit Kerberos to authenticate
+  desc "check", "Verify the SSH daemon does not permit Kerberos to authenticate
 passwords unless approved.
 
 Check that the SSH daemon does not permit Kerberos to authenticate passwords
@@ -31,7 +31,7 @@ KerberosAuthentication no
 If the \"KerberosAuthentication\" keyword is missing, or is set to \"yes\" and
 is not documented with the Information System Security Officer (ISSO), or the
 returned line is commented out, this is a finding."
-  tag "fix": "Uncomment the \"KerberosAuthentication\" keyword in
+  desc "fix", "Uncomment the \"KerberosAuthentication\" keyword in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party
 vendor) and set the value to \"no\":

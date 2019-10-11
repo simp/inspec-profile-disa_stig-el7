@@ -33,7 +33,7 @@ not have to be employed, and vice versa.
   tag "documentable": false
   tag "nist": ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify SSH is loaded and active with the following command:
+  desc "check", "Verify SSH is loaded and active with the following command:
 
 # systemctl status sshd
  sshd.service - OpenSSH server daemon
@@ -46,7 +46,7 @@ ago
 
 If \"sshd\" does not show a status of \"active\" and \"running\", this is a
 finding."
-  tag "fix": "Configure the SSH service to automatically start after reboot
+  desc "fix", "Configure the SSH service to automatically start after reboot
 with the following command:
 
 # systemctl enable sshd ln -s '/usr/lib/systemd/system/sshd.service'

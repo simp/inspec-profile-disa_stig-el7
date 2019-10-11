@@ -27,7 +27,7 @@ unintended users may be able to access or modify them."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs']
-  tag "check": "Verify all files and directories contained in a local
+  desc "check", "Verify all files and directories contained in a local
 interactive user home directory, excluding local initialization files, have a
 mode of \"0750\".
 
@@ -46,7 +46,7 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 
 If any files are found with a mode more permissive than \"0750\", this is a
 finding."
-  tag "fix": "Set the mode on files and directories in the local interactive
+  desc "fix", "Set the mode on files and directories in the local interactive
 user home directory with the following command:
 
 Note: The example will be for the user smithj, who has a home directory of

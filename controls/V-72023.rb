@@ -28,7 +28,7 @@ owned by the user, this could be an indication of system compromise."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs']
-  tag "check": "Verify all files and directories in a local interactive user’s
+  desc "check", "Verify all files and directories in a local interactive user’s
 home directory are owned by the user.
 
 Check the owner of all files and directories in a local interactive user’s home
@@ -44,7 +44,7 @@ Note: The example will be for the user \"smithj\", who has a home directory of
 
 If any files are found with an owner different than the home directory user,
 this is a finding."
-  tag "fix": "Change the owner of a local interactive user’s files and
+  desc "fix", "Change the owner of a local interactive user’s files and
 directories to that owner. To change the owner of a local interactive user’s
 files and directories, use the following command:
 

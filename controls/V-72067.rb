@@ -23,7 +23,7 @@ government since this provides assurance they have been tested and validated."
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "SC-28", "SC-13", "SC-28 (1)", "Rev_4"]
   tag "subsystems": ['fips']
-  tag "check": "Verify the operating system implements DoD-approved encryption
+  desc "check", "Verify the operating system implements DoD-approved encryption
 to protect the confidentiality of remote access sessions.
 
 Check to see if the \"dracut-fips\" package is installed with the following
@@ -54,7 +54,7 @@ system is in FIPS mode with the following command:
 If a \"dracut-fips\" package is not installed, the kernel command line does not
 have a fips entry, or the system has a value of \"0\" for \"fips_enabled\" in
 \"/proc/sys/crypto\", this is a finding."
-  tag "fix": "Configure the operating system to implement DoD-approved
+  desc "fix", "Configure the operating system to implement DoD-approved
 encryption by installing the dracut-fips package.
 
 To enable strict FIPS compliance, the fips=1 kernel option needs to be added to

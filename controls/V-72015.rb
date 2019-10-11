@@ -32,7 +32,7 @@ them visibility to system files they normally would not be able to access."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['accounts']
-  tag "check": "Verify the assigned home directory of all local interactive
+  desc "check", "Verify the assigned home directory of all local interactive
 users on the system exists.
 
 Check the home directory assignment for all local interactive non-privileged
@@ -52,7 +52,7 @@ user 'smithj': directory '/home/smithj' does not exist
 
 If any home directories referenced in \"/etc/passwd\" are returned as not
 defined, this is a finding."
-  tag "fix": "Create home directories to all local interactive users that
+  desc "fix", "Create home directories to all local interactive users that
 currently do not have a home directory assigned. Use the following commands to
 create the user home directory assigned in \"/etc/ passwd\":
 

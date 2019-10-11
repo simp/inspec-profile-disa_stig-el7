@@ -26,7 +26,7 @@ is a password that is not changed per policy requirements."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (e)", "Rev_4"]
   tag "subsystems": ['pam', 'password']
-  tag "check": "Verify the operating system prohibits password reuse for a
+  desc "check", "Verify the operating system prohibits password reuse for a
 minimum of five generations.
 
 Check for the value of the \"remember\" argument in
@@ -38,7 +38,7 @@ password sufficient pam_unix.so use_authtok sha512 shadow remember=5
 If the line containing the \"pam_unix.so\" line does not have the \"remember\"
 module argument set, or the value of the \"remember\" module argument is set to
 less than \"5\", this is a finding."
-  tag "fix": "Configure the operating system to prohibit password reuse for a
+  desc "fix", "Configure the operating system to prohibit password reuse for a
 minimum of five generations.
 
 Add the following line in \"/etc/pam.d/system-auth-ac\" (or modify the line to

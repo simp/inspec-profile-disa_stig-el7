@@ -30,7 +30,7 @@ specified period of time.
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
   tag "subsystems": ['gnome', 'gnome3']
-  tag "check": "Verify the operating system prevents a user from overriding the
+  desc "check", "Verify the operating system prevents a user from overriding the
 screensaver lock-enabled setting for the graphical user interface.
 
 Note: If the system does not have GNOME installed, this requirement is Not
@@ -54,7 +54,7 @@ other than \"local\" is being used.
 
 If the command does not return a result, this is a finding.
 "
-  tag "fix": "Configure the operating system to prevent a user from overriding
+  desc "fix", "Configure the operating system to prevent a user from overriding
 a screensaver lock after a 15-minute period of inactivity for graphical user
 interfaces.
 

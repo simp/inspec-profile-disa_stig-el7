@@ -27,7 +27,7 @@ determined and/or controlled.
   tag "documentable": false
   tag "nist": ["AC-11 a", "Rev_4"]
   tag "subsystems": ["gnome3", "session", "lock"]
-  tag "check": "Verify the operating system initiates a session lock after a
+  desc "check", "Verify the operating system initiates a session lock after a
 15-minute period of inactivity for graphical user interfaces. The screen
 program must be installed to lock sessions on the console.
 
@@ -40,7 +40,7 @@ commands:
 idle-activation-enabled=true
 
 If \"idle-activation-enabled\" is not set to \"true\", this is a finding."
-  tag "fix": "Configure the operating system to initiate a session lock after a
+  desc "fix", "Configure the operating system to initiate a session lock after a
 15-minute period of inactivity for graphical user interfaces.
 
 Create a database to contain the system-wide screensaver settings (if it does

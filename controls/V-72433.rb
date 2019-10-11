@@ -52,7 +52,7 @@ end
   tag "documentable": false
   tag "nist": ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
   tag "subsystems": ['pam_pkcs11', 'pam' , 'pkcs11']
-  tag "check": "Verify the operating system implements certificate status
+  desc "check", "Verify the operating system implements certificate status
 checking for PKI authentication.
 
 Check to see if Online Certificate Status Protocol (OCSP) is enabled on the
@@ -70,7 +70,7 @@ There should be at least three lines returned.
 If \"oscp_on\" is not present in all \"cert_policy\" lines in
 \"/etc/pam_pkcs11/pam_pkcs11.conf\", this is a finding.
 "
-  tag "fix": "Configure the operating system to do certificate status checking
+  desc "fix", "Configure the operating system to do certificate status checking
 for PKI authentication.
 
 Modify all of the \"cert_policy\" lines in \"/etc/pam_pkcs11/pam_pkcs11.conf\"
@@ -78,16 +78,24 @@ to include \"ocsp_on\"."
   tag "fix_id": "F-78785r3_fix"
 
   if smart_card_status.eql?('enabled')
-    describe file('/etc/pam_pkcs11/pam_pkcs11.conf') do
-      it { should exist }
-      it { should be_file }
-
-      let(:cert_policy_lines) { file('/etc/pam_pkcs11/pam_pkcs11.conf').content.lines.grep(%r{^(?!.+#).*cert_policy}i) }
-      it('should contain at least 3 cert policy lines, each of which include ocsp_on') do
-        cert_policy_lines.length.should >= 3
-        cert_policy_lines.each do |line|
-          line.should match %r{=[^;]*ocsp_on}i
+    if ((pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?)
+      cert_policy_lines = (pam_file.content.nil?)?[]:
+        pam_file.content.lines.grep(%r{^(?!.+#).*cert_policy}i)
+      if (cert_policy_lines.length < 3)
+        describe "should contain at least 3 cert policy lines" do
+          subject { cert_policy_lines.length }
+          it { should >= 3 }
         end
+      else
+        describe "each cert policy line should include oscp_on" do
+          cert_policy_lines.each do |line|                                    
+            line.should match %r{=[^;]*ocsp_on}i                                        
+          end 
+        end                                                                                              
+      end
+    else 
+      describe pam_file do
+        it { should exist }
       end
     end
   else

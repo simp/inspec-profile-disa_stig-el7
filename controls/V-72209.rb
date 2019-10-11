@@ -21,7 +21,7 @@ hardware failure."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'rsyslog']
-  tag "check": "Verify \"rsyslog\" is configured to send all messages to a log
+  desc "check", "Verify \"rsyslog\" is configured to send all messages to a log
 aggregation server.
 
 Check the configuration of \"rsyslog\" with the following command:
@@ -40,7 +40,7 @@ system or media.
 
 If there is no evidence that the audit logs are being sent to another system,
 this is a finding."
-  tag "fix": "Modify the \"/etc/rsyslog.conf\" file to contain a configuration
+  desc "fix", "Modify the \"/etc/rsyslog.conf\" file to contain a configuration
 line to send all \"rsyslog\" output to a log aggregation system:
 
 *.* @@<log aggregation system name>"

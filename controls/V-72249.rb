@@ -15,7 +15,7 @@ of misconfiguration elsewhere."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ["ssh"]
-  tag "check": "Verify the SSH daemon does not allow authentication using known
+  desc "check", "Verify the SSH daemon does not allow authentication using known
 hosts authentication.
 
 To determine how the SSH daemon's \"IgnoreUserKnownHosts\" option is set, run
@@ -27,7 +27,7 @@ IgnoreUserKnownHosts yes
 
 If the value is returned as \"no\", the returned line is commented out, or no
 output is returned, this is a finding."
-  tag "fix": "Configure the SSH daemon to not allow authentication using known
+  desc "fix", "Configure the SSH daemon to not allow authentication using known
 hosts authentication.
 
 Add the following line in \"/etc/ssh/sshd_config\", or uncomment the line and

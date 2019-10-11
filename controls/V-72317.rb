@@ -28,7 +28,7 @@ end
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['libreswan', 'ipsec']
-  tag "check": "Verify the system does not have unauthorized IP tunnels
+  desc "check", "Verify the system does not have unauthorized IP tunnels
 configured.
 
 Check to see if \"libreswan\" is installed with the following command:
@@ -57,7 +57,7 @@ If there are indications that a \"conn\" parameter is configured for a tunnel,
 ask the System Administrator if the tunnel is documented with the ISSO. If
 \"libreswan\" is installed, \"IPsec\" is active, and an undocumented tunnel is
 active, this is a finding."
-  tag "fix": "Remove all unapproved tunnels from the system, or document them
+  desc "fix", "Remove all unapproved tunnels from the system, or document them
 with the ISSO."
   tag "fix_id": "F-78671r1_fix"
 

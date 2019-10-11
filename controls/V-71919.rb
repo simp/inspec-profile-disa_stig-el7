@@ -20,7 +20,7 @@ plain text."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (c)", "Rev_4"]
   tag "subsystems": ['pam', 'password']
-  tag "check": "Verify the PAM system service is configured to store only
+  desc "check", "Verify the PAM system service is configured to store only
 encrypted representations of passwords. The strength of encryption that must be
 used to hash passwords for all accounts is SHA512.
 
@@ -32,7 +32,7 @@ password sufficient pam_unix.so sha512
 
 If the \"/etc/pam.d/system-auth-ac\" configuration files allow for password
 hashes other than SHA512 to be used, this is a finding."
-  tag "fix": "Configure the operating system to store only SHA512 encrypted
+  desc "fix", "Configure the operating system to store only SHA512 encrypted
 representations of passwords.
 
 Add the following line in \"/etc/pam.d/system-auth-ac\":

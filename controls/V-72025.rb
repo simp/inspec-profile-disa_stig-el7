@@ -28,7 +28,7 @@ which the user is not a member, unintended users may be able to access them."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['home_dirs']
-  tag "check": "Verify all files and directories in a local interactive user
+  desc "check", "Verify all files and directories in a local interactive user
 home directory are group-owned by a group the user is a member of.
 
 Check the group owner of all files and directories in a local interactive
@@ -52,7 +52,7 @@ smithj:x:521:smithj
 
 If the user is not a member of a group that group owns file(s) in a local
 interactive user’s home directory, this is a finding."
-  tag "fix": "Change the group of a local interactive user’s files and
+  desc "fix", "Change the group of a local interactive user’s files and
 directories to a group that the interactive user is a member of. To change the
 group owner of a local interactive user’s files and directories, use the
 following command:

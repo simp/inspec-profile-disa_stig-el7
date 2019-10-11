@@ -16,7 +16,7 @@ could result in a man-in-the-middle attack."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['kernel_parameter']
-  tag "check": "Verify the system will not accept IPv4 ICMP redirect messages.
+  desc "check", "Verify the system will not accept IPv4 ICMP redirect messages.
 
 Check the value of the default \"accept_redirects\" variables with the
 following command:
@@ -26,7 +26,7 @@ net.ipv4.conf.default.accept_redirects=0
 
 If the returned line does not have a value of \"0\", or a line is not returned,
 this is a finding."
-  tag "fix": "Set the system to not accept IPv4 ICMP redirect messages by
+  desc "fix", "Set the system to not accept IPv4 ICMP redirect messages by
 adding the following line to \"/etc/sysctl.conf\" (or modify the line to have
 the required value):
 

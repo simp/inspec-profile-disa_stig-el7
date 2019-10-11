@@ -24,7 +24,7 @@ unless approved and documented."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['packages']
-  tag "check": "Verify that if the system has X Windows System installed, it is
+  desc "check", "Verify that if the system has X Windows System installed, it is
 authorized.
 
 Check for the X11 package with the following command:
@@ -36,7 +36,7 @@ requirement.
 
 If the use of X Windows on the system is not documented with the Information
 System Security Officer (ISSO), this is a finding."
-  tag "fix": "Document the requirement for an X Windows server with the ISSO or
+  desc "fix", "Document the requirement for an X Windows server with the ISSO or
 remove the related packages with the following commands:
 
 # rpm -e xorg-x11-server-common"

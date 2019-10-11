@@ -32,7 +32,7 @@ when there is an unauthorized modification of a configuration item.
   tag "documentable": false
   tag "nist": ["CM-3 (5)", "Rev_4"]
   tag "subsystems": ['aide']
-  tag "check": "Verify the operating system notifies designated personnel if
+  desc "check", "Verify the operating system notifies designated personnel if
 baseline configurations are changed in an unauthorized manner.
 
 Note: A file integrity tool other than Advanced Intrusion Detection Environment
@@ -66,7 +66,7 @@ integrity run as in the following example:
 
 If the file integrity application does not notify designated personnel of
 changes, this is a finding."
-  tag "fix": "Configure the operating system to notify designated personnel if
+  desc "fix", "Configure the operating system to notify designated personnel if
 baseline configurations are changed in an unauthorized manner. The AIDE tool
 can be configured to email designated personnel through the use of the cron
 system.

@@ -32,7 +32,7 @@ used to verify the software must be from an approved CA.
   tag "documentable": false
   tag "nist": ["CM-5 (3)", "Rev_4"]
   tag "subsystems": ['yum']
-  tag "check": "Verify the operating system prevents the installation of
+  desc "check", "Verify the operating system prevents the installation of
 patches, service packs, device drivers, or operating system components of local
 packages without verification that they have been digitally signed using a
 certificate that is recognized and approved by the organization.
@@ -49,7 +49,7 @@ packages and other operating system components are verified.
 
 If there is no process to validate the signatures of local packages that is
 approved by the organization, this is a finding."
-  tag "fix": "Configure the operating system to verify the signature of local
+  desc "fix", "Configure the operating system to verify the signature of local
 packages prior to install by setting the following option in the
 \"/etc/yum.conf\" file:
 

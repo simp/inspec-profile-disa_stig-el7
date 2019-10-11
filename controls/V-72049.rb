@@ -18,7 +18,7 @@ interactive user defaults for each account on the system."
   tag "documentable": false
   tag "nist": ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)", "Rev_4"]
   tag "subsystems": ['init_files', 'home_dirs']
-  tag "check": "Verify that the default umask for all local interactive users
+  desc "check", "Verify that the default umask for all local interactive users
 is \"077\".
 
 Identify the locations of all local interactive user home directories by
@@ -34,7 +34,7 @@ directories in the \"/home\" directory.
 
 If any local interactive user initialization files are found to have a umask
 statement that has a value less restrictive than \"077\", this is a finding."
-  tag "fix": "Remove the umask statement from all local interactive users’
+  desc "fix", "Remove the umask statement from all local interactive users’
 initialization files.
 
 If the account is for an application, the requirement for a umask less

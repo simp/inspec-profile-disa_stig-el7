@@ -24,7 +24,7 @@ for unprivileged users to attain unauthorized administrative access."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['file_system', 'removable_media']
-  tag "check": "Verify file systems that are used for removable media are
+  desc "check", "Verify file systems that are used for removable media are
 mounted with the \"nouid\" option.
 
 Check the file systems that are mounted at boot time with the following command:
@@ -36,7 +36,7 @@ noauto,owner,ro,nosuid                        0 0
 
 If a file system found in \"/etc/fstab\" refers to removable media and it does
 not have the \"nosuid\" option set, this is a finding."
-  tag "fix": "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
+  desc "fix", "Configure the \"/etc/fstab\" to use the \"nosuid\" option on file
 systems that are associated with removable media."
   tag "fix_id": "F-78395r1_fix"
 

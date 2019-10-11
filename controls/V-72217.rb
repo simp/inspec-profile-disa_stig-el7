@@ -23,7 +23,7 @@ based on mission needs and the operational environment for each system.
   tag "documentable": false
   tag "nist": ["AC-10", "Rev_4"]
   tag "subsystems": ['session']
-  tag "check": "Verify the operating system limits the number of concurrent
+  desc "check", "Verify the operating system limits the number of concurrent
 sessions to \"10\" for all accounts and/or account types by issuing the
 following command:
 
@@ -35,7 +35,7 @@ differently for multiple domains.
 
 If the \"maxlogins\" item is missing or the value is not set to \"10\" or less
 for all domains that have the \"maxlogins\" item assigned, this is a finding."
-  tag "fix": "Configure the operating system to limit the number of concurrent
+  desc "fix", "Configure the operating system to limit the number of concurrent
 sessions to \"10\" for all accounts and/or account types.
 
 Add the following line to the top of the /etc/security/limits.conf:

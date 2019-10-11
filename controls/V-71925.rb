@@ -20,7 +20,7 @@ defeat the organization's policy regarding password reuse."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (d)", "Rev_4"]
   tag "subsystems": ['login_defs', 'password']
-  tag "check": "Verify the operating system enforces 24 hours/1 day as the
+  desc "check", "Verify the operating system enforces 24 hours/1 day as the
 minimum password lifetime for new user accounts.
 
 Check for the value of \"PASS_MIN_DAYS\" in \"/etc/login.defs\" with the
@@ -31,7 +31,7 @@ PASS_MIN_DAYS     1
 
 If the \"PASS_MIN_DAYS\" parameter value is not \"1\" or greater, or is
 commented out, this is a finding."
-  tag "fix": "Configure the operating system to enforce 24 hours/1 day as the
+  desc "fix", "Configure the operating system to enforce 24 hours/1 day as the
 minimum password lifetime.
 
 Add the following line in \"/etc/login.defs\" (or modify the line to have the

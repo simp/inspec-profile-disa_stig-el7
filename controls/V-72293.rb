@@ -16,7 +16,7 @@ network topology."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['kernel_parameter']
-  tag "check": "Verify the system does not send IPv4 ICMP redirect messages.
+  desc "check", "Verify the system does not send IPv4 ICMP redirect messages.
 
 Check the value of the \"all send_redirects\" variables with the following
 command:
@@ -27,7 +27,7 @@ net.ipv4.conf.all.send_redirects=0
 
 If the returned line does not have a value of \"0\", or a line is not returned,
 this is a finding."
-  tag "fix": "Configure the system to not allow interfaces to perform IPv4 ICMP
+  desc "fix", "Configure the system to not allow interfaces to perform IPv4 ICMP
 redirects.
 
 Set the system to the required kernel parameter by adding the following line to

@@ -17,7 +17,7 @@ applications are allowed to communicate over the network."
   tag "documentable": false
   tag "nist": ["CM-6 b", "Rev_4"]
   tag "subsystems": ['firewalld', 'iptables']
-  tag "check": "Verify the operating system enabled an application firewall.
+  desc "check", "Verify the operating system enabled an application firewall.
 
 Check to see if \"firewalld\" is installed with the following command:
 
@@ -46,7 +46,7 @@ Check the state of the firewall:
 running
 
 If \"firewalld\" does not show a state of \"running\", this is a finding."
-  tag "fix": "Ensure the operating system's application firewall is enabled.
+  desc "fix", "Ensure the operating system's application firewall is enabled.
 
 Install the \"firewalld\" package, if it is not on the system, with the
 following command:

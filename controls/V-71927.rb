@@ -19,14 +19,14 @@ defeat the organization's policy regarding password reuse."
   tag "documentable": false
   tag "nist": ["IA-5 (1) (d)", "Rev_4"]
   tag "subsystems": ['password', '/etc/shadow']
-  tag "check": "Check whether the minimum time period between password changes
+  desc "check", "Check whether the minimum time period between password changes
 for each user account is one day or greater.
 
 # awk -F: '$4 < 1 {print $1}' /etc/shadow
 
 If any results are returned that are not associated with a system account, this
 is a finding."
-  tag "fix": "Configure non-compliant accounts to enforce a 24 hours/1 day
+  desc "fix", "Configure non-compliant accounts to enforce a 24 hours/1 day
 minimum password lifetime:
 
 # chage -m 1 [user]"

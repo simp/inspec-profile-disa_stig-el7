@@ -22,7 +22,7 @@ maintaining the confidentiality of the key used to generate the hash.
   tag "documentable": false
   tag "nist": ["AC-17 (2)", "Rev_4"]
   tag "subsystems": ['sssd', 'ldap']
-  tag "check": "Verify the operating system implements cryptography to protect
+  desc "check", "Verify the operating system implements cryptography to protect
 the integrity of remote LDAP authentication sessions.
 
 To determine if LDAP is being used for authentication, use the following
@@ -38,7 +38,7 @@ use TLS, use the following command:
 ssl start_tls
 
 If the \"ssl\" option is not \"start_tls\", this is a finding."
-  tag "fix": "Configure the operating system to implement cryptography to
+  desc "fix", "Configure the operating system to implement cryptography to
 protect the integrity of LDAP authentication sessions.
 
 Set the USELDAPAUTH=yes in \"/etc/sysconfig/authconfig\".

@@ -31,7 +31,7 @@ when there is an unauthorized modification of a configuration item.
   tag "documentable": false
   tag "nist": ["CM-3 (5)", "Rev_4"]
   tag "subsystems": ['aide']
-  tag "check": "Verify the operating system routinely checks the baseline
+  desc "check", "Verify the operating system routinely checks the baseline
 configuration for unauthorized changes.
 
 Note: A file integrity tool other than Advanced Intrusion Detection Environment
@@ -58,7 +58,7 @@ installed on the system, use the following command:
 If the file integrity application does not exist, or a \"crontab\" file does
 not exist in the \"/etc/cron.daily\" or \"/etc/cron.weekly\" subdirectories,
 this is a finding."
-  tag "fix": "Configure the file integrity tool to automatically run on the
+  desc "fix", "Configure the file integrity tool to automatically run on the
 system at least weekly. The following example output is generic. It will set
 cron to run AIDE daily, but other file integrity tools may be used:
 
