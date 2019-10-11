@@ -14,7 +14,7 @@ control "V-81017" do
   tag "rid": "SV-95729r1_rule"
   tag "stig_id": "RHEL-07-030210"
   tag "cci": ["CCI-001851"]
-  tag "documentable": true
+  tag "documentable": false
   tag "nist": ["AU-12 c", "Rev_4"]
   tag "subsystems": ["audit"]
   tag "check_id": "C-80731r2_chk"
