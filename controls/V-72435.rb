@@ -1,24 +1,9 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
+skip_deprecated_test = input(
+  'skip_deprecated_test',
+  value: true,
+  description: 'Skips test that have been deprecated and removed from the STIG.')
 
 control "V-72435" do
   title "The operating system must implement smart card logons for multifactor
@@ -86,13 +71,17 @@ Enable smart card logons with the following commands:
 # authconfig --enablesmartcard --smartcardaction=1 --update
 # authconfig --enablerequiresmartcard --update"
 
+  if skip_deprecated_test
+    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True" do
+      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True"
+    end
+  else
+    describe command("authconfig --test | grep -i \"smartcard for login is\" | awk '{ print $NF }'") do
+      its('stdout.strip') { should eq 'enabled' }
+    end
 
-  describe command("authconfig --test | grep -i \"smartcard for login is\" | awk '{ print $NF }'") do
-    its('stdout.strip') { should eq 'enabled' }
+    describe command('authconfig --test | grep -i "smartcard removal action" | awk \'{ print $NF }\'') do
+      its('stdout.strip') { should_not be nil }
+    end
   end
-
-  describe command('authconfig --test | grep -i "smartcard removal action" | awk \'{ print $NF }\'') do
-    its('stdout.strip') { should_not be nil }
-  end
-
 end
