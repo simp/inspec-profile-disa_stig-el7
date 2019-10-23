@@ -56,19 +56,15 @@ packages prior to install by setting the following option in the
 localpkg_gpgcheck=1"
   tag "fix_id": "F-78331r1_fix"
 
-  yum_conf = file('/etc/yum.conf')
+  yum_conf = '/etc/yum.conf'
 
-  describe yum_conf.path do
-    context yum_conf do
-      it { should exist }
-    end
-
-    if yum_conf.exist?
-      context '[main]' do
-        context 'localpkg_gpgcheck' do
-          it { expect( ini(yum_conf.path)['main'][subject] ).to cmp 1 }
-        end
-      end
-    end
-  end
+  if ((f = file(yum_conf)).exist?)
+     describe ini(yum_conf) do
+       its('main.localpkg_gpgcheck') { cmp 1 }
+     end
+   else
+     describe f do
+       it { should exist }
+     end
+   end
 end
