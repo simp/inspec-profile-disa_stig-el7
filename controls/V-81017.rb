@@ -48,15 +48,15 @@ control "V-81017" do
   # service auditd restart
   "
 
-  if file('/etc/audisp/audispd.conf').exist?
-    describe parse_config_file('/etc/audisp/audispd.conf') do
+  if file('/etc/audisp/plugins.d/au-remote.conf').exist?
+    describe parse_config_file('/etc/audisp/plugins.d/au-remote.conf') do
       its('direction') { should match %r{out$} }
       its('path') { should match %r{/sbin/audisp-remote$} }
       its('type') { should match %r{always$} }
     end
   else
-    describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
-      skip "File '/etc/audisp/audispd.conf' cannot be found. This check must be performed manually"
+    describe "File '/etc/audisp/plugins.d/au-remote.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
+      skip "File '/etc/audisp/plugins.d/au-remote.conf' cannot be found. This check must be performed manually"
     end
   end
 
