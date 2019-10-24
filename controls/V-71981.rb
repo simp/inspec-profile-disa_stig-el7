@@ -1,5 +1,10 @@
 # encoding: utf-8
 #
+skip_deprecated_test = input(
+  'skip_deprecated_test',
+  value: true,
+  description: 'Skips test that have been deprecated and removed from the STIG.')
+
 control "V-71981" do
   title "The operating system must prevent the installation of software,
 patches, service packs, device drivers, or operating system components of
@@ -52,19 +57,25 @@ by setting the following options in the \"/etc/yum.conf\" file:
 repo_gpgcheck=1"
   tag "fix_id": "F-78333r1_fix"
 
-  yum_conf = file('/etc/yum.conf')
-
-  describe yum_conf.path do
-    context yum_conf do
-      it { should exist }
+  if skip_deprecated_test
+    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True" do
+      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True"
     end
+  else
+    yum_conf = file('/etc/yum.conf')
 
-    if yum_conf.exist?
-      context '[main]' do
-        context 'repo_gpgcheck' do
-          it { expect( ini(yum_conf.path)['main'][subject] ).to cmp 1 }
+    describe yum_conf.path do
+      context yum_conf do
+        it { should exist }
+      end
+
+      if yum_conf.exist?
+        context '[main]' do
+          context 'repo_gpgcheck' do
+            it { expect( ini(yum_conf.path)['main'][subject] ).to cmp 1 }
+          end
         end
       end
     end
-  end
+  end  
 end

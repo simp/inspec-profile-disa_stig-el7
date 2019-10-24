@@ -4,6 +4,20 @@
 # Controls that are known to consistently have long run times can be disabled with this attribute
 disable_slow_controls: false
 
+# Skips test that have been deprecated and removed from the STIG. 
+# Currently the following have been removed from the Latest STIG RHEL7 V2R4
+#    V-71895 - The operating system must set the idle delay setting for all connection types.
+#    V-71981 - The operating system must prevent the installation of software, patches, service packs, device drivers, or operating system components of packages without verification of the repository metadata.
+#    V-72143 - The operating system must generate audit records for all successful/unsuccessful account access count events.
+#    V-72169 - All uses of the sudoedit command must be audited.
+#    V-72181 - All uses of the pt_chown command must be audited.
+#    V-72193 - All uses of the rmmod command must be audited
+#    V-72195 - All uses of the modprobe command must be audited.
+#    V-72215 - The system must update the virus scan program every seven days or more frequently
+#    V-72435 - The operating system must implement smart card logons for multifactor authentication for access to privileged accounts.
+#    V-78995 - The operating system must prevent a user from overriding the screensaver lock-enabled setting for the graphical user interface.
+skip_deprecated_test: true
+
 # V-72081 - 'monitor_kernel_log', (bool)
 # Set this to false if your system availability concern is not documented or
 # there is no monitoring of the kernel log

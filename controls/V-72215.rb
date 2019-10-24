@@ -1,5 +1,10 @@
 # encoding: utf-8
 #
+skip_deprecated_test = input(
+  'skip_deprecated_test',
+  value: true,
+  description: 'Skips test that have been deprecated and removed from the STIG.')
+
 control "V-72215" do
   title "The system must update the virus scan program every seven days or more
 frequently."
@@ -66,32 +71,38 @@ this is a finding."
   desc "fix", "Update the virus scan software and virus definition files."
   tag "fix_id": "F-78569r2_fix"
 
-  sec_per_wk = 604800
-
-  describe.one do
-	  describe systemd_service('nails') do
-	    it { should be_running }
-	  end
-	  describe systemd_service('clamav-daemon.socket') do
-	    it { should be_running }
-	  end
-  end
-
-  if systemd_service('nails').running?
-	  virus_defs = Dir["/opt/NAI/LinuxShield/engine/dat/*.dat"]
-    virus_defs.each do |curr_def|
-	    describe file(curr_def).mtime.to_i do
-		    it { should >= Time.now.to_i - sec_per_wk }
-	    end
+  if skip_deprecated_test
+    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True" do
+      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True"
     end
-  end
+  else
+    sec_per_wk = 604800
 
-  if systemd_service('clamav-daemon.socket').running?
-	  cvd_files = Dir["/var/lib/clamav/*.cvd"]
-    cvd_files.each do |curr_file|
-      describe file(curr_file).mtime.to_i do
-	      it { should >= Time.now.to_i - sec_per_wk }
+    describe.one do
+  	  describe systemd_service('nails') do
+  	    it { should be_running }
+  	  end
+  	  describe systemd_service('clamav-daemon.socket') do
+  	    it { should be_running }
+  	  end
+    end
+
+    if systemd_service('nails').running?
+  	  virus_defs = Dir["/opt/NAI/LinuxShield/engine/dat/*.dat"]
+      virus_defs.each do |curr_def|
+  	    describe file(curr_def).mtime.to_i do
+  		    it { should >= Time.now.to_i - sec_per_wk }
+  	    end
       end
     end
-  end
+
+    if systemd_service('clamav-daemon.socket').running?
+  	  cvd_files = Dir["/var/lib/clamav/*.cvd"]
+      cvd_files.each do |curr_file|
+        describe file(curr_file).mtime.to_i do
+  	      it { should >= Time.now.to_i - sec_per_wk }
+        end
+      end
+    end
+  end  
 end

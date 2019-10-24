@@ -1,24 +1,9 @@
 # encoding: utf-8
 #
-=begin
------------------
-Benchmark: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
-Status: Accepted
-
-This Security Technical Implementation Guide is published as a tool to improve
-the security of Department of Defense (DoD) information systems. The
-requirements are derived from the National Institute of Standards and
-Technology (NIST) 800-53 and related documents. Comments or proposed revisions
-to this document should be sent via email to the following address:
-disa.stig_spt@mail.mil.
-
-Release Date: 2017-03-08
-Version: 1
-Publisher: DISA
-Source: STIG.DOD.MIL
-uri: http://iase.disa.mil
------------------
-=end
+skip_deprecated_test = input(
+  'skip_deprecated_test',
+  value: true,
+  description: 'Skips test that have been deprecated and removed from the STIG.')
 
 control "V-71895" do
   title "The operating system must set the idle delay setting for all connection
@@ -82,9 +67,16 @@ Add the setting to lock the screensaver idle delay:
 
 /org/gnome/desktop/screensaver/idle-delay"
 
-  describe command("grep -i idle-delay /etc/dconf/db/*/locks/*") do
-    its('stdout.strip') { should_not cmp "" }
-    its('stderr') { should_not match /.*No such file or directory\n?$/ }
+
+  if skip_deprecated_test
+    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True" do
+      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True"
+    end
+  else
+    describe command("grep -i idle-delay /etc/dconf/db/*/locks/*") do
+      its('stdout.strip') { should_not cmp "" }
+      its('stderr') { should_not match /.*No such file or directory\n?$/ }
+    end
+    only_if { package('gnome-desktop3').installed? }
   end
-  only_if { package('gnome-desktop3').installed? }
 end
