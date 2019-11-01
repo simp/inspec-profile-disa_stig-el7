@@ -1,0 +1,1 @@
+../default/05_inheritance_spec.rb
