@@ -36,4 +36,4 @@ jobs:
       services:
         - docker
       script:
-        - bundle exec rake beaker:suites[inspec_only]
+        - bundle exec rake beaker:suites[inspec_only,docker]
