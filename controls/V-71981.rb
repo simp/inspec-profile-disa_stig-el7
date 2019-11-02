@@ -52,19 +52,15 @@ by setting the following options in the \"/etc/yum.conf\" file:
 repo_gpgcheck=1"
   tag "fix_id": "F-78333r1_fix"
 
-  yum_conf = file('/etc/yum.conf')
+  yum_conf = '/etc/yum.conf'
 
-  describe yum_conf.path do
-    context yum_conf do
-      it { should exist }
+  if ((f = file(yum_conf)).exist?)
+    describe ini(yum_conf) do
+      its('main.repo_gpgcheck') { cmp 1 }
     end
-
-    if yum_conf.exist?
-      context '[main]' do
-        context 'repo_gpgcheck' do
-          it { expect( ini(yum_conf.path)['main'][subject] ).to cmp 1 }
-        end
-      end
+  else
+    describe f do
+      it { should exist }
     end
   end
 end
