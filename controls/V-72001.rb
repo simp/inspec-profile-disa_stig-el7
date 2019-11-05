@@ -100,12 +100,11 @@ Document all authorized accounts on the system."
 
   allowed_accounts = (known_system_accounts + user_accounts).uniq
 
-  describe "The active system users" do
-    subject { passwd }
+  describe passwd do
     its('users') { should be_in allowed_accounts }
   end
-  describe "System" do
-    subject { passwd }
+
+  describe passwd do
     its('users') { should_not be_in disallowed_accounts }
   end
 end
