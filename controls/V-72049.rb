@@ -64,7 +64,6 @@ environment variables."
   # in a user's home directory.                                                                                                                            
   interactive_users.each do |u|
     # Get user's initialization files
-    print "[ "+u.home+" , "+u.username+" ] "
     dotfiles = dotfiles + command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
     
     # Get user's umask
