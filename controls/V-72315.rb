@@ -1,7 +1,77 @@
 # encoding: utf-8
 #
 
-# TODO this control needs to have tests.
+# These inputs must be filled in to reflect expectations of particular system
+firewalld_services = input(
+  'firewalld_services',
+  value: [
+    # Examples
+    # 'dhcpv6-client',
+    # 'ssh'
+  ],
+  description: "Services that firewalld should be configured to allow."
+)
+
+firewalld_hosts_allow = input(
+  'firewalld_hosts_allow',
+  value: [
+  ],
+  description: "Hosts that firewalld should be configured to allow."
+)
+
+firewalld_hosts_deny = input(
+  'firewalld_hosts_deny',
+  value: [
+  ],
+  description: "Hosts that firewalld should be configured to deny."
+)
+
+firewalld_ports_allow = input(
+  'firewalld_ports_allow',
+  value: [
+    # Examples
+    # '22/tcp',
+    # '4722/tcp'
+  ],
+  description: "Ports that firewalld should be configured to allow."
+)
+
+firewalld_ports_deny = input(
+  'firewalld_ports_deny',
+  value: [
+    # Examples                                                                                                                                              
+    # '22/tcp',                                                                                                                                             
+    # '4722/tcp'                                                                                                                                            
+  ],
+  description: "Ports that firewalld should be configured to deny."
+)
+
+tcpwrappers_allow = input(
+  'tcpwrappers_allow',
+  value: [
+    # Example
+    # { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => ['allow'] }
+  ],
+  description: "Allow rules from etc/hosts.allow."
+)
+
+tcpwrappers_deny = input(
+  'tcpwrappers_deny',
+  value: [
+    # Example
+    # { 'daemon' => 'vsftpd', 'client_list' => ['ALL'], 'options' => [] }
+  ],
+  description: "Allow rules from etc/hosts.allow."
+)
+
+iptable_rules = input(
+  'iptable_rules',
+  value: [
+    # Example
+    # '-P INPUT ACCEPT',
+  ],
+  description: "Iptable rules that should exist."
+)
 
 control "V-72315" do
   title "The system access control program must be configured to grant or deny
@@ -77,7 +147,48 @@ If \"firewalld\" is not \"active\", enable \"tcpwrappers\" by configuring
 specific hosts.   "
   tag "fix_id": "F-78669r2_fix"
 
-  describe "This control must be reviewed manually" do
-    skip "You must review this control manually."
+  if service('firewalld').running?
+    @default_zone = firewalld.default_zone
+
+    describe firewalld.where{ zone = @default_zone } do
+      its('services') { should be_in firewalld_services }
+    end
+
+    describe firewalld do
+      firewalld_hosts_allow.each do |rule|
+        it { should have_rule_enabled(rule) }
+      end
+      firewalld_hosts_deny.each do |rule|
+        it { should_not have_rule_enabled(rule) }
+      end
+      firewalld_ports_allow.each do |port|
+        it { should have_port_enabled_in_zone(port) }
+      end
+      firewalld_ports_deny.each do |port|
+        it { should_not have_port_enabled_in_zone(port) }
+      end
+    end
+  elsif service('iptables').running?
+    describe iptables do
+      iptable_rules.each do |rule|
+        it { should have_rule(rule) }
+      end
+    end
+  else
+    describe package('tcp_wrappers') do
+      it { should be_installed }
+    end
+    tcpwrappers_allow.each do |rule|
+      describe etc_hosts_allow.where { daemon == rule['daemon'] } do
+        its('client_list') { should be rule['client_list'] }
+        its('options') { should be rule['options'] }
+      end
+    end
+    tcpwrappers_deny.each do |rule|
+      describe etc_hosts_deny.where { daemon == rule['daemon'] } do
+        its('client_list') { should be rule['client_list'] }
+        its('options') { should be rule['options'] }
+      end
+    end
   end
 end
