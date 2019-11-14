@@ -3,7 +3,7 @@
 skip_deprecated_test = input(
   'skip_deprecated_test',
   value: true,
-  description: 'Skips test that have been deprecated and removed from the STIG.')
+  description: 'Skips tests that have been deprecated and removed from the STIG.')
 
 control "V-78995" do
   title "The operating system must prevent a user from overriding the
@@ -78,8 +78,8 @@ Add the setting to lock the screensaver lock-enabled setting:
   tag "fix_id": "F-85745r1_fix"
 
   if skip_deprecated_test
-    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True" do
-      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True"
+    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True" do
+      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True"
     end
   else
     describe command("gsettings writable org.gnome.desktop.screensaver lock-enabled") do
