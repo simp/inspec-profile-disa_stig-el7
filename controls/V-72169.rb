@@ -3,7 +3,7 @@
 skip_deprecated_test = input(
   'skip_deprecated_test',
   value: true,
-  description: 'Skips test that have been deprecated and removed from the STIG.')
+  description: 'Skips tests that have been deprecated and removed from the STIG.')
 
 control "V-72169" do
   title "All uses of the sudoedit command must be audited."
@@ -57,8 +57,8 @@ The audit daemon must be restarted for the changes to take effect."
   end
 
   if skip_deprecated_test
-    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True" do
-      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True"
+    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True" do
+      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True"
     end
   else
     describe auditd.file(audit_file) do
