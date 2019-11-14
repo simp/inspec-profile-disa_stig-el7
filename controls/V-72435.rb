@@ -3,7 +3,7 @@
 skip_deprecated_test = input(
   'skip_deprecated_test',
   value: true,
-  description: 'Skips test that have been deprecated and removed from the STIG.')
+  description: 'Skips tests that have been deprecated and removed from the STIG.')
 
 control "V-72435" do
   title "The operating system must implement smart card logons for multifactor
@@ -72,8 +72,8 @@ Enable smart card logons with the following commands:
 # authconfig --enablerequiresmartcard --update"
 
   if skip_deprecated_test
-    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True" do
-      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run becuase 'skip_deprecated_test' is set to True"
+    describe "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True" do
+      skip "This control has been deprecated out of the RHEL7 STIG. It will not be run because 'skip_deprecated_test' is set to True"
     end
   else
     describe command("authconfig --test | grep -i \"smartcard for login is\" | awk '{ print $NF }'") do
