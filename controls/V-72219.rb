@@ -30,12 +30,6 @@ firewalld_ports_deny = input(
   description: "Ports that firewalld should be configured to deny."
 )
 
-default_firewalld_zone = input(
-  'default_firewalld_zone',
-  value: "public",
-  description: "Default firewall zone."
-)
-
 firewalld_zones = input(
   'firewalld_zones',
   value: [
@@ -123,11 +117,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
   tag "fix_id": "F-78573r1_fix"
 
   if service('firewalld').running?
-    # Check that default zone is correct
-    describe firewalld do
-      its('default_zone') { should eq default_firewalld_zone }
-    end
-   
+
     # Check that the rules specified in 'firewalld_host_deny' are not enabled
     describe firewalld do
       firewalld_hosts_deny.each do |rule|
