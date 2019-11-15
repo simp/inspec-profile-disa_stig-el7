@@ -58,6 +58,7 @@ environment variables."
   findings = Set[]
   dotfiles = Set[]
   umasks = {}
+  umask_findings = Set[]
   
   # Get UID_MIN from login.defs
   uid_min = 1000
@@ -73,17 +74,34 @@ environment variables."
   # For each user, build and execute a find command that identifies initialization files                                                                   
   # in a user's home directory.                                                                                                                            
   interactive_users.each do |u|
-    # Get user's initialization files
-    dotfiles = dotfiles + command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
+    # Only check if the home directory is local
+    nfs = command("stat -f -L -c %T #{u.home}").stdout.split("\n")[0]
+    if nfs.downcase != "nfs"
+      # Get user's initialization files
+      dotfiles = dotfiles + command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
     
-    # Get user's umask
-    umasks.store(u.username,command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
-  end
-
-  # Check all local initialization files to see whether or not they are less restrictive than 077.
-  dotfiles.each do |df|
-    if file(df).more_permissive_than?("0077")
-      findings = findings + df
+      # Get user's umask
+      umasks.store(u.username,command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
+    
+      # Check all local initialization files to see whether or not they are less restrictive than 077.
+      dotfiles.each do |df|
+        if file(df).more_permissive_than?("0077")
+          findings = findings + df
+        end
+      end
+      
+      # Check umask for all interactive users                                                                                                               
+      umasks.each do |key,value|
+        max_mode = ("0077").to_i(8)
+        inv_mode = 0777 ^ max_mode
+        if inv_mode & (value).to_i(8) != 0
+          umask_findings = umask_findings + key
+        end
+      end
+    else
+      describe "This control skips NFS filesystems" do
+       skip "This control has skipped the #{u.home} home directory for #{u.username} because it is a NFS filesystem."
+     end
     end
   end
   
@@ -93,16 +111,6 @@ environment variables."
     it { should eq true }
   end
 
-  # Check umask for all interactive users
-  umask_findings = Set[]
-  umasks.each do |key,value|
-    max_mode = ("0077").to_i(8)
-    inv_mode = 0777 ^ max_mode
-    if inv_mode & (value).to_i(8) != 0
-      umask_findings = umask_findings + key
-    end
-  end
-  
   # Report on any interactive users that have a umask less restrictive than 077.
   describe "No users were found with a less restrictive umask were found." do
     subject { umask_findings.empty? }
