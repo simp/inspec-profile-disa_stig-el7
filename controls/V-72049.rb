@@ -58,7 +58,17 @@ environment variables."
   findings = Set[]
   dotfiles = Set[]
   umasks = {}
-  interactive_users = users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries
+  
+  # Get UID_MIN from login.defs
+  uid_min = 1000
+  if file("/etc/login.defs").exist?
+    uid_min_val = command("grep '^UID_MIN' /etc/login.defs | grep -Po '[0-9]+'").stdout.split("\n")
+    if !uid_min_val.empty?
+      uid_min = uid_min_val[0].to_i
+    end
+  end
+  
+  interactive_users = users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries
 
   # For each user, build and execute a find command that identifies initialization files                                                                   
   # in a user's home directory.                                                                                                                            
