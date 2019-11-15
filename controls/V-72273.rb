@@ -1,12 +1,6 @@
 # encoding: utf-8
 #
 
-firewall_application = input(
-  'firewall_application',
-  value: 'firewalld',
-  description: "Name of the firewall application being used by this system."
-)
-
 control "V-72273" do
   title "The operating system must enable an application firewall, if
 available."
@@ -65,11 +59,22 @@ Start the firewall via \"systemctl\" with the following command:
 # systemctl start firewalld"
   tag "fix_id": "F-78627r1_fix"
 
-  describe package(firewall_application) do
-    it { should be_installed }
+
+  describe.one do
+    describe package('firewalld') do
+      it { should be_installed }
+    end
+    describe package('iptables') do
+      it { should be_installed }
+    end
   end
-  firewall_service = firewall_application + ".service"
-  describe systemd_service(firewall_service) do
-    it { should be_running }
+  describe.one do
+    describe systemd_service('firewalld.service') do
+      it { should be_running }
+    end
+	  describe systemd_service('iptables.service') do
+      it { should be_running }
+    end
   end
+end
 end
