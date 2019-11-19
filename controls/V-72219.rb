@@ -46,13 +46,13 @@ firewalld_zones = input(
   ]
 )
 
-iptable_rules = input(
-  'iptable_rules',
+iptables_rules = input(
+  'iptables_rules',
   value: [
     # Example
     # '-P INPUT ACCEPT',
   ],
-  description: "Iptable rules that should exist."
+  description: "Iptables rules that should exist."
 )
 
 control "V-72219" do
@@ -174,7 +174,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
     end
   elsif service('iptables').running?
     describe iptables do
-      iptable_rules.each do |rule|
+      iptables_rules.each do |rule|
         it { should have_rule(rule) }
       end
     end
