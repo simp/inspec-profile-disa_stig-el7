@@ -61,7 +61,7 @@ tcpwrappers_deny = input(
     # Example
     # { 'daemon' => 'vsftpd', 'client_list' => ['ALL'], 'options' => [] }
   ],
-  description: "Allow rules from etc/hosts.allow."
+  description: "Deny rules from etc/hosts.deny."
 )
 
 iptable_rules = input(
