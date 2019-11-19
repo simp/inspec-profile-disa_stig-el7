@@ -59,7 +59,7 @@ tcpwrappers_deny = input(
   'tcpwrappers_deny',
   value: [
     # Example
-    # { 'daemon' => 'vsftpd', 'client_list' => ['ALL'], 'options' => [] }
+    # { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => [] }
   ],
   description: "Deny rules from etc/hosts.deny."
 )
