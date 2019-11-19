@@ -74,9 +74,11 @@ environment variables."
   # For each user, build and execute a find command that identifies initialization files                                                                   
   # in a user's home directory.                                                                                                                            
   interactive_users.each do |u|
+    
     # Only check if the home directory is local
-    nfs = command("stat -f -L -c %T #{u.home}").stdout.split("\n")[0]
-    if nfs.downcase != "nfs"
+    is_local = command("df -l #{u.home}").exit_status
+    
+    if is_local == 0
       # Get user's initialization files
       dotfiles = dotfiles + command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
     
@@ -99,8 +101,8 @@ environment variables."
         end
       end
     else
-      describe "This control skips NFS filesystems" do
-       skip "This control has skipped the #{u.home} home directory for #{u.username} because it is a NFS filesystem."
+      describe "This control skips non-local filesystems" do
+       skip "This control has skipped the #{u.home} home directory for #{u.username} because it is not a local filesystem."
      end
     end
   end
