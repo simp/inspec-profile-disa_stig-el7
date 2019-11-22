@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
-grub_superusers = input(
-  'grub_superusers',
+grub_superuser = input(
+  'grub_superuser',
   description: 'superusers for grub boot ( array )',
   value: ['root']
 )
