@@ -18,7 +18,8 @@ inputs:
 # V-72081
 - name: monitor_kernel_log
   description: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
-  type: Boolean
+  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
+  #type: Boolean
   value: true
 
 # V-71849
@@ -33,16 +34,17 @@ inputs:
   type: Array
   value: []
 
-# V-71859 
+# V-71859
 - name: banner_message_enabled
   description: Set to 'true' if the login banner message should be enabled
   type: String
   value: 'true'
 
-# V-72211 
+# V-72211
 - name: log_aggregation_server
   description: Set to 'true' if the system is being used as a log aggregation server
-  type: Boolean
+  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
+  #type: Boolean
   value: false
 
 # V-72047
@@ -50,15 +52,16 @@ inputs:
   description: Known application groups that are allowed to have world-writeable files or directories
   type: Array
   value: []
- 
+
 # V-72307
 - name: x11_enabled
   description: Set to 'true' if X11 is needed on the system.
-  type: Boolean
+  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
+  #type: Boolean
   value: false
 
 - name: disallowed_accounts
-  description: Accounts that are not allowed on the system 
+  description: Accounts that are not allowed on the system
   type: Array
   value: [
   'games',
@@ -67,7 +70,7 @@ inputs:
   ]
 
 - name: user_accounts
-  description: Accounts of known managed users 
+  description: Accounts of known managed users
   type: Array
   value: []
 
@@ -88,7 +91,7 @@ inputs:
     'nobody',
     'systemd-bus-proxy'
     ]
-  
+
 
 # V-71859/V-77819
 - name: dconf_user
@@ -293,7 +296,7 @@ inputs:
 
 # V-71963
 - name: efi_superusers
-  description: Superusers for efi boot 
+  description: Superusers for efi boot
   type: Array
   value: ['root']
 
@@ -373,6 +376,7 @@ inputs:
 # V-72039
 - name: virtual_machine
   description: Is the target expected to be a virtual machine
-  type: Boolean
+  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
+  #type: Boolean
   value: false
 
