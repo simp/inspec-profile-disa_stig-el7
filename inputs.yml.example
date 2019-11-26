@@ -54,20 +54,7 @@ known_system_accounts: [
     'operator',
     'nobody',
     'systemd-bus-proxy',
-    'systemd-network',
-    'dbus',
-    'polkitd',
-    'tss', #  Account used by the trousers package to sandbox the tcsd daemon
-    'postfix', # Service Account for Postfix Mail Daemon
-    'chrony', # Service Account for the Chrony Time Service
-    'sshd', # Service Account for SSH
-    'sssd', # Service Account for the SSSH Authentication service
-    'rpc', # Service Account RPCBind Daemon
-    'ntp', # Service Account for NTPD Daemon
-    'vboxadd', # known Virtualbox user
-    'nfsnobody', # service account for nsfd
-    'vagrant', # known service account for vagrant / Virtualbox
-    'rpcuser', # known centos system account for nsf
+    'systemd-network'
 ]
 
 # V-71859/V-77819
