@@ -219,8 +219,8 @@ exempt_home_users: []
 # main grub boot config file
 grub_main_cfg: '/boot/grub2/grub.cfg'
 
-# superusers for grub boot ( array )
-grub_superusers: ['root']
+# superusers for grub boot
+grub_superusers: 'root'
 
 # grub boot config files
 grub_user_boot_files: ['/boot/grub2/user.cfg']
