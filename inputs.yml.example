@@ -53,12 +53,12 @@ known_system_accounts: [
     'mail',
     'operator',
     'nobody',
-    'systemd-bus-proxy',
+    'systemd-bus-proxy'
 ]
 
 # V-71859/V-77819
 # User to use to check dconf settings
-# (empty string means to use whatever user is running inspec currently)
+# (Nil means to use whatever user is running inspec currently)
 dconf_user: nil
 
 #  You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.

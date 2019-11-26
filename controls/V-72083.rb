@@ -44,8 +44,8 @@ address of the log aggregation server."
 
   if file('/etc/audisp/audisp-remote.conf').exist?
     describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-      its('remote_server') { should match %r{^\S+$} }
-      its('remote_server') { should_not match %r{localhost|127.0.0.1} }
+      its('remote_server'.to_s) { should match %r{^\S+$} }
+      its('remote_server'.to_s) { should_not be_in ['localhost', '127.0.0.1'] }
     end
   else
     describe "File '/etc/audisp/audisp-remote.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do

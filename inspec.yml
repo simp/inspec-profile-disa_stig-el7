@@ -85,13 +85,13 @@ inputs:
     'mail',
     'operator',
     'nobody',
-    'systemd-bus-proxy',
+    'systemd-bus-proxy'
     ]
   
 
 # V-71859/V-77819
 - name: dconf_user
-  description: User to use to check dconf settings. An empty string means to use whatever user is running inspec currently.
+  description: User to use to check dconf settings. Nil means to use whatever user is running inspec currently.
   type: String
   value: nil
 
