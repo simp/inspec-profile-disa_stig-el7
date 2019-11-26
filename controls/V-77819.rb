@@ -9,7 +9,7 @@ multifactor_enabled = input(
 
 dconf_user = input(
   'dconf_user',
-  value: '',
+  value: nil,
   description: "User to use to check dconf settings"
 )
 
@@ -84,7 +84,7 @@ enable-smartcard-authentication=true"
 
   # @todo - dynamically gather system_db_path?
   if package('gnome-desktop3').installed? and (package('pcsc-lite').installed? or package('esc').installed?)
-    if !dconf_user.empty? and command('whoami').stdout.strip == 'root'
+    if !dconf_user.nil? and command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
       end
@@ -94,8 +94,20 @@ enable-smartcard-authentication=true"
       end
     end
   else
-    describe "The GNOME desktop is not installed" do
-      skip "The GNOME desktop is not installed, this control is Not Applicable."
+   if !package('gnome-desktop3').installed?
+      describe "The GNOME desktop is not installed" do
+        skip "The GNOME desktop is not installed, this control is Not Applicable."
+      end
+    end		
+    if !package('pcsc-lite').installed?
+      describe "The pcsc-lite package is not installed" do
+        skip "The pcsc-lite package is not installed, this control is Not Applicable."
+      end
+    end
+    if !package('esc').installed?
+      describe "The esc package is not installed" do
+        skip "The esc package is not installed, this control is Not Applicable."
+      end
     end
   end
 end
