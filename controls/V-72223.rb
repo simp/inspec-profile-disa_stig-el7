@@ -68,18 +68,17 @@ readonly TMOUT
 export TMOUT"
   tag "fix_id": "F-78577r4_fix"
 
-  bashrc_file = parse_config_file('/etc/bashrc')
-
-  describe.one do
-    describe bashrc_file do
-      its('TMOUT') { should cmp <= system_activity_timeout }
-    end
-
-    profiled_files = command("find /etc/profile.d/*").stdout.split("\n")
-    profiled_files.each do |file|
-      profile_file = parse_config_file(file)
-      describe profile_file do
-        its('TMOUT') { should cmp <= system_activity_timeout }
+  files = ['/etc/bashrc'] + command("find /etc/profile.d/*").stdout.split("\n")
+  files.each do |file|
+    if (!(val = parse_config_file(file).params['TMOUT']).nil?)
+      describe"The TMOUT setting is configured properly in #{file}" do
+        subject { val.to_i }
+        it { should be <= system_activity_timeout }
+      end
+    else
+      describe "The TMOUT setting should be configured in #{file}" do
+        subject { !val.nil? }
+        it { should be true }
       end
     end
   end
