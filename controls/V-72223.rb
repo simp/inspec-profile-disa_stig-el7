@@ -70,15 +70,15 @@ export TMOUT"
 
   files = ['/etc/bashrc'] + command("find /etc/profile.d/*").stdout.split("\n")
   files.each do |file|
-    if (!(val = parse_config_file(file).params['TMOUT']).nil?)
-      describe"The TMOUT setting is configured properly in #{file}" do
-        subject { val.to_i }
-        it { should be <= system_activity_timeout }
-      end
-    else
+    if ((val = parse_config_file(file).params['TMOUT']).nil?)
       describe "The TMOUT setting should be configured in #{file}" do
         subject { !val.nil? }
         it { should be true }
+      end
+    else
+      describe"The TMOUT setting is configured properly in #{file}" do
+        subject { val.to_i }
+        it { should be <= system_activity_timeout }
       end
     end
   end
