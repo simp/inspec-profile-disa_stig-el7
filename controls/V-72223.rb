@@ -79,7 +79,7 @@ export TMOUT"
 
   files.each do |file|
     readonly = false
-    index = 0
+    
     # Skip to next file if TMOUT isn't present. Otherwise, get the last occurrence of TMOUT                                                                 
     next if (values = command("grep -Po '.*TMOUT.*' #{file}").stdout.split("\n")).empty?
 
