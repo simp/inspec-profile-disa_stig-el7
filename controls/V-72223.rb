@@ -88,7 +88,7 @@ export TMOUT"
 
       # Skip if starts with '#' - it represents a comment                                                                                                    
       next if !value.match(/^#/).nil?
-  # If readonly and value is inline - use that value                                                                                                     
+      # If readonly and value is inline - use that value                                                                                                     
       if !value.match(/^readonly[\s]+TMOUT[\s]*=[\s]*[\d]+$/).nil?
         latest_val = value.match(/[\d]+/)[0].to_i
         readonly = true
