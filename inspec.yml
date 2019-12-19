@@ -11,7 +11,8 @@ version: 0.2.0
 inputs:
 - name: disable_slow_controls
   description: Controls that are known to consistently have long run times can be disabled with this attribute
-  type: Boolean
+  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
+  #type: Boolean
   value: false
 
 # V-72081
