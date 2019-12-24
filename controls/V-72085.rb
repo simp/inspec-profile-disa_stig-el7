@@ -45,6 +45,6 @@ enable_krb5 = yes"
   tag "fix_id": "F-78437r1_fix"
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-    its('enable_krb5.strip') { should cmp 'yes' }
+    its('enable_krb5'.to_s) { should cmp 'yes' }
   end
 end
