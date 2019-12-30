@@ -89,8 +89,9 @@ to include \"ocsp_on\"."
       else
         describe "each cert policy line should include oscp_on" do
           cert_policy_lines.each do |line|                                    
-            line.should match %r{=[^;]*ocsp_on}i                                        
-          end 
+           subject { line }
+           it { should match %r{=[^;]*ocsp_on}i }
+	  end 
         end                                                                                              
       end
     else 
