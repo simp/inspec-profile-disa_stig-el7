@@ -48,7 +48,7 @@ The SSH service must be restarted for changes to take effect."
         expect(subject).not_to be_nil
       end
     end
-  else  
+  else
     @macs.first.split(",").each do |mac|
       describe mac do
         it { should be_in ['hmac-sha2-256', 'hmac-sha2-512'] }

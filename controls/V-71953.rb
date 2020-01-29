@@ -63,6 +63,6 @@ AutomaticLoginEnable=false"
   else
     describe "The system does not have GDM installed" do
       skip "The system does not have GDM installed, this requirement is Not Applicable."
-    end 
+    end
   end
 end

@@ -21,11 +21,11 @@ control "V-72061" do
   following command:
 
   # grep /var /etc/fstab
-  
+
   UUID=c274f65f /var ext4 noatime,nobarrier 1 2
 
   If a separate entry for \"/var\" is not in use, this is a finding."
-  
+
   desc "fix", "Migrate the \"/var\" path onto a separate file system."
 
   describe mount('/var') do

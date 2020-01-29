@@ -7,7 +7,7 @@ banner_message_enabled = input('banner_message_enabled', value: "true",
 
 dconf_user = input(
   'dconf_user',
-  value: '',
+  value: nil,
   description: "User to use to check dconf settings"
 )
 
@@ -115,7 +115,7 @@ effect."
   tag "fix_id": "F-78211r4_fix"
 
   if package('gnome-desktop3').installed?
-    if !dconf_user.empty? and command('whoami').stdout.strip == 'root'
+    if !dconf_user.nil? and command('whoami').stdout.strip == 'root'
       describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/banner-message-enable") do
         its('stdout.strip') { should cmp banner_message_enabled.to_s }
       end

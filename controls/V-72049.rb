@@ -53,13 +53,13 @@ environment variables."
 
   # Get all interactive users
   ignore_shells = non_interactive_shells.join('|')
-  
-  # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.                                                              
+
+  # Get home directory for users with UID >= 1000 or UID == 0 and support interactive logins.
   findings = Set[]
   dotfiles = Set[]
   umasks = {}
   umask_findings = Set[]
-  
+
   # Get UID_MIN from login.defs
   uid_min = 1000
   if file("/etc/login.defs").exist?
@@ -68,31 +68,31 @@ environment variables."
       uid_min = uid_min_val[0].to_i
     end
   end
-  
+
   interactive_users = users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries
 
-  # For each user, build and execute a find command that identifies initialization files                                                                   
-  # in a user's home directory.                                                                                                                            
+  # For each user, build and execute a find command that identifies initialization files
+  # in a user's home directory.
   interactive_users.each do |u|
-    
+
     # Only check if the home directory is local
     is_local = command("df -l #{u.home}").exit_status
-    
+
     if is_local == 0
       # Get user's initialization files
       dotfiles = dotfiles + command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
-    
+
       # Get user's umask
       umasks.store(u.username,command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
-    
+
       # Check all local initialization files to see whether or not they are less restrictive than 077.
       dotfiles.each do |df|
         if file(df).more_permissive_than?("0077")
           findings = findings + df
         end
       end
-      
-      # Check umask for all interactive users                                                                                                               
+
+      # Check umask for all interactive users
       umasks.each do |key,value|
         max_mode = ("0077").to_i(8)
         inv_mode = 0777 ^ max_mode
@@ -106,7 +106,7 @@ environment variables."
      end
     end
   end
-  
+
   # Report on any interactive files that are less restrictive than 077.
   describe "No interactive user initialization files with a less restrictive umask were found." do
     subject { findings.empty? }

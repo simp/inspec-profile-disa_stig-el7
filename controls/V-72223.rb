@@ -68,47 +68,47 @@ readonly TMOUT
 export TMOUT"
   tag "fix_id": "F-78577r4_fix"
 
-  # Get current TMOUT environment variable (active test)                                                                                                     
+  # Get current TMOUT environment variable (active test)
   describe os_env('TMOUT') do
     its('content') { should be <= system_activity_timeout }
   end
 
-  # Check if TMOUT is set in files (passive test)                                                                                                            
+  # Check if TMOUT is set in files (passive test)
   files = ['/etc/bashrc'] + ['/etc/profile'] + command("find /etc/profile.d/*").stdout.split("\n")
   latest_val = nil
 
   files.each do |file|
     readonly = false
-    
-    # Skip to next file if TMOUT isn't present. Otherwise, get the last occurrence of TMOUT                                                                 
+
+    # Skip to next file if TMOUT isn't present. Otherwise, get the last occurrence of TMOUT
     next if (values = command("grep -Po '.*TMOUT.*' #{file}").stdout.split("\n")).empty?
 
-    # Loop through each TMOUT match and see if set TMOUT's value or makes it readonly                                                                        
+    # Loop through each TMOUT match and see if set TMOUT's value or makes it readonly
     values.each_with_index { |value, index|
 
-      # Skip if starts with '#' - it represents a comment                                                                                                    
+      # Skip if starts with '#' - it represents a comment
       next if !value.match(/^#/).nil?
-      # If readonly and value is inline - use that value                                                                                                     
+      # If readonly and value is inline - use that value
       if !value.match(/^readonly[\s]+TMOUT[\s]*=[\s]*[\d]+$/).nil?
         latest_val = value.match(/[\d]+/)[0].to_i
         readonly = true
         break
-      # If readonly, but, value is not inline - use the most recent value                                                                                    
+      # If readonly, but, value is not inline - use the most recent value
       elsif !value.match(/^readonly[\s]+([\w]+[\s]+)?TMOUT[\s]*([\s]+[\w]+[\s]*)*$/).nil?
-        # If the index is greater than 0, the configuraiton setting value.                                                                                   
-        # Otherwise, the configuration setting value is in the previous file                                                                                 
-        # and is already set in latest_val.                                                                                                                  
+        # If the index is greater than 0, the configuraiton setting value.
+        # Otherwise, the configuration setting value is in the previous file
+        # and is already set in latest_val.
         if index >= 1
           latest_val = values[index - 1].match(/[\d]+/)[0].to_i
         end
         readonly = true
         break
-      # Readonly is not set use the lastest value                                                                                                            
+      # Readonly is not set use the lastest value
       else
         latest_val = value.match(/[\d]+/)[0].to_i
       end
     }
-   # Readonly is set - stop processing files                                                                                                                
+   # Readonly is set - stop processing files
     break if readonly === true
   end
 

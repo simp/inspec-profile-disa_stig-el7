@@ -6,7 +6,7 @@ firewalld_services_deny = input(
   value: {
     # Examples (zone:[services])
     # "public"=>['ssh', 'icmp'],
-    # "dmz"=>['http']   
+    # "dmz"=>['http']
   },
   description: "Services that firewalld should be configured to deny."
 )
@@ -132,14 +132,14 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
         it { should be false }
       end
     end
-   
+
     # Check that the services specified in 'firewalld_services_deny' and
     # ports specified in 'firewalld_ports_deny' are not enabled
     firewalld_zones.each do |zone|
-      if firewalld.has_zone?(zone)                                                                            
-        zone_services = firewalld_services_deny["public"]                                                     
-        zone_ports = firewalld_ports_deny[zone]  
-       
+      if firewalld.has_zone?(zone)
+        zone_services = firewalld_services_deny["public"]
+        zone_ports = firewalld_ports_deny[zone]
+
         if !zone_services.nil?
           describe firewalld do
             zone_services.each do |serv|
@@ -154,11 +154,11 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
         end
 
         if !zone_ports.nil?
-          describe firewalld do                                                                             
-            zone_ports.each do |port|                                                                       
-              it { should_not have_port_enabled_in_zone(port,zone) }                                     
-            end          
-          end          
+          describe firewalld do
+            zone_ports.each do |port|
+              it { should_not have_port_enabled_in_zone(port,zone) }
+            end
+          end
         else
           describe "Ports for zone '#{zone}' are not specified. Check 'firewalld_ports_deny' input." do
             subject { zone_ports.nil? }
@@ -166,10 +166,10 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
           end
         end
       else
-        describe "Firewalld zone '#{zone}' exists" do                                                   
+        describe "Firewalld zone '#{zone}' exists" do
           subject { firewalld.has_zone?(zone) }
-          it { should be true }                                                                               
-        end 
+          it { should be true }
+        end
       end
     end
   elsif service('iptables').running?

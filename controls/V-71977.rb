@@ -57,11 +57,11 @@ gpgcheck=1"
   tag "fix_id": "F-78329r1_fix"
 
   yum_conf = '/etc/yum.conf'
- 
-  if ((f = file(yum_conf)).exist?) 
+
+  if ((f = file(yum_conf)).exist?)
     describe ini(yum_conf) do
       its('main.gpgcheck') { should cmp 1 }
-    end 
+    end
   else
     describe f do
       it { should exist }
