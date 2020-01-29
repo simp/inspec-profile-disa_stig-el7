@@ -39,9 +39,9 @@ firewalld_ports_allow = input(
 firewalld_ports_deny = input(
   'firewalld_ports_deny',
   value: [
-    # Examples                                                                                                                                              
-    # '22/tcp',                                                                                                                                             
-    # '4722/tcp'                                                                                                                                            
+    # Examples
+    # '22/tcp',
+    # '4722/tcp'
   ],
   description: "Ports that firewalld should be configured to deny."
 )

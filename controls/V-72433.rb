@@ -88,13 +88,13 @@ to include \"ocsp_on\"."
         end
       else
         describe "each cert policy line should include oscp_on" do
-          cert_policy_lines.each do |line|                                    
+          cert_policy_lines.each do |line|
            subject { line }
            it { should match %r{=[^;]*ocsp_on}i }
-	  end 
-        end                                                                                              
+	  end
+        end
       end
-    else 
+    else
       describe pam_file do
         it { should exist }
       end

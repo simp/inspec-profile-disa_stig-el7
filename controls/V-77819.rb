@@ -98,7 +98,7 @@ enable-smartcard-authentication=true"
       describe "The GNOME desktop is not installed" do
         skip "The GNOME desktop is not installed, this control is Not Applicable."
       end
-    end		
+    end
     if !package('pcsc-lite').installed?
       describe "The pcsc-lite package is not installed" do
         skip "The pcsc-lite package is not installed, this control is Not Applicable."

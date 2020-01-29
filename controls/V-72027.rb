@@ -71,7 +71,7 @@ users.where { uid > 1000 && uid < 65534 }.usernames.sort.each do |u|
   end
 end
 
-  #describe users.where{ }.entries.each do |user_info| 
+  #describe users.where{ }.entries.each do |user_info|
   #users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
   #  next if exempt_home_users.include?("#{user_info.username}")
   #  findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -perm /027 ! -type l").stdout.split("\n")

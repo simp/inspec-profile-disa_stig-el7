@@ -21,7 +21,7 @@ the authoritative time server (e.g., mobile, teleworking, and tactical
 endpoints).
   "
   impact 0.5
-  
+
   tag "gtitle": "SRG-OS-000355-GPOS-00143"
   tag "satisfies": ["SRG-OS-000355-GPOS-00143", "SRG-OS-000356-GPOS-00144"]
   tag "gid": "V-72269"
@@ -29,7 +29,7 @@ endpoints).
   tag "stig_id": "RHEL-07-040500"
   tag "cci": ["CCI-001891", "CCI-002046"]
   tag "documentable": false
-  tag "subsystems": ['ntp']  
+  tag "subsystems": ['ntp']
   tag "nist": ["AU-8 (1) (a)", "AU-8 (1) (b)", "Rev_4"]
   tag "fix_id": "F-78623r3_fix"
 
@@ -58,7 +58,7 @@ endpoints).
 
   If a crontab file does not exist in the \"/etc/cron.daily\" that executes the
   \"ntpdate\" file, this is a finding."
-  
+
   desc "fix", "Edit the \"/etc/ntp.conf\" file and add or update an entry to
   define \"maxpoll\" to \"10\" as follows:
 
