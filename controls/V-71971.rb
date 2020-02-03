@@ -92,33 +92,38 @@ Use the following command to map an existing user to the \"user_u\" role:
     its('exit_status') { should eq 0 }
   end
 
-  describe command('semanage') do
-    its('exist?') { should be true }
+  # Get the currently enabled selinux mode
+  selinux_mode = file('/etc/selinux/config').content.lines.
+    grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
+
+  # Get the current seusers configuration
+  #
+  # Avoid use of semanage in case it has been uninstalled
+  #
+  # Remove all comments and empty lines
+  seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines.
+    grep_v(/(#|\A\s+\Z)/).map(&:strip)
+
+  # Create collect the remaining results in user/context pairs
+  seusers = seusers.map{|x| x.split(':')[0..1]}
+
+  describe 'seusers' do
+    it { expect(seusers).to_not be_empty }
   end
 
-  semanage_results = command('semanage login -l -n')
+  users_to_ignore = [
+    'root',
+    'system_u' # This is a default user mapping
+  ]
 
-  describe semanage_results do
-    its('stdout.lines') { should_not be_empty }
-  end
+  seusers.each do |user, context|
+    next if users_to_ignore.include?(user)
 
-  semanage_results.stdout.lines.each do |result|
-    login, seuser = result.split(/\s+/)
-
-    # Skip Blank Lines
-    next unless login
-
-    # Next if for some reason we still have header row
-    next if ( login == 'Login')
-
-    # Next if root
-    next if ( login == 'root')
-
-    describe "SELinux login #{login}" do
+    describe "SELinux login #{user}" do
       # This is required by the STIG
-      if login == '__default__'
+      if user == '__default__'
         let(:valid_users){[ 'user_u' ]}
-      elsif admin_logins.include?(login)
+      elsif admin_logins.include?(user)
         let(:valid_users){[
           'sysadm_u',
           'staff_u'
@@ -131,7 +136,7 @@ Use the following command to map an existing user to the \"user_u\" role:
         ]}
       end
 
-      it { expect(seuser).to be_in(valid_users) }
+      it { expect(context).to be_in(valid_users) }
     end
   end
 end
