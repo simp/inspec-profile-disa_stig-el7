@@ -7,7 +7,7 @@ control "V-77823" do
   boots into single-user or maintenance mode, anyone who invokes single-user or
   maintenance mode is granted privileged access to all files on the system."
   impact 0.5
-  
+
   tag "gtitle": "SRG-OS-000080-GPOS-00048"
   tag "gid": "V-77823"
   tag "rid": "SV-92519r1_rule"

@@ -59,7 +59,7 @@ command:
 # sudo rpm -Uvh <packagename>"
 
   tag "fix_id": "F-78391r1_fix"
-  
+
   tag "dangerous": { :reason => "Uses global find command" }
 
   findings = Set[]

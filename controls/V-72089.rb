@@ -67,27 +67,22 @@ Set the value of the \"space_left\" keyword in \"/etc/audit/auditd.conf\" to 75
 percent of the partition size."
   tag "fix_id": "F-78441r1_fix"
 
-  describe auditd_conf do
-    before(:all) do
-      @audit_log_dir = File.dirname(auditd_conf.log_file)
+  if((f = file(audit_log_dir= File.dirname(auditd_conf.log_file))).directory?)
+    partition_info = command("df -h #{@audit_log_dir}").stdout.split("\n")
+    partition_sz_arr = partition_info.last.gsub(/\s+/m, ' ').strip.split(" ")
 
-      if file(@audit_log_dir).directory?
-        partition_info = command("df -h #{@audit_log_dir}").stdout.split("\n")
+    # Get partition size in GB
+    partition_sz = partition_sz_arr[1].gsub(/G/, '')
 
-        partition_sz_arr = partition_info.last.gsub(/\s+/m, ' ').strip.split(" ")
+    # Convert to MB and get 25%
+    exp_space_left = partition_sz.to_i * 1024 / 4
 
-        # Get partition size in GB
-        partition_sz = partition_sz_arr[1].gsub(/G/, '')
-
-        # Convert to MB and get 25%
-        @exp_space_left = partition_sz.to_i * 1024 / 4
-      end
+    describe auditd_conf do
+      its('space_left.to_i') { should be >= exp_space_left }
     end
-
-    it 'should have an audit log directory' do
-      expect(file(@audit_log_dir).directory?).to be true
+  else
+    describe f.directory? do
+     it { should be true }
     end
-
-    its('space_left.to_i') { should be >= @exp_space_left }
   end
 end

@@ -1,7 +1,59 @@
 # encoding: utf-8
 #
 
-# TODO we need to write tests on this.
+firewalld_services_deny = input(
+  'firewalld_services_deny',
+  value: {
+    # Examples (zone:[services])
+    # "public"=>['ssh', 'icmp'],
+    # "dmz"=>['http']
+  },
+  description: "Services that firewalld should be configured to deny."
+)
+
+firewalld_hosts_deny = input(
+  'firewalld_hosts_deny',
+  value: [
+    # Example
+    # 'rule family="ipv4" source address="104.56.21.1/24" accept]'
+  ],
+  description: "Hosts that firewalld should be configured to deny."
+)
+
+firewalld_ports_deny = input(
+  'firewalld_ports_deny',
+  value: {
+    # Examples (zone:[ports])
+    #"public"=>['12345/tcp', '23456/tcp'],
+    # "dmz"=>['80/http', '22/ssh']
+  },
+  description: "Ports that firewalld should be configured to deny."
+)
+
+firewalld_zones = input(
+  'firewalld_zones',
+  value: [
+    # Examples
+    # 'drop',
+    # 'block',
+    # 'public'
+    # 'external',
+    # 'dmz',
+    # 'work',
+    # 'home',
+    # 'internal',
+    # 'trusted'
+  ]
+)
+
+iptables_rules = input(
+  'iptables_rules',
+  value: [
+    # Example
+    # '-P INPUT ACCEPT',
+  ],
+  description: "Iptables rules that should exist."
+)
 
 control "V-72219" do
   title "The host must be configured to prohibit or restrict the use of
@@ -64,7 +116,72 @@ PPSM Category Assurance List (CAL), this is a finding."
 comply with the PPSM CLSA for the site or program and the PPSM CAL."
   tag "fix_id": "F-78573r1_fix"
 
-  describe "This test currently has no automated tests, you must check manually" do
-    skip "This check must be preformed manually"
+  if service('firewalld').running?
+
+    # Check that the rules specified in 'firewalld_host_deny' are not enabled
+    describe firewalld do
+      firewalld_hosts_deny.each do |rule|
+        it { should_not have_rule_enabled(rule) }
+      end
+    end
+
+    # Check to make sure zones are specified
+    if firewalld_zones.empty?
+      describe "Firewalld zones are not specified. Check 'firewalld_zones' input." do
+        subject { firewalld_zones.empty? }
+        it { should be false }
+      end
+    end
+
+    # Check that the services specified in 'firewalld_services_deny' and
+    # ports specified in 'firewalld_ports_deny' are not enabled
+    firewalld_zones.each do |zone|
+      if firewalld.has_zone?(zone)
+        zone_services = firewalld_services_deny["public"]
+        zone_ports = firewalld_ports_deny[zone]
+
+        if !zone_services.nil?
+          describe firewalld do
+            zone_services.each do |serv|
+              it { should_not have_service_enabled_in_zone(serv,zone) }
+            end
+          end
+        else
+          describe "Services for zone '#{zone}' are not specified. Check 'firewalld_services_deny' input." do
+            subject { zone_services.nil? }
+            it { should be false }
+          end
+        end
+
+        if !zone_ports.nil?
+          describe firewalld do
+            zone_ports.each do |port|
+              it { should_not have_port_enabled_in_zone(port,zone) }
+            end
+          end
+        else
+          describe "Ports for zone '#{zone}' are not specified. Check 'firewalld_ports_deny' input." do
+            subject { zone_ports.nil? }
+            it { should be false }
+          end
+        end
+      else
+        describe "Firewalld zone '#{zone}' exists" do
+          subject { firewalld.has_zone?(zone) }
+          it { should be true }
+        end
+      end
+    end
+  elsif service('iptables').running?
+    describe iptables do
+      iptables_rules.each do |rule|
+        it { should have_rule(rule) }
+      end
+    end
+  else
+    describe "No application firewall is installed" do
+      subject { service('firewalld').running? || service('iptables').running? }
+      it { should eq true }
+    end
   end
 end

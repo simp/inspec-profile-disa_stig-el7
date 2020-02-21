@@ -47,15 +47,22 @@ section of the \"/etc/gdm/custom.conf\" file to \"false\":
 [daemon]
 TimedLoginEnable=false"
   tag "fix_id": "F-78307r2_fix"
-  custom_conf = file('/etc/gdm/custom.conf')
 
-  describe "In #{custom_conf.path}:[daemon]" do
-    context 'TimedLoginEnable' do
-      it { expect(ini(custom_conf.path)['daemon'][subject]).to cmp 'false' }
+  custom_conf = '/etc/gdm/custom.conf'
+
+  if package('gdm').installed?
+    if ((f = file(custom_conf)).exist?)
+      describe ini(custom_conf) do
+        its('daemon.TimedLoginEnable') { cmp false }
+      end
+    else
+      describe f do
+        it { should exist }
+      end
     end
-  end if package('gdm').installed?
-
-  describe "The system does not have GDM installed" do
-    skip "The system does not have GDM installed, this requirement is Not Applicable."
-  end if !package('gdm').installed?
+  else
+    describe "The system does not have GDM installed" do
+      skip "The system does not have GDM installed, this requirement is Not Applicable."
+    end
+  end
 end
