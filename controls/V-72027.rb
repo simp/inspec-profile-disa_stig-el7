@@ -58,24 +58,10 @@ Note: The example will be for the user smithj, who has a home directory of
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-
- allowed_users = %w(user1 user2 user3)
-
-users.where { uid > 1000 && uid < 65534 }.usernames.sort.each do |u|
-  describe user(u) do
-    if allowed_users.include?(u)
-      it { should exist }
-    else
-      it { should_not exist }
-    end
+  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
+    next if exempt_home_users.include?("#{user_info.username}")
+    findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -perm /027 ! -type l").stdout.split("\n")
   end
-end
-
-  #describe users.where{ }.entries.each do |user_info|
-  #users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-  #  next if exempt_home_users.include?("#{user_info.username}")
-  #  findings = findings + command("find #{user_info.home} -xdev ! -name '.*' -perm /027 ! -type l").stdout.split("\n")
-  #end
   describe "Home directories with excessive permissions" do
     subject { findings.to_a }
     it { should be_empty }
