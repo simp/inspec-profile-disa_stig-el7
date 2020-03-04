@@ -8,11 +8,7 @@
 # users may be unable to log into the system.
 #
 
-smart_card_status = input(
-  'smart_card_status',
-  value: 'enabled', # values(enabled|disabled)
-  description: 'Smart Card Status'
-)
+smart_card_status = input('smart_card_status')
 
 control "V-71965" do
   title "The operating system must uniquely identify and must authenticate

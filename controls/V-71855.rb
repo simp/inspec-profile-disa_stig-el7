@@ -1,16 +1,8 @@
 # encoding: utf-8
 #
-disable_slow_controls = input(
-  'disable_slow_controls',
-  value: false,
-  description: 'If enabled, this attribute disables this control and other
-                controls that consistently take a long time to complete.')
+disable_slow_controls = input('disable_slow_controls')
 
-rpm_verify_integrity_except = input(
-  'rpm_verify_integrity_except',
-  value: [],
-  description: 'This is a list of system files that should be allowed to change
-                from an rpm verify point of view.')
+rpm_verify_integrity_except = input('rpm_verify_integrity_except')
 
 control "V-71855" do
   title "The cryptographic hash of system files and commands must match vendor

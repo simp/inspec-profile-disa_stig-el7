@@ -1,14 +1,7 @@
 # encoding: utf-8
 #
 
-approved_tunnels = input(
-  'approved_tunnels',
-  value: [
-    # Example
-    # 'conn myTunnel'
-  ],
-  description: "Approved configured tunnels prepended with word 'conn'"
-)
+approved_tunnels = input('approved_tunnels')
 
 control "V-72317" do
   title "The system must not have unauthorized IP tunnels configured."

@@ -1,54 +1,11 @@
 # encoding: utf-8
 #
 
-known_system_accounts = input(
-  'known_system_accounts',
-  value: [
-        'root',
-        'bin',
-        'daemon',
-        'adm',
-        'lp',
-        'sync',
-        'shutdown',
-        'halt',
-        'mail',
-        'operator',
-        'nobody',
-        'systemd-bus-proxy',
-        'systemd-network',
-        'dbus',
-        'polkitd',
-        'tss', #  Account used by the trousers package to sandbox the tcsd daemon
-        'postfix', # Service Account for Postfix Mail Daemon
-        'chrony', # Service Account for the Chrony Time Service
-        'sshd', # Service Account for SSH
-        'sssd', # Service Account for the SSSH Authentication service
-        'rpc', # Service Account RPCBind Daemon
-        'ntp', # Service Account for NTPD Daemon
-        'vboxadd', # known Virtualbox user
-        'nfsnobody', # service account for nsfd
-        'vagrant', # known service account for vagrant / Virtualbox
-        'rpcuser', # known centos system account for nsf
-  ],
-  description: 'System accounts that support approved system activities. (Array)'
-)
+known_system_accounts = input('known_system_accounts')
 
-disallowed_accounts = input(
-  'disallowed_accounts',
-  description: 'Accounts that are not allowed on the system (Array)',
-  value: [
-    'games',
-    'gopher',
-    'ftp',
-  ]
-)
+disallowed_accounts = input('disallowed_accounts')
 
-user_accounts = input(
-  'user_accounts',
-  description: 'accounts of known managed users (Array)',
-  value:[]
-)
+user_accounts = input('user_accounts')
 
 control "V-72001" do
   title "The system must not have unnecessary accounts."

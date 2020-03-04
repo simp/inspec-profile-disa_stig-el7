@@ -1,15 +1,9 @@
 # encoding: utf-8
 #
 
-banner_message_enabled = input('banner_message_enabled', value: "true",
-  description: 'The banner message must display the Standard Mandatory DoD notice
-  before granting access.')
+banner_message_enabled = input('banner_message_enabled')
 
-dconf_user = input(
-  'dconf_user',
-  value: nil,
-  description: "User to use to check dconf settings"
-)
+dconf_user = input('dconf_user')
 
 control "V-71859" do
   title "The operating system must display the Standard Mandatory DoD Notice

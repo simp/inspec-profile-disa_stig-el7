@@ -1,11 +1,7 @@
 # encoding: utf-8
 #
 # Will need to be changed to reflect list of authorized system accounts
-admin_logins = input(
-  'admin_logins',
-  value: [],
-  description: "System accounts that support approved system activities."
-)
+admin_logins = input('admin_logins')
 
 # TODO we really do need an `semanage` resource.
 

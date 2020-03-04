@@ -1,8 +1,7 @@
 # encoding: utf-8
 #
 
-client_alive_interval = input('client_alive_interval', value: 600,
-description: "Value expected for ClientAliveInterval in sshd_config")
+client_alive_interval = input('client_alive_interval')
 
 control "V-72237" do
   title "All network connections associated with SSH traffic must terminate at

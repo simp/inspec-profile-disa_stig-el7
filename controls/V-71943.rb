@@ -1,16 +1,9 @@
 # encoding: utf-8
 #
 
-unsuccessful_attempts = input('unsuccessful_attempts', value: 3,
-description: 'The account is denied access after the specified number of
-consecutive failed logon attempts.')
-fail_interval = input('fail_interval', value: 900,
-description: 'The interval of time in which the consecutive failed logon
-attempts must occur in order for the account to be locked out (in seconds).')
-lockout_time = input('lockout_time', value: 604800,
-description: 'The minimum amount of time that an account must be locked out
-after the specified number of unsuccessful logon attempts (in seconds).
-This attribute should never be set greater than 604800.')
+unsuccessful_attempts = input('unsuccessful_attempts')
+fail_interval = input('fail_interval')
+lockout_time = input('lockout_time')
 
 control "V-71943" do
   title "Accounts subject to three unsuccessful logon attempts within 15

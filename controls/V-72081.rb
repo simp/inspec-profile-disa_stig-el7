@@ -1,12 +1,7 @@
 # encoding: utf-8
 #
 
-monitor_kernel_log = input(
-  'monitor_kernel_log',
-  description: 'Set this to false if your system availability concern is not documented or
-  there is no monitoring of the kernel log',
-  value: true
-)
+monitor_kernel_log = input('monitor_kernel_log')
 
 control "V-72081" do
   title "The operating system must shut down upon audit processing failure,

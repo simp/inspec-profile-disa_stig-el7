@@ -1,9 +1,7 @@
 # encoding: utf-8
 #
 
-difok = input('difok', value: 8, description: 'The acceptable range of
-values for difok which specifies the maximum number of characters that must
-change when a password is changed.')
+difok = input('difok')
 
 control "V-71911" do
   title "When passwords are changed a minimum of eight of the total number of

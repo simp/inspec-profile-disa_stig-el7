@@ -1,11 +1,7 @@
 # encoding: utf-8
 #
 
-log_aggregation_server = input(
-  'log_aggregation_server',
-  description: 'The system is intented to be a log aggregation server.',
-  value: false
-)
+log_aggregation_server = input('log_aggregation_server')
 
 # TODO account for using other log systems. `syslog-ng`
 # TODO add attribute for `SYSLOG_SYSTEM` and adjust control logic

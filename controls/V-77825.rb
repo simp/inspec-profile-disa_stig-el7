@@ -1,8 +1,6 @@
 # encoding: utf-8
 #
-randomize_va_space = input('randomize_va_space', value: 2,
-description: 'The value for the randomize virtual address space
-kernel parameter.')
+randomize_va_space = input('randomize_va_space')
 
 control "V-77825" do
   title "The operating system must implement virtual address space

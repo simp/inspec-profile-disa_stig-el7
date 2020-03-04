@@ -1,10 +1,7 @@
 # encoding: utf-8
 #
 
-lock_delay = input('lock_delay',
-value: 5,
-description: 'The scereensaver lock-delay must be less than or equal to the
-specified value.')
+lock_delay = input('lock_delay')
 
 control "V-71901" do
   title "The operating system must initiate a session lock for graphical user

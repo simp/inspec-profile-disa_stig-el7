@@ -3,11 +3,7 @@
 
 # TODO this needs to be reworked to allow `X11_NEEDED` attribute
 
-x11_enabled = input(
-  'x11_enabled',
-  description: 'Set to `true` if a GUI or X11 is needed on the system',
-  value: false
-)
+x11_enabled = input('x11_enabled')
 
 control "V-72307" do
   title "An X Windows display manager must not be installed unless approved."

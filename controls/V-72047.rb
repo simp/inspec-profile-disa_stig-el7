@@ -1,11 +1,7 @@
 # encoding: utf-8
 #
 
-application_groups = input(
-  'application_groups',
-  description: 'Known application groups that are allowed to have world-writeable files or directories',
-  value: []
-)
+application_groups = input('application_groups')
 
 control "V-72047" do
   title "All world-writable directories must be group-owned by root, sys, bin,

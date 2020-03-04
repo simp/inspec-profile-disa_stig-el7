@@ -1,10 +1,7 @@
 # encoding: utf-8
 #
 
-virtual_machine = input(
-  'virtual_machine',
-  value: false,
-  description: 'Is the target expected to be a virtual machine')
+virtual_machine = input('virtual_machine')
 
 control "V-72039" do
   title "All system device files must be correctly labeled to prevent

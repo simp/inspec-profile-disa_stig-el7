@@ -1,59 +1,15 @@
 # encoding: utf-8
 #
 
-firewalld_services_deny = input(
-  'firewalld_services_deny',
-  value: {
-    # Examples (zone:[services])
-    # "public"=>['ssh', 'icmp'],
-    # "dmz"=>['http']
-  },
-  description: "Services that firewalld should be configured to deny."
-)
+firewalld_services_deny = input('firewalld_services_deny')
 
-firewalld_hosts_deny = input(
-  'firewalld_hosts_deny',
-  value: [
-    # Example
-    # 'rule family="ipv4" source address="104.56.21.1/24" accept]'
-  ],
-  description: "Hosts that firewalld should be configured to deny."
-)
+firewalld_hosts_deny = input('firewalld_hosts_deny')
 
-firewalld_ports_deny = input(
-  'firewalld_ports_deny',
-  value: {
-    # Examples (zone:[ports])
-    #"public"=>['12345/tcp', '23456/tcp'],
-    # "dmz"=>['80/http', '22/ssh']
-  },
-  description: "Ports that firewalld should be configured to deny."
-)
+firewalld_ports_deny = input('firewalld_ports_deny')
 
-firewalld_zones = input(
-  'firewalld_zones',
-  value: [
-    # Examples
-    # 'drop',
-    # 'block',
-    # 'public'
-    # 'external',
-    # 'dmz',
-    # 'work',
-    # 'home',
-    # 'internal',
-    # 'trusted'
-  ]
-)
+firewalld_zones = input('firewalld_zones')
 
-iptables_rules = input(
-  'iptables_rules',
-  value: [
-    # Example
-    # '-P INPUT ACCEPT',
-  ],
-  description: "Iptables rules that should exist."
-)
+iptables_rules = input('iptables_rules')
 
 control "V-72219" do
   title "The host must be configured to prohibit or restrict the use of

@@ -4,8 +4,7 @@
 # TODO update attrib to use the same `style` as the other PAM/PASSWD attributes
 # TODO we should also have a PAM_PWQUALITY_PATH attrib I think
 
-min_len = input('min_len', value: 15,
-description: 'The minimum number of characters for passwords.')
+min_len = input('min_len')
 
 control "V-71935" do
   title "Passwords must be a minimum of 15 characters in length."

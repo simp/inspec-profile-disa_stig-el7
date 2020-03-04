@@ -5,9 +5,7 @@
 # TODO this can happen if `authconfig` has not been run on the system yet and
 # TODO the system is still using the `non-ac` versions of the files yet.
 
-min_reuse_generations = input('min_reuse_generations', value: 5,
-description: 'The minimum number of generations before a password can be
-reused.')
+min_reuse_generations = input('min_reuse_generations')
 
 control "V-71933" do
   title "Passwords must be prohibited from reuse for a minimum of five

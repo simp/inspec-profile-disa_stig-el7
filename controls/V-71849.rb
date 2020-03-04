@@ -1,17 +1,8 @@
 # encoding: utf-8
 #
 # Support for passed in Atrributes
-disable_slow_controls = input(
-  'disable_slow_controls',
-  value: false,
-  description: 'If enabled, this attribute disables this control and other
-                controls that consistently take a long time to complete.'
-)
-rpm_verify_perms_except = input(
-  'rpm_verify_perms_except',
-  value: [],
-  description: 'This is a list of system files that should be allowed to change
-                permission attributes from an rpm verify point of view.')
+disable_slow_controls = input('disable_slow_controls')
+rpm_verify_perms_except = input('rpm_verify_perms_except')
 
 control "V-71849" do
   title "The file permissions, ownership, and group membership of system files and commands must match the vendor" \

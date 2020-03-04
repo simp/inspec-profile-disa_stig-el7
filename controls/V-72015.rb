@@ -3,17 +3,9 @@
 
 # TODO ENHANCE: 1. this needs to be enhanced, i.e. to check the right thing. like V-72017
 
-exempt_home_users = input(
-  'exempt_home_users',
-  description: 'These are `home dir` exempt interactive accounts',
-  value: []
-)
+exempt_home_users = input('exempt_home_users')
 
-non_interactive_shells = input(
-  'non_interactive_shells',
-  description: 'These shells do not allow a user to login',
-  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
-)
+non_interactive_shells = input('non_interactive_shells')
 
 control "V-72015" do
   title "All local interactive user home directories defined in the /etc/passwd

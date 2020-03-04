@@ -1,17 +1,9 @@
 # encoding: utf-8
 #
 
-multifactor_enabled = input(
-  'multifactor_enabled',
-  value: 'true',
-  description: "Should dconf have smart card authentication"
-)
+multifactor_enabled = input('multifactor_enabled')
 
-dconf_user = input(
-  'dconf_user',
-  value: nil,
-  description: "User to use to check dconf settings"
-)
+dconf_user = input('dconf_user')
 
 control "V-77819" do
   title "The operating system must uniquely identify and must authenticate

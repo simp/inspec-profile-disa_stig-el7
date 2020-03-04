@@ -1,21 +1,9 @@
 # encoding: utf-8
 #
 
-efi_superusers = input(
-  'efi_superusers',
-  description: 'superusers for efi boot ( array )',
-  value: ['root']
-)
-efi_user_boot_files = input(
- 'efi_user_boot_files',
- description: 'efi boot config files',
- value: ['/boot/efi/EFI/redhat/user.cfg']
-)
-efi_main_cfg = input(
- 'efi_main_cfg',
- description: 'main efi boot config file',
- value: '/boot/efi/EFI/redhat/grub.cfg'
-)
+efi_superusers = input('efi_superusers')
+efi_user_boot_files = input('efi_user_boot_files')
+efi_main_cfg = input('efi_main_cfg')
 
 control "V-71963" do
   title "Systems using Unified Extensible Firmware Interface (UEFI) must

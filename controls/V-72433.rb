@@ -1,11 +1,7 @@
 # encoding: utf-8
 #
 
-smart_card_status = input(
-  'smart_card_status',
-  value: 'enabled', # values(enabled|disabled)
-  description: 'Smart Card Status'
-)
+smart_card_status = input('smart_card_status')
 
 control "V-72433" do
   title "The operating system must implement certificate status checking for

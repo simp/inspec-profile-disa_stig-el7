@@ -1,10 +1,6 @@
 # encoding: utf-8
 #
-non_interactive_shells = input(
-  'non_interactive_shells',
-  description: 'These shells do not allow a user to login',
-  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
-)
+non_interactive_shells = input('non_interactive_shells')
 
 control "V-72049" do
   title "The umask must be set to 077 for all local interactive user accounts."

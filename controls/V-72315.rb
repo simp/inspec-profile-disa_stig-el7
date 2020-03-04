@@ -2,76 +2,21 @@
 #
 
 # These inputs must be filled in to reflect expectations of particular system
-firewalld_services = input(
-  'firewalld_services',
-  value: [
-    # Examples
-    # 'dhcpv6-client',
-    # 'ssh'
-  ],
-  description: "Services that firewalld should be configured to allow."
-)
+firewalld_services = input('firewalld_services')
 
-firewalld_hosts_allow = input(
-  'firewalld_hosts_allow',
-  value: [
-  ],
-  description: "Hosts that firewalld should be configured to allow."
-)
+firewalld_hosts_allow = input('firewalld_hosts_allow')
 
-firewalld_hosts_deny = input(
-  'firewalld_hosts_deny',
-  value: [
-  ],
-  description: "Hosts that firewalld should be configured to deny."
-)
+firewalld_hosts_deny = input('firewalld_hosts_deny')
 
-firewalld_ports_allow = input(
-  'firewalld_ports_allow',
-  value: [
-    # Examples
-    # '22/tcp',
-    # '4722/tcp'
-  ],
-  description: "Ports that firewalld should be configured to allow."
-)
+firewalld_ports_allow = input('firewalld_ports_allow')
 
-firewalld_ports_deny = input(
-  'firewalld_ports_deny',
-  value: [
-    # Examples
-    # '22/tcp',
-    # '4722/tcp'
-  ],
-  description: "Ports that firewalld should be configured to deny."
-)
+firewalld_ports_deny = input('firewalld_ports_deny')
 
-tcpwrappers_allow = input(
-  'tcpwrappers_allow',
-  value: [
-    # Example
-    # { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => ['allow'] }
-  ],
-  description: "Allow rules from etc/hosts.allow."
-)
+tcpwrappers_allow = input('tcpwrappers_allow')
 
-tcpwrappers_deny = input(
-  'tcpwrappers_deny',
-  value: [
-    # Example
-    { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => [] }
-  ],
-  description: "Deny rules from etc/hosts.deny."
-)
+tcpwrappers_deny = input('tcpwrappers_deny')
 
-iptable_rules = input(
-  'iptable_rules',
-  value: [
-    # Example
-    # '-P INPUT ACCEPT',
-  ],
-  description: "Iptable rules that should exist."
-)
+iptable_rules = input('iptables_rules')
 
 control "V-72315" do
   title "The system access control program must be configured to grant or deny

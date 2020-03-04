@@ -1,8 +1,7 @@
 # encoding: utf-8
 #
 
-days_of_inactivity = input('days_of_inactivity', value: 0, description: 'The
-number of days of inactivity before an account is disabled.')
+days_of_inactivity = input('days_of_inactivity')
 
 control "V-71941" do
   title "The operating system must disable account identifiers (individuals,

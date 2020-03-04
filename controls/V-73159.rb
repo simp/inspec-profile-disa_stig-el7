@@ -1,8 +1,6 @@
 # encoding: utf-8
 #
-max_retry = input('max_retry', value: 3,
-description: 'The operating system must limit password
-failures.')
+max_retry = input('max_retry')
 
 control "V-73159" do
   title "When passwords are changed or new passwords are established, pwquality

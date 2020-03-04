@@ -1,20 +1,9 @@
 # encoding: utf-8
 #
 
-mfa_pkg_list = input(
-    'mfa_pkg_list',
-    description: 'The list of packages needed for MFA on RHEL',
-    value: [
-      'esc',
-      'pam_pkcs11',
-      'authconfig-gtk',
-    ])
+mfa_pkg_list = input('mfa_pkg_list')
 
-smart_card_status = input(
-  'smart_card_status',
-  value: 'enabled', # values(enabled|disabled)
-  description: 'Smart Card Status'
-)
+smart_card_status = input('smart_card_status')
 
 control "V-72417" do
   title "The operating system must have the required packages for multifactor

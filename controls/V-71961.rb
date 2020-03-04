@@ -1,20 +1,8 @@
 # encoding: utf-8
 #
-grub_superuser = input(
-  'grub_superuser',
-  description: 'superusers for grub boot ( array )',
-  value: ['root']
-)
-grub_user_boot_files = input(
- 'grub_user_boot_files',
- description: 'grub boot config files',
- value: ['/boot/grub2/user.cfg']
-)
-grub_main_cfg = input(
- 'grub_main_cfg',
- description: 'main grub boot config file',
- value: '/boot/grub2/grub.cfg'
-)
+grub_superuser = input('grub_superuser')
+grub_user_boot_files = input('grub_user_boot_files')
+grub_main_cfg = input('grub_main_cfg')
 
 control "V-71961" do
   title "Systems with a Basic Input/Output System (BIOS) must require

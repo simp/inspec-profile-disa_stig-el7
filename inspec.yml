@@ -89,7 +89,21 @@ inputs:
     'mail',
     'operator',
     'nobody',
-    'systemd-bus-proxy'
+    'systemd-bus-proxy',
+    'systemd-network',
+    'dbus',
+    'polkitd',
+    'tss', #  Account used by the trousers package to sandbox the tcsd daemon
+    'postfix', # Service Account for Postfix Mail Daemon
+    'chrony', # Service Account for the Chrony Time Service
+    'sshd', # Service Account for SSH
+    'sssd', # Service Account for the SSSH Authentication service
+    'rpc', # Service Account RPCBind Daemon
+    'ntp', # Service Account for NTPD Daemon
+    'vboxadd', # known Virtualbox user
+    'nfsnobody', # service account for nsfd
+    'vagrant', # known service account for vagrant / Virtualbox
+    'rpcuser',
     ]
 
 
@@ -317,7 +331,7 @@ inputs:
   value: []
 
 # V-73159
-- name: max_rety
+- name: max_retry
   description: Maximum number of times to prompt user for new password
   type: Numeric
   value: 3
@@ -380,3 +394,54 @@ inputs:
   #type: Boolean
   value: false
 
+- name: firewalld_services
+  description: Services that firewalld should be configured to allow. (e.g., 'dhcpv6-client', 'ssh')
+  type: Array
+  value: []
+
+- name: firewalld_services_deny
+  description: Services that firewalld should be configured to deny. (e.g., (zone:[services]), "public"=>['ssh', 'icmp'],"dmz"=>['http'])
+  type: Array
+  value: []
+
+- name: firewalld_hosts_allow
+  description: Hosts that firewalld should be configured to allow.
+  type: Array
+  value: []
+
+- name: firewalld_hosts_deny
+  description: Hosts that firewalld should be configured to deny. (e.g., 'rule family="ipv4" source address="104.56.21.1/24" accept]')
+  type: Array
+  value: []
+
+- name: firewalld_ports_allow
+  description: Ports that firewalld should be configured to allow. (e.g., '22/tcp', '4722/tcp')
+  type: Array
+  value: []
+
+- name: firewalld_ports_deny
+  description: Ports that firewalld should be configured to deny. (e.g., (zone:[ports]), "public"=>['12345/tcp', '23456/tcp'], "dmz"=>['80/http', '22/ssh'])
+  type: Array
+  value: []
+
+- name: firewalld_zones
+  description: firewalld zones (e.g. 'drop', 'block', 'public' 'external', 'dmz', 'work', 'home', 'internal', 'trusted')
+  type: Array
+  value: []
+
+- name: iptables_rules
+  description: Iptables rules that should exist. (e.g. '-P INPUT ACCEPT')
+  type: Array
+  value: []
+
+- name: tcpwrappers_allow
+  description: Allow rules from etc/hosts.allow. (e.g., { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => ['allow'])
+  type: Array
+  value: []
+
+- name: tcpwrappers_deny
+  description: Deny rules from etc/hosts.deny. (e.g., { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => [] })
+  type: Array
+  value: [
+    { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => [] }
+    ]

@@ -1,23 +1,10 @@
 # encoding: utf-8
 
-disable_slow_controls = input(
-  'disable_slow_controls',
-  value: false,
-  description: 'If enabled, this attribute disables this control and other
-                controls that consistently take a long time to complete.'
-)
+disable_slow_controls = input('disable_slow_controls')
 
-exempt_home_users = input(
-  'exempt_home_users',
-  description: 'These are `home dir` exempt interactive accounts',
-  value: []
-)
+exempt_home_users = input('exempt_home_users')
 
-non_interactive_shells = input(
-  'non_interactive_shells',
-  description: 'These shells do not allow a user to login',
-  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
-)
+non_interactive_shells = input('non_interactive_shells')
 
 control "V-72037" do
     title "The Red Hat Enterprise Linux operating system must be configured so

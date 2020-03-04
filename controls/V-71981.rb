@@ -1,9 +1,6 @@
 # encoding: utf-8
 #
-skip_deprecated_test = input(
-  'skip_deprecated_test',
-  value: true,
-  description: 'Skips tests that have been deprecated and removed from the STIG.')
+skip_deprecated_test = input('skip_deprecated_test')
 
 control "V-71981" do
   title "The operating system must prevent the installation of software,

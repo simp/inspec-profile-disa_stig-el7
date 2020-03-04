@@ -1,11 +1,7 @@
 # encoding: utf-8
 #
 
-log_pkg_path = input(
-  'log_pkg_path',
-  value: '/etc/rsyslog.conf',
-  description: "The path to the logging package"
-)
+log_pkg_path = input('log_pkg_path')
 
 control "V-72051" do
   title "Cron logging must be implemented."

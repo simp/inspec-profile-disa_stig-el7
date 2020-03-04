@@ -1,11 +1,7 @@
 # encoding: utf-8
 #
 
-non_removable_media_fs = input(
-  'non_removable_media_fs',
-  value: ['xfs', 'ext4', 'swap', 'tmpfs'],
-  description: "File systems that don't correspond to removable media"
-)
+non_removable_media_fs = input('non_removable_media_fs')
 
 control "V-72043" do
   title "File systems that are used with removable media must be mounted to
