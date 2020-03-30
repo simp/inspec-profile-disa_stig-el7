@@ -242,7 +242,7 @@ inputs:
   type: String
   value: 'aide'
 
-- name: file_integrity_tool
+- name: file_integrity_interval
   description: Interval to run the file integrity tool (monthly, weekly, or daily).
   type: String
   value: 'weekly'
