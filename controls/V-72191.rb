@@ -1,7 +1,8 @@
 # encoding: utf-8
 #
 control "V-72191" do
-  title "All uses of the insmod command must be audited."
+  title "The Red Hat Enterprise Linux operating system must audit all uses of
+the kmod command."
   desc  "
     Without generating audit records that are specific to the security and
 mission needs of the organization, it would be difficult to establish,
@@ -21,29 +22,29 @@ information system (e.g., module or policy filter).
   tag "nist": ["AU-12 c", "Rev_4"]
   tag "subsystems": ['audit', 'auditd', 'audit_rule']
   desc "check", "Verify the operating system generates audit records when
-successful/unsuccessful attempts to use the \"insmod\" command occur.
+successful/unsuccessful attempts to use the \"kmod\" command occur.
 
 Check the auditing rules in \"/etc/audit/audit.rules\" with the following
 command:
 
-# grep -i insmod /etc/audit/audit.rules
+# grep -iw kmod /etc/audit/audit.rules
 
 If the command does not return the following output this is a finding.
 
--w /sbin/insmod -p x -F auid!=4294967295 -k module-change
+-w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change
 
 If the command does not return any output, this is a finding."
   desc "fix", "Configure the operating system to generate audit records when
-successful/unsuccessful attempts to use the \"insmod\" command occur.
+successful/unsuccessful attempts to use the \"kmod\" command occur.
 
 Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 
--w /sbin/insmod -p x -F auid!=4294967295 -k module-change
+-w /usr/bin/kmod -p x -F auid!=4294967295 -k module-change
 
 The audit daemon must be restarted for the changes to take effect."
   tag "fix_id": "F-78545r7_fix"
 
-  audit_file = '/sbin/insmod'
+  audit_file = '/usr/bin/kmod'
 
   if file(audit_file).exist?
     impact 0.5
