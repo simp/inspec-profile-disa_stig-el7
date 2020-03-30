@@ -286,8 +286,8 @@ inputs:
 
 - name: grub_superuser
   description: superusers for grub boot
-  type: Array
-  value: ['root']
+  type: String
+  value: 'root'
 
 - name: grub_user_boot_files
   description: Grub boot config files
