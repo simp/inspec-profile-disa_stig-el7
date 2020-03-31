@@ -439,7 +439,11 @@ inputs:
   type: Array
   value: []
 
-- name: tcpwrappers_deny
+  - name: tcpwrappers_deny
   description: Deny rules from etc/hosts.deny. (e.g., { 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => [] })
   type: Array
-  value: [{ 'daemon' => 'ALL', 'client_list' => ['ALL'], 'options' => [] }]
+  value:
+    - daemon: ‘ALL’
+      client_list:
+        - ALL
+      options: []
