@@ -56,14 +56,17 @@ If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding."
   desc "fix", "Install the operating system patches or updated packages
 available from Red Hat within 30 days or sooner as local policy dictates."
+  
+  updates = linux_update.updates
+  package_names = updates.map { |h| h['name'] }
 
   describe.one do
     describe 'List of out-of-date packages' do
-      subject { linux_update.updates }
+      subject { package_names }
       it { should be_empty }
     end
 
-    linux_update.updates.each do |update|
+    updates.each do |update|
       describe package(update['name']) do
         its('version') { should eq update['version'] }
       end
