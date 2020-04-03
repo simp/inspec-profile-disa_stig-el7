@@ -1,4 +1,4 @@
-# EL7 DISA STIG InSpec Profile Maintained by the SIMP Project
+# red-hat-enterprise-linux-7-stig-baseline
 
 This [InSpec](https://github.com/chef/inspec) profile is being developed and
 maintained as part of the SIMP project.
