@@ -16,6 +16,6 @@ namespace :profile do
     Run 'inspec check' on all profiles
   EOM
   task :check do
-    sh %(inspec --chef-license accept check .)
+    sh %(inspec check . --chef-license=accept)
   end
 end

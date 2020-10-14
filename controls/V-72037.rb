@@ -1,28 +1,8 @@
-# encoding: utf-8
-
-disable_slow_controls = input(
-  'disable_slow_controls',
-  value: false,
-  description: 'If enabled, this attribute disables this control and other
-                controls that consistently take a long time to complete.'
-)
-
-exempt_home_users = input(
-  'exempt_home_users',
-  description: 'These are `home dir` exempt interactive accounts',
-  value: []
-)
-
-non_interactive_shells = input(
-  'non_interactive_shells',
-  description: 'These shells do not allow a user to login',
-  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
-)
-
+# -*- encoding : utf-8 -*-
 control "V-72037" do
-    title "The Red Hat Enterprise Linux operating system must be configured so
- that local initialization files do not execute world-writable programs."
-  if disable_slow_controls
+  title "The Red Hat Enterprise Linux operating system must be configured so
+that local initialization files do not execute world-writable programs."
+  if input('disable_slow_controls')
     desc "This control consistently takes a long to run and has been disabled
           using the disable_slow_controls attribute."
   else
@@ -32,39 +12,46 @@ files or otherwise compromise the system at the user level. If the system is
 compromised at the user level, it is easier to elevate privileges to eventually
 compromise the system at the root and network level."
   end
-  impact 0.5
-  tag "gtitle": "SRG-OS-000480-GPOS-00227"
-  tag "gid": "V-72037"
-  tag "rid": "SV-86661r1_rule"
-  tag "stig_id": "RHEL-07-020730"
-  tag "cci": ["CCI-000366"]
-  tag "documentable": false
-  tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ['init_files']
-  desc "check", "Verify that local initialization files do not execute
-world-writable programs.
+  desc  "rationale", ""
+  desc  "check", "
+    Verify that local initialization files do not execute world-writable
+programs.
 
-Check the system for world-writable files with the following command:
+    Check the system for world-writable files with the following command:
 
-# find / -xdev -perm -002 -type f -exec ls -ld {} \\; | more
+    # find / -xdev -perm -002 -type f -exec ls -ld {} \\; | more
 
-For all files listed, check for their presence in the local initialization
+    For all files listed, check for their presence in the local initialization
 files with the following commands:
 
-Note: The example will be for a system that is configured to create users' home
-directories in the \"/home\" directory.
+    Note: The example will be for a system that is configured to create users'
+home directories in the \"/home\" directory.
 
-# grep <file> /home/*/.*
+    # grep <file> /home/*/.*
 
-If any local initialization files are found to reference world-writable files,
-this is a finding."
-  desc "fix", "Set the mode on files being executed by the local initialization
-files with the following command:
+    If any local initialization files are found to reference world-writable
+files, this is a finding.
+  "
+  desc  "fix", "
+    Set the mode on files being executed by the local initialization files with
+the following command:
 
-# chmod 0755  <file>"
-  tag "fix_id": "F-78389r1_fix"
+    # chmod 0755 <file>
+  "
+  impact 0.5
+  tag severity: nil
+  tag gtitle: "SRG-OS-000480-GPOS-00227"
+  tag gid: "V-72037"
+  tag rid: "SV-86661r2_rule"
+  tag stig_id: "RHEL-07-020730"
+  tag fix_id: "F-78389r2_fix"
+  tag cci: ["CCI-000366"]
+  tag nist: ["CM-6 b", "Rev_4"]
 
-  if disable_slow_controls
+  exempt_home_users = input('exempt_home_users')
+  non_interactive_shells = input('non_interactive_shells')
+
+  if input('disable_slow_controls')
     describe "This control consistently takes a long to run and has been disabled
   using the disable_slow_controls attribute." do
       skip "This control consistently takes a long to run and has been disabled
@@ -122,3 +109,4 @@ files with the following command:
     end
   end
 end
+

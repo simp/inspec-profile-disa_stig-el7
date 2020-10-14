@@ -1,59 +1,58 @@
-# encoding: utf-8
-#
+# -*- encoding : utf-8 -*-
 control "V-72097" do
-  title "All uses of the chown command must be audited."
-  desc  "
-    Without generating audit records that are specific to the security and
+  title "The Red Hat Enterprise Linux operating system must audit all uses of
+the chown syscall."
+  desc  "Without generating audit records that are specific to the security and
 mission needs of the organization, it would be difficult to establish,
 correlate, and investigate the events relating to an incident or identify those
 responsible for one.
 
     Audit records can be generated from various components within the
 information system (e.g., module or policy filter).
+
+
+  "
+  desc  "rationale", ""
+  desc  "check", "
+    Verify the operating system generates audit records when
+successful/unsuccessful attempts to use the \"chown\" syscall occur.
+
+    Check the file system rules in \"/etc/audit/audit.rules\" with the
+following commands:
+
+    # grep -iw chown /etc/audit/audit.rules
+
+    -a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k
+perm_mod
+
+    -a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -k
+perm_mod
+
+    If both the \"b32\" and \"b64\" audit rules are not defined for the
+\"chown\" syscall, this is a finding.
+  "
+  desc  "fix", "
+    Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+
+    -a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k
+perm_mod
+
+    -a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -k
+perm_mod
+
+    The audit daemon must be restarted for the changes to take effect.
   "
   impact 0.5
-  tag "gtitle": "SRG-OS-000064-GPOS-00033"
-  tag "satisfies": ["SRG-OS-000064-GPOS-00033", "SRG-OS-000392-GPOS-00172",
+  tag severity: nil
+  tag gtitle: "SRG-OS-000064-GPOS-00033"
+  tag satisfies: ["SRG-OS-000064-GPOS-00033", "SRG-OS-000392-GPOS-00172",
 "SRG-OS-000458-GPOS-00203", "SRG-OS-000474-GPOS-00219"]
-  tag "gid": "V-72097"
-  tag "rid": "SV-86721r3_rule"
-  tag "stig_id": "RHEL-07-030370"
-  tag "cci": ["CCI-000126", "CCI-000172"]
-  tag "documentable": false
-  tag "nist": ["AU-2 d", "AU-12 c", "Rev_4"]
-  tag "subsystems": ['audit', 'auditd', 'audit_rule']
-  desc "check", "Verify the operating system generates audit records when
-successful/unsuccessful attempts to use the \"chown\" command occur.
-
-Check the file system rules in \"/etc/audit/audit.rules\" with the following
-commands:
-
-Note: The output lines of the command are duplicated to cover both 32-bit and
-64-bit architectures. Only the lines appropriate for the system architecture
-must be present.
-
-# grep -iw chown /etc/audit/audit.rules
-
--a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod
-
--a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod
-
-If there are no audit rules defined for the \"chown\" command, this is a
-finding.
-"
-  desc "fix", "Add or update the following rule in
-\"/etc/audit/rules.d/audit.rules\":
-
-Note: The rules are duplicated to cover both 32-bit and 64-bit architectures.
-Only the lines appropriate for the system architecture must be configured.
-
--a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod
-
--a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod
-
-The audit daemon must be restarted for the changes to take effect.
-"
-  tag "fix_id": "F-78449r6_fix"
+  tag gid: "V-72097"
+  tag rid: "SV-86721r5_rule"
+  tag stig_id: "RHEL-07-030370"
+  tag fix_id: "F-78449r8_fix"
+  tag cci: ["CCI-000126", "CCI-000172"]
+  tag nist: ["AU-2 d", "AU-12 c", "Rev_4"]
 
   describe auditd.syscall("chown").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }
@@ -66,3 +65,4 @@ The audit daemon must be restarted for the changes to take effect.
     end
   end
 end
+

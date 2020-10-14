@@ -1,11 +1,12 @@
-name: disa_stig-el7
-title: DISA RedHat Enterprise Linux 7 STIG - v1r4
-maintainer: SIMP Team
-copyright: SIMP Team
-copyright_email: simp-dev@googlegroups.com
+name: Red Hat Enterprise Linux 7 STIG
+title: Red Hat Enterprise Linux 7 Security Technical Implementation Guide - v2r6
+maintainer: MITRE SAF Team
+copyright: MITRE, 2020
+copyright_email: saf@groups.mitre.org
 license: Apache-2.0
-summary: 'The `disa_stig-el7` inspec profile helps scan your system aginst the DISA RHEL7 STIG'
-version: 0.2.0
+summary: "The Red Hat Enterprise Linux 7 Security Technical Implementation Guide (STIG) is published as a tool to improve the security of Department of Defense (DoD) information systems.  Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil."
+version: 2.6.1
+inspec_version: ">= 4.0"
 
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
@@ -60,15 +61,6 @@ inputs:
   #type: Boolean
   value: false
 
-- name: disallowed_accounts
-  description: Accounts that are not allowed on the system
-  type: Array
-  value: [
-  'games',
-  'gopher',
-  'ftp'
-  ]
-
 - name: user_accounts
   description: Accounts of known managed users
   type: Array
@@ -77,21 +69,27 @@ inputs:
 - name: known_system_accounts
   description: System accounts that support approved system activities.
   type: Array
-  value: [
-    'root',
-    'bin',
-    'daemon',
-    'adm',
-    'lp',
-    'sync',
-    'shutdown',
-    'halt',
-    'mail',
-    'operator',
-    'nobody',
-    'systemd-bus-proxy'
-    ]
-
+  value: 
+    - 'root'
+    - 'bin'
+    - 'daemon'
+    - 'adm'
+    - 'lp'
+    - 'sync'
+    - 'shutdown'
+    - 'halt'
+    - 'mail'
+    - 'operator'
+    - 'nobody'
+    - 'systemd-bus-proxy'
+    - 'dbus'
+    - 'polkitd'
+    - 'postfix'
+    - 'sssd'
+    - 'chrony'
+    - 'systemd-network'
+    - 'sshd'
+    - 'ntp'
 
 # V-71859/V-77819
 - name: dconf_user
@@ -284,6 +282,11 @@ inputs:
   type: String
   value: '/boot/grub2/grub.cfg'
 
+- name: grub_uefi_main_cfg
+  description: Main grub boot config file
+  type: String
+  value: '/boot/efi/EFI/redhat/grub.cfg'
+
 - name: grub_superuser
   description: superusers for grub boot
   type: String
@@ -292,23 +295,20 @@ inputs:
 - name: grub_user_boot_files
   description: Grub boot config files
   type: Array
-  value: ['/boot/grub2/user.cfg']
+  value: 
+    - '/boot/grub2/user.cfg'
+
+- name: grub_uefi_user_boot_files
+  description: Grub boot config files
+  type: Array
+  value: ['/boot/efi/EFI/redhat/user.cfg']
 
 # V-71963
 - name: efi_superusers
   description: Superusers for efi boot
   type: Array
-  value: ['root']
-
-- name: efi_user_boot_files
-  description: Efi boot config files
-  type: Array
-  value: ['/boot/efi/EFI/redhat/user.cfg']
-
-- name: efi_main_cfg
-  description: Main efi boot config file
-  type: String
-  value: '/boot/efi/EFI/redhat/grub.cfg'
+  value: 
+    - 'root'
 
 # V-71971
 - name: admin_logins
@@ -326,23 +326,22 @@ inputs:
 - name: mfa_pkg_list
   description: The list of packages needed for MFA on RHEL
   type: Array
-  value: [
-    'nss-tools',
-    'nss-pam-ldapd',
-    'esc',
-    'pam_pkcs11',
-    'pam_krb5',
-    'opensc',
-    'pcsc-lite-ccid',
-    'gdm',
-    'authconfig',
-    'authconfig-gtk',
-    'krb5-libs',
-    'krb5-workstation',
-    'krb5-pkinit',
-    'pcsc-lite',
-    'pcsc-lite-libs'
-    ]
+  value: 
+    - 'nss-tools'
+    - 'nss-pam-ldapd'
+    - 'esc'
+    - 'pam_pkcs11'
+    - 'pam_krb5'
+    - 'opensc'
+    - 'pcsc-lite-ccid'
+    - 'gdm'
+    - 'authconfig'
+    - 'authconfig-gtk'
+    - 'krb5-libs'
+    - 'krb5-workstation'
+    - 'krb5-pkinit'
+    - 'pcsc-lite'
+    - 'pcsc-lite-libs'
 
 # V-77819
 - name: multifactor_enabled
@@ -353,7 +352,13 @@ inputs:
 - name: non_interactive_shells
   description: These shells do not allow a user to login
   type: Array
-  value: ["/sbin/nologin", "/sbin/halt", "/sbin/shutdown", "/bin/false", "/bin/sync", "/bin/true"]
+  value: 
+    - "/sbin/nologin"
+    - "/sbin/halt"
+    - "/sbin/shutdown"
+    - "/bin/false"
+    - "/bin/sync"
+    - "/bin/true"
 
 # V-72059
 - name: randomize_va_space
@@ -365,7 +370,11 @@ inputs:
 - name: non_removable_media_fs
   description: File systems that don't correspond to removable media
   type: Array
-  value: ['xfs', 'ext4', 'swap', 'tmpfs']
+  value: 
+    - 'xfs'
+    - 'ext4'
+    - 'swap'
+    - 'tmpfs'
 
 # V-72317
 - name: approved_tunnels
@@ -380,3 +389,183 @@ inputs:
   #type: Boolean
   value: false
 
+# V-73159
+- name: max_retry
+  description: maximum number of password retries
+  type: Numeric
+  value: 3
+
+# V-72315
+- name: firewalld_services
+  description: "Services that firewalld should be configured to allow."
+  type: Array
+  # Examples
+  # 'dhcpv6-client',
+  # 'ssh'
+  value: []
+
+- name: firewalld_hosts_allow
+  description: "Hosts that firewalld should be configured to allow."
+  type: Array
+  value: []
+
+- name: firewalld_hosts_deny
+  description: "Hosts that firewalld should be configured to deny."
+  type: Array
+  value: []
+
+- name: firewalld_ports_allow
+  description: "Ports that firewalld should be configured to allow."
+  type: Array
+  # Examples
+  # '22/tcp',
+  # '4722/tcp'
+  value: []
+
+- name: firewalld_ports_deny
+  description: "Ports that firewalld should be configured to deny."
+  type: Hash
+  # Examples
+  # 'public':
+  #   - '22/tcp'
+  #   - '4722/tcp'
+  value: {}
+
+- name: tcpwrappers_allow
+  description: "Allow rules from etc/hosts.allow."
+  # Example
+  # 'daemon': 'ALL'
+  # 'client_list':
+  #   - 'ALL'
+  # 'options': []
+  type: Hash
+  value: {}
+
+- name: tcpwrappers_deny
+  description: "Deny rules from etc/hosts.deny."
+  type: Hash
+  # Example
+  # 'daemon': 'ALL'
+  # 'client_list':
+  #   - 'ALL'
+  # 'options': []
+  value: {}
+
+- name: iptables_rules
+  description: "Iptable rules that should exist."
+  type: Array
+  # Example
+  # '-P INPUT ACCEPT',
+  value: []
+
+# V-72219
+- name: firewalld_services_deny
+  description: "Services that firewalld should be configured to deny."
+  type: Hash
+  # Examples (zone:[services])
+  # public:
+  #   - 'ssh'
+  #   - 'icmp'
+  # dmz:
+  #   - 'http'
+  value: {}
+
+- name: firewalld_zones
+  description: "Zones that should be present on the system."
+  type: Array
+  # Examples
+  # - 'drop'
+  # - 'block'
+  # - 'public'
+  # - 'external'
+  # - 'dmz'
+  # - 'work'
+  # - 'home'
+  # - 'internal'
+  # - 'trusted'
+  value: []
+
+# V-72217
+- name: maxlogins_limit
+  description: "The maxium value that can be used for maxlogins."
+  type: Numeric
+  value: 10
+  
+# V-72213
+- name: custom_antivirus
+  description: "Whether an antivirus solution, other than nails, is in use."
+  type: Boolean
+  value: false
+
+- name: custom_antivirus_description
+  description: "Description of custom antivirus solution, when in use."
+  type: String
+  # Default of 'None' is used by control code -- DO NOT CHANGE DEFAULT
+  value: 'None'
+
+# V-92215
+- name: custom_hips
+  description: "Whether an HIPS solution, other than HBSS, is in use."
+  type: Boolean
+  value: false
+
+- name: custom_hips_description
+  description: "Description of custom HIPS solution, when in use."
+  type: String
+  # [Hopefully] non-existent process name to fail by default -- override
+  # with valid process name
+  value: An6yTr21kC
+
+- name: max_daemon_processes
+  description: "Restrict the number of returned processes to account
+    for invalid inputs, such as nil(~), that will match all processes
+    while allowing for 3rd party software that may spawn multiple
+    similarly named processes."
+  type: Numeric
+  value: 1
+
+# V-72073
+- name: aide_exclude_patterns
+  description: 'It is reasonable and advisable to skip checksum on frequently changing files'
+  type: Array
+  value: []
+
+# V-71897
+- name: terminal_mux_pkgs
+  description: 'A list of acceptable terminal multiplexers'
+  type: Array
+  value:
+    - tmux
+    - screen
+  
+- name: required_rules
+  description: 'Required PAM rules'
+  type: Array
+  value: 
+    - 'auth required pam_faillock.so unlock_time=.*'
+    - 'auth sufficient pam_unix.so try_first_pass'
+    - 'auth [default=die] pam_faillock.so unlock_time=.*'
+
+- name: alternate_rules
+  description: 'Alternate PAM rules'
+  type: Array
+  value:
+    - 'auth required pam_faillock.so unlock_time=.*'
+    - 'auth sufficient pam_sss.so forward_pass'
+    - 'auth sufficient pam_unix.so try_first_pass'
+    - 'auth [default=die] pam_faillock.so unlock_time=.*'
+
+- name: data_loss_prevention_installed
+  description: 'is an HBSS with a Device Control Module and a Data Loss Prevention mechanism'
+  type: Boolean
+  value: true
+
+- name: alternate_logs
+  description: 'An alternate method is used for logs than rsyslog'
+  type: Boolean
+  value: false
+
+- name: gssapi_approved
+  description: 'is GSSAPI authentication approved'
+  type: Boolean
+  value: true

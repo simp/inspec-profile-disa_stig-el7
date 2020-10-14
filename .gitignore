@@ -11,6 +11,8 @@ spec/fixtures/*
 !/spec/fixtures/kitchen
 !/spec/fixtures/kitchen/**
 !/spec/fixtures/inspec_profiles/
+spec/results/*
+!spec/results/.gitkeep
 spec/rp_env/
 .rspec_system/
 .vagrant/

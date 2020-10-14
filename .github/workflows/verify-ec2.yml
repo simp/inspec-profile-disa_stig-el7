@@ -1,0 +1,71 @@
+name: Verify the Baseline using RHEL on EC2
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  my-job:
+    name: Validate my profile
+    runs-on: ubuntu-latest
+    env:
+      CHEF_LICENSE: accept-silent
+      KITCHEN_LOCAL_YAML: kitchen.ec2.yml
+    steps:
+      - name: add needed packages
+        run: sudo apt-get install -y jq
+      - name: Configure AWS credentials
+        env:
+          AWS_SG_ID: ${{ secrets.AWS_SG_ID }}
+          AWS_SUBNET_ID: ${{ secrets.AWS_SUBNET_ID }}
+          AWS_SSH_KEY_ID: ${{ secrets.AWS_SSH_KEY_ID }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Clone full repository so we can push
+        run: git fetch --prune --unshallow
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+      - name: Setup caching
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle install
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install
+      - name: Regenerate current `profile.json`
+        run: |
+          bundle exec inspec json . | jq . > profile.json
+      - name: Update profile.json in the repository
+        uses: stefanzweifel/git-auto-commit-action@v4.1.0
+        with:
+          commit_message: 'Updating profile.json in the repository'
+          branch: ${{ github.branch }}
+      - name: Run kitchen test
+        run: bundle exec kitchen test --destroy=always || true
+      - name: Run kitchen Destroy
+        run: bundle exec kitchen destroy
+      - name: Display our Vanilla results summary
+        run: bundle exec inspec_tools summary -j spec/results/rhel-7_vanilla.json --json-counts | jq .
+      - name: Display our Hardened results summary
+        run: bundle exec inspec_tools summary -j spec/results/rhel-7_hardened.json --json-counts | jq .
+      - name: Ensure the scan meets our vanilla results threshold
+        run: bundle exec inspec_tools compliance -j spec/results/rhel-7_vanilla.json -f vanilla.threshold.yml
+      - name: Ensure the scan meets our hardened results threshold
+        run: bundle exec inspec_tools compliance -j spec/results/rhel-7_hardened.json -f hardened.threshold.yml
+      - name: Save Test Result JSON
+        uses: actions/upload-artifact@v2
+        with:
+          path: spec/results/

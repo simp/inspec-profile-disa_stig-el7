@@ -1,23 +1,15 @@
-# encoding: utf-8
-#
-
-system_activity_timeout = input(
-'system_activity_timeout',
-value: 600,
-description: 'The length of inactivity from the user in which the network connections associated with a session in terminated.'
-)
-
+# -*- encoding : utf-8 -*-
 control "V-72223" do
-  title "All network connections associated with a communication session must
-be terminated at the end of the session or after 10 minutes of inactivity from
-the user at a command prompt, except to fulfill documented and validated
-mission requirements."
-  desc  "
-    Terminating an idle session within a short time period reduces the window
-of opportunity for unauthorized personnel to take control of a management
-session enabled on the console or console port that has been left unattended.
-In addition, quickly terminating an idle session will also free up resources
-committed by the managed network element.
+  title "The Red Hat Enterprise Linux operating system must be configured so
+that all network connections associated with a communication session are
+terminated at the end of the session or after 10 minutes of inactivity from the
+user at a command prompt, except to fulfill documented and validated mission
+requirements."
+  desc  "Terminating an idle session within a short time period reduces the
+window of opportunity for unauthorized personnel to take control of a
+management session enabled on the console or console port that has been left
+unattended. In addition, quickly terminating an idle session will also free up
+resources committed by the managed network element.
 
     Terminating network connections associated with communications sessions
 includes, for example, de-allocating associated TCP/IP address/port pairs at
@@ -27,50 +19,55 @@ system-level network connection. This does not mean that the operating system
 terminates all sessions or network access; it only ends the inactive session
 and releases the resources associated with that session.
   "
-  impact 0.5
-  tag "gtitle": "SRG-OS-000163-GPOS-00072"
-  tag "gid": "V-72223"
-  tag "rid": "SV-86847r3_rule"
-  tag "stig_id": "RHEL-07-040160"
-  tag "cci": ["CCI-001133", "CCI-002361"]
-  tag "documentable": false
-  tag "nist": ["SC-10", "AC-12", "Rev_4"]
-  tag "subsystems": ['user_profile']
-  desc "check", "Verify the operating system terminates all network connections
-associated with a communications session at the end of the session or based on
-inactivity.
+  desc  "rationale", ""
+  desc  "check", "
+    Verify the operating system terminates all network connections associated
+with a communications session at the end of the session or based on inactivity.
 
-Check the value of the system inactivity timeout with the following command:
+    Check the value of the system inactivity timeout with the following command:
 
-# grep -i tmout /etc/bashrc /etc/profile.d/*
+    # grep -i tmout /etc/profile.d/*
 
-TMOUT=600
+    etc/profile.d/tmout.sh:TMOUT=600
 
-If \"TMOUT\" is not set to \"600\" or less in \"/etc/bashrc\" or in a script
-created to enforce session termination after inactivity, this is a finding."
-  desc "fix", "Configure the operating system to terminate all network
-connections associated with a communications session at the end of the session
-or after a period of inactivity.
+    /etc/profile.d/tmout.sh:readonly TMOUT
 
-Add or update the following lines in \"/etc/profile\".
+    /etc/profile.d/tmout.sh:export TMOUT
 
-TMOUT=600
-readonly TMOUT
-export TMOUT
+    If \"TMOUT\" is not set to \"600\" or less in a script located in the
+/etc/profile.d/ directory to enforce session termination after inactivity, this
+is a finding.
+  "
+  desc  "fix", "
+    Configure the operating system to terminate all network connections
+associated with a communications session at the end of the session or after a
+period of inactivity.
 
-Or create a script to enforce the inactivity timeout (for example
+    Create a script to enforce the inactivity timeout (for example
 /etc/profile.d/tmout.sh) such as:
 
-#!/bin/bash
+    #!/bin/bash
 
-TMOUT=600
-readonly TMOUT
-export TMOUT"
-  tag "fix_id": "F-78577r4_fix"
+    TMOUT=600
+    readonly TMOUT
+    export TMOUT
+  "
+  impact 0.5
+  tag severity: nil
+  tag gtitle: "SRG-OS-000163-GPOS-00072"
+  tag gid: "V-72223"
+  tag rid: "SV-86847r4_rule"
+  tag stig_id: "RHEL-07-040160"
+  tag fix_id: "F-78577r5_fix"
+  tag cci: ["CCI-001133", "CCI-002361"]
+  tag nist: ["SC-10", "AC-12", "Rev_4"]
+
+  system_activity_timeout = input('system_activity_timeout')
 
   # Get current TMOUT environment variable (active test)
-  describe os_env('TMOUT') do
-    its('content') { should be <= system_activity_timeout }
+  describe 'Environment variable TMOUT' do
+    subject { os_env('TMOUT').content.to_i }
+    it { should be <= system_activity_timeout }
   end
 
   # Check if TMOUT is set in files (passive test)
@@ -124,3 +121,4 @@ export TMOUT"
     end
   end
 end
+

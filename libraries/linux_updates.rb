@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 # copyright: 2016, Christoph Hartmann
 # copyright: 2016, Dominik Richter
 # license: MPLv2

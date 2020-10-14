@@ -1,62 +1,55 @@
-# encoding: utf-8
-#
-
-exempt_home_users = input(
-  'exempt_home_users',
-  description: 'These are `home dir` exempt interactive accounts',
-  value: []
-)
-
-non_interactive_shells = input(
-  'non_interactive_shells',
-  description: 'These shells do not allow a user to login',
-  value: ["/sbin/nologin","/sbin/halt","/sbin/shutdown","/bin/false","/bin/sync", "/bin/true"]
-)
-
+# -*- encoding : utf-8 -*-
 control "V-72021" do
-  title "All local interactive user home directories must be group-owned by the
-home directory owners primary group."
-  desc  "If the Group Identifier (GID) of a local interactive user’s home
+  title "The Red Hat Enterprise Linux operating system must be configured so
+that all local interactive user home directories are group-owned by the home
+directory owners primary group."
+  desc  "If the Group Identifier (GID) of a local interactive user's home
 directory is not the same as the primary GID of the user, this would allow
-unauthorized access to the user’s files, and users that share the same group
+unauthorized access to the user's files, and users that share the same group
 may not be able to access files that they legitimately should."
-  impact 0.5
-  tag "gtitle": "SRG-OS-000480-GPOS-00227"
-  tag "gid": "V-72021"
-  tag "rid": "SV-86645r4_rule"
-  tag "stig_id": "RHEL-07-020650"
-  tag "cci": ["CCI-000366"]
-  tag "documentable": false
-  tag "nist": ["CM-6 b", "Rev_4"]
-  tag "subsystems": ['home_dirs']
-  desc "check", "Verify the assigned home directory of all local interactive
-users is group-owned by that user’s primary GID.
+  desc  "rationale", ""
+  desc  "check", "
+    Verify the assigned home directory of all local interactive users is
+group-owned by that user's primary GID.
 
-Check the home directory assignment for all local interactive users on the
+    Check the home directory assignment for all local interactive users on the
 system with the following command:
 
-# ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+    # ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
 
--rwxr-x--- 1 smithj users 18 Mar 5 17:06 /home/smithj
+    -rwxr-x--- 1 smithj users 18 Mar 5 17:06 /home/smithj
 
-Check the user's primary group with the following command:
+    Check the user's primary group with the following command:
 
-# grep users /etc/group
+    # grep users /etc/group
 
-users:x:250:smithj,jonesj,jacksons
+    users:x:250:smithj,jonesj,jacksons
 
-If the user home directory referenced in \"/etc/passwd\" is not group-owned by
-that user’s primary GID, this is a finding.
-"
-  desc "fix", "Change the group owner of a local interactive user’s home
-directory to the group found in \"/etc/passwd\". To change the group owner of a
-local interactive user’s home directory, use the following command:
+    If the user home directory referenced in \"/etc/passwd\" is not group-owned
+by that user's primary GID, this is a finding.
+  "
+  desc  "fix", "
+    Change the group owner of a local interactive user's home directory to the
+group found in \"/etc/passwd\". To change the group owner of a local
+interactive user's home directory, use the following command:
 
-Note: The example will be for the user \"smithj\", who has a home directory of
-\"/home/smithj\", and has a primary group of users.
+    Note: The example will be for the user \"smithj\", who has a home directory
+of \"/home/smithj\", and has a primary group of users.
 
-# chgrp users /home/smithj"
-  tag "fix_id": "F-78373r1_fix"
+    # chgrp users /home/smithj
+  "
+  impact 0.5
+  tag severity: nil
+  tag gtitle: "SRG-OS-000480-GPOS-00227"
+  tag gid: "V-72021"
+  tag rid: "SV-86645r5_rule"
+  tag stig_id: "RHEL-07-020650"
+  tag fix_id: "F-78373r2_fix"
+  tag cci: ["CCI-000366"]
+  tag nist: ["CM-6 b", "Rev_4"]
+
+  exempt_home_users = input('exempt_home_users')
+  non_interactive_shells = input('non_interactive_shells')
 
   ignore_shells = non_interactive_shells.join('|')
 
@@ -73,3 +66,4 @@ Note: The example will be for the user \"smithj\", who has a home directory of
     it { should be_empty }
   end
 end
+

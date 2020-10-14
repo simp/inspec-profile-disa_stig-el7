@@ -1,57 +1,70 @@
-# encoding: utf-8
-#
-
+# -*- encoding : utf-8 -*-
 control "V-72229" do
-  title "The operating system must implement cryptography to protect the
-integrity of Lightweight Directory Access Protocol (LDAP) communications."
-  desc  "
-    Without cryptographic integrity protections, information can be altered by
-unauthorized users without detection.
+  title "The Red Hat Enterprise Linux operating system must implement
+cryptography to protect the integrity of Lightweight Directory Access Protocol
+(LDAP) communications."
+  desc  "Without cryptographic integrity protections, information can be
+altered by unauthorized users without detection.
 
     Cryptographic mechanisms used for protecting the integrity of information
 include, for example, signed hash functions using asymmetric cryptography
 enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
-  impact 0.5
-  tag "gtitle": "SRG-OS-000250-GPOS-00093"
-  tag "gid": "V-72229"
-  tag "rid": "SV-86853r2_rule"
-  tag "stig_id": "RHEL-07-040190"
-  tag "cci": ["CCI-001453"]
-  tag "documentable": false
-  tag "nist": ["AC-17 (2)", "Rev_4"]
-  tag "subsystems": ['sssd', 'ldap']
-  desc "check", "Verify the operating system implements cryptography to protect
-the integrity of remote LDAP access sessions.
+  desc  "rationale", ""
+  desc  "check", "
+    If LDAP is not being utilized, this requirement is Not Applicable.
 
-To determine if LDAP is being used for authentication, use the following
+    Verify the operating system implements cryptography to protect the
+integrity of remote LDAP access sessions.
+
+    To determine if LDAP is being used for authentication, use the following
 command:
 
-# grep -i useldapauth /etc/sysconfig/authconfig
-USELDAPAUTH=yes
+    # systemctl status sssd.service
+    sssd.service - System Security Services Daemon
+    Loaded: loaded (/usr/lib/systemd/system/sssd.service; enabled; vendor
+preset: disabled)
+    Active: active (running) since Wed 2018-06-27 10:58:11 EST; 1h 50min ago
 
-If USELDAPAUTH=yes, then LDAP is being used.
+    If the \"sssd.service\" is \"active\", then LDAP is being used.
 
-Check for the directory containing X.509 certificates for peer authentication
-with the following command:
+    Determine the \"id_provider\" the LDAP is currently using:
 
-# grep -i cacertdir /etc/pam_ldap.conf
-tls_cacertdir /etc/openldap/certs
+    # grep -i \"id_provider\" /etc/sssd/sssd.conf
 
-Verify the directory set with the \"tls_cacertdir\" option exists.
+    id_provider = ad
 
-If the directory does not exist or the option is commented out, this is a
-finding."
-  desc "fix", "Configure the operating system to implement cryptography to
-protect the integrity of LDAP remote access sessions.
+    If \"id_provider\" is set to \"ad\", this is Not Applicable.
 
-Set the \"tls_cacertdir\" option in \"/etc/pam_ldap.conf\" to point to the
-directory that will contain the X.509 certificates for peer authentication.
+    Verify the sssd service is configured to require the use of certificates:
 
-Set the \"tls_cacertfile\" option in \"/etc/pam_ldap.conf\" to point to the
-path for the X.509 certificates used for peer authentication."
-  tag "fix_id": "F-78583r1_fix"
+    # grep -i tls_reqcert /etc/sssd/sssd.conf
+    ldap_tls_reqcert = demand
+
+    If the \"ldap_tls_reqcert\" setting is missing, commented out, or does not
+exist, this is a finding.
+
+    If the \"ldap_tls_reqcert\" setting is not set to \"demand\" or \"hard\",
+this is a finding.
+  "
+  desc  "fix", "
+    Configure the operating system to implement cryptography to protect the
+integrity of LDAP remote access sessions.
+
+    Add or modify the following line in \"/etc/sssd/sssd.conf\":
+
+    ldap_tls_reqcert = demand
+  "
+  impact 0.5
+  tag severity: nil
+  tag gtitle: "SRG-OS-000250-GPOS-00093"
+  tag gid: "V-72229"
+  tag rid: "SV-86853r4_rule"
+  tag stig_id: "RHEL-07-040190"
+  tag fix_id: "F-78583r4_fix"
+  tag cci: ["CCI-001453"]
+  tag nist: ["AC-17 (2)", "Rev_4"]
 
   sssd_id_ldap_enabled = (package('sssd').installed? and
     !command('grep "^\s*id_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)
@@ -111,3 +124,4 @@ path for the X.509 certificates used for peer authentication."
     end if !tls_cacertdir.nil?
   end
 end
+

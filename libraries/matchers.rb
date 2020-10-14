@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 # TODO explain somewhere that :all_with_args, :all_without_args, :all_with_integer_arg
 # will cause match_pam_rule to return true when there are no potential matches

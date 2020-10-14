@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'beaker-rspec'
 require 'tmpdir'
 require 'yaml'

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require_controls 'disa_stig-el7' do
   @conf['profile'].info[:controls].each do |ctrl|
     tags = ctrl[:tags]

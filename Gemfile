@@ -1,17 +1,16 @@
-# Variables:
-#
-# SIMP_GEM_SERVERS | a space/comma delimited list of rubygem servers
-gem_sources = ENV.key?('SIMP_GEM_SERVERS') ? ENV['SIMP_GEM_SERVERS'].split(/[, ]+/) : ['https://rubygems.org']
+# frozen_string_literal: true
 
-gem_sources.each { |gem_source| source gem_source }
+source 'https://rubygems.org'
 
-gem 'rake'
-gem 'simp-rake-helpers', '~> 5.9'
-gem 'simp-beaker-helpers', ['>= 1.15.2', '< 2.0.0']
-gem 'beaker-rspec'
 gem 'highline'
-gem 'kitchen-puppet'
-gem 'kitchen-inspec'
-gem 'kitchen-vagrant'
 gem 'inspec-bin', '~> 4.0'
+gem 'inspec_tools', '>= 2.0.1.pre4'
+gem 'kitchen-ec2'
+gem 'kitchen-inspec'
+gem 'kitchen-puppet'
+gem 'kitchen-sync'
+gem 'kitchen-vagrant'
 gem 'librarian-puppet'
+gem 'puppet', '~> 5.5.19'
+gem 'rake'
+gem 'rubocop'

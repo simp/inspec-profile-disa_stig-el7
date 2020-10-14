@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 class Pam < Inspec.resource(1)
   # These are aliases for one another

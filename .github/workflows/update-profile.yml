@@ -1,0 +1,45 @@
+name: Update Profile
+
+on:
+  pull_request:
+    branches: [ master, v2.6 ]
+
+jobs:
+  my-job:
+    name: Update profile.json in the repository
+    runs-on: ubuntu-latest
+    env:
+      CHEF_LICENSE: accept-silent
+    steps:
+      - name: add needed packages
+        run: sudo apt-get install -y jq
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+      - name: Setup caching
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle install
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install
+      - name: Regenerate current `profile.json`
+        run: |
+          bundle exec inspec json . | jq . > profile.json
+      - name: Update profile.json in the repository
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_user_name: GitHub Actions
+          commit_user_email: my-github-actions-bot@example.org
+          commit_message: 'Updating profile.json in the repository'
