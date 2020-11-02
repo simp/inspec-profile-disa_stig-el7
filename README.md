@@ -170,7 +170,7 @@ sudo inspec exec <name of generated archive> --input-file <path_to_your_input_fi
 
 ## Using Heimdall for Viewing the JSON Results
 
-![Heimdall Lite 2.0 Demo GIF](https://github.com/mitre/heimdall2/blob/master/apps/frontend/public/heidmall-lite-2.0-demo-5fps.gif)
+![Heimdall Lite 2.0 Demo GIF](https://github.com/mitre/heimdall2/blob/master/apps/frontend/public/heimdall-lite-2.0-demo-5fps.gif)
 
 The JSON results output file can be loaded into __[heimdall-lite](https://heimdall-lite.mitre.org/)__ for a user-interactive, graphical view of the InSpec results. 
 
