@@ -37,7 +37,7 @@ system with the \"chown\" command:
 
   command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
     stdout.strip.split("\n").each do |fs|
-      describe command("find / -xautofs -fstype #{fs} -nouser") do
+      describe command("find / -xdev -xautofs -fstype #{fs} -nouser") do
         its('stdout.strip') { should be_empty }
       end
     end

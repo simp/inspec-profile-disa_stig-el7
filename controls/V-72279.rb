@@ -33,7 +33,7 @@ command:
   tag cci: ["CCI-000366"]
   tag nist: ["CM-6 b", "Rev_4"]
 
-  describe command('find / -xautofs -name shosts.equiv') do
+  describe command('find / -xdev -xautofs -name shosts.equiv') do
     its('stdout.strip') { should be_empty }
   end
 end

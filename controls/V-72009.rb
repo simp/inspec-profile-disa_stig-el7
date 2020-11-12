@@ -37,7 +37,7 @@ with the \"chgrp\" command:
 
   command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
     stdout.strip.split("\n").each do |fs|
-      describe command("find / -xautofs -fstype #{fs} -nogroup") do
+      describe command("find / -xdev -xautofs -fstype #{fs} -nogroup") do
         its('stdout.strip') { should be_empty }
       end
     end
