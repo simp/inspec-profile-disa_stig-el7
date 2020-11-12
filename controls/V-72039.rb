@@ -61,9 +61,9 @@ command:
   virtual_machine = input('virtual_machine')
 
   findings = Set[]
-  findings = findings + command('find / -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
-  findings = findings + command('find / -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
-  findings = findings + command('find / -context *:vmci_device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+  findings = findings + command('find / -xdev -context *:device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+  findings = findings + command('find / -xdev -context *:unlabeled_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
+  findings = findings + command('find / -xdev -context *:vmci_device_t:* \( -type c -o -type b \) -printf "%p %Z\n"').stdout.split("\n")
 
   describe findings do
     if virtual_machine
