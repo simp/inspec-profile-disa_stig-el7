@@ -569,3 +569,9 @@ inputs:
   description: 'is GSSAPI authentication approved'
   type: Boolean
   value: true
+
+- name: disconnected_system
+  description: 'Set flag to true if the target system is disconnected'
+  type: Boolean
+  value: false
+  
