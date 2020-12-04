@@ -2,7 +2,7 @@
 control "V-71999" do
   title "The Red Hat Enterprise Linux operating system security patches and
 updates must be installed and up to date."
-  desc  "Timely patching is critical for maintaining the operational
+  desc "Timely patching is critical for maintaining the operational
 availability, confidentiality, and integrity of information technology (IT)
 systems. However, failure to keep operating system and application software
 patched is a common mistake made by IT professionals. New patches are released
@@ -12,8 +12,8 @@ exist, patches are usually made available by the vendor to resolve the
 problems. If the most recent security patches and updates are not installed,
 unauthorized users may take advantage of weaknesses in the unpatched software.
 The lack of prompt attention to patching could result in a system compromise."
-  desc  "rationale", ""
-  desc  "check", "
+  desc "rationale", ""
+  desc "check", "
     Verify the operating system security patches and updates are installed and
 up to date. Updates are required to be applied with a frequency determined by
 the site or Program Management Office (PMO).
@@ -50,32 +50,38 @@ Vulnerability Alert (IAVA) notifications from CYBERCOM.
     If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding.
   "
-  desc  "fix", "Install the operating system patches or updated packages
-available from Red Hat within 30 days or sooner as local policy dictates."
-  impact 0.5
-  tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-71999"
-  tag rid: "SV-86623r4_rule"
-  tag stig_id: "RHEL-07-020260"
-  tag fix_id: "F-78351r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
-
-  updates = linux_update.updates
-  package_names = updates.map { |h| h['name'] }
-
-  describe.one do
-    describe 'List of out-of-date packages' do
-      subject { package_names }
-      it { should be_empty }
+  if input("sensitive_system") == "true"
+    impact 0.0
+    describe "This Control is Not Applicable for disconnected systems." do
+      skip "This Control is Not Applicable for disconnected systems."
     end
+  else
+    desc "fix", "Install the operating system patches or updated packages
+  available from Red Hat within 30 days or sooner as local policy dictates."
+    impact 0.5
+    tag severity: nil
+    tag gtitle: "SRG-OS-000480-GPOS-00227"
+    tag gid: "V-71999"
+    tag rid: "SV-86623r4_rule"
+    tag stig_id: "RHEL-07-020260"
+    tag fix_id: "F-78351r1_fix"
+    tag cci: ["CCI-000366"]
+    tag nist: ["CM-6 b", "Rev_4"]
 
-    updates.each do |update|
-      describe package(update['name']) do
-        its('version') { should eq update['version'] }
+    updates = linux_update.updates
+    package_names = updates.map { |h| h["name"] }
+
+    describe.one do
+      describe "List of out-of-date packages" do
+        subject { package_names }
+        it { should be_empty }
+      end
+
+      updates.each do |update|
+        describe package(update["name"]) do
+          its("version") { should eq update["version"] }
+        end
       end
     end
   end
 end
-
