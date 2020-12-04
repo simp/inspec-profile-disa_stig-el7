@@ -50,7 +50,7 @@ Vulnerability Alert (IAVA) notifications from CYBERCOM.
     If the operating system is in non-compliance with the Information Assurance
 Vulnerability Management (IAVM) process, this is a finding.
   "
-  if input("disconnected_system") == "true"
+  if input('disconnected_system')
     impact 0.0
     describe "This Control is Not Applicable for disconnected systems." do
       skip "This Control is Not Applicable for disconnected systems."
