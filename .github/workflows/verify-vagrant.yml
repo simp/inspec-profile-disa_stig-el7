@@ -2,9 +2,9 @@ name: Verify the Baseline using Vagrant
 
 on:
   push:
-    branches: [ master, v2.6 ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, v2.6 ]
+    branches: [ master ]
 
 jobs:
   my-job:

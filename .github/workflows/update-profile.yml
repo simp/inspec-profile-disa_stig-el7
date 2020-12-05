@@ -2,7 +2,7 @@ name: Update Profile
 
 on:
   pull_request:
-    branches: [ master, v2.6 ]
+    branches: [ master ]
 
 jobs:
   my-job:
