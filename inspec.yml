@@ -5,7 +5,7 @@ copyright: MITRE, 2020
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "The Red Hat Enterprise Linux 7 Security Technical Implementation Guide (STIG) is published as a tool to improve the security of Department of Defense (DoD) information systems.  Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil."
-version: 2.6.1
+version: 2.6.5
 inspec_version: ">= 4.0"
 
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
