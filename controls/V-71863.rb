@@ -133,7 +133,7 @@ Agreement for details.\"
   tag stig_id: "RHEL-07-010050"
   tag fix_id: "F-78217r2_fix"
   tag cci: ["CCI-000048"]
-  tag nist: ["AC-8 a", "Rev_4"]
+  tag nist: ["AC-8 a"]
 
   banner_message_text_cli = input('banner_message_text_cli')
   banner_message_text_cli_limited = input('banner_message_text_cli_limited')

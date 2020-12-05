@@ -34,7 +34,7 @@ list their modes:
   tag stig_id: "RHEL-07-040420"
   tag fix_id: "F-78611r5_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   key_files = command("find /etc/ssh -xdev -name '*ssh_host*key'").stdout.split("\n")
   if !key_files.nil? and !key_files.empty?

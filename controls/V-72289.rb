@@ -45,7 +45,7 @@ following line to \"/etc/sysctl.conf\" or a configuration file in the
   tag stig_id: "RHEL-07-040640"
   tag fix_id: "F-78643r3_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe kernel_parameter('net.ipv4.conf.default.accept_redirects') do
     its('value') { should eq 0 }

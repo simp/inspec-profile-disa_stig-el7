@@ -45,7 +45,7 @@ the configurations listed in this requirement.
   tag stig_id: "RHEL-07-010270"
   tag fix_id: "F-78285r3_fix"
   tag cci: ["CCI-000200"]
-  tag nist: ["IA-5 (1) (e)", "Rev_4"]
+  tag nist: ["IA-5 (1) (e)"]
 
   min_reuse_generations = input('min_reuse_generations')
 

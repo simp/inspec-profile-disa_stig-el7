@@ -39,7 +39,7 @@ line to \"/etc/xinetd.d/tftp\" (or modify the line to have the required value):
   tag stig_id: "RHEL-07-040720"
   tag fix_id: "F-78659r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   if package('tftp-server').installed?
     impact 0.5

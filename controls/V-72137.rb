@@ -47,7 +47,7 @@ auid!=4294967295 -k privileged-priv_change
   tag stig_id: "RHEL-07-030570"
   tag fix_id: "F-78489r6_fix"
   tag cci: ["CCI-000172", "CCI-002884"]
-  tag nist: ["AU-12 c", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-12 c", "MA-4 (1) (a)"]
   
   audit_file = '/usr/sbin/setsebool'
 

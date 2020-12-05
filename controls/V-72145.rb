@@ -45,7 +45,7 @@ account access events occur.
   tag stig_id: "RHEL-07-030610"
   tag fix_id: "F-78497r4_fix"
   tag cci: ["CCI-000126", "CCI-000172", "CCI-002884"]
-  tag nist: ["AU-2 d", "AU-12 c", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-2 d", "AU-12 c", "MA-4 (1) (a)"]
 
   audit_file = '/var/run/faillock'
 

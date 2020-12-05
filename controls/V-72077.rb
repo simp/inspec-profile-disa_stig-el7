@@ -52,7 +52,7 @@ removing the telnet-server package from the system with the following command:
   tag stig_id: "RHEL-07-021710"
   tag fix_id: "F-78429r1_fix"
   tag cci: ["CCI-000381"]
-  tag nist: ["CM-7 a", "Rev_4"]
+  tag nist: ["CM-7 a"]
 
   describe package('telnet-server') do
     it { should_not be_installed }

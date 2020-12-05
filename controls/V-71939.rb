@@ -36,7 +36,7 @@ should prevent users from being able to assign themselves empty passwords.
   tag stig_id: "RHEL-07-010300"
   tag fix_id: "F-78291r2_fix"
   tag cci: ["CCI-000766"]
-  tag nist: ["IA-2 (2)", "Rev_4"]
+  tag nist: ["IA-2 (2)"]
 
   describe sshd_config do
     its('PermitEmptyPasswords') { should eq 'no' }

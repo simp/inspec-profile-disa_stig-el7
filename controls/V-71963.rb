@@ -62,7 +62,7 @@ commands:
   tag stig_id: "RHEL-07-010490"
   tag fix_id: "F-78315r3_fix"
   tag cci: ["CCI-000213"]
-  tag nist: ["AC-3", "Rev_4"]
+  tag nist: ["AC-3"]
 
   os_minor_version = os().release.split('.')[1].to_i
 

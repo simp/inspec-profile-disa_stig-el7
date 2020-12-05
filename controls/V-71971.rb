@@ -79,7 +79,7 @@ implemented security safeguards/countermeasures.
   tag stig_id: "RHEL-07-020020"
   tag fix_id: "F-78323r1_fix"
   tag cci: ["CCI-002165", "CCI-002235"]
-  tag nist: ["AC-3 (4)", "AC-6 (10)", "Rev_4"]
+  tag nist: ["AC-3 (4)", "AC-6 (10)"]
 
   admin_logins = input('admin_logins')
 

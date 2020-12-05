@@ -62,7 +62,7 @@ with the Authorizing Official.
   tag stig_id: "RHEL-07-020019"
   tag fix_id: "F-98477r1_fix"
   tag cci: ["CCI-001263"]
-  tag nist: ["SI-4 (5)", "Rev_4"]
+  tag nist: ["SI-4 (5)"]
 
   custom_hips = input('custom_hips')
 

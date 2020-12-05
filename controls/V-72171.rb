@@ -60,7 +60,7 @@ privileged-mount
   tag stig_id: "RHEL-07-030740"
   tag fix_id: "F-78525r9_fix"
   tag cci: ["CCI-000135", "CCI-002884"]
-  tag nist: ["AU-3 (1)", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-3 (1)", "MA-4 (1) (a)"]
 
   describe auditd.syscall("mount").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

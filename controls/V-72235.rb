@@ -55,7 +55,7 @@ following command:
   tag stig_id: "RHEL-07-040310"
   tag fix_id: "F-78589r2_fix"
   tag cci: ["CCI-002418", "CCI-002420", "CCI-002421", "CCI-002422"]
-  tag nist: ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)", "Rev_4"]
+  tag nist: ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)"]
 
   describe systemd_service('sshd.service') do
     it { should be_running }

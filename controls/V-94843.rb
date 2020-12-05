@@ -42,7 +42,7 @@ with the following command:
   tag stig_id: "RHEL-07-020231"
   tag fix_id: "F-100967r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   unless package('gnome-settings-daemon').installed?
     impact 0.0

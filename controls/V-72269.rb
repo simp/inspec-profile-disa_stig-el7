@@ -96,7 +96,7 @@ restarted:
   tag stig_id: "RHEL-07-040500"
   tag fix_id: "F-78623r5_fix"
   tag cci: ["CCI-001891", "CCI-002046"]
-  tag nist: ["AU-8 (1) (a)", "AU-8 (1) (b)", "Rev_4"]
+  tag nist: ["AU-8 (1) (a)", "AU-8 (1) (b)"]
 
   # Either ntpd or chronyd should be running
   describe.one do

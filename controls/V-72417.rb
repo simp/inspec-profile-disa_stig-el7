@@ -60,7 +60,7 @@ control "V-72417" do
   tag stig_id: "RHEL-07-041001"
   tag fix_id: "F-78769r4_fix"
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
-  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
+  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
 
   mfa_pkg_list = input('mfa_pkg_list')
   smart_card_status = input('smart_card_status')

@@ -37,7 +37,7 @@ sending audit records to a remote system.
   tag stig_id: "RHEL-07-030321"
   tag fix_id: "F-79609r2_fix"
   tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)", "Rev_4"]
+  tag nist: ["AU-4 (1)"]
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
     its('network_failure_action'.to_s) { should be_in ['syslog', 'single', 'halt'] }

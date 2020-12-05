@@ -30,7 +30,7 @@ system, this is a finding.
   tag stig_id: "RHEL-07-021330"
   tag fix_id: "F-78415r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe mount('/var/log/audit') do
     it {should be_mounted}

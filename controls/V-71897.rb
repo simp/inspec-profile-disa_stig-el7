@@ -56,7 +56,7 @@ command:
   tag stig_id: "RHEL-07-010090"
   tag fix_id: "F-78249r3_fix"
   tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a", "Rev_4"]
+  tag nist: ["AC-11 a"]
 
   multiplexer_packages = input('terminal_mux_pkgs')
 

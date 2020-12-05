@@ -62,7 +62,7 @@ commands:
   tag stig_id: "RHEL-07-010480"
   tag fix_id: "F-78313r3_fix"
   tag cci: ["CCI-000213"]
-  tag nist: ["AC-3", "Rev_4"]
+  tag nist: ["AC-3"]
 
   grub_superuser = input('grub_superuser')
   grub_user_boot_files = input('grub_user_boot_files')

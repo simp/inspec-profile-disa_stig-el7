@@ -47,7 +47,7 @@ have to be employed, and vice versa.
   tag stig_id: "RHEL-07-040300"
   tag fix_id: "F-78587r3_fix"
   tag cci: ["CCI-002418", "CCI-002420", "CCI-002421", "CCI-002422"]
-  tag nist: ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)", "Rev_4"]
+  tag nist: ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)"]
 
   describe package('openssh-server') do
     it { should be_installed }

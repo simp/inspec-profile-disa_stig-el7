@@ -44,7 +44,7 @@ line to have the required value):
   tag stig_id: "RHEL-07-010160"
   tag fix_id: "F-78263r1_fix"
   tag cci: ["CCI-000195"]
-  tag nist: ["IA-5 (1) (b)", "Rev_4"]
+  tag nist: ["IA-5 (1) (b)"]
 
   difok = input('difok')
 

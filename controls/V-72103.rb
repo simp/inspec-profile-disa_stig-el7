@@ -52,7 +52,7 @@ perm_mod
   tag stig_id: "RHEL-07-030400"
   tag fix_id: "F-78455r7_fix"
   tag cci: ["CCI-000126", "CCI-000172"]
-  tag nist: ["AU-2 d", "AU-12 c", "Rev_4"]
+  tag nist: ["AU-2 d", "AU-12 c"]
 
   describe auditd.syscall("fchownat").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

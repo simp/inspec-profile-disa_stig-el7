@@ -40,7 +40,7 @@ file to \"077\":
   tag stig_id: "RHEL-07-020240"
   tag fix_id: "F-78347r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
 
   if login_defs.read_params["UMASK"].eql?('000')

@@ -31,7 +31,7 @@ removing the \"ypserv\" package from the system with the following command:
   tag stig_id: "RHEL-07-020010"
   tag fix_id: "F-78321r1_fix"
   tag cci: ["CCI-000381"]
-  tag nist: ["CM-7 a", "Rev_4"]
+  tag nist: ["CM-7 a"]
 
   describe package("ypserv") do
     it { should_not be_installed }

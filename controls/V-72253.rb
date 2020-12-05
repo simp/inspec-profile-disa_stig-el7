@@ -42,7 +42,7 @@ location if using a version of SSH that is provided by a third-party vendor):
   tag stig_id: "RHEL-07-040400"
   tag fix_id: "F-78607r2_fix"
   tag cci: ["CCI-001453"]
-  tag nist: ["AC-17 (2)", "Rev_4"]
+  tag nist: ["AC-17 (2)"]
 
   @macs = inspec.sshd_config.params("macs")
   if @macs.nil?

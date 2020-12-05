@@ -47,7 +47,7 @@ successful/unsuccessful attempts to use the \"gpasswd\" command occur.
   tag stig_id: "RHEL-07-030650"
   tag fix_id: "F-78505r5_fix"
   tag cci: ["CCI-000135", "CCI-000172", "CCI-002884"]
-  tag nist: ["AU-3 (1)", "AU-12 c", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-3 (1)", "AU-12 c", "MA-4 (1) (a)"]
 
   audit_file = '/usr/bin/gpasswd'
 

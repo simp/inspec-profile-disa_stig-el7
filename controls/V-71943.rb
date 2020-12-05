@@ -100,7 +100,7 @@ the configurations listed in this requirement.
   tag stig_id: "RHEL-07-010320"
   tag fix_id: "F-78295r5_fix"
   tag cci: ["CCI-000044", "CCI-002236", "CCI-002237", "CCI-002238"]
-  tag nist: ["AC-7 a", "AC-7 b", "AC-7 b", "AC-7 b", "Rev_4"]
+  tag nist: ["AC-7 a", "AC-7 b", "AC-7 b", "AC-7 b"]
 
   describe pam('/etc/pam.d/password-auth') do
     its('lines') {

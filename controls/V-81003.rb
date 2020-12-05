@@ -33,7 +33,7 @@ the required value):
   tag stig_id: "RHEL-07-010118"
   tag fix_id: "F-87837r1_fix"
   tag cci: ["CCI-000192"]
-  tag nist: ["IA-5 (1) (a)", "Rev_4"]
+  tag nist: ["IA-5 (1) (a)"]
 
   # Get the content of /etc/pam.d/passwd as an array
   pam_passwd_content = file('/etc/pam.d/passwd').content.strip.split("\n")

@@ -45,7 +45,7 @@ file systems that contain user home directories."
   tag stig_id: "RHEL-07-021000"
   tag fix_id: "F-78393r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe mount('/home') do
     its('options') { should include 'nosuid' }

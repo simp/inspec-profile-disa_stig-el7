@@ -61,7 +61,7 @@ effect.
   tag stig_id: "RHEL-07-010100"
   tag fix_id: "F-78251r2_fix"
   tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a", "Rev_4"]
+  tag nist: ["AC-11 a"]
 
   if package('gnome-desktop3').installed?
     describe command('gsettings get org.gnome.desktop.screensaver idle-activation-enabled') do

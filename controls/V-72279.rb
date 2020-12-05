@@ -31,7 +31,7 @@ command:
   tag stig_id: "RHEL-07-040550"
   tag fix_id: "F-78633r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe command('find / -xdev -xautofs -name shosts.equiv') do
     its('stdout.strip') { should be_empty }

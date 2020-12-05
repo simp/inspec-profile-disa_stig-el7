@@ -69,7 +69,7 @@ storage devices.
   tag stig_id: "RHEL-07-020100"
   tag fix_id: "F-78335r4_fix"
   tag cci: ["CCI-000366", "CCI-000778", "CCI-001958"]
-  tag nist: ["CM-6 b", "IA-3", "IA-3", "Rev_4"]
+  tag nist: ["CM-6 b", "IA-3", "IA-3"]
 
   unless input('data_loss_prevention_installed')
     impact 0.0

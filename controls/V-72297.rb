@@ -39,7 +39,7 @@ restrict client connections to the local network with the following command:
   tag stig_id: "RHEL-07-040680"
   tag fix_id: "F-78651r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   # Only permit_mynetworks and reject should be allowed
   describe.one do

@@ -84,7 +84,7 @@ staff.
   tag stig_id: "RHEL-07-030010"
   tag fix_id: "F-78433r2_fix"
   tag cci: ["CCI-000139"]
-  tag nist: ["AU-5 a", "Rev_4"]
+  tag nist: ["AU-5 a"]
 
   monitor_kernel_log = input('monitor_kernel_log')
 

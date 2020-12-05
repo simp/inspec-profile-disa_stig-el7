@@ -31,7 +31,7 @@ password lifetime:
   tag stig_id: "RHEL-07-010240"
   tag fix_id: "F-78279r1_fix"
   tag cci: ["CCI-000198"]
-  tag nist: ["IA-5 (1) (d)", "Rev_4"]
+  tag nist: ["IA-5 (1) (d)"]
 
   shadow.users.each do |user|
     # filtering on non-system accounts (uid >= 1000)

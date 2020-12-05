@@ -66,7 +66,7 @@ configuration must be documented with the Information System Security Officer
   tag stig_id: "RHEL-07-040600"
   tag fix_id: "F-78635r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   dns_in_host_line = parse_config_file("/etc/nsswitch.conf",
     {

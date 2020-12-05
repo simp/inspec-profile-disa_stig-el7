@@ -40,7 +40,7 @@ string value."
   tag stig_id: "RHEL-07-040800"
   tag fix_id: "F-78667r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   if file('/etc/snmp/snmpd.conf').exist?
     impact 0.7

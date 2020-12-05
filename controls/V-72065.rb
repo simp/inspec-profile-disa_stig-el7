@@ -42,7 +42,7 @@ in the fstab with a device and mount point.
   tag stig_id: "RHEL-07-021340"
   tag fix_id: "F-78417r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe.one do
     describe systemd_service('tmp.mount') do

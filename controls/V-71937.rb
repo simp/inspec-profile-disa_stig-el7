@@ -36,7 +36,7 @@ the configurations listed in this requirement.
   tag stig_id: "RHEL-07-010290"
   tag fix_id: "F-78289r3_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   # Fetch all files under /etc/pam.d excluding '*-ac' files
   # but including symlinks

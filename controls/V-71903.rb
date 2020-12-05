@@ -45,7 +45,7 @@ line to have the required value):
   tag stig_id: "RHEL-07-010120"
   tag fix_id: "F-78255r1_fix"
   tag cci: ["CCI-000192"]
-  tag nist: ["IA-5 (1) (a)", "Rev_4"]
+  tag nist: ["IA-5 (1) (a)"]
 
   describe parse_config_file("/etc/security/pwquality.conf") do
     its('ucredit.to_i') { should cmp < 0 }

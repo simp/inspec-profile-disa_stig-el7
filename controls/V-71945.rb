@@ -66,7 +66,7 @@ the configurations listed in this requirement.
   tag stig_id: "RHEL-07-010330"
   tag fix_id: "F-78297r3_fix"
   tag cci: ["CCI-002238"]
-  tag nist: ["AC-7 b", "Rev_4"]
+  tag nist: ["AC-7 b"]
 
   required_lines = [
     'auth required pam_faillock.so even_deny_root',

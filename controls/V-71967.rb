@@ -43,7 +43,7 @@ removing the rsh-server package from the system with the following command:
   tag stig_id: "RHEL-07-020000"
   tag fix_id: "F-78319r1_fix"
   tag cci: ["CCI-000381"]
-  tag nist: ["CM-7 a", "Rev_4"]
+  tag nist: ["CM-7 a"]
 
   describe package("rsh-server") do
     it { should_not be_installed }

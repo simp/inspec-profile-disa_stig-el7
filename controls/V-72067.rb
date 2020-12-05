@@ -126,7 +126,7 @@ line:
   tag stig_id: "RHEL-07-021350"
   tag fix_id: "F-78419r3_fix"
   tag cci: ["CCI-000068", "CCI-001199", "CCI-002450", "CCI-002476"]
-  tag nist: ["AC-17 (2)", "SC-28", "SC-13", "SC-28 (1)", "Rev_4"]
+  tag nist: ["AC-17 (2)", "SC-28", "SC-13", "SC-28 (1)"]
 
   describe package('dracut-fips') do
     it { should be_installed }

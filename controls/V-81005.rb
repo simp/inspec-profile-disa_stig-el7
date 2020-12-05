@@ -57,7 +57,7 @@ the \"### BEGIN /etc/grub.d/01_users ###\" section:
   tag stig_id: "RHEL-07-010482"
   tag fix_id: "F-87839r2_fix"
   tag cci: ["CCI-000213"]
-  tag nist: ["AC-3", "Rev_4"]
+  tag nist: ["AC-3"]
 
   if file('/sys/firmware/efi').exist?
     impact 0.0

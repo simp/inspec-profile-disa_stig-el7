@@ -44,7 +44,7 @@ or the line is commented out, this is a finding.
   tag stig_id: "RHEL-07-030211"
   tag fix_id: "F-87855r2_fix"
   tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)", "Rev_4"]
+  tag nist: ["AU-4 (1)"]
 
   if file('/etc/audisp/audispd.conf').exist?
     describe parse_config_file('/etc/audisp/audispd.conf') do

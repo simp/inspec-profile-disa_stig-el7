@@ -34,7 +34,7 @@ is a finding.
   tag stig_id: "RHEL-07-021023"
   tag fix_id: "F-87845r2_fix"
   tag cci: ["CCI-001764"]
-  tag nist: ["CM-7 (2)", "Rev_4"]
+  tag nist: ["CM-7 (2)"]
 
   describe mount('/dev/shm') do
     its('options') { should include 'nosuid' }

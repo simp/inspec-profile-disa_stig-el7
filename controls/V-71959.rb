@@ -37,7 +37,7 @@ SSH logon to the system.
   tag stig_id: "RHEL-07-010470"
   tag fix_id: "F-78311r3_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe sshd_config do
     its('HostbasedAuthentication') { should eq 'no' }

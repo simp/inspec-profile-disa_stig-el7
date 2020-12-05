@@ -60,7 +60,7 @@ integrity of LDAP authentication sessions.
   tag stig_id: "RHEL-07-040180"
   tag fix_id: "F-78581r2_fix"
   tag cci: ["CCI-001453"]
-  tag nist: ["AC-17 (2)", "Rev_4"]
+  tag nist: ["AC-17 (2)"]
 
   sssd_id_ldap_enabled = (package('sssd').installed? and
     !command('grep "^\s*id_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)

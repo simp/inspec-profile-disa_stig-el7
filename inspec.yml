@@ -12,15 +12,13 @@ inspec_version: ">= 4.0"
 inputs:
 - name: disable_slow_controls
   description: Controls that are known to consistently have long run times can be disabled with this attribute
-  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
-  #type: Boolean
+  type: Boolean
   value: false
 
 # V-72081
 - name: monitor_kernel_log
   description: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
-  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
-  #type: Boolean
+  type: Boolean
   value: true
 
 # V-71849
@@ -44,8 +42,7 @@ inputs:
 # V-72211
 - name: log_aggregation_server
   description: Set to 'true' if the system is being used as a log aggregation server
-  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
-  #type: Boolean
+  type: Boolean
   value: false
 
 # V-72047
@@ -57,8 +54,7 @@ inputs:
 # V-72307
 - name: x11_enabled
   description: Set to 'true' if X11 is needed on the system.
-  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
-  #type: Boolean
+  type: Boolean
   value: false
 
 - name: user_accounts
@@ -95,7 +91,7 @@ inputs:
 - name: dconf_user
   description: User to use to check dconf settings. Nil means to use whatever user is running inspec currently.
   type: String
-  value: nil
+  value: ""
 
 #  You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
 #  By using this IS (which includes any device attached to this IS), you consent to the following conditions:
@@ -385,8 +381,7 @@ inputs:
 # V-72039
 - name: virtual_machine
   description: Is the target expected to be a virtual machine
-  # muted until https://github.com/inspec/inspec/issues/4799 is resolved
-  #type: Boolean
+  type: Boolean
   value: false
 
 # V-73159

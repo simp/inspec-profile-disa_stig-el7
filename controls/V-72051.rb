@@ -45,7 +45,7 @@ following line to \"/etc/rsyslog.conf\" or a configuration file in the
   tag stig_id: "RHEL-07-021100"
   tag fix_id: "F-78403r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   log_pkg_path = input('log_pkg_path')
 

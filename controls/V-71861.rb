@@ -143,7 +143,7 @@ GUI.
   tag stig_id: "RHEL-07-010040"
   tag fix_id: "F-78213r5_fix"
   tag cci: ["CCI-000048"]
-  tag nist: ["AC-8 a", "Rev_4"]
+  tag nist: ["AC-8 a"]
 
   if package('gnome-desktop3').installed?
     #Get all files that have the banner-message-text specified.

@@ -43,7 +43,7 @@ the line to have the required value):
   tag stig_id: "RHEL-07-010170"
   tag fix_id: "F-78265r1_fix"
   tag cci: ["CCI-000195"]
-  tag nist: ["IA-5 (1) (b)", "Rev_4"]
+  tag nist: ["IA-5 (1) (b)"]
 
   describe parse_config_file("/etc/security/pwquality.conf") do
     its('minclass.to_i') { should cmp >= 4 }

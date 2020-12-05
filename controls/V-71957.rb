@@ -37,7 +37,7 @@ variables to the SSH daemon.
   tag stig_id: "RHEL-07-010460"
   tag fix_id: "F-78309r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe sshd_config do
     its('PermitUserEnvironment') { should eq 'no' }

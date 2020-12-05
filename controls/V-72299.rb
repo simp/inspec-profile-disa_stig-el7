@@ -35,7 +35,7 @@ or remove it from the system with the following command:
   tag stig_id: "RHEL-07-040690"
   tag fix_id: "F-78653r3_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe.one do
     describe package('vsftpd') do

@@ -54,7 +54,7 @@ third-party vendor):
   tag stig_id: "RHEL-07-040340"
   tag fix_id: "F-78595r4_fix"
   tag cci: ["CCI-001133", "CCI-002361"]
-  tag nist: ["SC-10", "AC-12", "Rev_4"]
+  tag nist: ["SC-10", "AC-12"]
 
   if os.release.to_f >= 7.4
     impact 0.0

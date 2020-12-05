@@ -49,7 +49,7 @@ between logon prompts following a failed console logon attempt.
   tag stig_id: "RHEL-07-010430"
   tag fix_id: "F-78303r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe login_defs do
     its('FAIL_DELAY.to_i') { should cmp >= 4 }

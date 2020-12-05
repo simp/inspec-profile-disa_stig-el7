@@ -34,7 +34,7 @@ interactive users by setting the \"CREATE_HOME\" parameter in
   tag stig_id: "RHEL-07-020610"
   tag fix_id: "F-78365r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe login_defs do
     its('CREATE_HOME') { should eq 'yes' }

@@ -44,7 +44,7 @@ successful/unsuccessful attempts to use the \"kmod\" command occur.
   tag stig_id: "RHEL-07-030840"
   tag fix_id: "F-78545r10_fix"
   tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c", "Rev_4"]
+  tag nist: ["AU-12 c"]
 
   audit_file = '/usr/bin/kmod'
 

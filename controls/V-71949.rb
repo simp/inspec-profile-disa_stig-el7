@@ -49,7 +49,7 @@ following command:
   tag stig_id: "RHEL-07-010350"
   tag fix_id: "F-78301r3_fix"
   tag cci: ["CCI-002038"]
-  tag nist: ["IA-11", "Rev_4"]
+  tag nist: ["IA-11"]
 
   describe command("grep -ir authenticate /etc/sudoers /etc/sudoers.d/*") do
     its('stdout') { should_not match %r{!authenticate} }

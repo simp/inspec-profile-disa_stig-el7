@@ -76,7 +76,7 @@ specific hosts.
   tag stig_id: "RHEL-07-040810"
   tag fix_id: "F-78669r3_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   firewalld_services = input('firewalld_services')
   firewalld_hosts_allow = input('firewalld_hosts_allow')

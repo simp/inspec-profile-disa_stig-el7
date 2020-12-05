@@ -56,7 +56,7 @@ following values:
   tag stig_id: "RHEL-07-030201"
   tag fix_id: "F-87851r2_fix"
   tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)", "Rev_4"]
+  tag nist: ["AU-4 (1)"]
 
   test_file = '/etc/audisp/plugins.d/au-remote.conf'
 

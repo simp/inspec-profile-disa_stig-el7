@@ -64,7 +64,7 @@ integrity of LDAP remote access sessions.
   tag stig_id: "RHEL-07-040190"
   tag fix_id: "F-78583r4_fix"
   tag cci: ["CCI-001453"]
-  tag nist: ["AC-17 (2)", "Rev_4"]
+  tag nist: ["AC-17 (2)"]
 
   sssd_id_ldap_enabled = (package('sssd').installed? and
     !command('grep "^\s*id_provider\s*=\s*ldap" /etc/sssd/sssd.conf').stdout.strip.empty?)

@@ -46,7 +46,7 @@ and set it with the following line:
   tag stig_id: "RHEL-07-030310"
   tag fix_id: "F-78437r1_fix"
   tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)", "Rev_4"]
+  tag nist: ["AU-4 (1)"]
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
     its('enable_krb5'.to_s) { should cmp 'yes' }

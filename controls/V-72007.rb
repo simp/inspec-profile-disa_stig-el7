@@ -33,7 +33,7 @@ system with the \"chown\" command:
   tag stig_id: "RHEL-07-020320"
   tag fix_id: "F-78359r1_fix"
   tag cci: ["CCI-002165"]
-  tag nist: ["AC-3 (4)", "Rev_4"]
+  tag nist: ["AC-3 (4)"]
 
   command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
     stdout.strip.split("\n").each do |fs|

@@ -31,7 +31,7 @@ finding.
   tag stig_id: "RHEL-07-032000"
   tag fix_id: "F-78567r2_fix"
   tag cci: ["CCI-001668"]
-  tag nist: ["SI-3 a", "Rev_4"]
+  tag nist: ["SI-3 a"]
 
   custom_antivirus = input('custom_antivirus')
 

@@ -49,7 +49,7 @@ functions.
   tag stig_id: "RHEL-07-020210"
   tag fix_id: "F-78341r2_fix"
   tag cci: ["CCI-002165", "CCI-002696"]
-  tag nist: ["AC-3 (4)", "SI-6 a", "Rev_4"]
+  tag nist: ["AC-3 (4)", "SI-6 a"]
 
 
   if package('MFEhiplsm').installed? && processes(/hipclient/).exist?

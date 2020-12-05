@@ -42,7 +42,7 @@ file systems that are being imported via NFS."
   tag stig_id: "RHEL-07-021021"
   tag fix_id: "F-79607r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
   if !nfs_systems.nil? and !nfs_systems.empty?

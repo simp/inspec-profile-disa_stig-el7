@@ -41,7 +41,7 @@ capacity is reached.
   tag stig_id: "RHEL-07-030340"
   tag fix_id: "F-78443r1_fix"
   tag cci: ["CCI-001855"]
-  tag nist: ["AU-5 (1)", "Rev_4"]
+  tag nist: ["AU-5 (1)"]
 
   describe auditd_conf do
     its('space_left_action.downcase') { should cmp 'email' }

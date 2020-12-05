@@ -49,7 +49,7 @@ command:
   tag stig_id: "RHEL-07-010020"
   tag fix_id: "F-78207r1_fix"
   tag cci: ["CCI-001749"]
-  tag nist: ["CM-5 (3)", "Rev_4"]
+  tag nist: ["CM-5 (3)"]
 
 rpm_verify_integrity_except = input('rpm_verify_integrity_except')
 

@@ -73,7 +73,7 @@ auid!=4294967295 -k access
   tag stig_id: "RHEL-07-030550"
   tag fix_id: "F-78485r8_fix"
   tag cci: ["CCI-000172", "CCI-002884"]
-  tag nist: ["AU-12 c", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-12 c", "MA-4 (1) (a)"]
 
   describe auditd.syscall("ftruncate").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

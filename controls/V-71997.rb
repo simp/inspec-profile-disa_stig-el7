@@ -41,7 +41,7 @@ system software."
   tag stig_id: "RHEL-07-020250"
   tag fix_id: "F-78349r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe file('/etc/redhat-release') do
     its('content') { should match %r{Release (6.7*|7.[2-9].*)}i }

@@ -61,7 +61,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
   tag stig_id: "RHEL-07-040100"
   tag fix_id: "F-78573r1_fix"
   tag cci: ["CCI-000382", "CCI-002314"]
-  tag nist: ["CM-7 b", "AC-17 (1)", "Rev_4"]
+  tag nist: ["CM-7 b", "AC-17 (1)"]
 
   firewalld_services_deny = input('firewalld_services_deny')
   firewalld_hosts_deny = input('firewalld_hosts_deny')

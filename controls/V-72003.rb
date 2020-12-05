@@ -31,7 +31,7 @@ referenced in the \"/etc/passwd\" file to a group that exists in
   tag stig_id: "RHEL-07-020300"
   tag fix_id: "F-78355r1_fix"
   tag cci: ["CCI-000764"]
-  tag nist: ["IA-2", "Rev_4"]
+  tag nist: ["IA-2"]
 
   passwd.gids.each do |gid|
     describe etc_group do

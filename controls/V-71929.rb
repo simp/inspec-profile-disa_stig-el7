@@ -40,7 +40,7 @@ the required value):
   tag stig_id: "RHEL-07-010250"
   tag fix_id: "F-78281r1_fix"
   tag cci: ["CCI-000199"]
-  tag nist: ["IA-5 (1) (d)", "Rev_4"]
+  tag nist: ["IA-5 (1) (d)"]
 
   unless command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     impact 0.0

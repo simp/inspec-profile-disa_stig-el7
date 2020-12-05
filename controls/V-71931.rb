@@ -32,7 +32,7 @@ lifetime restriction.
   tag stig_id: "RHEL-07-010260"
   tag fix_id: "F-78283r1_fix"
   tag cci: ["CCI-000199"]
-  tag nist: ["IA-5 (1) (d)", "Rev_4"]
+  tag nist: ["IA-5 (1) (d)"]
 
   shadow.users.each do |user|
     # filtering on non-system accounts (uid >= 1000)

@@ -64,7 +64,7 @@ should be created under the appropriate subdirectory.
   tag stig_id: "RHEL-07-010082"
   tag fix_id: "F-79603r1_fix"
   tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a", "Rev_4"]
+  tag nist: ["AC-11 a"]
 
   unless package('gnome-desktop3').installed?
     impact 0.0

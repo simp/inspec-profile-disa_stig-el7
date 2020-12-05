@@ -39,7 +39,7 @@ the required value):
   tag stig_id: "RHEL-07-010230"
   tag fix_id: "F-78277r1_fix"
   tag cci: ["CCI-000198"]
-  tag nist: ["IA-5 (1) (d)", "Rev_4"]
+  tag nist: ["IA-5 (1) (d)"]
 
   describe login_defs do
     its('PASS_MIN_DAYS.to_i') { should cmp >= 1 }

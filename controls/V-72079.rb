@@ -52,7 +52,7 @@ information to establish when (date and time) the events occurred.
   tag stig_id: "RHEL-07-030000"
   tag fix_id: "F-78431r2_fix"
   tag cci: ["CCI-000126", "CCI-000131"]
-  tag nist: ["AU-2 d", "AU-3", "Rev_4"]
+  tag nist: ["AU-2 d", "AU-3"]
 
   describe service('auditd') do
     it { should be_running }

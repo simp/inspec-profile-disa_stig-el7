@@ -66,7 +66,7 @@ effect.
   tag stig_id: "RHEL-07-010060"
   tag fix_id: "F-78243r9_fix"
   tag cci: ["CCI-000056"]
-  tag nist: ["AC-11 b", "Rev_4"]
+  tag nist: ["AC-11 b"]
 
   if package('gnome-desktop3').installed?
     describe command('gsettings get org.gnome.desktop.screensaver lock-enabled') do

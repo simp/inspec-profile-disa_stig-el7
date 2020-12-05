@@ -43,7 +43,7 @@ with the ISSO."
   tag stig_id: "RHEL-07-040820"
   tag fix_id: "F-78671r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   approved_tunnels = input('approved_tunnels')
 

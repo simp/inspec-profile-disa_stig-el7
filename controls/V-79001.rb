@@ -50,7 +50,7 @@ successful/unsuccessful attempts to use the \"finit_module\" syscall occur.
   tag stig_id: "RHEL-07-030821"
   tag fix_id: "F-85751r3_fix"
   tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c", "Rev_4"]
+  tag nist: ["AU-12 c"]
 
   describe auditd.syscall("finit_module").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

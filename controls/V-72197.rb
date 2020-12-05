@@ -50,7 +50,7 @@ creations, modifications, disabling, and termination events that affect
   tag stig_id: "RHEL-07-030870"
   tag fix_id: "F-78551r4_fix"
   tag cci: ["CCI-000018", "CCI-000172", "CCI-001403", "CCI-002130"]
-  tag nist: ["AC-2 (4)", "AU-12 c", "AC-2 (4)", "AC-2 (4)", "Rev_4"]
+  tag nist: ["AC-2 (4)", "AU-12 c", "AC-2 (4)", "AC-2 (4)"]
 
   audit_file = '/etc/passwd'
 

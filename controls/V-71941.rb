@@ -40,7 +40,7 @@ have the required value):
   tag stig_id: "RHEL-07-010310"
   tag fix_id: "F-78293r1_fix"
   tag cci: ["CCI-000795"]
-  tag nist: ["IA-4 e", "Rev_4"]
+  tag nist: ["IA-4 e"]
 
   days_of_inactivity = input('days_of_inactivity')
 

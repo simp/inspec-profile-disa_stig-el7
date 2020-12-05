@@ -44,7 +44,7 @@ the line to have the required value):
   tag stig_id: "RHEL-07-010180"
   tag fix_id: "F-78267r2_fix"
   tag cci: ["CCI-000195"]
-  tag nist: ["IA-5 (1) (b)", "Rev_4"]
+  tag nist: ["IA-5 (1) (b)"]
 
   describe parse_config_file("/etc/security/pwquality.conf") do
     its('maxrepeat.to_i') { should cmp <= 3 }

@@ -38,7 +38,7 @@ with the following command:
   tag stig_id: "RHEL-07-040410"
   tag fix_id: "F-78609r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   pub_files = command("find /etc/ssh -xdev -name '*.pub' -perm /133").stdout.split("\n")
   if !pub_files.nil? and !pub_files.empty?

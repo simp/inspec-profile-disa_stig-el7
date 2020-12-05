@@ -55,7 +55,7 @@ auid!=4294967295 -k perm_mod
   tag stig_id: "RHEL-07-030480"
   tag fix_id: "F-78471r6_fix"
   tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c", "Rev_4"]
+  tag nist: ["AU-12 c"]
 
   describe auditd.syscall("fremovexattr").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

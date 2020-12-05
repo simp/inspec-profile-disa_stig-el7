@@ -41,7 +41,7 @@ section:
   tag stig_id: "RHEL-07-010220"
   tag fix_id: "F-78275r1_fix"
   tag cci: ["CCI-000196"]
-  tag nist: ["IA-5 (1) (c)", "Rev_4"]
+  tag nist: ["IA-5 (1) (c)"]
 
   describe command("cat /etc/libuser.conf | grep -i sha512") do
     its('stdout.strip') { should match %r(^crypt_style = sha512$) }

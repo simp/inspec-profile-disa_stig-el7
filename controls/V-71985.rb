@@ -43,7 +43,7 @@ documented with the ISSO.
   tag stig_id: "RHEL-07-020110"
   tag fix_id: "F-78337r2_fix"
   tag cci: ["CCI-000366", "CCI-000778", "CCI-001958"]
-  tag nist: ["CM-6 b", "IA-3", "IA-3", "Rev_4"]
+  tag nist: ["CM-6 b", "IA-3", "IA-3"]
 
   describe systemd_service('autofs.service') do
     it { should_not be_running }

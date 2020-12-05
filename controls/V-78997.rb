@@ -67,7 +67,7 @@ file should be created under the appropriate subdirectory.
   tag stig_id: "RHEL-07-010101"
   tag fix_id: "F-85747r1_fix"
   tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a", "Rev_4"]
+  tag nist: ["AC-11 a"]
 
   if package('gnome-desktop3').installed?
     impact 0.5

@@ -40,7 +40,7 @@ command line with the following command:
   tag stig_id: "RHEL-07-020230"
   tag fix_id: "F-78345r6_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe systemd_service('ctrl-alt-del.target') do
     it { should_not be_running }

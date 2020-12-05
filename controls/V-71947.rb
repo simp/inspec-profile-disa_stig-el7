@@ -50,7 +50,7 @@ command:
   tag stig_id: "RHEL-07-010340"
   tag fix_id: "F-78299r2_fix"
   tag cci: ["CCI-002038"]
-  tag nist: ["IA-11", "Rev_4"]
+  tag nist: ["IA-11"]
 
   processed = []
   to_process = ['/etc/sudoers', '/etc/sudoers.d']

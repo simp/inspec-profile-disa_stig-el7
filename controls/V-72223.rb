@@ -60,7 +60,7 @@ period of inactivity.
   tag stig_id: "RHEL-07-040160"
   tag fix_id: "F-78577r5_fix"
   tag cci: ["CCI-001133", "CCI-002361"]
-  tag nist: ["SC-10", "AC-12", "Rev_4"]
+  tag nist: ["SC-10", "AC-12"]
 
   system_activity_timeout = input('system_activity_timeout')
 

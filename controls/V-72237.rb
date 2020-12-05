@@ -61,7 +61,7 @@ third-party vendor):
   tag stig_id: "RHEL-07-040320"
   tag fix_id: "F-78591r2_fix"
   tag cci: ["CCI-001133", "CCI-002361"]
-  tag nist: ["SC-10", "AC-12", "Rev_4"]
+  tag nist: ["SC-10", "AC-12"]
 
   client_alive_interval = input('client_alive_interval')
 

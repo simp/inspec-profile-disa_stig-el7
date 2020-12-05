@@ -51,7 +51,7 @@ delete
   tag stig_id: "RHEL-07-030910"
   tag fix_id: "F-78559r7_fix"
   tag cci: ["CCI-000172", "CCI-002884"]
-  tag nist: ["AU-12 c", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-12 c", "MA-4 (1) (a)"]
 
   describe auditd.syscall("unlink").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

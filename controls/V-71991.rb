@@ -76,7 +76,7 @@ functions.
   tag stig_id: "RHEL-07-020220"
   tag fix_id: "F-78343r2_fix"
   tag cci: ["CCI-002165", "CCI-002696"]
-  tag nist: ["AC-3 (4)", "SI-6 a", "Rev_4"]
+  tag nist: ["AC-3 (4)", "SI-6 a"]
 
   describe.one do
     describe command('sestatus') do

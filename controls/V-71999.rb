@@ -43,22 +43,20 @@ control "V-71999" do
           If package updates have not been performed on the system within the
       timeframe that the site/program documentation requires, this is a finding.
 
-          Typical update frequency may be overridden by Information Assurance
-      Vulnerability Alert (IAVA) notifications from CYBERCOM.
-
-          If the operating system is in non-compliance with the Information Assurance
-      Vulnerability Management (IAVM) process, this is a finding."
-    desc "fix", "Install the operating system patches or updated packages
-                available from Red Hat within 30 days or sooner as local policy dictates."
-    impact 0.5
-    tag severity: nil
-    tag gtitle: "SRG-OS-000480-GPOS-00227"
-    tag gid: "V-71999"
-    tag rid: "SV-86623r4_rule"
-    tag stig_id: "RHEL-07-020260"
-    tag fix_id: "F-78351r1_fix"
-    tag cci: ["CCI-000366"]
-    tag nist: ["CM-6 b", "Rev_4"]
+    If the operating system is in non-compliance with the Information Assurance
+Vulnerability Management (IAVM) process, this is a finding.
+  "
+  desc  "fix", "Install the operating system patches or updated packages
+available from Red Hat within 30 days or sooner as local policy dictates."
+  impact 0.5
+  tag severity: 'medium'
+  tag gtitle: "SRG-OS-000480-GPOS-00227"
+  tag gid: "V-71999"
+  tag rid: "SV-86623r4_rule"
+  tag stig_id: "RHEL-07-020260"
+  tag fix_id: "F-78351r1_fix"
+  tag cci: ["CCI-000366"]
+  tag nist: ["CM-6 b"]
 
     if input('disconnected_system')
       describe "The system is set to a `disconnected` state and you must validate 

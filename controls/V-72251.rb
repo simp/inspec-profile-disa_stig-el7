@@ -47,7 +47,7 @@ vendor). The \"Protocol\" line must be as follows:
   tag stig_id: "RHEL-07-040390"
   tag fix_id: "F-78605r2_fix"
   tag cci: ["CCI-000197", "CCI-000366"]
-  tag nist: ["IA-5 (1) (c)", "CM-6 b", "Rev_4"]
+  tag nist: ["IA-5 (1) (c)", "CM-6 b"]
 
   if os.release.to_f >= 7.4
     impact 0.0

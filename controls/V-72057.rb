@@ -41,7 +41,7 @@ the following command:
   tag stig_id: "RHEL-07-021300"
   tag fix_id: "F-78409r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe systemd_service('kdump.service') do
     it { should_not be_running }

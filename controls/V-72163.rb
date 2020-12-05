@@ -56,7 +56,7 @@ in the \"/etc/sudoers.d/\" directory.
   tag stig_id: "RHEL-07-030700"
   tag fix_id: "F-78517r6_fix"
   tag cci: ["CCI-000130", "CCI-000135", "CCI-000172", "CCI-002884"]
-  tag nist: ["AU-3", "AU-3 (1)", "AU-12 c", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-3", "AU-3 (1)", "AU-12 c", "MA-4 (1) (a)"]
 
   audit_files = ['/etc/sudoers', '/etc/sudoers.d']
 

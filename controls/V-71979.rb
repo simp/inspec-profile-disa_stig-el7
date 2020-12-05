@@ -55,7 +55,7 @@ prior to install by setting the following option in the \"/etc/yum.conf\" file:
   tag stig_id: "RHEL-07-020060"
   tag fix_id: "F-78331r1_fix"
   tag cci: ["CCI-001749"]
-  tag nist: ["CM-5 (3)", "Rev_4"]
+  tag nist: ["CM-5 (3)"]
 
   yum_conf = '/etc/yum.conf'
 

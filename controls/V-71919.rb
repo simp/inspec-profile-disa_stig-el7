@@ -51,7 +51,7 @@ the configurations listed in this requirement.
   tag stig_id: "RHEL-07-010200"
   tag fix_id: "F-78271r4_fix"
   tag cci: ["CCI-000196"]
-  tag nist: ["IA-5 (1) (c)", "Rev_4"]
+  tag nist: ["IA-5 (1) (c)"]
 
   describe pam("/etc/pam.d/system-auth") do
     its('lines') { should match_pam_rule('password sufficient pam_unix.so sha512') }

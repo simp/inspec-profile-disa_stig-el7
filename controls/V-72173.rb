@@ -47,7 +47,7 @@ privileged-mount
   tag stig_id: "RHEL-07-030750"
   tag fix_id: "F-78527r5_fix"
   tag cci: ["CCI-000135", "CCI-002884"]
-  tag nist: ["AU-3 (1)", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-3 (1)", "MA-4 (1) (a)"]
 
   audit_file = '/bin/umount'
 

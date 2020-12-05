@@ -35,7 +35,7 @@ account accesses last occurred by setting the required configuration options in
   tag stig_id: "RHEL-07-040530"
   tag fix_id: "F-78629r4_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe pam('/etc/pam.d/postlogin') do
     its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed') }

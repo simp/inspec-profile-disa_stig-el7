@@ -46,7 +46,7 @@ auid!=4294967295 -k privileged-postfix
   tag stig_id: "RHEL-07-030770"
   tag fix_id: "F-78531r5_fix"
   tag cci: ["CCI-000135", "CCI-002884"]
-  tag nist: ["AU-3 (1)", "MA-4 (1) (a)", "Rev_4"]
+  tag nist: ["AU-3 (1)", "MA-4 (1) (a)"]
 
   audit_file = '/usr/sbin/postqueue'
 

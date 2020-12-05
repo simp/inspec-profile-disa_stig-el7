@@ -61,7 +61,7 @@ kernel module.
   tag stig_id: "RHEL-07-020101"
   tag fix_id: "F-84521r3_fix"
   tag cci: ["CCI-001958"]
-  tag nist: ["IA-3", "Rev_4"]
+  tag nist: ["IA-3"]
 
   describe kernel_module('dccp') do
     it { should_not be_loaded }

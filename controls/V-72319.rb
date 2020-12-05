@@ -49,7 +49,7 @@ the /etc/sysctl.d/ directory (or modify the line to have the required value):
   tag stig_id: "RHEL-07-040830"
   tag fix_id: "F-78673r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe.one do
     describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do

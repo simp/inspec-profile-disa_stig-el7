@@ -50,7 +50,7 @@ successful/unsuccessful attempts to use the \"delete_module\" syscall occur.
   tag stig_id: "RHEL-07-030830"
   tag fix_id: "F-78543r7_fix"
   tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c", "Rev_4"]
+  tag nist: ["AU-12 c"]
 
   describe auditd.syscall("delete_module").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

@@ -63,7 +63,7 @@ following command:
   tag stig_id: "RHEL-07-010010"
   tag fix_id: "F-78201r4_fix"
   tag cci: ["CCI-001494", "CCI-001496", "CCI-002165", "CCI-002235"]
-  tag nist: ["AU-9", "AU-9 (3)", "AC-3 (4)", "AC-6 (10)", "Rev_4"]
+  tag nist: ["AU-9", "AU-9 (3)", "AC-3 (4)", "AC-6 (10)"]
 
   rpm_verify_perms_except = input('rpm_verify_perms_except')
 

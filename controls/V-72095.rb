@@ -48,7 +48,7 @@ functions.
   tag stig_id: "RHEL-07-030360"
   tag fix_id: "F-78447r9_fix"
   tag cci: ["CCI-002234"]
-  tag nist: ["AC-6 (9)", "Rev_4"]
+  tag nist: ["AC-6 (9)"]
 
   # All execve calls should use 'always,exit'
   describe auditd.syscall('execve') do

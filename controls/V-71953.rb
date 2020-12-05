@@ -42,7 +42,7 @@ Applicable.
   tag stig_id: "RHEL-07-010440"
   tag fix_id: "F-78305r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   custom_conf = '/etc/gdm/custom.conf'
 

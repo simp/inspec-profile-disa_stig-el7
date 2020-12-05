@@ -42,7 +42,7 @@ following command:
   tag stig_id: "RHEL-07-041010"
   tag fix_id: "F-79623r1_fix"
   tag cci: ["CCI-001443", "CCI-001444", "CCI-002418"]
-  tag nist: ["AC-18 (1)", "AC-18 (1)", "SC-8", "Rev_4"]
+  tag nist: ["AC-18 (1)", "AC-18 (1)", "SC-8"]
 
   describe command('nmcli device') do
     its('stdout.strip') { should_not match %r{wifi connected} }

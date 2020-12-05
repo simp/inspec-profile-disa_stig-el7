@@ -61,7 +61,7 @@ control "V-72427" do
   tag stig_id: "RHEL-07-041002"
   tag fix_id: "F-78779r3_fix"
   tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
-  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)", "Rev_4"]
+  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
 
   unless package('sssd').installed?
     impact 0.0

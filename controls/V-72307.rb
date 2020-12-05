@@ -34,7 +34,7 @@ the related packages with the following commands:
   tag stig_id: "RHEL-07-040730"
   tag fix_id: "F-78661r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   x11_enabled = input('x11_enabled')
 

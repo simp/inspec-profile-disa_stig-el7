@@ -55,7 +55,7 @@ perm_mod
   tag stig_id: "RHEL-07-030410"
   tag fix_id: "F-78457r7_fix"
   tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c", "Rev_4"]
+  tag nist: ["AU-12 c"]
 
   describe auditd.syscall("chmod").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

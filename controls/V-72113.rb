@@ -55,7 +55,7 @@ successful/unsuccessful attempts to use the \"fsetxattr\" syscall occur.
   tag stig_id: "RHEL-07-030450"
   tag fix_id: "F-78465r7_fix"
   tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c", "Rev_4"]
+  tag nist: ["AU-12 c"]
 
   describe auditd.syscall("fsetxattr").where {arch == "b32"} do
     its('action.uniq') { should eq ['always'] }

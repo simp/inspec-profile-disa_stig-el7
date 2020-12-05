@@ -37,7 +37,7 @@ and set the value to \"yes\":
   tag stig_id: "RHEL-07-040350"
   tag fix_id: "F-78597r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe sshd_config do
     its('IgnoreRhosts') { should cmp 'yes' }

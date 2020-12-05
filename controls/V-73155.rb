@@ -66,7 +66,7 @@ control "V-73155" do
   tag stig_id: "RHEL-07-010081"
   tag fix_id: "F-79601r2_fix"
   tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a", "Rev_4"]
+  tag nist: ["AC-11 a"]
 
     unless package('gnome-desktop3').installed?
       impact 0.0

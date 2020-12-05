@@ -72,7 +72,7 @@ module if required.
   tag stig_id: "RHEL-07-010500"
   tag fix_id: "F-78317r3_fix"
   tag cci: ["CCI-000766"]
-  tag nist: ["IA-2 (2)", "Rev_4"]
+  tag nist: ["IA-2 (2)"]
 
   smart_card_status = input('smart_card_status')
   if smart_card_status.eql?('enabled')

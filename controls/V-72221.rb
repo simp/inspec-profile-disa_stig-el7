@@ -61,7 +61,7 @@ third-party vendor).
   tag stig_id: "RHEL-07-040110"
   tag fix_id: "F-78575r3_fix"
   tag cci: ["CCI-000068", "CCI-000366", "CCI-000803"]
-  tag nist: ["AC-17 (2)", "CM-6 b", "IA-7", "Rev_4"]
+  tag nist: ["AC-17 (2)", "CM-6 b", "IA-7"]
 
   @ciphers_array = inspec.sshd_config.params['ciphers']
 

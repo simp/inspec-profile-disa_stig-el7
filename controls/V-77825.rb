@@ -52,7 +52,7 @@ line to \"/etc/sysctl.conf\" or a config file in the /etc/sysctl.d/ directory
   tag stig_id: "RHEL-07-040201"
   tag fix_id: "F-84531r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   randomize_va_space = input('randomize_va_space')
 

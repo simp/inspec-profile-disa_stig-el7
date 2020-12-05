@@ -41,7 +41,7 @@ out, this is a finding.
   tag stig_id: "RHEL-07-030200"
   tag fix_id: "F-87849r2_fix"
   tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)", "Rev_4"]
+  tag nist: ["AU-4 (1)"]
 
   test_file = '/etc/audisp/plugins.d/au-remote.conf'
 

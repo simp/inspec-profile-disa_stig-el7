@@ -37,7 +37,7 @@ updated versions have been installed.
   tag stig_id: "RHEL-07-020200"
   tag fix_id: "F-78339r1_fix"
   tag cci: ["CCI-002617"]
-  tag nist: ["SI-2 (6)", "Rev_4"]
+  tag nist: ["SI-2 (6)"]
 
   describe parse_config_file("/etc/yum.conf") do
     its('main.clean_requirements_on_remove') { should match %r{1|True|yes}i }

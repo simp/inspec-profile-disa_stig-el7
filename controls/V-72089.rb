@@ -68,7 +68,7 @@ to 25 percent of the partition size.
   tag stig_id: "RHEL-07-030330"
   tag fix_id: "F-78441r3_fix"
   tag cci: ["CCI-001855"]
-  tag nist: ["AU-5 (1)", "Rev_4"]
+  tag nist: ["AU-5 (1)"]
 
   if((f = file(audit_log_dir = command("dirname #{auditd_conf.log_file}").stdout.strip)).directory?)
     # Fetch partition sizes in 1K blocks for consistency

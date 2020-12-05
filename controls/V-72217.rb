@@ -45,7 +45,7 @@ to \"10\" for all accounts and/or account types.
   tag stig_id: "RHEL-07-040000"
   tag fix_id: "F-78571r2_fix"
   tag cci: ["CCI-000054"]
-  tag nist: ["AC-10", "Rev_4"]
+  tag nist: ["AC-10"]
 
   maxlogins_limit = input('maxlogins_limit')
 

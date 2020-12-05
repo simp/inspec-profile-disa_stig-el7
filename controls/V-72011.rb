@@ -38,7 +38,7 @@ currently do not have a home directory assigned."
   tag stig_id: "RHEL-07-020600"
   tag fix_id: "F-78363r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')

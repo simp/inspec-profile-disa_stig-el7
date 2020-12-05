@@ -44,7 +44,7 @@ the internal queue is full:
   tag stig_id: "RHEL-07-030210"
   tag fix_id: "F-87853r3_fix"
   tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)", "Rev_4"]
+  tag nist: ["AU-4 (1)"]
 
   if file('/etc/audisp/audispd.conf').exist?
     describe parse_config_file('/etc/audisp/audispd.conf') do

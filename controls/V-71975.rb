@@ -80,7 +80,7 @@ check run\" root@sysname.mil
   tag stig_id: "RHEL-07-020040"
   tag fix_id: "F-78327r3_fix"
   tag cci: ["CCI-001744"]
-  tag nist: ["CM-3 (5)", "Rev_4"]
+  tag nist: ["CM-3 (5)"]
 
   file_integrity_tool = input('file_integrity_tool')
 

@@ -50,7 +50,7 @@ allow for a normal user to perform administrative-level actions.
   tag stig_id: "RHEL-07-020270"
   tag fix_id: "F-78353r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   known_system_accounts = input('known_system_accounts')
   user_accounts = input('user_accounts')

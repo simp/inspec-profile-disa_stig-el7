@@ -39,7 +39,7 @@ provided by a third-party vendor):
   tag stig_id: "RHEL-07-040710"
   tag fix_id: "F-78657r6_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe sshd_config do
     its('X11Forwarding') { should cmp 'yes' }

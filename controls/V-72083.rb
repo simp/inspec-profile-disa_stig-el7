@@ -44,7 +44,7 @@ IP address of the log aggregation server.
   tag stig_id: "RHEL-07-030300"
   tag fix_id: "F-78435r1_fix"
   tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)", "Rev_4"]
+  tag nist: ["AU-4 (1)"]
 
   if file('/etc/audisp/audisp-remote.conf').exist?
     describe parse_config_file('/etc/audisp/audisp-remote.conf') do

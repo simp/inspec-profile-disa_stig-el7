@@ -39,7 +39,7 @@ single-user and maintenance modes.
   tag stig_id: "RHEL-07-010481"
   tag fix_id: "F-84523r2_fix"
   tag cci: ["CCI-000213"]
-  tag nist: ["AC-3", "Rev_4"]
+  tag nist: ["AC-3"]
 
   describe command("grep -i execstart /usr/lib/systemd/system/rescue.service") do
     its('stdout.strip') { should match %r{/usr/sbin/sulogin} }

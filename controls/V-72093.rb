@@ -42,7 +42,7 @@ with security personnel.
   tag stig_id: "RHEL-07-030350"
   tag fix_id: "F-78445r3_fix"
   tag cci: ["CCI-001855"]
-  tag nist: ["AU-5 (1)", "Rev_4"]
+  tag nist: ["AU-5 (1)"]
 
   describe auditd_conf  do
     its('action_mail_acct') { should cmp 'root' }

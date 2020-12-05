@@ -41,7 +41,7 @@ auid!=4294967295 -k privileged-pam
   tag stig_id: "RHEL-07-030810"
   tag fix_id: "F-78539r4_fix"
   tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c", "Rev_4"]
+  tag nist: ["AU-12 c"]
 
   audit_file = '/sbin/pam_timestamp_check'
 

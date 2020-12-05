@@ -55,7 +55,7 @@ uncommented file and directory selection lists.
   tag stig_id: "RHEL-07-021610"
   tag fix_id: "F-78423r2_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe package("aide") do
     it { should be_installed }

@@ -44,7 +44,7 @@ have the required value):
   tag stig_id: "RHEL-07-010119"
   tag fix_id: "F-79605r5_fix"
   tag cci: ["CCI-000192"]
-  tag nist: ["IA-5 (1) (a)", "Rev_4"]
+  tag nist: ["IA-5 (1) (a)"]
 
   max_retry = input('max_retry')
 

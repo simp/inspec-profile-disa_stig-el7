@@ -33,7 +33,7 @@ assign a UID of greater than \"1000\" that has not already been assigned.
   tag stig_id: "RHEL-07-020310"
   tag fix_id: "F-78357r1_fix"
   tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b", "Rev_4"]
+  tag nist: ["CM-6 b"]
 
   describe passwd.uids(0) do
     its('users') { should cmp 'root' }

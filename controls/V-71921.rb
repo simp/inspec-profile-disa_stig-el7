@@ -38,7 +38,7 @@ representations of passwords.
   tag stig_id: "RHEL-07-010210"
   tag fix_id: "F-78273r1_fix"
   tag cci: ["CCI-000196"]
-  tag nist: ["IA-5 (1) (c)", "Rev_4"]
+  tag nist: ["IA-5 (1) (c)"]
 
   describe login_defs do
     its('ENCRYPT_METHOD') { should cmp "SHA512" }

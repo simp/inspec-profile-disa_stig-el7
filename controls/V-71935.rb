@@ -44,7 +44,7 @@ line to have the required value):
   tag stig_id: "RHEL-07-010280"
   tag fix_id: "F-78287r1_fix"
   tag cci: ["CCI-000205"]
-  tag nist: ["IA-5 (1) (a)", "Rev_4"]
+  tag nist: ["IA-5 (1) (a)"]
 
   min_len = input('min_len')
 
