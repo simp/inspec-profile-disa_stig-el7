@@ -31,10 +31,7 @@ suites:
   - name: vanilla
     provisioner:
       manifest: base.pp
-    verifier:
-      name: inspec
+      
   - name: hardened
     provisioner:
       manifest: stig.pp
-    verifier:
-      name: inspec
