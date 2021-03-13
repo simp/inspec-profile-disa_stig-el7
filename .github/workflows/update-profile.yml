@@ -1,4 +1,4 @@
-name: Update Profile
+name: Update the Profile JSON
 
 on:
   pull_request:

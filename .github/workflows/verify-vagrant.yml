@@ -1,4 +1,4 @@
-name: Verify the Baseline using Vagrant
+name: Vagrant Testing Matrix
 
 on:
   push:

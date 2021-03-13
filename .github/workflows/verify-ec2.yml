@@ -1,4 +1,4 @@
-name: Verify the Baseline using RHEL on EC2
+name: EC2 Testing Matrix
 
 on:
   push:
