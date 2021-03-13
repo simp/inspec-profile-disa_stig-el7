@@ -14,11 +14,26 @@ driver:
   require_chef_for_busser: false
   privileged: true
 
+verifier:
+  name: inspec
+  sudo: true
+  reporter:
+    - cli
+    - json:spec/results/ec2-%{platform}_%{suite}.json
+  inspec_tests:
+    - name: RedHat Enterprise Linux 7 STIG
+      path: .
+  input_files:
+    - ec2.inputs.yml
+  load_plugins: true
+
 lifecycle:
   pre_converge:
     - remote: |
         echo "NOTICE - Installing needed packages"
-        sudo yum install -y bc bind-utils redhat-lsb-core vim
+        sudo yum install -y --nogpgcheck bc bind-utils redhat-lsb-core vim
+        echo "updating system packages"
+        sudo yum update -y --nogpgcheck
         echo "NOTICE - Updating the ec2-user to keep sudo working"
         sudo chage -d $(( $( date +%s ) / 86400 )) ec2-user
         echo "NOTICE - updating ec2-user sudo config"
@@ -26,3 +41,4 @@ lifecycle:
 
 transport:
   name: ssh
+  user: ec2-user

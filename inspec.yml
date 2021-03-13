@@ -36,8 +36,8 @@ inputs:
 # V-71859
 - name: banner_message_enabled
   description: Set to 'true' if the login banner message should be enabled
-  type: String
-  value: 'true'
+  type: Boolean
+  value: true
 
 # V-72211
 - name: log_aggregation_server
@@ -342,8 +342,8 @@ inputs:
 # V-77819
 - name: multifactor_enabled
   description: Should dconf have smart card authentication
-  type: String
-  value: 'true'
+  type: Boolean
+  value: true
 
 - name: non_interactive_shells
   description: These shells do not allow a user to login

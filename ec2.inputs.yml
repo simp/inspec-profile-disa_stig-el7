@@ -34,7 +34,7 @@ x11_enabled: false
 disallowed_accounts: ["games", "gopher", "ftp"]
 
 # Accounts of known managed users (Array)
-user_accounts: []
+user_accounts: ["ec2-user"]
 
 # System accounts that support approved system activities. (Array)
 known_system_accounts:
@@ -51,6 +51,7 @@ known_system_accounts:
     "operator",
     "nobody",
     "systemd-bus-proxy",
+    "ec2-user"
   ]
 
 # V-71859/V-77819
@@ -186,7 +187,7 @@ client_alive_interval: 600
 
 # V-71965, V-72417, V-72433
 # (enabled or disabled)
-smart_card_status: "enabled"
+smart_card_status: "disabled"
 
 # V-72051/V-72209
 # The path to the logging package
@@ -203,14 +204,14 @@ exempt_home_users: []
 grub_main_cfg: "/boot/grub2/grub.cfg"
 
 # superusers for grub boot ( array )
-grub_superusers: ["root"]
+grub_superusers: ["root", "ec2-user"]
 
 # grub boot config files
 grub_user_boot_files: ["/boot/grub2/user.cfg"]
 
 # V-71963
 # superusers for efi boot ( array )
-efi_superusers: ["root"]
+efi_superusers: ["root", ec2-user]
 
 # efi boot config files
 efi_user_boot_files: ["/boot/efi/EFI/redhat/user.cfg"]
@@ -249,7 +250,7 @@ mfa_pkg_list:
 
 # V-77819
 # should dconf have smart card authentication
-multifactor_enabled: true
+multifactor_enabled: false
 
 # these shells do not allow a user to login
 non_interactive_shells:
@@ -277,4 +278,4 @@ approved_tunnels: []
 
 # V-72039
 # Is the target expected to be a virtual machine
-virtual_machine: false
+virtual_machine: true
