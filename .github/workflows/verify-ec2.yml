@@ -13,6 +13,10 @@ jobs:
     env:
       CHEF_LICENSE: accept-silent
       KITCHEN_LOCAL_YAML: kitchen.ec2.yml
+    strategy:
+      matrix:
+        suite: ['vanilla', 'hardened']
+      fail-fast: false
     steps:
       - name: add needed packages
         run: sudo apt-get install -y jq
@@ -20,7 +24,6 @@ jobs:
         env:
           AWS_SG_ID: ${{ secrets.AWS_SG_ID }}
           AWS_SUBNET_ID: ${{ secrets.AWS_SUBNET_ID }}
-          AWS_SSH_KEY_ID: ${{ secrets.AWS_SSH_KEY_ID }}
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -34,27 +37,21 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7'
+      - name: Disable ri and rdoc
+        run: 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
       - run: bundle install
+     - run: bundle install
       - name: Regenerate current `profile.json`
         run: |
           bundle exec inspec json . | jq . > profile.json
-      - name: Update profile.json in the repository
-        uses: stefanzweifel/git-auto-commit-action@v4.1.0
-        with:
-          commit_message: 'Updating profile.json in the repository'
-          branch: ${{ github.branch }}
+      - name: Lint the Inspec profile
+        run: bundle exec inspec check .
       - name: Run kitchen test
-        run: bundle exec kitchen test --destroy=always || true
-      - name: Run kitchen Destroy
-        run: bundle exec kitchen destroy
-      - name: Display our Vanilla results summary
-        run: bundle exec inspec_tools summary -j spec/results/rhel-7_vanilla.json --json-counts | jq .
-      - name: Display our Hardened results summary
-        run: bundle exec inspec_tools summary -j spec/results/rhel-7_hardened.json --json-counts | jq .
-      - name: Ensure the scan meets our vanilla results threshold
-        run: bundle exec inspec_tools compliance -j spec/results/rhel-7_vanilla.json -f vanilla.threshold.yml
-      - name: Ensure the scan meets our hardened results threshold
-        run: bundle exec inspec_tools compliance -j spec/results/rhel-7_hardened.json -f hardened.threshold.yml
+        run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
+      - name: Display our ${{ matrix.suite }} results summary
+        run: bundle exec inspec_tools summary -j spec/results/ec2_rhel-7_${{ matrix.suite }}.json --json-counts | jq .
+      - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
+        run: bundle exec inspec_tools compliance -j spec/results/ec2_rhel-7_${{ matrix.suite }}.json -f ${{ matrix.suite }}.threshold.yml
       - name: Save Test Result JSON
         uses: actions/upload-artifact@v2
         with:

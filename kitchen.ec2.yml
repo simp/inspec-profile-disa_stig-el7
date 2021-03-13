@@ -19,7 +19,7 @@ verifier:
   sudo: true
   reporter:
     - cli
-    - json:spec/results/ec2-%{platform}_%{suite}.json
+    - json:spec/results/ec2_%{platform}_%{suite}.json
   inspec_tests:
     - name: RedHat Enterprise Linux 7 STIG
       path: .
@@ -41,4 +41,3 @@ lifecycle:
 
 transport:
   name: ssh
-  user: ec2-user
