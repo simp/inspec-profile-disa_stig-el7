@@ -40,9 +40,8 @@ jobs:
       - name: Disable ri and rdoc
         run: 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
       - run: bundle install
-     - run: bundle install
       - name: Regenerate current `profile.json`
-        run: |
+      - run: |
           bundle exec inspec json . | jq . > profile.json
       - name: Lint the Inspec profile
         run: bundle exec inspec check .
