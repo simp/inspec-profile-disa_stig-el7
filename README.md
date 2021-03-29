@@ -98,8 +98,8 @@ efi_main_cfg: "/boot/efi/EFI/redhat/grub.cfg"
 admin_logins: []
 
 # V-77819
-# should dconf have smart card authentication
-multifactor_enabled: "true"
+# should dconf have smart card authentication (e.g., true or false <- no quotes!)
+multifactor_enabled: true
 
 # V-72317
 # approved configured tunnels prepended with word 'conn'
