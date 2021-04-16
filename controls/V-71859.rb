@@ -102,7 +102,7 @@ effect.
 
   if package('gnome-desktop3').installed?
     if !dconf_user.nil? and command('whoami').stdout.strip == 'root'
-      describe command("sudo -u #{dconf_user} dconf read /org/gnome/login-screen/banner-message-enable") do
+      describe command("sudo -u input('dconf_user') dconf read /org/gnome/login-screen/banner-message-enable") do
         its('stdout.strip') { should cmp banner_message_enabled.to_s }
       end
     else
