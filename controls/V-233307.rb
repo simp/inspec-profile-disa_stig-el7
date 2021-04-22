@@ -34,4 +34,8 @@ control 'V-233307' do
     value to "yes" (this file may be named differently or be in a different location if using a version of SSH that is
     provided by a third-party vendor):
     X11UseLocalhost yes'
+  
+  describe sshd_config do
+    its('X11UseLocalhost') { should eq 'yes' }
+  end
 end

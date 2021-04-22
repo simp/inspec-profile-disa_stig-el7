@@ -53,4 +53,21 @@ control 'V-219059' do
     /org/gnome/desktop/media-handling/autorun-never
     Run the following command to update the database:
     # dconf update'
+
+  if package('gnome-desktop3').installed?
+    describe command('gsettings get org.gnome.desktop.media-handling automount') do
+      its('stdout.strip') { should cmp 'false' }
+    end
+    describe command('gsettings get org.gnome.desktop.media-handling automount-open') do
+      its('stdout.strip') { should cmp 'false' }
+    end
+    describe command('gsettings get org.gnome.desktop.media-handling autorun-never') do
+      its('stdout.strip') { should cmp 'true' }
+    end
+  else
+    impact 0.0
+    describe 'The system does not have GNOME installed' do
+      skip "The system does not have GNOME installed, this requirement is Not Applicable."
+    end
+  end
 end

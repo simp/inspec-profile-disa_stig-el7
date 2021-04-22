@@ -33,4 +33,8 @@ control 'V-228563' do
   tag 'fix': 'All directories in local partitions which are world-writable should be owned by root or another system
     account. If any world-writable directories are not owned by a system account, this should be investigated. Following
     this, the files should be deleted or assigned to an appropriate group.'
+
+  describe command('df -h --output=target | awk \'(NR>1)\' | sed \'s/^\(.*\)$/find \1 -type d -perm -0002 -uid +999 -print/e\'') do
+    its('stdout.strip') { should eq '' }
+  end
 end
