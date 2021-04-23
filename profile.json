@@ -1,12 +1,12 @@
 {
-  "name": "Red Hat Enterprise Linux 7 STIG",
-  "title": "Red Hat Enterprise Linux 7 Security Technical Implementation Guide - v2r6",
+  "name": "redhat-enterprise-linux-7-stig-baseline",
+  "title": "redhat-enterprise-linux-7-stig-baseline",
   "maintainer": "MITRE SAF Team",
   "copyright": "MITRE, 2020",
   "copyright_email": "saf@groups.mitre.org",
   "license": "Apache-2.0",
-  "summary": "The Red Hat Enterprise Linux 7 Security Technical Implementation Guide (STIG) is published as a tool to improve the security of Department of Defense (DoD) information systems.  Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil.",
-  "version": "2.6.5",
+  "summary": "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG",
+  "version": "2.6.6",
   "inspec_version": ">= 4.0",
   "inputs": [],
   "supports": [],
@@ -10385,7 +10385,7 @@
       "id": "controls/V-73177.rb"
     }
   ],
-  "sha256": "41b8837e38ffd0b6bdc81a03100bb3912eb9978c02557d9d3e59c6e9c6865c76",
+  "sha256": "3ee6fa525f9fa767b19a3910778739f337a423568c6810d2092082d497d7c9ba",
   "status_message": "",
   "status": "loaded",
   "generator": {
