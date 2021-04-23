@@ -1,11 +1,11 @@
-name: Red Hat Enterprise Linux 7 STIG
-title: Red Hat Enterprise Linux 7 Security Technical Implementation Guide - v2r6
+name: redhat-enterprise-linux-7-stig-baseline
+title: redhat-enterprise-linux-7-stig-baseline
 maintainer: MITRE SAF Team
 copyright: MITRE, 2020
 copyright_email: saf@groups.mitre.org
 license: Apache-2.0
-summary: "The Red Hat Enterprise Linux 7 Security Technical Implementation Guide (STIG) is published as a tool to improve the security of Department of Defense (DoD) information systems.  Comments or proposed revisions to this document should be sent via e-mail to the following address: disa.stig_spt@mail.mil."
-version: 2.6.5
+summary: "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG"
+version: 2.6.6
 inspec_version: ">= 4.0"
 
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
@@ -303,6 +303,7 @@ inputs:
 - name: efi_superusers
   description: Superusers for efi boot
   type: Array
+  sensitive: true
   value: 
     - 'root'
 
@@ -310,6 +311,7 @@ inputs:
 - name: admin_logins
   description: System accounts that support approved system activities
   type: Array
+  sensitive: true
   value: []
 
 # V-73159
