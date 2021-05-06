@@ -1,4 +1,5 @@
 # red-hat-enterprise-linux-7-stig-baseline
+
 InSpec profile to validate the secure configuration of Red Hat Enterprise Linux 7 against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Red Hat Enterprise Linux 7 STIG Version 2 Release 6.
 
 ## Getting Started  
@@ -12,12 +13,16 @@ Latest versions and installation options are available at the [InSpec](http://in
 
 The following inputs may be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
-```
+```yaml
 # Used by InSpec checks V-71849, V-71855, V-72037
 # InSpec Tests that are known to consistently have long run times (V-71849, V-71855, V-72037) can be disabled with this attribute
 # Acceptable values: false, true
 # (default: false)
 disable_slow_controls: 
+
+# Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
+# (default: true)
+monitor_kernel_log: 
 
 # Used by InSpec check V-71849
 # list of system files that should be allowed to change from an rpm verify point of view
@@ -26,6 +31,10 @@ rpm_verify_perms_except: []
 # Used by InSpec check V-71855
 # list of system files that should be allowed to change from an rpm verify point of view
 rpm_verify_integrity_except: []
+
+# Set to 'true' if the login banner message should be enabled
+# (default: true)
+banner_message_enabled: 
 
 # Used by InSpec check V-72211 (default: false)
 # Do NOT set to 'true' UNLESS the server is documented as being used as a log aggregation server. 
@@ -43,21 +52,64 @@ x11_enabled:
 user_accounts: []
 
 # System accounts that support approved system activities. (Array) (defaults shown below)
-known_system_accounts:
-  [
-    "root",
-    "bin",
-    "daemon",
-    "adm",
-    "lp",
-    "sync",
-    "shutdown",
-    "halt",
-    "mail",
-    "operator",
-    "nobody",
-    "systemd-bus-proxy",
-  ]
+known_system_accounts: []
+
+# User to use to check dconf settings. Nil means to use whatever user is running inspec currently.
+dconf_user: ''
+
+# Banner message text for graphical user interface logins.
+banner_message_text_gui: ''
+
+# Banner message text for limited-resource graphical user interface logins.
+banner_message_text_gui_limited: ''
+
+# Banner message text for command line interface logins.
+banner_message_text_cli: ''
+
+# Banner message text for resource-limited command line interface logins.
+banner_message_text_cli_limited: ''
+
+# Banner message text for remote access logins.
+banner_message_text_ral: ''
+
+# Banner message text for resource-limited remote access logins.
+banner_message_text_ral_limited: ''
+
+# The scereensaver lock-delay must be less than or equal to the specified value
+lock_delay: 5
+
+# Minimum number of characters that must be different from previous password
+difok: 8
+
+# Number of reuse generations
+min_reuse_generations: 5
+
+# Number of characters
+min_len: 15
+
+# Number of days
+days_of_inactivity: 0
+
+# number of unsuccessful attempts
+unsuccessful_attempts: 3
+
+# Interval of time in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
+fail_interval: 900
+
+# Minimum amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
+lockout_time: 604800
+
+# Name of tool
+file_integrity_tool: ''
+
+# Interval to run the file integrity tool (monthly, weekly, or daily).
+file_integrity_interval: ''
+
+# System activity timeout (time in seconds).
+system_activity_timeout: 600
+
+# Client alive interval (time in seconds).
+client_alive_interval: 600
 
 # V-71965, V-72417, V-72433
 # (enabled or disabled)
@@ -75,31 +127,43 @@ exempt_home_users: []
 
 # V-71961
 # main grub boot config file
-grub_main_cfg: "/boot/grub2/grub.cfg"
+grub_main_cfg: ""
+
+# Main grub boot config file
+grub_uefi_main_cfg: ''
 
 # superusers for grub boot ( array )
-grub_superusers: ["root"]
+grub_superusers: ''
 
 # grub boot config files
-grub_user_boot_files: ["/boot/grub2/user.cfg"]
+grub_user_boot_files: []
 
 # V-71963
 # superusers for efi boot ( array )
-efi_superusers: ["root"]
-
-# efi boot config files
-efi_user_boot_files: ["/boot/efi/EFI/redhat/user.cfg"]
-
-# main efi boot config file
-efi_main_cfg: "/boot/efi/EFI/redhat/grub.cfg"
+efi_superusers: []
 
 # V-71971
 # system accounts that support approved system activities
 admin_logins: []
 
+# Maximum number of times to prompt user for new password
+max_rety: 3
+
+# The list of packages needed for MFA on RHEL
+mfa_pkg_list: []
+
 # V-77819
 # should dconf have smart card authentication (e.g., true or false <- no quotes!)
 multifactor_enabled: true
+
+# These shells do not allow a user to login
+non_interactive_shells: []
+
+# Randomize virtual address space kernel parameter
+randomize_va_space: 2
+
+# File systems that don't correspond to removable media
+non_removable_media_fs: []
 
 # V-72317
 # approved configured tunnels prepended with word 'conn'
@@ -110,6 +174,80 @@ approved_tunnels: []
 # Is the target expected to be a virtual machine
 virtual_machine: false
 
+# maximum number of password retries
+max_retry: 3
+
+# Services that firewalld should be configured to allow.
+firewalld_services: []
+
+# Hosts that firewalld should be configured to allow.
+firewalld_hosts_allow: []
+
+# Hosts that firewalld should be configured to deny.
+firewalld_hosts_deny: []
+
+# Ports that firewalld should be configured to allow.
+firewalld_ports_allow: []
+
+# Ports that firewalld should be configured to deny.
+firewalld_ports_deny: {}
+
+# Allow rules from etc/hosts.allow.
+tcpwrappers_allow: {}
+
+# Deny rules from etc/hosts.deny.
+tcpwrappers_deny: {}
+
+# Iptable rules that should exist.
+iptables_rules: []
+
+# Services that firewalld should be configured to deny.
+firewalld_services_deny: {}
+
+# Zones that should be present on the system.
+firewalld_zones: []
+
+# The maxium value that can be used for maxlogins.
+maxlogins_limit: 10
+
+# Whether an antivirus solution, other than nails, is in use.
+custom_antivirus: false
+
+# Description of custom antivirus solution, when in use.
+custom_antivirus_description: ''
+
+# Whether an HIPS solution, other than HBSS, is in use.
+custom_hips: false
+
+# Description of custom HIPS solution, when in use.
+custom_hips_description: ''
+
+# Restrict the number of returned processes to account for invalid inputs, such as nil(~), that will match all processes while allowing for 3rd party software that may spawn multiple similarly named processes.
+max_daemon_processes: 1
+
+# It is reasonable and advisable to skip checksum on frequently changing files
+aide_exclude_patterns: []
+
+# A list of acceptable terminal multiplexers
+terminal_mux_pkgs: []
+
+# Required PAM rules
+required_rules: []
+
+# Alternate PAM rules
+alternate_rules: []
+
+# is an HBSS with a Device Control Module and a Data Loss Prevention mechanism
+data_loss_prevention_installed: true
+
+# An alternate method is used for logs than rsyslog
+alternate_logs: false
+
+# is GSSAPI authentication approved
+gssapi_approved: true
+
+# Set flag to true if the target system is disconnected
+disconnected_system: false
 ```
 ## Long Running Controls
 
@@ -197,7 +335,7 @@ To report a bug or feature request, please open an [issue](https://github.com/mi
 
 ### NOTICE
 
-© 2020 The MITRE Corporation.
+© 2018-2020 The MITRE Corporation.
 
 Approved for Public Release; Distribution Unlimited. Case Number 18-3678.
 
