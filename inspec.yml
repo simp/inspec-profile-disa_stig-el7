@@ -7,6 +7,10 @@ license: Apache-2.0
 summary: 'The `disa_stig-el7` inspec profile helps scan your system aginst the DISA RHEL7 STIG'
 version: 0.2.0
 
+supports:
+  - platform-name: redhat
+    release: 7
+
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
 - name: disable_slow_controls
