@@ -572,9 +572,3 @@ inputs:
   type: Boolean
   value: false
   
-- name: sensitive_input
-  description: 'generic sensitive input for testing and demonstration'
-  type: String
-  value: 'i am sensitive'
-  sensitive: true
-  
