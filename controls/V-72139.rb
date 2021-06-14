@@ -58,17 +58,8 @@ privileged-priv_change
   end
 
   describe auditd.file(audit_file) do
-    its('permissions') { should_not cmp [] }
+    its('permissions') { should include ['x'] }
     its('action') { should_not include 'never' }
-  end if file(audit_file).exist?
-
-  # Resource creates data structure including all usages of file
-  perms = auditd.file(audit_file).permissions
-
-  perms.each do |perm|
-    describe perm do
-      it { should include 'x' }
-    end
   end if file(audit_file).exist?
 
   describe "The #{audit_file} file does not exist" do
