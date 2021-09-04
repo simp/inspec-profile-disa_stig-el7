@@ -148,8 +148,10 @@ Agreement for details.\"
   tag rid: "SV-86849r4_rule"
   tag stig_id: "RHEL-07-040170"
   tag fix_id: "F-78579r4_fix"
-  tag cci: ["CCI-000048", "CCI-000050", "CCI-001384", "CCI-001385", "CCI-001386", "CCI-001387", "CCI-001388"]
-  tag nist: ["AC-8 a", "AC-8 b", "AC-8 c 1", "AC-8 c 2", "AC-8 c 2", "AC-8 c 2", "AC-8 c 3"]
+  tag cci: ["CCI-000048", "CCI-000050", "CCI-001384", "CCI-001385",
+"CCI-001386", "CCI-001387", "CCI-001388"]
+  tag nist: ["AC-8 a", "AC-8 b", "AC-8 c 1", "AC-8 c 2", "AC-8 c 2", "AC-8 c
+2", "AC-8 c 3"]
 
   banner_message_text_ral = input('banner_message_text_ral')
   banner_message_text_ral_limited = input('banner_message_text_ral_limited')
@@ -195,3 +197,4 @@ Agreement for details.\"
     end if !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
   end
 end
+

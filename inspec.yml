@@ -8,7 +8,12 @@ summary: "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG"
 version: 2.6.6
 inspec_version: ">= 4.0"
 
-# The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
+supports:
+  - platform-name: centos
+    release: 7.*
+  - platform-name: redhat
+    release: 7.*
+
 inputs:
 - name: disable_slow_controls
   description: Controls that are known to consistently have long run times can be disabled with this attribute
