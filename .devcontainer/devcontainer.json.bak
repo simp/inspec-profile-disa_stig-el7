@@ -1,4 +1,0 @@
-{
-	"name": "Inspec setup",
-	"postAttachCommand": "gem install inspec-bin --no-document"
-}
