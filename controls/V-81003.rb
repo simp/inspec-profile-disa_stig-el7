@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-81003" do
+control 'V-81003' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that /etc/pam.d/passwd implements /etc/pam.d/system-auth when changing
 passwords."
@@ -7,7 +6,7 @@ passwords."
 integrating authentication methods. PAM operates in a top-down processing model
 and if the modules are not listed in the correct order, an important security
 function could be bypassed if stack entries are not centralized."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify that /etc/pam.d/passwd is configured to use /etc/pam.d/system-auth
 when changing passwords:
@@ -27,13 +26,13 @@ the required value):
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000069-GPOS-00037"
-  tag gid: "V-81003"
-  tag rid: "SV-95715r1_rule"
-  tag stig_id: "RHEL-07-010118"
-  tag fix_id: "F-87837r1_fix"
-  tag cci: ["CCI-000192"]
-  tag nist: ["IA-5 (1) (a)"]
+  tag gtitle: 'SRG-OS-000069-GPOS-00037'
+  tag gid: 'V-81003'
+  tag rid: 'SV-95715r1_rule'
+  tag stig_id: 'RHEL-07-010118'
+  tag fix_id: 'F-87837r1_fix'
+  tag cci: ['CCI-000192']
+  tag nist: ['IA-5 (1) (a)']
 
   # Get the content of /etc/pam.d/passwd as an array
   pam_passwd_content = file('/etc/pam.d/passwd').content.strip.split("\n")
@@ -48,4 +47,3 @@ the required value):
     end
   end
 end
-

@@ -1,12 +1,11 @@
-# -*- encoding : utf-8 -*-
-control "V-72281" do
+control 'V-72281' do
   title "For Red Hat Enterprise Linux operating systems using DNS resolution,
 at least two name servers must be configured."
   desc  "To provide availability for name resolution services, multiple
 redundant name servers are mandated. A failure in name resolution could lead to
 the failure of security functions requiring name resolution, which may include
 time synchronization, centralized authentication, and remote system logging."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Determine whether the system is using local or DNS name resolution with the
 following command:
@@ -60,43 +59,48 @@ configuration must be documented with the Information System Security Officer
   "
   impact 0.3
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72281"
-  tag rid: "SV-86905r2_rule"
-  tag stig_id: "RHEL-07-040600"
-  tag fix_id: "F-78635r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72281'
+  tag rid: 'SV-86905r2_rule'
+  tag stig_id: 'RHEL-07-040600'
+  tag fix_id: 'F-78635r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
-  dns_in_host_line = parse_config_file("/etc/nsswitch.conf",
-    {
-      comment_char: '#',
-      assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/,
-    }
-  ).params['hosts'].include?('dns')
+  dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
+                                       {
+                                         comment_char: '#',
+                                         assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/
+                                       }).params['hosts'].include?('dns')
 
-  describe "If `local` resolution is being used, a `hosts` entry in /etc/nsswitch.conf having `dns`" do
-    subject { dns_in_host_line }
-    it { should be false }
-  end if !dns_in_host_line
+  unless dns_in_host_line
+    describe 'If `local` resolution is being used, a `hosts` entry in /etc/nsswitch.conf having `dns`' do
+      subject { dns_in_host_line }
+      it { should be false }
+    end
+  end
 
-  describe "If `local` resoultion is being used, the /etc/resolv.conf file should" do
-    subject { parse_config_file("/etc/resolv.conf", { comment_char: '#'}).params }
-    it { should be_empty }
-  end if !dns_in_host_line
+  unless dns_in_host_line
+    describe 'If `local` resoultion is being used, the /etc/resolv.conf file should' do
+      subject { parse_config_file('/etc/resolv.conf', { comment_char: '#' }).params }
+      it { should be_empty }
+    end
+  end
 
-  nameservers = parse_config_file("/etc/resolv.conf",
-    { comment_char: '#'}
-  ).params.keys.grep(/nameserver/)
+  nameservers = parse_config_file('/etc/resolv.conf',
+                                  { comment_char: '#' }).params.keys.grep(/nameserver/)
 
-  describe "The system's nameservers: #{nameservers}" do
-  subject { nameservers }
-    it { should_not be nil }
-  end if dns_in_host_line
+  if dns_in_host_line
+    describe "The system's nameservers: #{nameservers}" do
+      subject { nameservers }
+      it { should_not be nil }
+    end
+  end
 
-  describe "The number of nameservers" do
-  subject { nameservers.count }
-    it { should cmp >= 2 }
-  end if dns_in_host_line
+  if dns_in_host_line
+    describe 'The number of nameservers' do
+      subject { nameservers.count }
+      it { should cmp >= 2 }
+    end
+  end
 end
-

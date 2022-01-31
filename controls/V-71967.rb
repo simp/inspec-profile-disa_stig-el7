@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71967" do
+control 'V-71967' do
   title "The Red Hat Enterprise Linux operating system must not have the
 rsh-server package installed."
   desc  "It is detrimental for operating systems to provide, or install by
@@ -20,7 +19,7 @@ remote session and has very weak authentication.
     If a privileged user were to log on using this service, the privileged user
 password could be compromised.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Check to see if the rsh-server package is installed with the following
 command:
@@ -37,16 +36,15 @@ removing the rsh-server package from the system with the following command:
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000095-GPOS-00049"
-  tag gid: "V-71967"
-  tag rid: "SV-86591r2_rule"
-  tag stig_id: "RHEL-07-020000"
-  tag fix_id: "F-78319r1_fix"
-  tag cci: ["CCI-000381"]
-  tag nist: ["CM-7 a"]
+  tag gtitle: 'SRG-OS-000095-GPOS-00049'
+  tag gid: 'V-71967'
+  tag rid: 'SV-86591r2_rule'
+  tag stig_id: 'RHEL-07-020000'
+  tag fix_id: 'F-78319r1_fix'
+  tag cci: ['CCI-000381']
+  tag nist: ['CM-7 a']
 
-  describe package("rsh-server") do
+  describe package('rsh-server') do
     it { should_not be_installed }
   end
 end
-

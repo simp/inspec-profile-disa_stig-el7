@@ -1,10 +1,9 @@
-# -*- encoding : utf-8 -*-
-control "V-72055" do
+control 'V-72055' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the cron.allow file, if it exists, is group-owned by root."
   desc  "If the group owner of the \"cron.allow\" file is not set to root,
 sensitive information could be viewed or edited by unauthorized users."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify that the \"cron.allow\" file is group-owned by root.
 
@@ -24,13 +23,13 @@ following command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72055"
-  tag rid: "SV-86679r2_rule"
-  tag stig_id: "RHEL-07-021120"
-  tag fix_id: "F-78407r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72055'
+  tag rid: 'SV-86679r2_rule'
+  tag stig_id: 'RHEL-07-021120'
+  tag fix_id: 'F-78407r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   describe.one do
     # case where file doesn't exist
@@ -43,4 +42,3 @@ following command:
     end
   end
 end
-

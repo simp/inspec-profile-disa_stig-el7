@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-92255" do
+control 'V-92255' do
   title "The Red Hat Enterprise Linux operating system must have a host-based
 intrusion detection tool installed."
   desc  "Adding host-based intrusion detection tools can provide the capability
@@ -8,7 +7,7 @@ provide additional agility in reacting to network threats. These tools also
 often include a reporting capability to provide network awareness of the
 system, which may not otherwise exist in an organization's systems management
 regime."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Ask the SA or ISSO if a host-based intrusion detection application is
 loaded on the system. Per OPORD 16-0080, the preferred intrusion detection
@@ -56,17 +55,17 @@ with the Authorizing Official.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000196"
-  tag gid: "V-92255"
-  tag rid: "SV-102357r1_rule"
-  tag stig_id: "RHEL-07-020019"
-  tag fix_id: "F-98477r1_fix"
-  tag cci: ["CCI-001263"]
-  tag nist: ["SI-4 (5)"]
+  tag gtitle: 'SRG-OS-000196'
+  tag gid: 'V-92255'
+  tag rid: 'SV-102357r1_rule'
+  tag stig_id: 'RHEL-07-020019'
+  tag fix_id: 'F-98477r1_fix'
+  tag cci: ['CCI-001263']
+  tag nist: ['SI-4 (5)']
 
   custom_hips = input('custom_hips')
 
-  if ! custom_hips
+  if !custom_hips
     describe package('MFEhiplsm') do
       it { should be_installed }
     end
@@ -80,7 +79,7 @@ with the Authorizing Official.
     max_daemon_processes = input('max_daemon_processes')
 
     describe.one do
-      describe "SELinux mode" do
+      describe 'SELinux mode' do
         subject { sel_mode }
         it { should cmp 'Enforcing' }
       end
@@ -91,4 +90,3 @@ with the Authorizing Official.
     end
   end
 end
-

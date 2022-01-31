@@ -1,4 +1,3 @@
-
 control 'V-72433' do
   title "The Red Hat Enterprise Linux operating system must implement
 certificate status checking for PKI authentication."
@@ -55,22 +54,22 @@ authentication.
 \"/etc/pam_pkcs11/pam_pkcs11.conf\" to include \"ocsp_on\".
   "
   tag severity: nil
-  tag gtitle: "SRG-OS-000375-GPOS-00160"
-  tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
-"SRG-OS-000375-GPOS-00162"]
-  tag gid: "V-72433"
-  tag rid: "SV-87057r5_rule"
-  tag stig_id: "RHEL-07-041003"
-  tag fix_id: "F-78785r3_fix"
-  tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
-  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161',
+                  'SRG-OS-000375-GPOS-00162']
+  tag gid: 'V-72433'
+  tag rid: 'SV-87057r5_rule'
+  tag stig_id: 'RHEL-07-041003'
+  tag fix_id: 'F-78785r3_fix'
+  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   smart_card_status = input('smart_card_status')
 
   if smart_card_status.eql?('enabled')
     impact 0.5
     if (pam_file = file('/etc/pam_pkcs11/pam_pkcs11.conf')).exist?
-      cert_policy_lines = pam_file.content.nil?   ? [] :
+      cert_policy_lines = pam_file.content.nil? ? [] :
         pam_file.content.lines.grep(/^(?!.+#).*cert_policy/i)
       if cert_policy_lines.length < 3
         describe 'should contain at least 3 cert policy lines' do
@@ -80,8 +79,8 @@ authentication.
       else
         describe 'each cert policy line should include oscp_on' do
           cert_policy_lines.each do |line|
-          subject { line }
-            it { should match %r{=[^;]*ocsp_on}i }
+            subject { line }
+          it { should match /=[^;]*ocsp_on/i }
           end
         end
       end

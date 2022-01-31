@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-72009" do
+control 'V-72009' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all files and directories have a valid group owner."
   desc  "Files without a valid group owner may be unintentionally inherited if
 a group is assigned the same Group Identifier (GID) as the GID of the files
 without a valid group owner."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify all files and directories on the system have a valid group.
 
@@ -27,19 +26,18 @@ with the \"chgrp\" command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72009"
-  tag rid: "SV-86633r3_rule"
-  tag stig_id: "RHEL-07-020330"
-  tag fix_id: "F-78361r1_fix"
-  tag cci: ["CCI-002165"]
-  tag nist: ["AC-3 (4)"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72009'
+  tag rid: 'SV-86633r3_rule'
+  tag stig_id: 'RHEL-07-020330'
+  tag fix_id: 'F-78361r1_fix'
+  tag cci: ['CCI-002165']
+  tag nist: ['AC-3 (4)']
 
-  command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'').
-    stdout.strip.split("\n").each do |fs|
+  command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'')
+    .stdout.strip.split("\n").each do |fs|
       describe command("find / -xdev -xautofs -fstype #{fs} -nogroup") do
         its('stdout.strip') { should be_empty }
       end
     end
 end
-

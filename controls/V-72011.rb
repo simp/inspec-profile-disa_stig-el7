@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-72011" do
+control 'V-72011' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all local interactive users have a home directory assigned in the
 /etc/passwd file."
   desc  "If local interactive users are not assigned a valid home directory,
 there is no place for the storage and control of files they should own."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify local interactive users on the system have a home directory assigned.
 
@@ -32,13 +31,13 @@ finding.
 currently do not have a home directory assigned."
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72011"
-  tag rid: "SV-86635r2_rule"
-  tag stig_id: "RHEL-07-020600"
-  tag fix_id: "F-78363r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72011'
+  tag rid: 'SV-86635r2_rule'
+  tag stig_id: 'RHEL-07-020600'
+  tag fix_id: 'F-78363r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -48,11 +47,11 @@ currently do not have a home directory assigned."
   uid_min = login_defs.read_params['UID_MIN'].to_i
   uid_min = 1000 if uid_min.nil?
 
-  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
-    next if exempt_home_users.include?("#{user_info.username}")
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+    next if exempt_home_users.include?(user_info.username.to_s)
+
     describe directory(user_info.home) do
       it { should exist }
     end
   end
 end
-

@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72235" do
+control 'V-72235' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all networked systems use SSH for confidentiality and integrity of
 transmitted and received information as well as information during preparation
@@ -23,7 +22,7 @@ not have to be employed, and vice versa.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify SSH is loaded and active with the following command:
 
@@ -47,18 +46,17 @@ following command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000423-GPOS-00187"
-  tag satisfies: ["SRG-OS-000423-GPOS-00187", "SRG-OS-000423-GPOS-00188",
-"SRG-OS-000423-GPOS-00189", "SRG-OS-000423-GPOS-00190"]
-  tag gid: "V-72235"
-  tag rid: "SV-86859r3_rule"
-  tag stig_id: "RHEL-07-040310"
-  tag fix_id: "F-78589r2_fix"
-  tag cci: ["CCI-002418", "CCI-002420", "CCI-002421", "CCI-002422"]
-  tag nist: ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)"]
+  tag gtitle: 'SRG-OS-000423-GPOS-00187'
+  tag satisfies: ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000423-GPOS-00188',
+                  'SRG-OS-000423-GPOS-00189', 'SRG-OS-000423-GPOS-00190']
+  tag gid: 'V-72235'
+  tag rid: 'SV-86859r3_rule'
+  tag stig_id: 'RHEL-07-040310'
+  tag fix_id: 'F-78589r2_fix'
+  tag cci: ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']
+  tag nist: ['SC-8', 'SC-8 (2)', 'SC-8 (1)', 'SC-8 (2)']
 
   describe systemd_service('sshd.service') do
     it { should be_running }
   end
 end
-

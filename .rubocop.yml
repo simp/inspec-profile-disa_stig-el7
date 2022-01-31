@@ -1,0 +1,5 @@
+Style/WordArray:
+  EnforcedStyle: brackets
+
+Style/RedundantPercentQ:
+  Enabled: true

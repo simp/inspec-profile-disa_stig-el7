@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71979" do
+control 'V-71979' do
   title "The Red Hat Enterprise Linux operating system must prevent the
 installation of software, patches, service packs, device drivers, or operating
 system components of local packages without verification they have been
@@ -21,7 +20,7 @@ operating system should not have to verify the software again. This requirement
 does not mandate DoD certificates for this purpose; however, the certificate
 used to verify the software must be from an approved CA.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system prevents the installation of patches, service
 packs, device drivers, or operating system components of local packages without
@@ -49,24 +48,23 @@ prior to install by setting the following option in the \"/etc/yum.conf\" file:
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000366-GPOS-00153"
-  tag gid: "V-71979"
-  tag rid: "SV-86603r2_rule"
-  tag stig_id: "RHEL-07-020060"
-  tag fix_id: "F-78331r1_fix"
-  tag cci: ["CCI-001749"]
-  tag nist: ["CM-5 (3)"]
+  tag gtitle: 'SRG-OS-000366-GPOS-00153'
+  tag gid: 'V-71979'
+  tag rid: 'SV-86603r2_rule'
+  tag stig_id: 'RHEL-07-020060'
+  tag fix_id: 'F-78331r1_fix'
+  tag cci: ['CCI-001749']
+  tag nist: ['CM-5 (3)']
 
   yum_conf = '/etc/yum.conf'
 
-  if ((f = file(yum_conf)).exist?)
-     describe ini(yum_conf) do
-       its('main.localpkg_gpgcheck') { cmp 1 }
-     end
-   else
-     describe f do
-       it { should exist }
-     end
-   end
+  if (f = file(yum_conf)).exist?
+    describe ini(yum_conf) do
+      its('main.localpkg_gpgcheck') { cmp 1 }
+    end
+  else
+    describe f do
+      it { should exist }
+    end
+  end
 end
-

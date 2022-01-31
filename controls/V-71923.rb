@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71923" do
+control 'V-71923' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that user and group account administration utilities are configured to store
 only encrypted representations of passwords."
@@ -8,7 +7,7 @@ standard method for protecting passwords. If passwords are not encrypted, they
 can be plainly read (i.e., clear text) and easily compromised. Passwords
 encrypted with a weak algorithm are no more protected than if they are kept in
 plain text."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the user and group account administration utilities are configured
 to store only encrypted representations of passwords. The strength of
@@ -35,16 +34,15 @@ section:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000073-GPOS-00041"
-  tag gid: "V-71923"
-  tag rid: "SV-86547r3_rule"
-  tag stig_id: "RHEL-07-010220"
-  tag fix_id: "F-78275r1_fix"
-  tag cci: ["CCI-000196"]
-  tag nist: ["IA-5 (1) (c)"]
+  tag gtitle: 'SRG-OS-000073-GPOS-00041'
+  tag gid: 'V-71923'
+  tag rid: 'SV-86547r3_rule'
+  tag stig_id: 'RHEL-07-010220'
+  tag fix_id: 'F-78275r1_fix'
+  tag cci: ['CCI-000196']
+  tag nist: ['IA-5 (1) (c)']
 
-  describe command("cat /etc/libuser.conf | grep -i sha512") do
-    its('stdout.strip') { should match %r(^crypt_style = sha512$) }
+  describe command('cat /etc/libuser.conf | grep -i sha512') do
+    its('stdout.strip') { should match(/^crypt_style = sha512$/) }
   end
 end
-

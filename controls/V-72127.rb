@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72127" do
+control 'V-72127' do
   title "The Red Hat Enterprise Linux operating system must audit all uses of
 the openat syscall."
   desc  "Without generating audit records that are specific to the security and
@@ -12,7 +11,7 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"openat\" syscall occur.
@@ -65,37 +64,36 @@ auid!=4294967295 -k access
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000064-GPOS-00033"
-  tag satisfies: ["SRG-OS-000064-GPOS-00033", "SRG-OS-000458-GPOS-00203",
-"SRG-OS-000461-GPOS-00205", "SRG-OS-000392-GPOS-00172"]
-  tag gid: "V-72127"
-  tag rid: "SV-86751r5_rule"
-  tag stig_id: "RHEL-07-030520"
-  tag fix_id: "F-78479r8_fix"
-  tag cci: ["CCI-000172", "CCI-002884"]
-  tag nist: ["AU-12 c", "MA-4 (1) (a)"]
+  tag gtitle: 'SRG-OS-000064-GPOS-00033'
+  tag satisfies: ['SRG-OS-000064-GPOS-00033', 'SRG-OS-000458-GPOS-00203',
+                  'SRG-OS-000461-GPOS-00205', 'SRG-OS-000392-GPOS-00172']
+  tag gid: 'V-72127'
+  tag rid: 'SV-86751r5_rule'
+  tag stig_id: 'RHEL-07-030520'
+  tag fix_id: 'F-78479r8_fix'
+  tag cci: ['CCI-000172', 'CCI-002884']
+  tag nist: ['AU-12 c', 'MA-4 (1) (a)']
 
-  describe auditd.syscall("openat").where {arch == "b32"} do
+  describe auditd.syscall('openat').where { arch == 'b32' } do
     its('action.uniq') { should eq ['always'] }
     its('list.uniq') { should eq ['exit'] }
     its('exit.uniq') { should include '-EPERM' }
   end
-  describe auditd.syscall("openat").where {arch == "b32"} do
+  describe auditd.syscall('openat').where { arch == 'b32' } do
     its('action.uniq') { should eq ['always'] }
     its('list.uniq') { should eq ['exit'] }
     its('exit.uniq') { should include '-EACCES' }
   end
   if os.arch == 'x86_64'
-    describe auditd.syscall("openat").where {arch == "b64"} do
+    describe auditd.syscall('openat').where { arch == 'b64' } do
       its('action.uniq') { should eq ['always'] }
       its('list.uniq') { should eq ['exit'] }
       its('exit.uniq') { should include '-EPERM' }
     end
-    describe auditd.syscall("openat").where {arch == "b64"} do
+    describe auditd.syscall('openat').where { arch == 'b64' } do
       its('action.uniq') { should eq ['always'] }
       its('list.uniq') { should eq ['exit'] }
       its('exit.uniq') { should include '-EACCES' }
     end
   end
 end
-

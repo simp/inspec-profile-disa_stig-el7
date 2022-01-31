@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71859" do
+control 'V-71859' do
   title "The Red Hat Enterprise Linux operating system must display the
 Standard Mandatory DoD Notice and Consent Banner before granting local or
 remote access to the system via a graphical user logon."
@@ -45,7 +44,7 @@ Agreement for details.\"
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system displays the Standard Mandatory DoD Notice and
 Consent Banner before granting access to the operating system via a graphical
@@ -90,15 +89,15 @@ effect.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000023-GPOS-00006"
-  tag satisfies: ["SRG-OS-000023-GPOS-00006", "SRG-OS-000024-GPOS-00007",
-"SRG-OS-000228-GPOS-00088"]
-  tag gid: "V-71859"
-  tag rid: "SV-86483r4_rule"
-  tag stig_id: "RHEL-07-010030"
-  tag fix_id: "F-78211r4_fix"
-  tag cci: ["CCI-000048"]
-  tag nist: ["AC-8 a"]
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
+  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
+                  'SRG-OS-000228-GPOS-00088']
+  tag gid: 'V-71859'
+  tag rid: 'SV-86483r4_rule'
+  tag stig_id: 'RHEL-07-010030'
+  tag fix_id: 'F-78211r4_fix'
+  tag cci: ['CCI-000048']
+  tag nist: ['AC-8 a']
 
   if package('gnome-desktop3').installed?
     if !input('dconf_user').nil? and command('whoami').stdout.strip == 'root'
@@ -106,15 +105,14 @@ effect.
         its('stdout.strip') { should cmp input('banner_message_enabled').to_s }
       end
     else
-      describe command("dconf read /org/gnome/login-screen/banner-message-enable") do
+      describe command('dconf read /org/gnome/login-screen/banner-message-enable') do
         its('stdout.strip') { should cmp input('banner_message_enabled').to_s }
       end
     end
   else
     impact 0.0
-    describe "The GNOME desktop is not installed" do      
-      skip "The GNOME desktop is not installed, this control is Not Applicable."
+    describe 'The GNOME desktop is not installed' do
+      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
     end
   end
 end
-

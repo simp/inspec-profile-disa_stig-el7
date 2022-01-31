@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71897" do
+control 'V-71897' do
   title "The Red Hat Enterprise Linux operating system must have the screen
 package installed."
   desc  ":  A session time-out lock is a temporary action taken when a user
@@ -14,7 +13,7 @@ the session lock.
 configured.
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system has the screen package installed.
 
@@ -50,22 +49,21 @@ command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000029-GPOS-00010"
-  tag gid: "V-71897"
-  tag rid: "SV-86521r3_rule"
-  tag stig_id: "RHEL-07-010090"
-  tag fix_id: "F-78249r3_fix"
-  tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a"]
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-71897'
+  tag rid: 'SV-86521r3_rule'
+  tag stig_id: 'RHEL-07-010090'
+  tag fix_id: 'F-78249r3_fix'
+  tag cci: ['CCI-000057']
+  tag nist: ['AC-11 a']
 
   multiplexer_packages = input('terminal_mux_pkgs')
 
   describe.one do
-    multiplexer_packages.each do |pkg|  
+    multiplexer_packages.each do |pkg|
       describe package(pkg) do
         it { should be_installed }
       end
     end
   end
 end
-

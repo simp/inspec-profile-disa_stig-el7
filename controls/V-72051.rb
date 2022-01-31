@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-72051" do
+control 'V-72051' do
   title "The Red Hat Enterprise Linux operating system must have cron logging
 implemented."
   desc  "Cron logging can be used to trace the successful or unsuccessful
 execution of cron jobs. It can also be used to spot intrusions into the use of
 the cron facility by unauthorized and malicious users."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify that \"rsyslog\" is configured to log cron events.
 
@@ -39,24 +38,23 @@ following line to \"/etc/rsyslog.conf\" or a configuration file in the
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72051"
-  tag rid: "SV-86675r2_rule"
-  tag stig_id: "RHEL-07-021100"
-  tag fix_id: "F-78403r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72051'
+  tag rid: 'SV-86675r2_rule'
+  tag stig_id: 'RHEL-07-021100'
+  tag fix_id: 'F-78403r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   log_pkg_path = input('log_pkg_path')
 
   describe.one do
     describe command("grep cron #{log_pkg_path}") do
-      its('stdout.strip') { should match %r{^cron} }
+      its('stdout.strip') { should match(/^cron/) }
     end
-    describe file("#{log_pkg_path}") do
-      its('content') { should match %r{^\*\.\* \/var\/log\/messages\n?$} }
-      its('content') { should_not match %r{^*.*\s+~$.*^*\.\* \/var\/log\/messages\n?$}m }
+    describe file(log_pkg_path.to_s) do
+      its('content') { should match %r{^\*\.\* /var/log/messages\n?$} }
+      its('content') { should_not match %r{^*.*\s+~$.*^*\.\* /var/log/messages\n?$}m }
     end
   end
 end
-

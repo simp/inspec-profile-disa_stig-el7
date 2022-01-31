@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71975" do
+control 'V-71975' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that designated personnel are notified if baseline configurations are changed
 in an unauthorized manner."
@@ -15,7 +14,7 @@ Officer (IMO)/Information System Security Officer (ISSO) and System
 Administrators (SAs) must be notified via email and/or monitoring system trap
 when there is an unauthorized modification of a configuration item.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system notifies designated personnel if baseline
 configurations are changed in an unauthorized manner.
@@ -74,13 +73,13 @@ check run\" root@sysname.mil
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000363-GPOS-00150"
-  tag gid: "V-71975"
-  tag rid: "SV-86599r2_rule"
-  tag stig_id: "RHEL-07-020040"
-  tag fix_id: "F-78327r3_fix"
-  tag cci: ["CCI-001744"]
-  tag nist: ["CM-3 (5)"]
+  tag gtitle: 'SRG-OS-000363-GPOS-00150'
+  tag gid: 'V-71975'
+  tag rid: 'SV-86599r2_rule'
+  tag stig_id: 'RHEL-07-020040'
+  tag fix_id: 'F-78327r3_fix'
+  tag cci: ['CCI-001744']
+  tag nist: ['CM-3 (5)']
 
   file_integrity_tool = input('file_integrity_tool')
 
@@ -94,7 +93,7 @@ check run\" root@sysname.mil
     describe file("/etc/cron.weekly/#{file_integrity_tool}") do
       its('content') { should match %r{/bin/mail} }
     end
-    describe crontab('root').where { command =~ %r{#{file_integrity_tool}} } do
+    describe crontab('root').where { command =~ /#{file_integrity_tool}/ } do
       its('commands.flatten') { should include(match %r{/bin/mail}) }
     end
     if file("/etc/cron.d/#{file_integrity_tool}").exist?
@@ -104,4 +103,3 @@ check run\" root@sysname.mil
     end
   end
 end
-

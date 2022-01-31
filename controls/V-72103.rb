@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72103" do
+control 'V-72103' do
   title "The Red Hat Enterprise Linux operating system must audit all uses of
 the fchownat syscall."
   desc  "Without generating audit records that are specific to the security and
@@ -12,7 +11,7 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"fchownat\" syscall occur.
@@ -44,25 +43,24 @@ perm_mod
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000064-GPOS-00033"
-  tag satisfies: ["SRG-OS-000064-GPOS-00033", "SRG-OS-000392-GPOS-00172",
-"SRG-OS-000458-GPOS-00203", "SRG-OS-000474-GPOS-00219"]
-  tag gid: "V-72103"
-  tag rid: "SV-86727r5_rule"
-  tag stig_id: "RHEL-07-030400"
-  tag fix_id: "F-78455r7_fix"
-  tag cci: ["CCI-000126", "CCI-000172"]
-  tag nist: ["AU-2 d", "AU-12 c"]
+  tag gtitle: 'SRG-OS-000064-GPOS-00033'
+  tag satisfies: ['SRG-OS-000064-GPOS-00033', 'SRG-OS-000392-GPOS-00172',
+                  'SRG-OS-000458-GPOS-00203', 'SRG-OS-000474-GPOS-00219']
+  tag gid: 'V-72103'
+  tag rid: 'SV-86727r5_rule'
+  tag stig_id: 'RHEL-07-030400'
+  tag fix_id: 'F-78455r7_fix'
+  tag cci: ['CCI-000126', 'CCI-000172']
+  tag nist: ['AU-2 d', 'AU-12 c']
 
-  describe auditd.syscall("fchownat").where {arch == "b32"} do
+  describe auditd.syscall('fchownat').where { arch == 'b32' } do
     its('action.uniq') { should eq ['always'] }
     its('list.uniq') { should eq ['exit'] }
   end
   if os.arch == 'x86_64'
-    describe auditd.syscall("fchownat").where {arch == "b64"} do
+    describe auditd.syscall('fchownat').where { arch == 'b64' } do
       its('action.uniq') { should eq ['always'] }
       its('list.uniq') { should eq ['exit'] }
     end
   end
 end
-

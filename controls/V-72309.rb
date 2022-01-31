@@ -1,12 +1,11 @@
-# -*- encoding : utf-8 -*-
-control "V-72309" do
+control 'V-72309' do
   title "The Red Hat Enterprise Linux operating system must not be performing
 packet forwarding unless the system is a router."
   desc  "Routing protocol daemons are typically used on routers to exchange
 network topology information with other routers. If this software is used when
 not required, system network information may be unnecessarily transmitted
 across the network."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the system is not performing packet forwarding, unless the system is
 a router.
@@ -41,16 +40,15 @@ directory (or modify the line to have the required value):
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72309"
-  tag rid: "SV-86933r2_rule"
-  tag stig_id: "RHEL-07-040740"
-  tag fix_id: "F-78663r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72309'
+  tag rid: 'SV-86933r2_rule'
+  tag stig_id: 'RHEL-07-040740'
+  tag fix_id: 'F-78663r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   describe kernel_parameter('net.ipv4.ip_forward') do
     its('value') { should eq 0 }
   end
 end
-

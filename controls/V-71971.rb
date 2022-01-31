@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71971" do
+control 'V-71971' do
   title "The Red Hat Enterprise Linux operating system must prevent
 non-privileged users from executing privileged functions to include disabling,
 circumventing, or altering implemented security safeguards/countermeasures."
@@ -14,7 +13,7 @@ appropriate authorizations. Circumventing intrusion detection and prevention
 mechanisms or malicious code protection mechanisms are examples of privileged
 functions that require protection from non-privileged users.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     If an HBSS or HIPS is active on the system, this is Not Applicable.
 
@@ -73,25 +72,25 @@ implemented security safeguards/countermeasures.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000324-GPOS-00125"
-  tag gid: "V-71971"
-  tag rid: "SV-86595r2_rule"
-  tag stig_id: "RHEL-07-020020"
-  tag fix_id: "F-78323r1_fix"
-  tag cci: ["CCI-002165", "CCI-002235"]
-  tag nist: ["AC-3 (4)", "AC-6 (10)"]
+  tag gtitle: 'SRG-OS-000324-GPOS-00125'
+  tag gid: 'V-71971'
+  tag rid: 'SV-86595r2_rule'
+  tag stig_id: 'RHEL-07-020020'
+  tag fix_id: 'F-78323r1_fix'
+  tag cci: ['CCI-002165', 'CCI-002235']
+  tag nist: ['AC-3 (4)', 'AC-6 (10)']
 
   admin_logins = input('admin_logins')
 
   if package('MFEhiplsm').installed? && processes(/hipclient/).exist?
     impact 0.0
-    describe "HIPS is active on the system" do
-      skip "A HIPS process is active on the system, this control is Not Applicable."
+    describe 'HIPS is active on the system' do
+      skip 'A HIPS process is active on the system, this control is Not Applicable.'
     end
   elsif service('cma').installed? && service('cma').enabled?
     impact 0.0
-    describe "HBSS is active on the system" do
-      skip "A HBSS service is active on the system, this control is Not Applicable."
+    describe 'HBSS is active on the system' do
+      skip 'A HBSS service is active on the system, this control is Not Applicable.'
     end
   else
     impact 0.5
@@ -100,13 +99,13 @@ implemented security safeguards/countermeasures.
       its('exit_status') { should eq 0 }
     end
 
-    selinux_mode = file('/etc/selinux/config').content.lines.
-      grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
+    selinux_mode = file('/etc/selinux/config').content.lines
+                                              .grep(/\A\s*SELINUXTYPE=/).last.split('=').last.strip
 
-    seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines.
-      grep_v(/(#|\A\s+\Z)/).map(&:strip)
+    seusers = file("/etc/selinux/#{selinux_mode}/seusers").content.lines
+                                                          .grep_v(/(#|\A\s+\Z)/).map(&:strip)
 
-    seusers = seusers.map{|x| x.split(':')[0..1]}
+    seusers = seusers.map { |x| x.split(':')[0..1] }
 
     describe 'seusers' do
       it { expect(seusers).to_not be_empty }
@@ -122,18 +121,22 @@ implemented security safeguards/countermeasures.
 
       describe "SELinux login #{user}" do
         if user == '__default__'
-          let(:valid_users){[ 'user_u' ]}
+          let(:valid_users) { ['user_u'] }
         elsif admin_logins.include?(user)
-          let(:valid_users){[
-            'sysadm_u',
-            'staff_u'
-          ]}
+          let(:valid_users) do
+            [
+              'sysadm_u',
+              'staff_u'
+            ]
+          end
         else
-          let(:valid_users){[
-            'user_u',
-            'guest_u',
-            'xguest_u'
-          ]}
+          let(:valid_users) do
+            [
+              'user_u',
+              'guest_u',
+              'xguest_u'
+            ]
+          end
         end
 
         it { expect(context).to be_in(valid_users) }
@@ -141,4 +144,3 @@ implemented security safeguards/countermeasures.
     end
   end
 end
-

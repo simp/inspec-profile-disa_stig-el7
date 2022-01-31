@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71899" do
+control 'V-71899' do
   title "The Red Hat Enterprise Linux operating system must initiate a session
 lock for the screensaver after a period of inactivity for graphical user
 interfaces."
@@ -13,7 +12,7 @@ when a user's session has idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system initiates a session lock after a 15-minute
 period of inactivity for graphical user interfaces. The screen program must be
@@ -55,21 +54,21 @@ effect.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000029-GPOS-00010"
-  tag gid: "V-71899"
-  tag rid: "SV-86523r5_rule"
-  tag stig_id: "RHEL-07-010100"
-  tag fix_id: "F-78251r2_fix"
-  tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a"]
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-71899'
+  tag rid: 'SV-86523r5_rule'
+  tag stig_id: 'RHEL-07-010100'
+  tag fix_id: 'F-78251r2_fix'
+  tag cci: ['CCI-000057']
+  tag nist: ['AC-11 a']
 
   if package('gnome-desktop3').installed?
     describe command('gsettings get org.gnome.desktop.screensaver idle-activation-enabled') do
       its('stdout.strip') { should cmp 'true' }
-    end 
+    end
   else
     impact 0.0
-    describe "The system does not have GNOME installed" do
+    describe 'The system does not have GNOME installed' do
       skip "The system does not have GNOME installed, this requirement is Not
       Applicable."
     end

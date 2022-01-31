@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72417" do
+control 'V-72417' do
   title "The Red Hat Enterprise Linux operating system must have the required
         packages for multifactor authentication installed."
 
@@ -53,32 +52,32 @@ control "V-72417" do
         # yum install esc pam_pkcs11"
 
   tag severity: nil
-  tag gtitle: "SRG-OS-000375-GPOS-00160"
-  tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161", "SRG-OS-000375-GPOS-00162"]
-  tag gid: "V-72417"
-  tag rid: "SV-87041r4_rule"
-  tag stig_id: "RHEL-07-041001"
-  tag fix_id: "F-78769r4_fix"
-  tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
-  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
+  tag gid: 'V-72417'
+  tag rid: 'SV-87041r4_rule'
+  tag stig_id: 'RHEL-07-041001'
+  tag fix_id: 'F-78769r4_fix'
+  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   mfa_pkg_list = input('mfa_pkg_list')
   smart_card_status = input('smart_card_status')
 
   if smart_card_status.eql?('disabled')
     impact 0.0
-    describe "The system is not smartcard enabled thus this control is Not Applicable" do
-      skip "The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable."
-    end 
+    describe 'The system is not smartcard enabled thus this control is Not Applicable' do
+      skip 'The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.'
+    end
   elsif mfa_pkg_list.empty?
-    describe "The required Smartcard packages have not beed defined, plese define them in your `inputs`." do
+    describe 'The required Smartcard packages have not beed defined, plese define them in your `inputs`.' do
       subject { mfa_pkg_list }
       it { should_not be_empty }
     end
   else
     mfa_pkg_list.each do |pkg|
-      describe "The package" do
-        subject { package("#{pkg}") }
+      describe 'The package' do
+        subject { package(pkg.to_s) }
         it { should be_installed }
       end
     end

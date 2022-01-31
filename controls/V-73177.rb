@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-73177" do
+control 'V-73177' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all wireless network adapters are disabled."
   desc  "The use of wireless networking can introduce many different attack
@@ -9,7 +8,7 @@ wireless access point (AP), allowing validated systems to connect to the
 malicious AP and enabling the attacker to monitor and record network traffic.
 These malicious APs can also serve to create a man-in-the-middle attack or be
 used to create a denial of service to valid network resources."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify that there are no wireless interfaces configured on the system.
 
@@ -36,16 +35,15 @@ following command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000424-GPOS-00188"
-  tag gid: "V-73177"
-  tag rid: "SV-87829r2_rule"
-  tag stig_id: "RHEL-07-041010"
-  tag fix_id: "F-79623r1_fix"
-  tag cci: ["CCI-001443", "CCI-001444", "CCI-002418"]
-  tag nist: ["AC-18 (1)", "AC-18 (1)", "SC-8"]
+  tag gtitle: 'SRG-OS-000424-GPOS-00188'
+  tag gid: 'V-73177'
+  tag rid: 'SV-87829r2_rule'
+  tag stig_id: 'RHEL-07-041010'
+  tag fix_id: 'F-79623r1_fix'
+  tag cci: ['CCI-001443', 'CCI-001444', 'CCI-002418']
+  tag nist: ['AC-18 (1)', 'AC-18 (1)', 'SC-8']
 
   describe command('nmcli device') do
-    its('stdout.strip') { should_not match %r{wifi connected} }
+    its('stdout.strip') { should_not match(/wifi connected/) }
   end
 end
-

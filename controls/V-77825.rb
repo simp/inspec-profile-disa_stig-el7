@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-77825" do
+control 'V-77825' do
   title "The Red Hat Enterprise Linux operating system must implement virtual
 address space randomization."
   desc  "Address space layout randomization (ASLR) makes it more difficult for
@@ -8,7 +7,7 @@ into a process's address space during an attempt at exploitation. Additionally,
 ASLR also makes it more difficult for an attacker to know the location of
 existing code in order to repurpose it using return-oriented programming (ROP)
 techniques."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system implements virtual address space randomization.
 
@@ -46,13 +45,13 @@ line to \"/etc/sysctl.conf\" or a config file in the /etc/sysctl.d/ directory
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-77825"
-  tag rid: "SV-92521r2_rule"
-  tag stig_id: "RHEL-07-040201"
-  tag fix_id: "F-84531r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-77825'
+  tag rid: 'SV-92521r2_rule'
+  tag stig_id: 'RHEL-07-040201'
+  tag fix_id: 'F-84531r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   randomize_va_space = input('randomize_va_space')
 
@@ -60,4 +59,3 @@ line to \"/etc/sysctl.conf\" or a config file in the /etc/sysctl.d/ directory
     its('value') { should eq randomize_va_space }
   end
 end
-

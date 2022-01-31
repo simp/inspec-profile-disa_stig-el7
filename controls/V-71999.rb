@@ -1,8 +1,7 @@
-# -*- encoding : utf-8 -*-
-control "V-71999" do
-    title "The Red Hat Enterprise Linux operating system security patches and
+control 'V-71999' do
+  title "The Red Hat Enterprise Linux operating system security patches and
         updates must be installed and up to date."
-    desc "Timely patching is critical for maintaining the operational
+  desc "Timely patching is critical for maintaining the operational
         availability, confidentiality, and integrity of information technology (IT)
         systems. However, failure to keep operating system and application software
         patched is a common mistake made by IT professionals. New patches are released
@@ -13,7 +12,7 @@ control "V-71999" do
         unauthorized users may take advantage of weaknesses in the unpatched software.
         The lack of prompt attention to patching could result in a system compromise."
 
-    desc "check", "Verify the operating system security patches and updates are installed and
+  desc 'check', "Verify the operating system security patches and updates are installed and
       up to date. Updates are required to be applied with a frequency determined by
       the site or Program Management Office (PMO).
 
@@ -50,37 +49,37 @@ Vulnerability Management (IAVM) process, this is a finding.
 available from Red Hat within 30 days or sooner as local policy dictates."
   impact 0.5
   tag severity: 'medium'
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-71999"
-  tag rid: "SV-86623r4_rule"
-  tag stig_id: "RHEL-07-020260"
-  tag fix_id: "F-78351r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-71999'
+  tag rid: 'SV-86623r4_rule'
+  tag stig_id: 'RHEL-07-020260'
+  tag fix_id: 'F-78351r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
-    if input('disconnected_system')
-      describe "The system is set to a `disconnected` state and you must validate 
-                the state of the system packages manually" do 
-        skip "The system is set to a `disconnected` state and you must validate 
-        the state of the system packages manually, or through another process, if you 
-        have an established update and patch process, please set this control as 
+  if input('disconnected_system')
+    describe "The system is set to a `disconnected` state and you must validate
+                the state of the system packages manually" do
+      skip "The system is set to a `disconnected` state and you must validate
+        the state of the system packages manually, or through another process, if you
+        have an established update and patch process, please set this control as
         `Not Applicable` with a `caevat` via an overlay."
+    end
+  else
+    updates = linux_update.updates
+    package_names = updates.map { |h| h['name'] }
+
+    describe.one do
+      describe 'List of out-of-date packages' do
+        subject { package_names }
+        it { should be_empty }
       end
-    else
-      updates = linux_update.updates
-      package_names = updates.map { |h| h["name"] }
 
-      describe.one do
-        describe "List of out-of-date packages" do
-          subject { package_names }
-          it { should be_empty }
-        end
-
-        updates.each do |update|
-          describe package(update["name"]) do
-            its("version") { should eq update["version"] }
-          end
+      updates.each do |update|
+        describe package(update['name']) do
+          its('version') { should eq update['version'] }
         end
       end
     end
   end
+end

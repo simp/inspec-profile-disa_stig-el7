@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72269" do
+control 'V-72269' do
   title "The Red Hat Enterprise Linux operating system must, for networked
 systems, synchronize clocks with a server that is synchronized to one of the
 redundant United States Naval Observatory (USNO) time servers, a time server
@@ -21,7 +20,7 @@ endpoints).
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Check to see if NTP is running in continuous mode:
 
@@ -89,14 +88,14 @@ restarted:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000355-GPOS-00143"
-  tag satisfies: ["SRG-OS-000355-GPOS-00143", "SRG-OS-000356-GPOS-00144"]
-  tag gid: "V-72269"
-  tag rid: "SV-86893r5_rule"
-  tag stig_id: "RHEL-07-040500"
-  tag fix_id: "F-78623r5_fix"
-  tag cci: ["CCI-001891", "CCI-002046"]
-  tag nist: ["AU-8 (1) (a)", "AU-8 (1) (b)"]
+  tag gtitle: 'SRG-OS-000355-GPOS-00143'
+  tag satisfies: ['SRG-OS-000355-GPOS-00143', 'SRG-OS-000356-GPOS-00144']
+  tag gid: 'V-72269'
+  tag rid: 'SV-86893r5_rule'
+  tag stig_id: 'RHEL-07-040500'
+  tag fix_id: 'F-78623r5_fix'
+  tag cci: ['CCI-001891', 'CCI-002046']
+  tag nist: ['AU-8 (1) (a)', 'AU-8 (1) (b)']
 
   # Either ntpd or chronyd should be running
   describe.one do
@@ -112,10 +111,12 @@ restarted:
   if service('ntpd').installed?
     time_service = service('ntpd')
     time_sources = ntp_conf('/etc/ntp.conf').server
-    max_poll_values = time_sources.map { |val| val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,'\1').to_i : 99 }
+    max_poll_values = time_sources.map do |val|
+      val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/, '\1').to_i : 99
+    end
     ntpdate_crons = command('grep -l "ntpd -q" /etc/cron.daily/*').stdout.strip.lines
 
-    describe "ntpd time sources list" do
+    describe 'ntpd time sources list' do
       subject { time_sources }
       it { should_not be_empty }
     end
@@ -127,7 +128,7 @@ restarted:
         it { should_not be_empty }
       end
       # All time sources must contain valid maxpoll entries
-      describe "ntpd maxpoll values (99=maxpoll absent)" do
+      describe 'ntpd maxpoll values (99=maxpoll absent)' do
         subject { max_poll_values }
         it { should all be < 17 }
       end
@@ -137,15 +138,17 @@ restarted:
   if service('chronyd').installed?
     time_service = service('chronyd')
     time_sources = ntp_conf('/etc/chrony.conf').server
-    max_poll_values = time_sources.map { |val| val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,'\1').to_i : 99 }
+    max_poll_values = time_sources.map do |val|
+      val.match?(/.*maxpoll.*/) ? val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/, '\1').to_i : 99
+    end
 
-    describe "chronyd time sources list" do
+    describe 'chronyd time sources list' do
       subject { time_sources }
       it { should_not be_empty }
     end
-      
+
     # All time sources must contain valid maxpoll entries
-    describe "chronyd maxpoll values (99=maxpoll absent)" do
+    describe 'chronyd maxpoll values (99=maxpoll absent)' do
       subject { max_poll_values }
       it { should all be < 17 }
     end

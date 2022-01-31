@@ -1,10 +1,9 @@
-# -*- encoding : utf-8 -*-
-control "V-72255" do
+control 'V-72255' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the SSH public host key files have mode 0644 or less permissive."
   desc  "If a public host key file is modified by an unauthorized user, the SSH
 service may be compromised."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the SSH public host key files have mode \"0644\" or less permissive.
 
@@ -32,13 +31,13 @@ with the following command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72255"
-  tag rid: "SV-86879r2_rule"
-  tag stig_id: "RHEL-07-040410"
-  tag fix_id: "F-78609r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72255'
+  tag rid: 'SV-86879r2_rule'
+  tag stig_id: 'RHEL-07-040410'
+  tag fix_id: 'F-78609r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   pub_files = command("find /etc/ssh -xdev -name '*.pub' -perm /133").stdout.split("\n")
   if !pub_files.nil? and !pub_files.empty?
@@ -52,10 +51,9 @@ with the following command:
       end
     end
   else
-     describe "No files have a more permissive mode." do
+    describe 'No files have a more permissive mode.' do
       subject { pub_files.nil? or pub_files.empty? }
       it { should eq true }
     end
   end
 end
-

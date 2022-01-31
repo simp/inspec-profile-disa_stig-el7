@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-72033" do
+control 'V-72033' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all local initialization files have mode 0740 or less permissive."
   desc  "Local initialization files are used to configure the user's shell
 environment upon logon. Malicious modification of these files could compromise
 accounts upon logon."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify that all local initialization files have a mode of \"0740\" or less
 permissive.
@@ -35,13 +34,13 @@ of \"/home/smithj\".
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72033"
-  tag rid: "SV-86657r3_rule"
-  tag stig_id: "RHEL-07-020710"
-  tag fix_id: "F-78385r4_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72033'
+  tag rid: 'SV-86657r3_rule'
+  tag stig_id: 'RHEL-07-020710'
+  tag fix_id: 'F-78385r4_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -49,11 +48,10 @@ of \"/home/smithj\".
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    findings = findings + command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+    findings += command("find #{user_info.home} -xdev -maxdepth 1 -name '.*' -type f -perm /037").stdout.split("\n")
   end
   describe findings do
     it { should be_empty }
   end
 end
-

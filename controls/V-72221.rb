@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72221" do
+control 'V-72221' do
   title "The Red Hat Enterprise Linux operating system must use a FIPS 140-2
 approved cryptographic algorithm for SSH communications."
   desc  "Unapproved mechanisms that are used for authentication to the
@@ -16,7 +15,7 @@ general purpose computing system.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system uses mechanisms meeting the requirements of
 applicable federal laws, Executive orders, directives, policies, regulations,
@@ -52,25 +51,22 @@ third-party vendor).
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000033-GPOS-00014"
-  tag satisfies: ["SRG-OS-000033-GPOS-00014", "SRG-OS-000120-GPOS-00061",
-"SRG-OS-000125-GPOS-00065", "SRG-OS-000250-GPOS-00093",
-"SRG-OS-000393-GPOS-00173"]
-  tag gid: "V-72221"
-  tag rid: "SV-86845r3_rule"
-  tag stig_id: "RHEL-07-040110"
-  tag fix_id: "F-78575r3_fix"
-  tag cci: ["CCI-000068", "CCI-000366", "CCI-000803"]
-  tag nist: ["AC-17 (2)", "CM-6 b", "IA-7"]
+  tag gtitle: 'SRG-OS-000033-GPOS-00014'
+  tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000120-GPOS-00061',
+                  'SRG-OS-000125-GPOS-00065', 'SRG-OS-000250-GPOS-00093',
+                  'SRG-OS-000393-GPOS-00173']
+  tag gid: 'V-72221'
+  tag rid: 'SV-86845r3_rule'
+  tag stig_id: 'RHEL-07-040110'
+  tag fix_id: 'F-78575r3_fix'
+  tag cci: ['CCI-000068', 'CCI-000366', 'CCI-000803']
+  tag nist: ['AC-17 (2)', 'CM-6 b', 'IA-7']
 
   @ciphers_array = inspec.sshd_config.params['ciphers']
 
-  unless @ciphers_array.nil?
-    @ciphers_array = @ciphers_array.first.split(",")
-  end
+  @ciphers_array = @ciphers_array.first.split(',') unless @ciphers_array.nil?
 
   describe @ciphers_array do
     it { should be_in ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'] }
   end
 end
-

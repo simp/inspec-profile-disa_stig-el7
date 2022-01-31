@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-81011" do
+control 'V-81011' do
   title "The Red Hat Enterprise Linux operating system must mount /dev/shm with
 the nosuid option."
   desc  "The \"nosuid\" mount option causes the system to not execute
@@ -7,7 +6,7 @@ the nosuid option."
 for mounting any file system not containing approved \"setuid\" and \"setguid\"
 files. Executing files from untrusted file systems increases the opportunity
 for unprivileged users to attain unauthorized administrative access."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify that the \"nosuid\" option is configured for /dev/shm:
 
@@ -28,16 +27,15 @@ is a finding.
 \"nosuid\" option."
   impact 0.3
   tag severity: nil
-  tag gtitle: "SRG-OS-000368-GPOS-00154"
-  tag gid: "V-81011"
-  tag rid: "SV-95723r2_rule"
-  tag stig_id: "RHEL-07-021023"
-  tag fix_id: "F-87845r2_fix"
-  tag cci: ["CCI-001764"]
-  tag nist: ["CM-7 (2)"]
+  tag gtitle: 'SRG-OS-000368-GPOS-00154'
+  tag gid: 'V-81011'
+  tag rid: 'SV-95723r2_rule'
+  tag stig_id: 'RHEL-07-021023'
+  tag fix_id: 'F-87845r2_fix'
+  tag cci: ['CCI-001764']
+  tag nist: ['CM-7 (2)']
 
   describe mount('/dev/shm') do
     its('options') { should include 'nosuid' }
   end
 end
-

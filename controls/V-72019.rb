@@ -1,12 +1,11 @@
-# -*- encoding : utf-8 -*-
-control "V-72019" do
+control 'V-72019' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all local interactive user home directories are owned by their respective
 users."
   desc  "If a local interactive user does not own their home directory,
 unauthorized users could access or modify the user's files, and the users may
 not be able to access their own files."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the assigned home directory of all local interactive users on the
 system exists.
@@ -33,13 +32,13 @@ the following command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72019"
-  tag rid: "SV-86643r5_rule"
-  tag stig_id: "RHEL-07-020640"
-  tag fix_id: "F-78371r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72019'
+  tag rid: 'SV-86643r5_rule'
+  tag stig_id: 'RHEL-07-020640'
+  tag fix_id: 'F-78371r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -50,12 +49,12 @@ the following command:
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
-    next if exempt_home_users.include?("#{user_info.username}")
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+    next if exempt_home_users.include?(user_info.username.to_s)
+
     describe directory(user_info.home) do
       it { should exist }
       its('owner') { should eq user_info.username }
     end
   end
 end
-

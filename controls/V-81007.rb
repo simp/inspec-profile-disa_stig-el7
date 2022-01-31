@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-81007" do
+control 'V-81007' do
   title "Red Hat Enterprise Linux operating systems version 7.2 or newer using
 Unified Extensible Firmware Interface (UEFI) must require authentication upon
 booting into single-user and maintenance modes."
@@ -8,7 +7,7 @@ boots into single-user or maintenance mode, anyone who invokes single-user or
 maintenance mode is granted privileged access to all files on the system. GRUB
 2 is the default boot loader for RHEL 7 and is designed to require a password
 to boot into single-user mode or make modifications to the boot menu."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     For systems that use BIOS, this is Not Applicable.
 
@@ -51,37 +50,36 @@ lines in the \"### BEGIN /etc/grub.d/01_users ###\" section:
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000080-GPOS-00048"
-  tag gid: "V-81007"
-  tag rid: "SV-95719r1_rule"
-  tag stig_id: "RHEL-07-010491"
-  tag fix_id: "F-87841r2_fix"
-  tag cci: ["CCI-000213"]
-  tag nist: ["AC-3"]
+  tag gtitle: 'SRG-OS-000080-GPOS-00048'
+  tag gid: 'V-81007'
+  tag rid: 'SV-95719r1_rule'
+  tag stig_id: 'RHEL-07-010491'
+  tag fix_id: 'F-87841r2_fix'
+  tag cci: ['CCI-000213']
+  tag nist: ['AC-3']
 
-  unless file('/sys/firmware/efi').exist?
-    impact 0.0
-    describe "System running BIOS" do
-      skip "The System is running BIOS, this control is Not Applicable."
-    end
-  else
-    unless os[:release] >= "7.2"
-      impact 0.0
-      describe "System running version of RHEL prior to 7.2" do
-        skip "The System is running an outdated version of RHEL, this control is Not Applicable."
-      end
-    else
+  if file('/sys/firmware/efi').exist?
+    if os[:release] >= '7.2'
       impact 0.7
       input('grub_uefi_user_boot_files').each do |grub_user_file|
         describe parse_config_file(grub_user_file) do
-          its('GRUB2_PASSWORD') { should include "grub.pbkdf2.sha512"}
+          its('GRUB2_PASSWORD') { should include 'grub.pbkdf2.sha512' }
         end
       end
 
       describe parse_config_file(input('grub_uefi_main_cfg')) do
-        its('set superusers') { should cmp '"root"' }  
+        its('set superusers') { should cmp '"root"' }
       end
+    else
+      impact 0.0
+      describe 'System running version of RHEL prior to 7.2' do
+        skip 'The System is running an outdated version of RHEL, this control is Not Applicable.'
+      end
+    end
+  else
+    impact 0.0
+    describe 'System running BIOS' do
+      skip 'The System is running BIOS, this control is Not Applicable.'
     end
   end
 end
-

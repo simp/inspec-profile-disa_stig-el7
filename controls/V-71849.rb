@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71849" do
+control 'V-71849' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the file permissions, ownership, and group membership of system files and
 commands match the vendor values."
@@ -8,7 +7,7 @@ permissions to system files and directories greater than the default.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the file permissions, ownership, and group membership of system
 files and commands match the vendor values.
@@ -56,14 +55,14 @@ following command:
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000257-GPOS-00098"
-  tag satisfies: ["SRG-OS-000257-GPOS-00098", "SRG-OS-000278-GPOS-00108"]
-  tag gid: "V-71849"
-  tag rid: "SV-86473r4_rule"
-  tag stig_id: "RHEL-07-010010"
-  tag fix_id: "F-78201r4_fix"
-  tag cci: ["CCI-001494", "CCI-001496", "CCI-002165", "CCI-002235"]
-  tag nist: ["AU-9", "AU-9 (3)", "AC-3 (4)", "AC-6 (10)"]
+  tag gtitle: 'SRG-OS-000257-GPOS-00098'
+  tag satisfies: ['SRG-OS-000257-GPOS-00098', 'SRG-OS-000278-GPOS-00108']
+  tag gid: 'V-71849'
+  tag rid: 'SV-86473r4_rule'
+  tag stig_id: 'RHEL-07-010010'
+  tag fix_id: 'F-78201r4_fix'
+  tag cci: ['CCI-001494', 'CCI-001496', 'CCI-002165', 'CCI-002235']
+  tag nist: ['AU-9', 'AU-9 (3)', 'AC-3 (4)', 'AC-6 (10)']
 
   rpm_verify_perms_except = input('rpm_verify_perms_except')
 
@@ -76,8 +75,7 @@ following command:
     end
   else
     describe command("rpm -Va | grep '^.M' | awk 'NF>1{print $NF}'").stdout.strip.split("\n") do
-      it { should all(be_in rpm_verify_perms_except) }
+      it { should all(be_in(rpm_verify_perms_except)) }
     end
   end
 end
-

@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72079" do
+control 'V-72079' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that auditing is configured to produce records containing information to
 establish what type of events occurred, where the events occurred, the source
@@ -21,7 +20,7 @@ operating system.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system produces audit records containing information
 to establish when (date and time) the events occurred.
@@ -43,19 +42,18 @@ information to establish when (date and time) the events occurred.
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000038-GPOS-00016"
-  tag satisfies: ["SRG-OS-000038-GPOS-00016", "SRG-OS-000039-GPOS-00017",
-"SRG-OS-000042-GPOS-00021", "SRG-OS-000254-GPOS-00095",
-"SRG-OS-000255-GPOS-00096"]
-  tag gid: "V-72079"
-  tag rid: "SV-86703r3_rule"
-  tag stig_id: "RHEL-07-030000"
-  tag fix_id: "F-78431r2_fix"
-  tag cci: ["CCI-000126", "CCI-000131"]
-  tag nist: ["AU-2 d", "AU-3"]
+  tag gtitle: 'SRG-OS-000038-GPOS-00016'
+  tag satisfies: ['SRG-OS-000038-GPOS-00016', 'SRG-OS-000039-GPOS-00017',
+                  'SRG-OS-000042-GPOS-00021', 'SRG-OS-000254-GPOS-00095',
+                  'SRG-OS-000255-GPOS-00096']
+  tag gid: 'V-72079'
+  tag rid: 'SV-86703r3_rule'
+  tag stig_id: 'RHEL-07-030000'
+  tag fix_id: 'F-78431r2_fix'
+  tag cci: ['CCI-000126', 'CCI-000131']
+  tag nist: ['AU-2 d', 'AU-3']
 
   describe service('auditd') do
     it { should be_running }
   end
 end
-

@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72225" do
+control 'V-72225' do
   title "The Red Hat Enterprise Linux operating system must display the
 Standard Mandatory DoD Notice and Consent Banner immediately prior to, or as
 part of, remote access logon prompts."
@@ -44,7 +43,7 @@ Agreement for details.\"
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify any publicly accessible connection to the operating system displays
 the Standard Mandatory DoD Notice and Consent Banner before granting access to
@@ -141,60 +140,66 @@ Agreement for details.\"
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000023-GPOS-00006"
-  tag satisfies: ["SRG-OS-000023-GPOS-00006", "SRG-OS-000024-GPOS-00007",
-"SRG-OS-000228-GPOS-00088"]
-  tag gid: "V-72225"
-  tag rid: "SV-86849r4_rule"
-  tag stig_id: "RHEL-07-040170"
-  tag fix_id: "F-78579r4_fix"
-  tag cci: ["CCI-000048", "CCI-000050", "CCI-001384", "CCI-001385",
-"CCI-001386", "CCI-001387", "CCI-001388"]
-  tag nist: ["AC-8 a", "AC-8 b", "AC-8 c 1", "AC-8 c 2", "AC-8 c 2", "AC-8 c
-2", "AC-8 c 3"]
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
+  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
+                  'SRG-OS-000228-GPOS-00088']
+  tag gid: 'V-72225'
+  tag rid: 'SV-86849r4_rule'
+  tag stig_id: 'RHEL-07-040170'
+  tag fix_id: 'F-78579r4_fix'
+  tag cci: ['CCI-000048', 'CCI-000050', 'CCI-001384', 'CCI-001385',
+            'CCI-001386', 'CCI-001387', 'CCI-001388']
+  tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c 2', "AC-8 c
+2", 'AC-8 c 3']
 
   banner_message_text_ral = input('banner_message_text_ral')
   banner_message_text_ral_limited = input('banner_message_text_ral_limited')
 
-  #When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
+  # When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
   banner_files = [sshd_config.banner].flatten
 
   banner_files.each do |banner_file|
+    # Banner property is commented out.
+    if banner_file.nil?
+      describe 'The SSHD Banner is not set' do
+        subject { banner_file.nil? }
+        it { should be false }
+      end
+    end
 
-    #Banner property is commented out.
-    describe "The SSHD Banner is not set" do
-      subject { banner_file.nil? }
-      it { should be false }
-    end if banner_file.nil?
+    # Banner property is set to "none"
+    if !banner_file.nil? && !banner_file.match(/none/i).nil?
+      describe 'The SSHD Banner is disabled' do
+        subject { banner_file.match(/none/i).nil? }
+        it { should be true }
+      end
+    end
 
-    #Banner property is set to "none"
-    describe "The SSHD Banner is disabled" do
-      subject { banner_file.match(/none/i).nil? }
-      it { should be true }
-    end if !banner_file.nil? && !banner_file.match(/none/i).nil?
+    # Banner property provides a path to a file, however, it does not exist.
+    if !banner_file.nil? && banner_file.match(/none/i).nil? && !file(banner_file).exist?
+      describe 'The SSHD Banner is set, but, the file does not exist' do
+        subject { file(banner_file).exist? }
+        it { should be true }
+      end
+    end
 
-    #Banner property provides a path to a file, however, it does not exist.
-    describe "The SSHD Banner is set, but, the file does not exist" do
-      subject { file(banner_file).exist? }
-      it { should be true }
-    end if !banner_file.nil? && banner_file.match(/none/i).nil? && !file(banner_file).exist?
+    # Banner property provides a path to a file and it exists.
+    next unless !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
 
-    #Banner property provides a path to a file and it exists.
     describe.one do
-      banner = file(banner_file).content.gsub(%r{[\r\n\s]}, '')
-      clean_banner = banner_message_text_ral.gsub(%r{[\r\n\s]}, '')
-      clean_banner_limited = banner_message_text_ral_limited.gsub(%r{[\r\n\s]}, '')
+      banner = file(banner_file).content.gsub(/[\r\n\s]/, '')
+      clean_banner = banner_message_text_ral.gsub(/[\r\n\s]/, '')
+      clean_banner_limited = banner_message_text_ral_limited.gsub(/[\r\n\s]/, '')
 
-      describe "The SSHD Banner is set to the standard banner and has the correct text" do
+      describe 'The SSHD Banner is set to the standard banner and has the correct text' do
         subject { banner }
         it { should cmp clean_banner }
       end
 
-      describe "The SSHD Banner is set to the standard limited banner and has the correct text" do
+      describe 'The SSHD Banner is set to the standard limited banner and has the correct text' do
         subject { banner }
         it { should cmp clean_banner_limited }
       end
-    end if !banner_file.nil? && banner_file.match(/none/i).nil? && file(banner_file).exist?
+    end
   end
 end
-

@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-72317" do
+control 'V-72317' do
   title "The Red Hat Enterprise Linux operating system must not have
 unauthorized IP tunnels configured."
   desc  "IP tunneling mechanisms can be used to bypass network filtering. If
 tunneling is required, it must be documented with the Information System
 Security Officer (ISSO)."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the system does not have unauthorized IP tunnels configured.
 
@@ -37,13 +36,13 @@ tunnel is active, this is a finding.
   tag 'fix': "Remove all unapproved tunnels from the system, or document them
 with the ISSO."
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72317"
-  tag rid: "SV-86941r2_rule"
-  tag stig_id: "RHEL-07-040820"
-  tag fix_id: "F-78671r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72317'
+  tag rid: 'SV-86941r2_rule'
+  tag stig_id: 'RHEL-07-040820'
+  tag fix_id: 'F-78671r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   approved_tunnels = input('approved_tunnels')
 
@@ -52,31 +51,32 @@ with the ISSO."
     processed = []
     to_process = ['/etc/ipsec.conf']
 
-    while !to_process.empty?
+    until to_process.empty?
       in_process = to_process.pop
       next if processed.include? in_process
+
       processed.push in_process
 
       to_process.concat(
-        command("grep -E '^\\s*include\\s+' #{in_process} | sed 's/^[[:space:]]*include[[:space:]]*//g'").
-          stdout.strip.split(%r{\s*\n+\s*}).
-          map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }.
-          map { |f|
-            dir = f.sub(%r{[^/]*[\*\?\[].*$}, '') # gets the longest ancestor path which doesn't contain wildcards
+        command("grep -E '^\\s*include\\s+' #{in_process} | sed 's/^[[:space:]]*include[[:space:]]*//g'")
+          .stdout.strip.split(/\s*\n+\s*/)
+          .map { |f| f.start_with?('/') ? f : File.join(File.dirname(in_process), f) }
+          .map do |f|
+            dir = f.sub(%r{[^/]*[*?\[].*$}, '') # gets the longest ancestor path which doesn't contain wildcards
             command("find #{dir} -wholename '#{f}'").stdout.strip.split("\n")
-          }.
-          flatten.
-          select { |f| file(f).file? }
+          end
+          .flatten
+          .select { |f| file(f).file? }
       )
     end
 
     conn_grep = processed.map do |conf|
-      command("grep -E '^\\s*conn\\s+' #{conf}").
-        stdout.strip.split(%r{\s*\n\s*})
+      command("grep -E '^\\s*conn\\s+' #{conf}")
+        .stdout.strip.split(/\s*\n\s*/)
     end.flatten
 
     describe conn_grep do
-      it { should all(be_in approved_tunnels) }
+      it { should all(be_in(approved_tunnels)) }
     end
   else
     impact 0.0
@@ -85,4 +85,3 @@ with the ISSO."
     end
   end
 end
-

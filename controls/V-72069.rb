@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-72069" do
+control 'V-72069' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the file integrity tool is configured to verify Access Control Lists
 (ACLs)."
   desc  "ACLs can provide permissions beyond those permitted through the file
 mode and must be verified by file integrity tools."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the file integrity tool is configured to verify ACLs.
 
@@ -49,23 +48,21 @@ file and directory selection lists.
   "
   impact 0.3
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72069"
-  tag rid: "SV-86693r3_rule"
-  tag stig_id: "RHEL-07-021600"
-  tag fix_id: "F-78421r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72069'
+  tag rid: 'SV-86693r3_rule'
+  tag stig_id: 'RHEL-07-021600'
+  tag fix_id: 'F-78421r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
-  describe package("aide") do
+  describe package('aide') do
     it { should be_installed }
   end
 
   findings = []
   aide_conf.where { !selection_line.start_with? '!' }.entries.each do |selection|
-    unless selection.rules.include? 'acl'
-      findings.append(selection.selection_line)
-    end
+    findings.append(selection.selection_line) unless selection.rules.include? 'acl'
   end
 
   describe "List of monitored files/directories without 'acl' rule" do
@@ -73,4 +70,3 @@ file and directory selection lists.
     it { should be_empty }
   end
 end
-

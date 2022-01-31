@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-72305" do
+control 'V-72305' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that if the Trivial File Transfer Protocol (TFTP) server is required, the TFTP
 daemon is configured to operate in secure mode."
   desc  "Restricting TFTP to a specific directory prevents remote users from
 copying, transferring, or overwriting system files."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the TFTP daemon is configured to operate in secure mode.
 
@@ -33,24 +32,23 @@ line to \"/etc/xinetd.d/tftp\" (or modify the line to have the required value):
     server_args = -s /var/lib/tftpboot
   "
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72305"
-  tag rid: "SV-86929r3_rule"
-  tag stig_id: "RHEL-07-040720"
-  tag fix_id: "F-78659r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72305'
+  tag rid: 'SV-86929r3_rule'
+  tag stig_id: 'RHEL-07-040720'
+  tag fix_id: 'F-78659r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   if package('tftp-server').installed?
     impact 0.5
     describe command('grep server_args /etc/xinetd.d/tftp') do
-      its('stdout.strip') { should match %r{^\s*server_args\s+=\s+(-s|--secure)\s(\/\S+)$} }
+      its('stdout.strip') { should match %r{^\s*server_args\s+=\s+(-s|--secure)\s(/\S+)$} }
     end
   else
     impact 0.0
-    describe "The TFTP package is not installed" do
-      skip "If a TFTP server is not installed, this is Not Applicable."
+    describe 'The TFTP package is not installed' do
+      skip 'If a TFTP server is not installed, this is Not Applicable.'
     end
   end
 end
-

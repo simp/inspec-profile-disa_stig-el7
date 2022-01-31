@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-77819" do
+control 'V-77819' do
   title "The Red Hat Enterprise Linux operating system must uniquely identify
 and must authenticate users using multifactor authentication via a graphical
 user logon."
@@ -15,7 +14,7 @@ Card.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system uniquely identifies and authenticates users
 using multifactor authentication via a graphical user logon.
@@ -64,14 +63,14 @@ should be created under the appropriate subdirectory.
     # dconf update
   "
   tag severity: nil
-  tag gtitle: "SRG-OS-000375-GPOS-00160"
-  tag satisfies: ["SRG-OS-000375-GPOS-00161", "SRG-OS-000375-GPOS-00162"]
-  tag gid: "V-77819"
-  tag rid: "SV-92515r2_rule"
-  tag stig_id: "RHEL-07-010061"
-  tag fix_id: "F-84519r4_fix"
-  tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
-  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: ['SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
+  tag gid: 'V-77819'
+  tag rid: 'SV-92515r2_rule'
+  tag stig_id: 'RHEL-07-010061'
+  tag fix_id: 'F-84519r4_fix'
+  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
   multifactor_enabled = input('multifactor_enabled')
   dconf_user = input('dconf_user')
@@ -83,28 +82,27 @@ should be created under the appropriate subdirectory.
         its('stdout.strip') { should eq multifactor_enabled.to_s }
       end
     else
-      describe command("dconf read /org/gnome/login-screen/enable-smartcard-authentication") do
+      describe command('dconf read /org/gnome/login-screen/enable-smartcard-authentication') do
         its('stdout.strip') { should eq multifactor_enabled.to_s }
       end
     end
   else
     impact 0.0
-    if !package('gnome-desktop3').installed?
-      describe "The GNOME desktop is not installed" do
-        skip "The GNOME desktop is not installed, this control is Not Applicable."
+    unless package('gnome-desktop3').installed?
+      describe 'The GNOME desktop is not installed' do
+        skip 'The GNOME desktop is not installed, this control is Not Applicable.'
       end
     end
 
-    if !package('pcsc-lite').installed?
-      describe "The pcsc-lite package is not installed" do
-        skip "The pcsc-lite package is not installed, this control is Not Applicable."
+    unless package('pcsc-lite').installed?
+      describe 'The pcsc-lite package is not installed' do
+        skip 'The pcsc-lite package is not installed, this control is Not Applicable.'
       end
     end
-    if !package('esc').installed?
-      describe "The esc package is not installed" do
-        skip "The esc package is not installed, this control is Not Applicable."
+    unless package('esc').installed?
+      describe 'The esc package is not installed' do
+        skip 'The esc package is not installed, this control is Not Applicable.'
       end
     end
   end
 end
-

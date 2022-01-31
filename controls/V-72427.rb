@@ -1,9 +1,8 @@
-# -*- encoding : utf-8 -*-
-control "V-72427" do
+control 'V-72427' do
   title "The Red Hat Enterprise Linux operating system must implement
   multifactor authentication for access to privileged accounts via pluggable
   authentication modules (PAM)."
-  desc  "Using an authentication device, such as a CAC or token that is
+  desc "Using an authentication device, such as a CAC or token that is
   separate from the information system, ensures that even if the information
   system is compromised, that compromise will not affect credentials stored on
   the authentication device.
@@ -29,7 +28,7 @@ control "V-72427" do
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system implements multifactor authentication for
     remote access to privileged accounts via pluggable authentication modules (PAM).
@@ -51,40 +50,46 @@ control "V-72427" do
         Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in
     configuration files found under \"/etc/sssd/conf.d\" to include pam."
 
-  impact 0.5  
+  impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000375-GPOS-00160"
-  tag satisfies: ["SRG-OS-000375-GPOS-00160", "SRG-OS-000375-GPOS-00161",
-"SRG-OS-000375-GPOS-00162"]
-  tag gid: "V-72427"
-  tag rid: "SV-87051r4_rule"
-  tag stig_id: "RHEL-07-041002"
-  tag fix_id: "F-78779r3_fix"
-  tag cci: ["CCI-001948", "CCI-001953", "CCI-001954"]
-  tag nist: ["IA-2 (11)", "IA-2 (12)", "IA-2 (12)"]
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161',
+                  'SRG-OS-000375-GPOS-00162']
+  tag gid: 'V-72427'
+  tag rid: 'SV-87051r4_rule'
+  tag stig_id: 'RHEL-07-041002'
+  tag fix_id: 'F-78779r3_fix'
+  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
 
-  unless package('sssd').installed?
-    impact 0.0
-    describe "The SSSD Package is not installed on the system" do
-      skip "This control is Not Appliciable without the SSSD Package installed."
-    end
-  else
-    if (!(sssd_files = command("find /etc/sssd -name *.conf").stdout.split("\n")).empty?)
+  if package('sssd').installed?
+    if !(sssd_files = command('find /etc/sssd -name *.conf').stdout.split("\n")).empty?
       sssd_files.each do |file|
+        next unless package('sssd').installed?
+
         describe.one do
-          describe parse_config_file(file) do
-            its('services') { should include 'pam' }
-          end if package('sssd').installed?
-          describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' #{file}") do
-            its('stdout.strip') { should include 'pam' }
-          end if package('sssd').installed?
-        end if package('sssd').installed?
+          if package('sssd').installed?
+            describe parse_config_file(file) do
+              its('services') { should include 'pam' }
+            end
+          end
+          if package('sssd').installed?
+            describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' #{file}") do
+              its('stdout.strip') { should include 'pam' }
+            end
+          end
+        end
       end
     else
-      describe "The set of SSSD configuration files" do
-          subject { sssd_files.to_a }
-          it { should_not be_empty }
+      describe 'The set of SSSD configuration files' do
+        subject { sssd_files.to_a }
+        it { should_not be_empty }
       end
+    end
+  else
+    impact 0.0
+    describe 'The SSSD Package is not installed on the system' do
+      skip 'This control is Not Appliciable without the SSSD Package installed.'
     end
   end
 end

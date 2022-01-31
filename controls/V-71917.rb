@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71917" do
+control 'V-71917' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that when passwords are changed the number of repeating characters of the same
 character class must not be more than four characters."
@@ -13,7 +12,7 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     The \"maxclassrepeat\" option sets the maximum number of allowed same
 consecutive characters in the same class in the new password.
@@ -39,16 +38,15 @@ the line to have the required value):
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000072-GPOS-00040"
-  tag gid: "V-71917"
-  tag rid: "SV-86541r2_rule"
-  tag stig_id: "RHEL-07-010190"
-  tag fix_id: "F-78269r1_fix"
-  tag cci: ["CCI-000195"]
-  tag nist: ["IA-5 (1) (b)"]
+  tag gtitle: 'SRG-OS-000072-GPOS-00040'
+  tag gid: 'V-71917'
+  tag rid: 'SV-86541r2_rule'
+  tag stig_id: 'RHEL-07-010190'
+  tag fix_id: 'F-78269r1_fix'
+  tag cci: ['CCI-000195']
+  tag nist: ['IA-5 (1) (b)']
 
-  describe parse_config_file("/etc/security/pwquality.conf") do
+  describe parse_config_file('/etc/security/pwquality.conf') do
     its('maxclassrepeat.to_i') { should cmp <= 4 }
   end
 end
-

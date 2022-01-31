@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72021" do
+control 'V-72021' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all local interactive user home directories are group-owned by the home
 directory owners primary group."
@@ -7,7 +6,7 @@ directory owners primary group."
 directory is not the same as the primary GID of the user, this would allow
 unauthorized access to the user's files, and users that share the same group
 may not be able to access files that they legitimately should."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the assigned home directory of all local interactive users is
 group-owned by that user's primary GID.
@@ -40,13 +39,13 @@ of \"/home/smithj\", and has a primary group of users.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72021"
-  tag rid: "SV-86645r5_rule"
-  tag stig_id: "RHEL-07-020650"
-  tag fix_id: "F-78373r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72021'
+  tag rid: 'SV-86645r5_rule'
+  tag stig_id: 'RHEL-07-020650'
+  tag fix_id: 'F-78373r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -57,13 +56,13 @@ of \"/home/smithj\", and has a primary group of users.
   uid_min = 1000 if uid_min.nil?
 
   findings = Set[]
-  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
-    next if exempt_home_users.include?("#{user_info.username}")
-    findings = findings + command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+    next if exempt_home_users.include?(user_info.username.to_s)
+
+    findings += command("find #{user_info.home} -maxdepth 0 -not -gid #{user_info.gid}").stdout.split("\n")
   end
   describe "Home directories that are not group-owned by the user's primary GID" do
     subject { findings.to_a }
     it { should be_empty }
   end
 end
-

@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71911" do
+control 'V-71911' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that when passwords are changed a minimum of eight of the total number of
 characters must be changed."
@@ -13,7 +12,7 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     The \"difok\" option sets the number of characters in a password that must
 not be present in the old password.
@@ -38,18 +37,17 @@ line to have the required value):
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000072-GPOS-00040"
-  tag gid: "V-71911"
-  tag rid: "SV-86535r2_rule"
-  tag stig_id: "RHEL-07-010160"
-  tag fix_id: "F-78263r1_fix"
-  tag cci: ["CCI-000195"]
-  tag nist: ["IA-5 (1) (b)"]
+  tag gtitle: 'SRG-OS-000072-GPOS-00040'
+  tag gid: 'V-71911'
+  tag rid: 'SV-86535r2_rule'
+  tag stig_id: 'RHEL-07-010160'
+  tag fix_id: 'F-78263r1_fix'
+  tag cci: ['CCI-000195']
+  tag nist: ['IA-5 (1) (b)']
 
   difok = input('difok')
 
-  describe parse_config_file("/etc/security/pwquality.conf") do
+  describe parse_config_file('/etc/security/pwquality.conf') do
     its('difok.to_i') { should cmp >= difok }
   end
 end
-

@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72043" do
+control 'V-72043' do
   title "The Red Hat Enterprise Linux operating system must prevent files with
 the setuid and setgid bit set from being executed on file systems that are used
 with removable media."
@@ -8,7 +7,7 @@ with removable media."
 for mounting any file system not containing approved \"setuid\" and \"setguid\"
 files. Executing files from untrusted file systems increases the opportunity
 for unprivileged users to attain unauthorized administrative access."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify file systems that are used for removable media are mounted with the
 \"nosuid\" option.
@@ -28,35 +27,34 @@ does not have the \"nosuid\" option set, this is a finding.
 file systems that are associated with removable media."
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72043"
-  tag rid: "SV-86667r2_rule"
-  tag stig_id: "RHEL-07-021010"
-  tag fix_id: "F-78395r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72043'
+  tag rid: 'SV-86667r2_rule'
+  tag stig_id: 'RHEL-07-021010'
+  tag fix_id: 'F-78395r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   non_removable_media_fs = input('non_removable_media_fs')
 
   file_systems = etc_fstab.params
   if !file_systems.nil? and !file_systems.empty?
     file_systems.each do |file_sys_line|
-      if !"#{non_removable_media_fs}".include?(file_sys_line['file_system_type']) then
+      if !non_removable_media_fs.to_s.include?(file_sys_line['file_system_type'])
         describe file_sys_line['mount_options'] do
           it { should include 'nosuid' }
         end
       else
         describe "File system \"#{file_sys_line['file_system_type']}\" does not correspond to removable media." do
-          subject { "#{non_removable_media_fs}".include?(file_sys_line['file_system_type']) }
+          subject { non_removable_media_fs.to_s.include?(file_sys_line['file_system_type']) }
           it { should eq true }
         end
       end
     end
   else
-    describe "No file systems were found." do
+    describe 'No file systems were found.' do
       subject { file_systems.nil? }
       it { should eq true }
     end
   end
 end
-

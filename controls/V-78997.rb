@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-78997" do
+control 'V-78997' do
   title "The Red Hat Enterprise Linux operating system must prevent a user from
 overriding the screensaver idle-activation-enabled setting for the graphical
 user interface."
@@ -15,7 +14,7 @@ default. Disabling the user's ability to disengage the graphical user interface
 session lock provides the assurance that all sessions will lock after the
 specified period of time.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system prevents a user from overriding the screensaver
 idle-activation-enabled setting for the graphical user interface.
@@ -61,13 +60,13 @@ file should be created under the appropriate subdirectory.
     /org/gnome/desktop/screensaver/idle-activation-enabled
   "
   tag severity: nil
-  tag gtitle: "SRG-OS-000029-GPOS-00010"
-  tag gid: "V-78997"
-  tag rid: "SV-93703r2_rule"
-  tag stig_id: "RHEL-07-010101"
-  tag fix_id: "F-85747r1_fix"
-  tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a"]
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-78997'
+  tag rid: 'SV-93703r2_rule'
+  tag stig_id: 'RHEL-07-010101'
+  tag fix_id: 'F-85747r1_fix'
+  tag cci: ['CCI-000057']
+  tag nist: ['AC-11 a']
 
   if package('gnome-desktop3').installed?
     impact 0.5
@@ -75,12 +74,15 @@ file should be created under the appropriate subdirectory.
     impact 0.0
   end
 
-  describe command("gsettings writable org.gnome.desktop.screensaver idle-activation-enabled") do
-    its('stdout.strip') { should cmp 'false' }
-  end if package('gnome-desktop3').installed?
+  if package('gnome-desktop3').installed?
+    describe command('gsettings writable org.gnome.desktop.screensaver idle-activation-enabled') do
+      its('stdout.strip') { should cmp 'false' }
+    end
+  end
 
-  describe "The GNOME desktop is not installed" do
-    skip "The GNOME desktop is not installed, this control is Not Applicable."
-  end if !package('gnome-desktop3').installed?
+  unless package('gnome-desktop3').installed?
+    describe 'The GNOME desktop is not installed' do
+      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
+    end
+  end
 end
-

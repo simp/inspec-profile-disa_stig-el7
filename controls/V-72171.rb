@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72171" do
+control 'V-72171' do
   title "The Red Hat Enterprise Linux operating system must audit all uses of
 the mount command and syscall."
   desc  "Reconstruction of harmful events or forensic analysis is not possible
@@ -12,7 +11,7 @@ compromise.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
@@ -53,31 +52,29 @@ privileged-mount
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000042-GPOS-00020"
-  tag satisfies: ["SRG-OS-000042-GPOS-00020", "SRG-OS-000392-GPOS-00172"]
-  tag gid: "V-72171"
-  tag rid: "SV-86795r7_rule"
-  tag stig_id: "RHEL-07-030740"
-  tag fix_id: "F-78525r9_fix"
-  tag cci: ["CCI-000135", "CCI-002884"]
-  tag nist: ["AU-3 (1)", "MA-4 (1) (a)"]
+  tag gtitle: 'SRG-OS-000042-GPOS-00020'
+  tag satisfies: ['SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172']
+  tag gid: 'V-72171'
+  tag rid: 'SV-86795r7_rule'
+  tag stig_id: 'RHEL-07-030740'
+  tag fix_id: 'F-78525r9_fix'
+  tag cci: ['CCI-000135', 'CCI-002884']
+  tag nist: ['AU-3 (1)', 'MA-4 (1) (a)']
 
-  describe auditd.syscall("mount").where {arch == "b32"} do
+  describe auditd.syscall('mount').where { arch == 'b32' } do
     its('action.uniq') { should eq ['always'] }
     its('list.uniq') { should eq ['exit'] }
   end
 
   if os.arch == 'x86_64'
-    describe auditd.syscall("mount").where {arch == "b64"} do
+    describe auditd.syscall('mount').where { arch == 'b64' } do
       its('action.uniq') { should eq ['always'] }
       its('list.uniq') { should eq ['exit'] }
     end
   end
 
-  describe auditd.path("/usr/bin/mount") do
+  describe auditd.path('/usr/bin/mount') do
     its('action.uniq') { should eq ['always'] }
     its('list.uniq') { should eq ['exit'] }
   end
 end
-
-

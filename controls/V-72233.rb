@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72233" do
+control 'V-72233' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all networked systems have SSH installed."
   desc  "Without protection of the transmitted information, confidentiality and
@@ -21,7 +20,7 @@ have to be employed, and vice versa.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Check to see if sshd is installed with the following command:
 
@@ -39,15 +38,15 @@ have to be employed, and vice versa.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000423-GPOS-00187"
-  tag satisfies: ["SRG-OS-000423-GPOS-00187", "SRG-OS-000424-GPOS-00188",
-"SRG-OS-000425-GPOS-00189", "SRG-OS-000426-GPOS-00190"]
-  tag gid: "V-72233"
-  tag rid: "SV-86857r3_rule"
-  tag stig_id: "RHEL-07-040300"
-  tag fix_id: "F-78587r3_fix"
-  tag cci: ["CCI-002418", "CCI-002420", "CCI-002421", "CCI-002422"]
-  tag nist: ["SC-8", "SC-8 (2)", "SC-8 (1)", "SC-8 (2)"]
+  tag gtitle: 'SRG-OS-000423-GPOS-00187'
+  tag satisfies: ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000424-GPOS-00188',
+                  'SRG-OS-000425-GPOS-00189', 'SRG-OS-000426-GPOS-00190']
+  tag gid: 'V-72233'
+  tag rid: 'SV-86857r3_rule'
+  tag stig_id: 'RHEL-07-040300'
+  tag fix_id: 'F-78587r3_fix'
+  tag cci: ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']
+  tag nist: ['SC-8', 'SC-8 (2)', 'SC-8 (1)', 'SC-8 (2)']
 
   describe package('openssh-server') do
     it { should be_installed }
@@ -56,4 +55,3 @@ have to be employed, and vice versa.
     it { should be_installed }
   end
 end
-

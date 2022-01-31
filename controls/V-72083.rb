@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72083" do
+control 'V-72083' do
   title "The Red Hat Enterprise Linux operating system must off-load audit
 records onto a different system or media from the system being audited."
   desc  "Information stored in one location is vulnerable to accidental or
@@ -10,7 +9,7 @@ storage capacity.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system off-loads audit records onto a different system
 or media from the system being audited.
@@ -37,18 +36,18 @@ IP address of the log aggregation server.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000342-GPOS-00133"
-  tag satisfies: ["SRG-OS-000342-GPOS-00133", "SRG-OS-000479-GPOS-00224"]
-  tag gid: "V-72083"
-  tag rid: "SV-86707r2_rule"
-  tag stig_id: "RHEL-07-030300"
-  tag fix_id: "F-78435r1_fix"
-  tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)"]
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag gid: 'V-72083'
+  tag rid: 'SV-86707r2_rule'
+  tag stig_id: 'RHEL-07-030300'
+  tag fix_id: 'F-78435r1_fix'
+  tag cci: ['CCI-001851']
+  tag nist: ['AU-4 (1)']
 
   if file('/etc/audisp/audisp-remote.conf').exist?
     describe parse_config_file('/etc/audisp/audisp-remote.conf') do
-      its('remote_server'.to_s) { should match %r{^\S+$} }
+      its('remote_server'.to_s) { should match(/^\S+$/) }
       its('remote_server'.to_s) { should_not be_in ['localhost', '127.0.0.1'] }
     end
   else
@@ -57,4 +56,3 @@ IP address of the log aggregation server.
     end
   end
 end
-

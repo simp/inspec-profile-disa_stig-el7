@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71977" do
+control 'V-71977' do
   title "The Red Hat Enterprise Linux operating system must prevent the
 installation of software, patches, service packs, device drivers, or operating
 system components from a repository without verification they have been
@@ -21,7 +20,7 @@ operating system should not have to verify the software again. This requirement
 does not mandate DoD certificates for this purpose; however, the certificate
 used to verify the software must be from an approved CA.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system prevents the installation of patches, service
 packs, device drivers, or operating system components from a repository without
@@ -50,17 +49,17 @@ repository prior to install by setting the following option in the
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000366-GPOS-00153"
-  tag gid: "V-71977"
-  tag rid: "SV-86601r2_rule"
-  tag stig_id: "RHEL-07-020050"
-  tag fix_id: "F-78329r1_fix"
-  tag cci: ["CCI-001749"]
-  tag nist: ["CM-5 (3)"]
+  tag gtitle: 'SRG-OS-000366-GPOS-00153'
+  tag gid: 'V-71977'
+  tag rid: 'SV-86601r2_rule'
+  tag stig_id: 'RHEL-07-020050'
+  tag fix_id: 'F-78329r1_fix'
+  tag cci: ['CCI-001749']
+  tag nist: ['CM-5 (3)']
 
   yum_conf = '/etc/yum.conf'
 
-  if ((f = file(yum_conf)).exist?)
+  if (f = file(yum_conf)).exist?
     describe ini(yum_conf) do
       its('main.gpgcheck') { should cmp 1 }
     end
@@ -70,4 +69,3 @@ repository prior to install by setting the following option in the
     end
   end
 end
-

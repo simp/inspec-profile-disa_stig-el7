@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72267" do
+control 'V-72267' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the SSH daemon does not allow compression or only allows compression after
 successful authentication."
@@ -7,7 +6,7 @@ successful authentication."
 authentication, vulnerabilities in the compression software could result in
 compromise of the system from an unauthenticated connection, potentially with
 root privileges."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the SSH daemon performs compression after a user successfully
 authenticates.
@@ -33,13 +32,13 @@ value to \"delayed\" or \"no\":
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72267"
-  tag rid: "SV-86891r3_rule"
-  tag stig_id: "RHEL-07-040470"
-  tag fix_id: "F-78621r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72267'
+  tag rid: 'SV-86891r3_rule'
+  tag stig_id: 'RHEL-07-040470'
+  tag fix_id: 'F-78621r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   describe.one do
     describe sshd_config do
@@ -50,4 +49,3 @@ value to \"delayed\" or \"no\":
     end
   end
 end
-

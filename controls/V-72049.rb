@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72049" do
+control 'V-72049' do
   title "The Red Hat Enterprise Linux operating system must set the umask value
 to 077 for all local interactive user accounts."
   desc  "The umask controls the default access mode assigned to newly created
@@ -8,7 +7,7 @@ umask can be represented as a four-digit number, the first digit representing
 special access modes is typically ignored or required to be \"0\". This
 requirement applies to the globally configured system defaults and the local
 interactive user defaults for each account on the system."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify that the default umask for all local interactive users is \"077\".
 
@@ -40,14 +39,14 @@ environment variables.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72049"
-  tag rid: "SV-86673r2_rule"
-  tag stig_id: "RHEL-07-021040"
-  tag fix_id: "F-78401r3_fix"
-  tag cci: ["CCI-000318", "CCI-000368", "CCI-001812", "CCI-001813",
-"CCI-001814"]
-  tag nist: ["CM-3 f", "CM-6 c", "CM-11 (2)", "CM-5 (1)", "CM-5 (1)"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72049'
+  tag rid: 'SV-86673r2_rule'
+  tag stig_id: 'RHEL-07-021040'
+  tag fix_id: 'F-78401r3_fix'
+  tag cci: ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
+            'CCI-001814']
+  tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
 
   non_interactive_shells = input('non_interactive_shells')
 
@@ -62,61 +61,53 @@ environment variables.
 
   # Get UID_MIN from login.defs
   uid_min = 1000
-  if file("/etc/login.defs").exist?
+  if file('/etc/login.defs').exist?
     uid_min_val = command("grep '^UID_MIN' /etc/login.defs | grep -Po '[0-9]+'").stdout.split("\n")
-    if !uid_min_val.empty?
-      uid_min = uid_min_val[0].to_i
-    end
+    uid_min = uid_min_val[0].to_i unless uid_min_val.empty?
   end
 
-  interactive_users = users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries
+  interactive_users = users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries
 
   # For each user, build and execute a find command that identifies initialization files
   # in a user's home directory.
   interactive_users.each do |u|
-
     # Only check if the home directory is local
     is_local = command("df -l #{u.home}").exit_status
 
     if is_local == 0
       # Get user's initialization files
-      dotfiles = dotfiles + command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
+      dotfiles += command("find #{u.home} -xdev -maxdepth 2 ( -name '.*' ! -name '.bash_history' ) -type f").stdout.split("\n")
 
       # Get user's umask
-      umasks.store(u.username,command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
+      umasks.store(u.username, command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
       # Check all local initialization files to see whether or not they are less restrictive than 077.
       dotfiles.each do |df|
-        if file(df).more_permissive_than?("0077")
-          findings = findings + df
-        end
+        findings += df if file(df).more_permissive_than?('0077')
       end
 
       # Check umask for all interactive users
-      umasks.each do |key,value|
-        max_mode = ("0077").to_i(8)
-        inv_mode = 0777 ^ max_mode
-        if inv_mode & (value).to_i(8) != 0
-          umask_findings = umask_findings + key
-        end
+      umasks.each do |key, value|
+        max_mode = ('0077').to_i(8)
+        inv_mode = 0o777 ^ max_mode
+        umask_findings += key if inv_mode & (value).to_i(8) != 0
       end
     else
-      describe "This control skips non-local filesystems" do
-       skip "This control has skipped the #{u.home} home directory for #{u.username} because it is not a local filesystem."
-     end
+      describe 'This control skips non-local filesystems' do
+        skip "This control has skipped the #{u.home} home directory for #{u.username} because it is not a local filesystem."
+      end
     end
   end
 
   # Report on any interactive files that are less restrictive than 077.
-  describe "No interactive user initialization files with a less restrictive umask were found." do
+  describe 'No interactive user initialization files with a less restrictive umask were found.' do
     subject { findings.empty? }
     it { should eq true }
   end
 
   # Report on any interactive users that have a umask less restrictive than 077.
-  describe "No users were found with a less restrictive umask were found." do
+  describe 'No users were found with a less restrictive umask were found.' do
     subject { umask_findings.empty? }
     it { should eq true }
   end
 end
-

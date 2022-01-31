@@ -1,10 +1,9 @@
-# -*- encoding : utf-8 -*-
-control "V-72303" do
+control 'V-72303' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that remote X connections for interactive users are encrypted."
   desc  "Open X displays allow an attacker to capture keystrokes and execute
 commands remotely."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify remote X connections for interactive users are encrypted.
 
@@ -33,16 +32,15 @@ provided by a third-party vendor):
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72303"
-  tag rid: "SV-86927r4_rule"
-  tag stig_id: "RHEL-07-040710"
-  tag fix_id: "F-78657r6_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72303'
+  tag rid: 'SV-86927r4_rule'
+  tag stig_id: 'RHEL-07-040710'
+  tag fix_id: 'F-78657r6_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   describe sshd_config do
     its('X11Forwarding') { should cmp 'yes' }
   end
 end
-

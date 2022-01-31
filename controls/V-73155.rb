@@ -1,8 +1,7 @@
-# -*- encoding : utf-8 -*-
-control "V-73155" do
+control 'V-73155' do
   title "The Red Hat Enterprise Linux operating system must prevent a user from
   overriding the screensaver lock-delay setting for the graphical user interface."
-  desc  "A session time-out lock is a temporary action taken when a user stops
+  desc "A session time-out lock is a temporary action taken when a user stops
   work and moves away from the immediate physical vicinity of the information
   system but does not log out because of the temporary nature of the absence.
   Rather than relying on the user to manually lock their operating system session
@@ -12,7 +11,7 @@ control "V-73155" do
       The session lock is implemented at the point where session activity can be
   determined and/or controlled.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system prevents a user from overriding a screensaver
   lock after a 15-minute period of inactivity for graphical user interfaces.
@@ -60,22 +59,22 @@ control "V-73155" do
 
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000029-GPOS-00010"
-  tag gid: "V-73155"
-  tag rid: "SV-87807r4_rule"
-  tag stig_id: "RHEL-07-010081"
-  tag fix_id: "F-79601r2_fix"
-  tag cci: ["CCI-000057"]
-  tag nist: ["AC-11 a"]
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-73155'
+  tag rid: 'SV-87807r4_rule'
+  tag stig_id: 'RHEL-07-010081'
+  tag fix_id: 'F-79601r2_fix'
+  tag cci: ['CCI-000057']
+  tag nist: ['AC-11 a']
 
-    unless package('gnome-desktop3').installed?
-      impact 0.0
-      describe "The GNOME desktop is not installed" do
-        skip "The GNOME desktop is not installed, this control is Not Applicable."
-      end
-    else
-      describe command("gsettings writable org.gnome.desktop.screensaver lock-delay") do
-        its('stdout.strip') { should cmp 'false' }
-      end
+  if package('gnome-desktop3').installed?
+    describe command('gsettings writable org.gnome.desktop.screensaver lock-delay') do
+      its('stdout.strip') { should cmp 'false' }
+    end
+  else
+    impact 0.0
+    describe 'The GNOME desktop is not installed' do
+      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
     end
   end
+end

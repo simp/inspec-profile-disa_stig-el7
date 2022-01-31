@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72217" do
+control 'V-72217' do
   title "The Red Hat Enterprise Linux operating system must limit the number of
 concurrent sessions to 10 for all accounts and/or account types."
   desc  "Operating system management includes the ability to control the number
@@ -12,7 +11,7 @@ accounts and does not address concurrent sessions by single users via multiple
 system accounts. The maximum number of concurrent sessions should be defined
 based on mission needs and the operational environment for each system.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system limits the number of concurrent sessions to
 \"10\" for all accounts and/or account types by issuing the following command:
@@ -39,13 +38,13 @@ to \"10\" for all accounts and/or account types.
   "
   impact 0.3
   tag severity: nil
-  tag gtitle: "SRG-OS-000027-GPOS-00008"
-  tag gid: "V-72217"
-  tag rid: "SV-86841r3_rule"
-  tag stig_id: "RHEL-07-040000"
-  tag fix_id: "F-78571r2_fix"
-  tag cci: ["CCI-000054"]
-  tag nist: ["AC-10"]
+  tag gtitle: 'SRG-OS-000027-GPOS-00008'
+  tag gid: 'V-72217'
+  tag rid: 'SV-86841r3_rule'
+  tag stig_id: 'RHEL-07-040000'
+  tag fix_id: 'F-78571r2_fix'
+  tag cci: ['CCI-000054']
+  tag nist: ['AC-10']
 
   maxlogins_limit = input('maxlogins_limit')
 
@@ -60,17 +59,17 @@ to \"10\" for all accounts and/or account types.
     # Get any universal limits from each file
     local_limits = limits_conf(limits_file).*
     # If we got an array (results) check further
-    if local_limits.is_a?(Array)
-      local_limits.each do |temp_limit|
-        # For each result check if it is a 'hard' limit for 'maxlogins'
-        if temp_limit.include?('hard') && temp_limit.include?('maxlogins')
-          # If the limit is in range, push to compliant files
-          if temp_limit[-1].to_i <= maxlogins_limit
-            compliant_files.push(limits_file)
-          # Otherwise add to noncompliant files
-          else
-            noncompliant_files.push(limits_file)
-          end
+    next unless local_limits.is_a?(Array)
+
+    local_limits.each do |temp_limit|
+      # For each result check if it is a 'hard' limit for 'maxlogins'
+      if temp_limit.include?('hard') && temp_limit.include?('maxlogins')
+        # If the limit is in range, push to compliant files
+        if temp_limit[-1].to_i <= maxlogins_limit
+          compliant_files.push(limits_file)
+        # Otherwise add to noncompliant files
+        else
+          noncompliant_files.push(limits_file)
         end
       end
     end

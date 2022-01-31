@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72319" do
+control 'V-72319' do
   title "The Red Hat Enterprise Linux operating system must not forward IPv6
 source-routed packets."
   desc  "Source-routed packets allow the source of the packet to suggest that
@@ -7,7 +6,7 @@ routers forward the packet along a different path than configured on the
 router, which can be used to bypass network security measures. This requirement
 applies only to the forwarding of source-routed traffic, such as when IPv6
 forwarding is enabled and the system is functioning as a router."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     If IPv6 is not enabled, the key will not exist, and this is Not Applicable.
 
@@ -43,22 +42,21 @@ the /etc/sysctl.d/ directory (or modify the line to have the required value):
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72319"
-  tag rid: "SV-86943r2_rule"
-  tag stig_id: "RHEL-07-040830"
-  tag fix_id: "F-78673r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72319'
+  tag rid: 'SV-86943r2_rule'
+  tag stig_id: 'RHEL-07-040830'
+  tag fix_id: 'F-78673r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   describe.one do
     describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
       its('value') { should eq 0 }
     end
-	# If IPv6 is disabled in the kernel it will return NIL
+    # If IPv6 is disabled in the kernel it will return NIL
     describe kernel_parameter('net.ipv6.conf.all.accept_source_route') do
       its('value') { should eq nil }
     end
   end
 end
-

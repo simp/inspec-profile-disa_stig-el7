@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-81019" do
+control 'V-81019' do
   title "The Red Hat Enterprise Linux operating system must take appropriate
 action when the audisp-remote buffer is full."
   desc  "Information stored in one location is vulnerable to accidental or
@@ -13,7 +12,7 @@ to the central log server.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the audisp daemon is configured to take an appropriate action when
 the internal queue is full:
@@ -37,18 +36,18 @@ the internal queue is full:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000342-GPOS-00133"
-  tag satisfies: ["SRG-OS-000342-GPOS-00133", "SRG-OS-000479-GPOS-00224"]
-  tag gid: "V-81019"
-  tag rid: "SV-95731r1_rule"
-  tag stig_id: "RHEL-07-030210"
-  tag fix_id: "F-87853r3_fix"
-  tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)"]
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag gid: 'V-81019'
+  tag rid: 'SV-95731r1_rule'
+  tag stig_id: 'RHEL-07-030210'
+  tag fix_id: 'F-87853r3_fix'
+  tag cci: ['CCI-001851']
+  tag nist: ['AU-4 (1)']
 
   if file('/etc/audisp/audispd.conf').exist?
     describe parse_config_file('/etc/audisp/audispd.conf') do
-      its('overflow_action') { should match %r{syslog$|single$|halt$}i }
+      its('overflow_action') { should match(/syslog$|single$|halt$/i) }
     end
   else
     describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
@@ -56,4 +55,3 @@ the internal queue is full:
     end
   end
 end
-

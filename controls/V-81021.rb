@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-81021" do
+control 'V-81021' do
   title "The Red Hat Enterprise Linux operating system must label all
 off-loaded audit logs before sending them to the central log server."
   desc  "Information stored in one location is vulnerable to accidental or
@@ -14,7 +13,7 @@ correct system.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the audisp daemon is configured to label all off-loaded audit logs:
 
@@ -37,18 +36,18 @@ or the line is commented out, this is a finding.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000342-GPOS-00133"
-  tag satisfies: ["SRG-OS-000342-GPOS-00133", "SRG-OS-000479-GPOS-00224"]
-  tag gid: "V-81021"
-  tag rid: "SV-95733r1_rule"
-  tag stig_id: "RHEL-07-030211"
-  tag fix_id: "F-87855r2_fix"
-  tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)"]
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag gid: 'V-81021'
+  tag rid: 'SV-95733r1_rule'
+  tag stig_id: 'RHEL-07-030211'
+  tag fix_id: 'F-87855r2_fix'
+  tag cci: ['CCI-001851']
+  tag nist: ['AU-4 (1)']
 
   if file('/etc/audisp/audispd.conf').exist?
     describe parse_config_file('/etc/audisp/audispd.conf') do
-      its('name_format') { should match %r{^hostname$|^fqd$|^numeric$}i }
+      its('name_format') { should match(/^hostname$|^fqd$|^numeric$/i) }
     end
   else
     describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
@@ -56,4 +55,3 @@ or the line is commented out, this is a finding.
     end
   end
 end
-

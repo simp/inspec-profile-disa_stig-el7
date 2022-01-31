@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72015" do
+control 'V-72015' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all local interactive user home directories are defined in the /etc/passwd
 file."
@@ -8,7 +7,7 @@ exist, the user may be given access to the / directory as the current working
 directory upon logon. This could create a Denial of Service because the user
 would not be able to access their logon configuration files, and it may give
 them visibility to system files they normally would not be able to access."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the assigned home directory of all local interactive users on the
 system exists.
@@ -48,13 +47,13 @@ user home directory assigned in \"/etc/ passwd\":
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72015"
-  tag rid: "SV-86639r2_rule"
-  tag stig_id: "RHEL-07-020620"
-  tag fix_id: "F-78367r2_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72015'
+  tag rid: 'SV-86639r2_rule'
+  tag stig_id: 'RHEL-07-020620'
+  tag fix_id: 'F-78367r2_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -64,11 +63,11 @@ user home directory assigned in \"/etc/ passwd\":
   uid_min = login_defs.read_params['UID_MIN'].to_i
   uid_min = 1000 if uid_min.nil?
 
-  users.where{ !shell.match(ignore_shells) && (uid >= uid_min || uid == 0)}.entries.each do |user_info|
-    next if exempt_home_users.include?("#{user_info.username}")
+  users.where { !shell.match(ignore_shells) && (uid >= uid_min || uid == 0) }.entries.each do |user_info|
+    next if exempt_home_users.include?(user_info.username.to_s)
+
     describe directory(user_info.home) do
       it { should exist }
     end
   end
 end
-

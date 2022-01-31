@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72219" do
+control 'V-72219' do
   title "The Red Hat Enterprise Linux operating system must be configured to
 prohibit or restrict the use of functions, ports, protocols, and/or services,
 as defined in the Ports, Protocols, and Services Management Component Local
@@ -24,7 +23,7 @@ business or to address authorized quality of life issues.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Inspect the firewall configuration and running services to verify that it
 is configured to prohibit or restrict the use of functions, ports, protocols,
@@ -54,14 +53,14 @@ the PPSM Category Assurance List (CAL), this is a finding.
 comply with the PPSM CLSA for the site or program and the PPSM CAL."
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000096-GPOS-00050"
-  tag satisfies: ["SRG-OS-000096-GPOS-00050", "SRG-OS-000297-GPOS-00115"]
-  tag gid: "V-72219"
-  tag rid: "SV-86843r2_rule"
-  tag stig_id: "RHEL-07-040100"
-  tag fix_id: "F-78573r1_fix"
-  tag cci: ["CCI-000382", "CCI-002314"]
-  tag nist: ["CM-7 b", "AC-17 (1)"]
+  tag gtitle: 'SRG-OS-000096-GPOS-00050'
+  tag satisfies: ['SRG-OS-000096-GPOS-00050', 'SRG-OS-000297-GPOS-00115']
+  tag gid: 'V-72219'
+  tag rid: 'SV-86843r2_rule'
+  tag stig_id: 'RHEL-07-040100'
+  tag fix_id: 'F-78573r1_fix'
+  tag cci: ['CCI-000382', 'CCI-002314']
+  tag nist: ['CM-7 b', 'AC-17 (1)']
 
   firewalld_services_deny = input('firewalld_services_deny')
   firewalld_hosts_deny = input('firewalld_hosts_deny')
@@ -96,7 +95,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
         if !zone_services.nil?
           describe firewalld do
             zone_services.each do |serv|
-              it { should_not have_service_enabled_in_zone(serv,zone) }
+              it { should_not have_service_enabled_in_zone(serv, zone) }
             end
           end
         else
@@ -109,7 +108,7 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
         if !zone_ports.nil?
           describe firewalld do
             zone_ports.each do |port|
-              it { should_not have_port_enabled_in_zone(port,zone) }
+              it { should_not have_port_enabled_in_zone(port, zone) }
             end
           end
         else
@@ -132,10 +131,9 @@ comply with the PPSM CLSA for the site or program and the PPSM CAL."
       end
     end
   else
-    describe "No application firewall is installed" do
+    describe 'No application firewall is installed' do
       subject { service('firewalld').running? || service('iptables').running? }
       it { should eq true }
     end
   end
 end
-

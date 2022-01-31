@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71863" do
+control 'V-71863' do
   title "The Red Hat Enterprise Linux operating system must display the
 Standard Mandatory DoD Notice and Consent Banner before granting local or
 remote access to the system via a command line user logon."
@@ -44,7 +43,7 @@ Agreement for details.\"
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system displays the Standard Mandatory DoD Notice and
 Consent Banner before granting access to the operating system via a command
@@ -126,38 +125,41 @@ Agreement for details.\"
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000023-GPOS-00006"
-  tag satisfies: ["SRG-OS-000023-GPOS-00006", "SRG-OS-000024-GPOS-00007"]
-  tag gid: "V-71863"
-  tag rid: "SV-86487r3_rule"
-  tag stig_id: "RHEL-07-010050"
-  tag fix_id: "F-78217r2_fix"
-  tag cci: ["CCI-000048"]
-  tag nist: ["AC-8 a"]
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
+  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007']
+  tag gid: 'V-71863'
+  tag rid: 'SV-86487r3_rule'
+  tag stig_id: 'RHEL-07-010050'
+  tag fix_id: 'F-78217r2_fix'
+  tag cci: ['CCI-000048']
+  tag nist: ['AC-8 a']
 
   banner_message_text_cli = input('banner_message_text_cli')
   banner_message_text_cli_limited = input('banner_message_text_cli_limited')
 
-  clean_banner = banner_message_text_cli.gsub(%r{[\r\n\s]}, '')
-  clean_banner_limited = banner_message_text_cli_limited.gsub(%r{[\r\n\s]}, '')
-  banner_file = file("/etc/issue")
+  clean_banner = banner_message_text_cli.gsub(/[\r\n\s]/, '')
+  clean_banner_limited = banner_message_text_cli_limited.gsub(/[\r\n\s]/, '')
+  banner_file = file('/etc/issue')
   banner_missing = !banner_file.exist?
 
-  describe "The banner text is not set because /etc/issue does not exist" do
-    subject { banner_missing }
-    it { should be false }
-  end if banner_missing
+  if banner_missing
+    describe 'The banner text is not set because /etc/issue does not exist' do
+      subject { banner_missing }
+      it { should be false }
+    end
+  end
 
-  banner_message = banner_file.content.gsub(%r{[\r\n\s]}, '')
-  describe.one do
-    describe "The banner text should match the standard banner" do
-      subject { banner_message }
-      it { should cmp clean_banner }
+  banner_message = banner_file.content.gsub(/[\r\n\s]/, '')
+  unless banner_missing
+    describe.one do
+      describe 'The banner text should match the standard banner' do
+        subject { banner_message }
+        it { should cmp clean_banner }
+      end
+      describe 'The banner text should match the limited banner' do
+        subject { banner_message }
+        it { should cmp clean_banner_limited }
+      end
     end
-    describe "The banner text should match the limited banner" do
-      subject { banner_message }
-      it{should cmp clean_banner_limited }
-    end
-  end if !banner_missing
+  end
 end
-

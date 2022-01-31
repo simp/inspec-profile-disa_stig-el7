@@ -1,12 +1,11 @@
-# -*- encoding : utf-8 -*-
-control "V-72185" do
+control 'V-72185' do
   title "The Red Hat Enterprise Linux operating system must audit all uses of
 the pam_timestamp_check command."
   desc  "Without generating audit records that are specific to the security and
 mission needs of the organization, it would be difficult to establish,
 correlate, and investigate the events relating to an incident or identify those
 responsible for one."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"pam_timestamp_check\" command
@@ -35,13 +34,13 @@ auid!=4294967295 -k privileged-pam
     The audit daemon must be restarted for the changes to take effect.
   "
   tag severity: nil
-  tag gtitle: "SRG-OS-000471-GPOS-00215"
-  tag gid: "V-72185"
-  tag rid: "SV-86809r4_rule"
-  tag stig_id: "RHEL-07-030810"
-  tag fix_id: "F-78539r4_fix"
-  tag cci: ["CCI-000172"]
-  tag nist: ["AU-12 c"]
+  tag gtitle: 'SRG-OS-000471-GPOS-00215'
+  tag gid: 'V-72185'
+  tag rid: 'SV-86809r4_rule'
+  tag stig_id: 'RHEL-07-030810'
+  tag fix_id: 'F-78539r4_fix'
+  tag cci: ['CCI-000172']
+  tag nist: ['AU-12 c']
 
   audit_file = '/sbin/pam_timestamp_check'
 
@@ -51,12 +50,16 @@ auid!=4294967295 -k privileged-pam
     impact 0.0
   end
 
-  describe auditd.file(audit_file) do
-    its('permissions') { should include ['x'] }
-    its('action') { should_not include 'never' }
-  end if file(audit_file).exist?
+  if file(audit_file).exist?
+    describe auditd.file(audit_file) do
+      its('permissions') { should include ['x'] }
+      its('action') { should_not include 'never' }
+    end
+  end
 
-  describe "The #{audit_file} file does not exist" do
-    skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
-  end if !file(audit_file).exist?
+  unless file(audit_file).exist?
+    describe "The #{audit_file} file does not exist" do
+      skip "The #{audit_file} file does not exist, this requirement is Not Applicable."
+    end
+  end
 end

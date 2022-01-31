@@ -1,12 +1,11 @@
-# -*- encoding : utf-8 -*-
-control "V-72001" do
+control 'V-72001' do
   title "The Red Hat Enterprise Linux operating system must not have
 unnecessary accounts."
   desc  "Accounts providing no operational purpose provide additional
 opportunities for system compromise. Unnecessary accounts include user accounts
 for individuals not requiring access to the system and application accounts for
 applications not installed on the system."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify all accounts on the system are assigned to an active system,
 application, or user account.
@@ -44,13 +43,13 @@ allow for a normal user to perform administrative-level actions.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72001"
-  tag rid: "SV-86625r2_rule"
-  tag stig_id: "RHEL-07-020270"
-  tag fix_id: "F-78353r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72001'
+  tag rid: 'SV-86625r2_rule'
+  tag stig_id: 'RHEL-07-020270'
+  tag fix_id: 'F-78353r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   known_system_accounts = input('known_system_accounts')
   user_accounts = input('user_accounts')
@@ -58,10 +57,9 @@ allow for a normal user to perform administrative-level actions.
   allowed_accounts = (known_system_accounts + user_accounts).uniq
   passwd.users.each do |user|
     describe user do
-      it "is listed in allowed users." do
-        expect(subject).to(be_in allowed_accounts)
+      it 'is listed in allowed users.' do
+        expect(subject).to(be_in(allowed_accounts))
       end
     end
   end
 end
-

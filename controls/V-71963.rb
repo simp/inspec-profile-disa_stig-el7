@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71963" do
+control 'V-71963' do
   title "Red Hat Enterprise Linux operating systems prior to version 7.2 using
 Unified Extensible Firmware Interface (UEFI) must require authentication upon
 booting into single-user and maintenance modes."
@@ -8,7 +7,7 @@ boots into single-user or maintenance mode, anyone who invokes single-user or
 maintenance mode is granted privileged access to all files on the system. GRUB
 2 is the default boot loader for RHEL 7 and is designed to require a password
 to boot into single-user mode or make modifications to the boot menu."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     For systems that use BIOS, this is Not Applicable.
     For systems that are running RHEL 7.2 or newer, this is Not Applicable.
@@ -56,39 +55,38 @@ commands:
   "
   impact 0.7
   tag severity: nil
-  tag gtitle: "SRG-OS-000080-GPOS-00048"
-  tag gid: "V-71963"
-  tag rid: "SV-86587r4_rule"
-  tag stig_id: "RHEL-07-010490"
-  tag fix_id: "F-78315r3_fix"
-  tag cci: ["CCI-000213"]
-  tag nist: ["AC-3"]
+  tag gtitle: 'SRG-OS-000080-GPOS-00048'
+  tag gid: 'V-71963'
+  tag rid: 'SV-86587r4_rule'
+  tag stig_id: 'RHEL-07-010490'
+  tag fix_id: 'F-78315r3_fix'
+  tag cci: ['CCI-000213']
+  tag nist: ['AC-3']
 
-  os_minor_version = os().release.split('.')[1].to_i
+  os_minor_version = os.release.split('.')[1].to_i
 
   efi_superusers = os_minor_version < 2 ? input('efi_superusers') : ['root']
-  efi_superusers.push('root') if !efi_superusers.include?('root')
-  efi_main_cfg = "/boot/efi/EFI/#{os().name}/grub.cfg"
+  efi_superusers.push('root') unless efi_superusers.include?('root')
+  efi_main_cfg = "/boot/efi/EFI/#{os.name}/grub.cfg"
 
-  unless file('/sys/firmware/efi').exist?
-    impact 0.0
-    describe "System running BIOS" do
-      skip "The System is running BIOS, this control is Not Applicable."
-    end
-  else
-    if os[:release] < "7.2"
+  if file('/sys/firmware/efi').exist?
+    if os[:release] < '7.2'
       impact 0.0
-      describe "System running version of RHEL prior to 7.2" do
-        skip "The System is running an outdated version of RHEL, this control is Not Applicable."
+      describe 'System running version of RHEL prior to 7.2' do
+        skip 'The System is running an outdated version of RHEL, this control is Not Applicable.'
       end
     else
       impact 0.7
       efi_superusers.each do |user|
         describe file(efi_main_cfg) do
-            its('content') { should match %r{^\s*password_pbkdf2\s+#{user} } }
+          its('content') { should match(/^\s*password_pbkdf2\s+#{user} /) }
         end
       end
     end
+  else
+    impact 0.0
+    describe 'System running BIOS' do
+      skip 'The System is running BIOS, this control is Not Applicable.'
+    end
   end
 end
-

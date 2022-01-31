@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-73159" do
+control 'V-73159' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that when passwords are changed or new passwords are established, pwquality
 must be used."
@@ -8,7 +7,7 @@ required to compromise the password. Password complexity, or strength, is a
 measure of the effectiveness of a password in resisting attempts at guessing
 and brute-force attacks. \"pwquality\" enforces complex password construction
 configuration and has the ability to limit brute-force attacks on the system."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system uses \"pwquality\" to enforce the password
 complexity rules.
@@ -38,20 +37,24 @@ have the required value):
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000069-GPOS-00037"
-  tag gid: "V-73159"
-  tag rid: "SV-87811r4_rule"
-  tag stig_id: "RHEL-07-010119"
-  tag fix_id: "F-79605r5_fix"
-  tag cci: ["CCI-000192"]
-  tag nist: ["IA-5 (1) (a)"]
+  tag gtitle: 'SRG-OS-000069-GPOS-00037'
+  tag gid: 'V-73159'
+  tag rid: 'SV-87811r4_rule'
+  tag stig_id: 'RHEL-07-010119'
+  tag fix_id: 'F-79605r5_fix'
+  tag cci: ['CCI-000192']
+  tag nist: ['IA-5 (1) (a)']
 
   max_retry = input('max_retry')
 
   describe pam('/etc/pam.d/passwd') do
     its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so') }
-    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '>=', 1) }
-    its('lines') { should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=', max_retry) }
+    its('lines') do
+      should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '>=', 1)
+    end
+    its('lines') do
+      should match_pam_rule('password (required|requisite) pam_pwquality.so').all_with_integer_arg('retry', '<=',
+                                                                                                   max_retry)
+    end
   end
 end
-

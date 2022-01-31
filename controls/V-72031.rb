@@ -1,12 +1,11 @@
-# -*- encoding : utf-8 -*-
-control "V-72031" do
+control 'V-72031' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all local initialization files for local interactive users are be
 group-owned by the users primary group or root."
   desc  "Local initialization files for interactive users are used to configure
 the user's shell environment upon logon. Malicious modification of these files
 could compromise accounts upon logon."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the local initialization files of all local interactive users are
 group-owned by that user's primary Group Identifier (GID).
@@ -51,13 +50,13 @@ interactive user's home directory, use the following command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72031"
-  tag rid: "SV-86655r4_rule"
-  tag stig_id: "RHEL-07-020700"
-  tag fix_id: "F-78383r4_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72031'
+  tag rid: 'SV-86655r4_rule'
+  tag stig_id: 'RHEL-07-020700'
+  tag fix_id: 'F-78383r4_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   exempt_home_users = input('exempt_home_users')
   non_interactive_shells = input('non_interactive_shells')
@@ -65,11 +64,10 @@ interactive user's home directory, use the following command:
   ignore_shells = non_interactive_shells.join('|')
 
   findings = Set[]
-  users.where{ !shell.match(ignore_shells) && (uid >= 1000 || uid == 0)}.entries.each do |user_info|
-    findings = findings + command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
+  users.where { !shell.match(ignore_shells) && (uid >= 1000 || uid == 0) }.entries.each do |user_info|
+    findings += command("find #{user_info.home} -name '.*' -not -gid #{user_info.gid} -not -group root").stdout.split("\n")
   end
   describe findings do
     its('length') { should == 0 }
   end
 end
-

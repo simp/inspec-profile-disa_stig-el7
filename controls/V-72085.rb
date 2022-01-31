@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72085" do
+control 'V-72085' do
   title "The Red Hat Enterprise Linux operating system must encrypt the
 transfer of audit records off-loaded onto a different system or media from the
 system being audited."
@@ -11,7 +10,7 @@ storage capacity.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system encrypts audit records off-loaded onto a
 different system or media from the system being audited.
@@ -39,17 +38,16 @@ and set it with the following line:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000342-GPOS-00133"
-  tag satisfies: ["SRG-OS-000342-GPOS-00133", "SRG-OS-000479-GPOS-00224"]
-  tag gid: "V-72085"
-  tag rid: "SV-86709r2_rule"
-  tag stig_id: "RHEL-07-030310"
-  tag fix_id: "F-78437r1_fix"
-  tag cci: ["CCI-001851"]
-  tag nist: ["AU-4 (1)"]
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag gid: 'V-72085'
+  tag rid: 'SV-86709r2_rule'
+  tag stig_id: 'RHEL-07-030310'
+  tag fix_id: 'F-78437r1_fix'
+  tag cci: ['CCI-001851']
+  tag nist: ['AU-4 (1)']
 
   describe parse_config_file('/etc/audisp/audisp-remote.conf') do
     its('enable_krb5'.to_s) { should cmp 'yes' }
   end
 end
-

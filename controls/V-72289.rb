@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72289" do
+control 'V-72289' do
   title "The Red Hat Enterprise Linux operating system must prevent Internet
 Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect
 messages from being accepted."
@@ -7,7 +6,7 @@ messages from being accepted."
 direct route exists for a particular destination. These messages modify the
 host's route table and are unauthenticated. An illicit ICMP redirect message
 could result in a man-in-the-middle attack."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the system will not accept IPv4 ICMP redirect messages.
 
@@ -39,16 +38,15 @@ following line to \"/etc/sysctl.conf\" or a configuration file in the
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72289"
-  tag rid: "SV-86913r3_rule"
-  tag stig_id: "RHEL-07-040640"
-  tag fix_id: "F-78643r3_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72289'
+  tag rid: 'SV-86913r3_rule'
+  tag stig_id: 'RHEL-07-040640'
+  tag fix_id: 'F-78643r3_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   describe kernel_parameter('net.ipv4.conf.default.accept_redirects') do
     its('value') { should eq 0 }
   end
 end
-

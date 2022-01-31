@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72295" do
+control 'V-72295' do
   title "Network interfaces configured on the Red Hat Enterprise Linux
 operating system must not be in promiscuous mode."
   desc  "Network interfaces in promiscuous mode allow for the capture of all
@@ -11,7 +10,7 @@ passwords, and key exchanges between systems.
 the use of these tools must be documented with the Information System Security
 Officer (ISSO) and restricted to only authorized personnel.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify network interfaces are not in promiscuous mode unless approved by
 the ISSO and documented.
@@ -33,16 +32,15 @@ by the ISSO and documented.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72295"
-  tag rid: "SV-86919r2_rule"
-  tag stig_id: "RHEL-07-040670"
-  tag fix_id: "F-78649r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72295'
+  tag rid: 'SV-86919r2_rule'
+  tag stig_id: 'RHEL-07-040670'
+  tag fix_id: 'F-78649r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
-  describe command("ip link | grep -i promisc") do
-    its('stdout.strip') { should match %r{^$} }
+  describe command('ip link | grep -i promisc') do
+    its('stdout.strip') { should match(/^$/) }
   end
 end
-

@@ -1,11 +1,10 @@
-# -*- encoding : utf-8 -*-
-control "V-77821" do
+control 'V-77821' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that the Datagram Congestion Control Protocol (DCCP) kernel module is disabled
 unless required."
   desc  "Disabling DCCP protects the system against exploitation of any flaws
 in the protocol implementation."
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system disables the ability to load the DCCP kernel
 module.
@@ -55,17 +54,16 @@ kernel module.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000378-GPOS-00163"
-  tag gid: "V-77821"
-  tag rid: "SV-92517r3_rule"
-  tag stig_id: "RHEL-07-020101"
-  tag fix_id: "F-84521r3_fix"
-  tag cci: ["CCI-001958"]
-  tag nist: ["IA-3"]
+  tag gtitle: 'SRG-OS-000378-GPOS-00163'
+  tag gid: 'V-77821'
+  tag rid: 'SV-92517r3_rule'
+  tag stig_id: 'RHEL-07-020101'
+  tag fix_id: 'F-84521r3_fix'
+  tag cci: ['CCI-001958']
+  tag nist: ['IA-3']
 
   describe kernel_module('dccp') do
     it { should_not be_loaded }
     it { should be_blacklisted }
   end
 end
-

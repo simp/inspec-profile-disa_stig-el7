@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-71891" do
+control 'V-71891' do
   title "The Red Hat Enterprise Linux operating system must enable a user
 session lock until that user re-establishes access using established
 identification and authentication procedures."
@@ -16,7 +15,7 @@ No other activity aside from reauthentication must unlock the system.
 
 
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify the operating system enables a user's session lock until that user
 re-establishes access using established identification and authentication
@@ -59,14 +58,14 @@ effect.
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000028-GPOS-00009"
-  tag satisfies: ["SRG-OS-000028-GPOS-00009", "SRG-OS-000030-GPOS-00011"]
-  tag gid: "V-71891"
-  tag rid: "SV-86515r6_rule"
-  tag stig_id: "RHEL-07-010060"
-  tag fix_id: "F-78243r9_fix"
-  tag cci: ["CCI-000056"]
-  tag nist: ["AC-11 b"]
+  tag gtitle: 'SRG-OS-000028-GPOS-00009'
+  tag satisfies: ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']
+  tag gid: 'V-71891'
+  tag rid: 'SV-86515r6_rule'
+  tag stig_id: 'RHEL-07-010060'
+  tag fix_id: 'F-78243r9_fix'
+  tag cci: ['CCI-000056']
+  tag nist: ['AC-11 b']
 
   if package('gnome-desktop3').installed?
     describe command('gsettings get org.gnome.desktop.screensaver lock-enabled') do
@@ -74,10 +73,9 @@ effect.
     end
   else
     impact 0.0
-    describe "The system does not have GNOME installed" do
+    describe 'The system does not have GNOME installed' do
       skip "The system does not have GNOME installed, this requirement is Not
       Applicable."
     end
   end
 end
-

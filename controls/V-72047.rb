@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-control "V-72047" do
+control 'V-72047' do
   title "The Red Hat Enterprise Linux operating system must be configured so
 that all world-writable directories are group-owned by root, sys, bin, or an
 application group."
@@ -13,7 +12,7 @@ The setting is normally reserved for directories used by the system and by
 users for temporary file storage, (e.g., /tmp), and for directories requiring
 global read/write access.
   "
-  tag 'rationale': ""
+  tag 'rationale': ''
   tag 'check': "
     Verify all world-writable directories are group-owned by root, sys, bin, or
 an application group.
@@ -39,28 +38,27 @@ following command:
   "
   impact 0.5
   tag severity: nil
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-72047"
-  tag rid: "SV-86671r4_rule"
-  tag stig_id: "RHEL-07-021030"
-  tag fix_id: "F-78399r1_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-72047'
+  tag rid: 'SV-86671r4_rule'
+  tag stig_id: 'RHEL-07-021030'
+  tag fix_id: 'F-78399r1_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
 
   application_groups = input('application_groups')
 
   ww_dirs = Set[]
-  partitions = etc_fstab.params.map{|partition| partition['file_system_type']}.uniq
+  partitions = etc_fstab.params.map { |partition| partition['file_system_type'] }.uniq
   partitions.each do |part|
     cmd = "find / -perm -002 -xdev -type d -fstype #{part} -exec ls -lLd {} \\;"
-    ww_dirs = ww_dirs + command(cmd).stdout.split("\n")
+    ww_dirs += command(cmd).stdout.split("\n")
   end
 
   ww_dirs.to_a.each do |curr_dir|
     dir_arr = curr_dir.split(' ')
     describe file(dir_arr.last) do
-      its('group') { should be_in ["root","sys","bin"] + application_groups }
+      its('group') { should be_in ['root', 'sys', 'bin'] + application_groups }
     end
   end
 end
-
