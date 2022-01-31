@@ -5,8 +5,8 @@ that all files and directories have a valid owner."
   desc  "Unowned files and directories may be unintentionally inherited if a
 user is assigned the same User Identifier \"UID\" as the UID of the un-owned
 files."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify all files and directories on the system have a valid owner.
 
     Check the owner of all files and directories with the following command:
@@ -18,7 +18,7 @@ XFS is used as an example.
 
     If any files on the system do not have an assigned owner, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Either remove all files and directories from the system that do not have a
 valid user, or assign a valid user to all unowned files and directories on the
 system with the \"chown\" command:

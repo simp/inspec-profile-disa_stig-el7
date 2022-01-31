@@ -18,8 +18,8 @@ games, software packages, tools, and demonstration software not related to
 requirements or providing a wide array of functionality not required for every
 mission, but which cannot be disabled.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system is configured to disable non-essential
 capabilities. The most secure way of ensuring a non-essential capability is
 disabled is to not have the capability installed.
@@ -38,7 +38,7 @@ command:
 
     If the telnet-server package is installed, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to disable non-essential capabilities by
 removing the telnet-server package from the system with the following command:
 

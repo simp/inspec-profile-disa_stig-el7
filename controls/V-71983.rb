@@ -7,8 +7,8 @@ facilitating malicious activity.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     If there is an HBSS with a Device Control Module and a Data Loss Prevention
 mechanism, this requirement is not applicable.
 
@@ -38,7 +38,7 @@ usb-storage\", and use of USB storage devices is not documented with the
 Information System Security Officer (ISSO) as an operational requirement, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to disable the ability to use the USB
 Storage kernel module.
 

@@ -4,8 +4,8 @@ control "V-71955" do
 unrestricted logon to the system."
   desc  "Failure to restrict system access to authenticated users negatively
 impacts operating system security."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system does not allow an unrestricted logon to the
 system via a graphical user interface.
 
@@ -21,7 +21,7 @@ Applicable.
     If the value of \"TimedLoginEnable\" is not set to \"false\", this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to not allow an unrestricted account to log
 on to the system via a graphical user interface.
 

@@ -8,8 +8,8 @@ files. This option must be used for mounting any file system not containing
 approved binary files as they may be incompatible. Executing files from
 untrusted file systems increases the opportunity for unprivileged users to
 attain unauthorized administrative access."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify file systems that are being NFS imported are configured with the
 \"noexec\" option.
 
@@ -32,7 +32,7 @@ requirement, this is a finding.
 documented with the Information System Security Officer (ISSO) as an
 operational requirement, this is a finding.
   "
-  desc  "fix", "Configure the \"/etc/fstab\" to use the \"noexec\" option on
+  tag 'fix': "Configure the \"/etc/fstab\" to use the \"noexec\" option on
 file systems that are being imported via NFS."
   impact 0.5
   tag severity: nil

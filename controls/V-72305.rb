@@ -5,8 +5,8 @@ that if the Trivial File Transfer Protocol (TFTP) server is required, the TFTP
 daemon is configured to operate in secure mode."
   desc  "Restricting TFTP to a specific directory prevents remote users from
 copying, transferring, or overwriting system files."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the TFTP daemon is configured to operate in secure mode.
 
     Check to see if a TFTP server has been installed with the following
@@ -26,7 +26,7 @@ following command:
     If the \"server_args\" line does not have a \"-s\" option and a
 subdirectory is not assigned, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the TFTP daemon to operate in secure mode by adding the following
 line to \"/etc/xinetd.d/tftp\" (or modify the line to have the required value):
 

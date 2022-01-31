@@ -6,8 +6,8 @@ services."
   desc  "If the systems access control program is not configured with
 appropriate rules for allowing and denying access to system network resources,
 services may be accessible to unauthorized hosts."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     If the \"firewalld\" package is not installed, ask the System Administrator
 (SA) if another firewall application (such as iptables) is installed. If an
 application firewall is not installed, this is a finding.
@@ -60,7 +60,7 @@ or denies access to specific hosts or services.
 specific hosts or \"tcpwrappers\" is not configured to grant or deny access to
 specific hosts, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     If \"firewalld\" is installed and active on the system, configure rules for
 allowing specific services and hosts.
 

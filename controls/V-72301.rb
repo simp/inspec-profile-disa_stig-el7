@@ -7,8 +7,8 @@ for operational support."
 of router configurations) its use must be documented with the Information
 System Security Officer (ISSO), restricted to only authorized personnel, and
 have access control rules established."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify a TFTP server has not been installed on the system.
 
     Check to see if a TFTP server has been installed with the following command:
@@ -19,7 +19,7 @@ have access control rules established."
     If TFTP is installed and the requirement for TFTP is not documented with
 the ISSO, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Remove the TFTP package from the system with the following command:
 
     # yum remove tftp-server

@@ -20,8 +20,8 @@ remote session and has very weak authentication.
     If a privileged user were to log on using this service, the privileged user
 password could be compromised.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Check to see if the rsh-server package is installed with the following
 command:
 
@@ -29,7 +29,7 @@ command:
 
     If the rsh-server package is installed, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to disable non-essential capabilities by
 removing the rsh-server package from the system with the following command:
 

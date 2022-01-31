@@ -29,8 +29,8 @@ control "V-72427" do
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system implements multifactor authentication for
     remote access to privileged accounts via pluggable authentication modules (PAM).
 
@@ -44,7 +44,7 @@ control "V-72427" do
         If the \"pam\" service is not present on all \"services\" lines, this is a
     finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to implement multifactor authentication for
     remote access to privileged accounts via pluggable authentication modules (PAM).
 

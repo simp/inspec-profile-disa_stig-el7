@@ -6,8 +6,8 @@ dumps unless needed."
 the time of the crash. Kernel core dumps may consume a considerable amount of
 disk space and may result in denial of service by exhausting the available
 space on the target file system partition."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that kernel core dumps are disabled unless needed.
 
     Check the status of the \"kdump\" service with the following command:
@@ -25,7 +25,7 @@ Officer (ISSO).
 
     If the service is active and is not documented, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     If kernel core dumps are not required, disable the \"kdump\" service with
 the following command:
 

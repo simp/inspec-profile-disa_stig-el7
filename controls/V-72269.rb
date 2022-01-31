@@ -21,8 +21,8 @@ endpoints).
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Check to see if NTP is running in continuous mode:
 
     # ps -ef | grep ntp
@@ -63,7 +63,7 @@ for the \"maxpoll\" option setting:
 
     If the option is not set or the line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Edit the \"/etc/ntp.conf\" or \"/etc/chrony.conf\" file and add or update
 an entry to define \"maxpoll\" to \"10\" as follows:
 

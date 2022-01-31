@@ -14,15 +14,15 @@ daily basis.
     If the system processes inbound SMTP mail, the virus scanner must be
 configured to scan all received mail.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify an anti-virus solution is installed on the system. The anti-virus
 solution may be bundled with an approved host-based security solution.
 
     If there is no anti-virus solution installed on the system, this is a
 finding.
   "
-  desc  "fix", "Install an antivirus solution on the system."
+  tag 'fix': "Install an antivirus solution on the system."
   impact 0.7
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00227"

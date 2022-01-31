@@ -5,8 +5,8 @@ unauthorized IP tunnels configured."
   desc  "IP tunneling mechanisms can be used to bypass network filtering. If
 tunneling is required, it must be documented with the Information System
 Security Officer (ISSO)."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the system does not have unauthorized IP tunnels configured.
 
     Check to see if \"libreswan\" is installed with the following command:
@@ -34,7 +34,7 @@ tunnel, ask the System Administrator if the tunnel is documented with the ISSO.
     If \"libreswan\" is installed, \"IPsec\" is active, and an undocumented
 tunnel is active, this is a finding.
   "
-  desc  "fix", "Remove all unapproved tunnels from the system, or document them
+  tag 'fix': "Remove all unapproved tunnels from the system, or document them
 with the ISSO."
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00227"

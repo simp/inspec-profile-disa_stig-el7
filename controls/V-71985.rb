@@ -7,8 +7,8 @@ unknown devices, thereby facilitating malicious activity.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system disables the ability to automount devices.
 
     Check to see if automounter service is active with the following command:
@@ -22,7 +22,7 @@ unknown devices, thereby facilitating malicious activity.
 the Information System Security Officer (ISSO) as an operational requirement,
 this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to disable the ability to automount devices.
 
     Turn off the automount service with the following commands:

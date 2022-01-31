@@ -12,8 +12,8 @@ government since this provides assurance they have been tested and validated.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system implements DoD-approved encryption to protect
 the confidentiality of remote access sessions.
 
@@ -46,7 +46,7 @@ the system is in FIPS mode with the following command:
 not have a fips entry, or the system has a value of \"0\" for \"fips_enabled\"
 in \"/proc/sys/crypto\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to implement DoD-approved encryption by
 installing the dracut-fips package.
 

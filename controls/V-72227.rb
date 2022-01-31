@@ -11,8 +11,8 @@ include, for example, signed hash functions using asymmetric cryptography
 enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     If LDAP is not being utilized, this requirement is Not Applicable.
 
     Verify the operating system implements cryptography to protect the
@@ -44,7 +44,7 @@ preset: disabled)
 
     If the \"ldap_id_use_start_tls\" option is not \"true\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to implement cryptography to protect the
 integrity of LDAP authentication sessions.
 

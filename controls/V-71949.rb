@@ -10,8 +10,8 @@ capability, it is critical the user reauthenticate.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system requires users to reauthenticate for privilege
 escalation.
 
@@ -23,7 +23,7 @@ files with the following command:
     If any uncommented line is found with a \"!authenticate\" tag, this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to require users to reauthenticate for
 privilege escalation.
 

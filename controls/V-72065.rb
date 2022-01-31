@@ -4,8 +4,8 @@ control "V-72065" do
 system for /tmp (or equivalent)."
   desc  "The use of separate file systems for different paths can protect the
 system from failures resulting from a file system becoming full or failing."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that a separate file system/partition has been created for \"/tmp\".
 
     Check that a file system/partition has been created for \"/tmp\" with the
@@ -24,7 +24,7 @@ rw,relatime,discard,data=ordered,nosuid,noexec, 0 0
     If \"tmp.mount\" service is not enabled and the \"/tmp\" directory is not
 defined in the fstab with a device and mount point, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Start the \"tmp.mount\" service with the following command:
 
     # systemctl enable tmp.mount

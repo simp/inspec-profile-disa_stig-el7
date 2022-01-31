@@ -8,8 +8,8 @@ permissions to system files and directories greater than the default.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the file permissions, ownership, and group membership of system
 files and commands match the vendor values.
 
@@ -39,7 +39,7 @@ the Information System Security Officer (ISSO), this is a finding.
     If the file is not a member of the default group and is not documented with
 the Information System Security Officer (ISSO), this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Run the following command to determine which package owns the file:
 
     # rpm -qf <filename>

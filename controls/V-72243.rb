@@ -5,8 +5,8 @@ that the SSH daemon does not allow authentication using rhosts authentication."
   desc  "Configuring this setting for the SSH daemon provides additional
 assurance that remote logon via SSH will require a password, even in the event
 of misconfiguration elsewhere."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the SSH daemon does not allow authentication using known hosts
 authentication.
 
@@ -20,7 +20,7 @@ following command:
     If the value is returned as \"no\", the returned line is commented out, or
 no output is returned, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the SSH daemon to not allow authentication using known hosts
 authentication.
 

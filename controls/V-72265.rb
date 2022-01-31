@@ -5,8 +5,8 @@ that the SSH daemon uses privilege separation."
   desc  "SSH daemon privilege separation causes the SSH process to drop root
 privileges when not needed, which would decrease the impact of software
 vulnerabilities in the unprivileged section."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the SSH daemon performs privilege separation.
 
     Check that the SSH daemon performs privilege separation with the following
@@ -19,7 +19,7 @@ command:
     If the \"UsePrivilegeSeparation\" keyword is set to \"no\", is missing, or
 the returned line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Uncomment the \"UsePrivilegeSeparation\" keyword in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party

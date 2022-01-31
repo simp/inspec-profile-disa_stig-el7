@@ -6,8 +6,8 @@ Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirects."
 direct route exists for a particular destination. These messages contain
 information from the system's route table, possibly revealing portions of the
 network topology."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the system does not send IPv4 ICMP redirect messages.
 
     # grep 'net.ipv4.conf.all.send_redirects' /etc/sysctl.conf /etc/sysctl.d/*
@@ -25,7 +25,7 @@ variables with the following command:
 
     If the returned line does not have a value of \"0\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the system to not allow interfaces to perform IPv4 ICMP
 redirects.
 

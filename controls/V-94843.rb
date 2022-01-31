@@ -8,8 +8,8 @@ case of a mixed OS environment, this can create the risk of short-term loss of
 availability of systems due to unintentional reboot. In the GNOME graphical
 environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is
 reduced because the user will be prompted before any action is taken."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system is not configured to reboot the system when
 Ctrl-Alt-Delete is pressed.
 
@@ -23,7 +23,7 @@ the following command:
     If \"logout\" is not set to use two single quotations, or is missing, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the system to disable the Ctrl-Alt-Delete sequence for the GUI
 with the following command:
 

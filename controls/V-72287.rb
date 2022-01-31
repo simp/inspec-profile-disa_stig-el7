@@ -5,8 +5,8 @@ Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP)
 echoes sent to a broadcast address."
   desc  "Responding to broadcast (ICMP) echoes facilitates network mapping and
 provides a vector for amplification attacks."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the system does not respond to IPv4 ICMP echoes sent to a broadcast
 address.
 
@@ -24,7 +24,7 @@ does not have a value of \"1\", this is a finding.
 
     If the returned line does not have a value of \"1\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Set the system to the required kernel parameter by adding the following
 line to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/
 directory (or modify the line to have the required value):

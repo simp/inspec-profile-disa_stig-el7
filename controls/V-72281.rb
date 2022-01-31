@@ -6,8 +6,8 @@ at least two name servers must be configured."
 redundant name servers are mandated. A failure in name resolution could lead to
 the failure of security functions requiring name resolution, which may include
 time synchronization, centralized authentication, and remote system logging."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Determine whether the system is using local or DNS name resolution with the
 following command:
 
@@ -38,7 +38,7 @@ for DNS resolution.
     If less than two lines are returned that are not commented out, this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to use two or more name servers for DNS
 resolution.
 

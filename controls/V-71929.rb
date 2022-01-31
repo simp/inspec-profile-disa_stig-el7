@@ -7,8 +7,8 @@ Therefore, passwords need to be changed periodically. If the operating system
 does not limit the lifetime of passwords and force users to change their
 passwords, there is the risk that the operating system passwords could be
 compromised."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     If passwords are not being used for authentication, this is Not Applicable.
 
     Verify the operating system enforces a 60-day maximum password lifetime
@@ -23,7 +23,7 @@ following command:
     If the \"PASS_MAX_DAYS\" parameter value is not 60 or less, or is commented
 out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to enforce a 60-day maximum password
 lifetime restriction.
 

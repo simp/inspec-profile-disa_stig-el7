@@ -18,8 +18,8 @@ requirements. Security-related parameters include, for example, registry
 settings; account, file, and directory permission settings; and settings for
 functions, ports, protocols, services, and remote connections.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system enforces a delay of at least four seconds
 between console logon prompts following a failed logon attempt.
 
@@ -32,7 +32,7 @@ file with the following command:
     If the value of \"FAIL_DELAY\" is not set to \"4\" or greater, or the line
 is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to enforce a delay of at least four seconds
 between logon prompts following a failed console logon attempt.
 

@@ -6,8 +6,8 @@ components after updated versions have been installed."
 information system after updates have been installed may be exploited by
 adversaries. Some information technology products may remove older versions of
 software automatically from the information system."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system removes all software components after updated
 versions have been installed.
 
@@ -20,7 +20,7 @@ command:
     If \"clean_requirements_on_remove\" is not set to \"1\", \"True\", or
 \"yes\", or is not set in \"/etc/yum.conf\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to remove all software components after
 updated versions have been installed.
 

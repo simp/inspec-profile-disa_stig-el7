@@ -5,8 +5,8 @@ that the audit system takes appropriate action when the audit storage volume is
 full."
   desc  "Taking appropriate action in case of a filled audit storage volume
 will minimize the possibility of losing audit records."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the action the operating system takes if the disk the audit records
 are written to becomes full.
 
@@ -19,7 +19,7 @@ server, use the following command:
     If the value of the \"disk_full_action\" option is not \"syslog\",
 \"single\", or \"halt\", or the line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the action the operating system takes if the disk the audit
 records are written to becomes full.
 

@@ -4,8 +4,8 @@ control "V-72257" do
 that the SSH private host key files have mode 0640 or less permissive."
   desc  "If an unauthorized user obtains the private SSH host key file, the
 host could be impersonated."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the SSH private host key files have mode \"0640\" or less permissive.
 
     The following command will find all SSH private key files on the system and
@@ -19,7 +19,7 @@ list their modes:
 
     If any file has a mode more permissive than \"0640\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the mode of SSH private host key files under \"/etc/ssh\" to
 \"0640\" with the following command:
 

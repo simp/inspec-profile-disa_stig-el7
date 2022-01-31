@@ -21,8 +21,8 @@ have to be employed, and vice versa.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Check to see if sshd is installed with the following command:
 
     # yum list installed \\*ssh\\*
@@ -32,7 +32,7 @@ have to be employed, and vice versa.
 
     If the \"SSH server\" package is not installed, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Install SSH packages onto the host with the following commands:
 
     # yum install openssh-server.x86_64

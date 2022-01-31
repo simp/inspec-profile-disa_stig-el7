@@ -8,8 +8,8 @@ have compromised information system accounts, is a serious and ongoing concern
 and can have significant adverse impacts on organizations. Auditing the use of
 privileged functions is one way to detect such misuse and identify the risk
 from insider threats and the advanced persistent threat."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system audits the execution of privileged functions
 using the following command:
 
@@ -27,7 +27,7 @@ defined, this is a finding.
     If both the \"b32\" and \"b64\" audit rules for \"SGID\" files are not
 defined, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to audit the execution of privileged
 functions.
 

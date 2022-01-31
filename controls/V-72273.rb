@@ -8,8 +8,8 @@ applications are allowed to communicate over the network.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system enabled an application firewall.
 
     Check to see if \"firewalld\" is installed with the following command:
@@ -41,7 +41,7 @@ is a finding.
 
     If \"firewalld\" does not show a state of \"running\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Ensure the operating system's application firewall is enabled.
 
     Install the \"firewalld\" package, if it is not on the system, with the

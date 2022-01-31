@@ -12,8 +12,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"setsebool\" command occur.
 
@@ -27,7 +27,7 @@ auid!=4294967295 -k privileged-priv_change
 
     If the command does not return any output, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"setsebool\" command occur.
 

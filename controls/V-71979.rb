@@ -21,8 +21,8 @@ operating system should not have to verify the software again. This requirement
 does not mandate DoD certificates for this purpose; however, the certificate
 used to verify the software must be from an approved CA.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system prevents the installation of patches, service
 packs, device drivers, or operating system components of local packages without
 verification that they have been digitally signed using a certificate that is
@@ -41,7 +41,7 @@ packages and other operating system components are verified.
     If there is no process to validate the signatures of local packages that is
 approved by the organization, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to verify the signature of local packages
 prior to install by setting the following option in the \"/etc/yum.conf\" file:
 

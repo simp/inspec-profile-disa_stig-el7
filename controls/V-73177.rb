@@ -9,8 +9,8 @@ wireless access point (AP), allowing validated systems to connect to the
 malicious AP and enabling the attacker to monitor and record network traffic.
 These malicious APs can also serve to create a man-in-the-middle attack or be
 used to create a denial of service to valid network resources."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that there are no wireless interfaces configured on the system.
 
     This is N/A for systems that do not have wireless network adapters.
@@ -28,7 +28,7 @@ command:
 documented with the Information System Security Officer (ISSO), this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the system to disable all wireless network interfaces with the
 following command:
 

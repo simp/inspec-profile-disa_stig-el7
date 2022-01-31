@@ -33,8 +33,8 @@ by attorneys, psychotherapists, or clergy, and their assistants. Such
 communications and work product are private and confidential. See User
 Agreement for details.\"
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system displays the approved Standard Mandatory DoD
 Notice and Consent Banner before granting access to the operating system via a
 graphical user logon.
@@ -70,7 +70,7 @@ GUI.
     If the banner does not match the approved Standard Mandatory DoD Notice and
 Consent Banner, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to display the approved Standard Mandatory
 DoD Notice and Consent Banner before granting access to the system.
     Note: If the system does not have GNOME installed, this requirement is Not

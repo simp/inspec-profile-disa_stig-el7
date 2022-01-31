@@ -11,8 +11,8 @@ detail to reconstruct events to determine the cause and impact of compromise.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"crontab\" command occur.
 
@@ -26,7 +26,7 @@ following command to check the file system rules in \"/etc/audit/audit.rules\":
 
     If the command does not return any output, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"crontab\" command occur.
 

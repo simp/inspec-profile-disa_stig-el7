@@ -10,8 +10,8 @@ storage capacity.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system off-loads audit records onto a different system
 or media from the system being audited.
 
@@ -28,7 +28,7 @@ different system or media.
     If there is no evidence that the audit logs are being off-loaded to another
 system or media, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to off-load audit records onto a different
 system or media from the system being audited.
 

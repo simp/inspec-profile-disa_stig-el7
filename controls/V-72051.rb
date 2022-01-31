@@ -5,8 +5,8 @@ implemented."
   desc  "Cron logging can be used to trace the successful or unsuccessful
 execution of cron jobs. It can also be used to spot intrusions into the use of
 the cron facility by unauthorized and malicious users."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that \"rsyslog\" is configured to log cron events.
 
     Check the configuration of \"/etc/rsyslog.conf\" or
@@ -30,7 +30,7 @@ files.
     If \"rsyslog\" is not logging messages for the cron facility or all
 facilities, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure \"rsyslog\" to log all cron messages by adding or updating the
 following line to \"/etc/rsyslog.conf\" or a configuration file in the
 /etc/rsyslog.d/ directory:

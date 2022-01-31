@@ -8,8 +8,8 @@ required to compromise the password. Password complexity, or strength, is a
 measure of the effectiveness of a password in resisting attempts at guessing
 and brute-force attacks. \"pwquality\" enforces complex password construction
 configuration and has the ability to limit brute-force attacks on the system."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system uses \"pwquality\" to enforce the password
 complexity rules.
 
@@ -25,7 +25,7 @@ complexity rules.
     If the value of \"retry\" is set to \"0\" or greater than \"3\", this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to use \"pwquality\" to enforce password
 complexity rules.
 

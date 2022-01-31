@@ -12,8 +12,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"chown\" syscall occur.
 
@@ -31,7 +31,7 @@ perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"chown\" syscall, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
 
     -a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k

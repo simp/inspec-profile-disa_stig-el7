@@ -4,8 +4,8 @@ control "V-72071" do
 that the file integrity tool is configured to verify extended attributes."
   desc  "Extended attributes in file systems are used to contain arbitrary data
 and file metadata with security implications."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the file integrity tool is configured to verify extended attributes.
 
     Check to see if Advanced Intrusion Detection Environment (AIDE) is
@@ -40,7 +40,7 @@ lists.
 in the \"/etc/aide.conf\" file, or extended attributes are not being checked by
 another file integrity tool, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the file integrity tool to check file and directory extended
 attributes.
 

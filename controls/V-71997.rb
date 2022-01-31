@@ -6,8 +6,8 @@ supported release."
 continues to provide security patches for the product. With an unsupported
 release, it will not be possible to resolve security issues discovered in the
 system software."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the version of the operating system is vendor supported.
 
     Check the version of the operating system with the following command:
@@ -32,7 +32,7 @@ system software."
 
     If the release is not supported by the vendor, this is a finding.
   "
-  desc  "fix", "Upgrade to a supported version of the operating system."
+  tag 'fix': "Upgrade to a supported version of the operating system."
   impact 0.7
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00227"

@@ -9,8 +9,8 @@ forcing, is reduced. Limits are imposed by locking the account.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system automatically locks the root account until it
 is released by an administrator when three unsuccessful logon attempts in 15
 minutes are made.
@@ -37,7 +37,7 @@ fail_interval=900 unlock_time=900
 \"pam_faillock.so\" module, is commented out, or is missing from a line, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to lock automatically the root account until
 the locked account is released by an administrator when three unsuccessful
 logon attempts in 15 minutes are made.

@@ -4,8 +4,8 @@ control "V-72275" do
 and time of the last successful account logon upon logon."
   desc  "Providing users with feedback on when account accesses last occurred
 facilitates user recognition and reporting of unauthorized account use."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify users are provided with feedback on when account accesses last
 occurred.
 
@@ -18,7 +18,7 @@ command:
     If \"pam_lastlog\" is missing from \"/etc/pam.d/postlogin\" file, or the
 silent option is present, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to provide users with feedback on when
 account accesses last occurred by setting the required configuration options in
 \"/etc/pam.d/postlogin\".

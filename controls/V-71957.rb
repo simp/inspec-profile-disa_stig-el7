@@ -4,8 +4,8 @@ control "V-71957" do
 override SSH environment variables."
   desc  "Failure to restrict system access to authenticated users negatively
 impacts operating system security."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system does not allow users to override environment
 variables to the SSH daemon.
 
@@ -18,7 +18,7 @@ following command:
     If the \"PermitUserEnvironment\" keyword is not set to \"no\", is missing,
 or is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to not allow users to override environment
 variables to the SSH daemon.
 

@@ -7,8 +7,8 @@ and groupid are used to handle requests from the remote user. The userid and
 groupid could mistakenly or maliciously be set incorrectly. The RPCSEC_GSS
 method of authentication uses certificates on the server and client systems to
 more securely authenticate the remote mount request."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify \"AUTH_GSS\" is being used to authenticate NFS mounts.
 
     To check if the system is importing an NFS file system, look for any
@@ -22,7 +22,7 @@ the following command:
 without the \"krb5:krb5i:krb5p\" settings, the \"sec\" option has the \"sys\"
 setting, or the \"sec\" option is missing, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Update the \"/etc/fstab\" file so the option \"sec\" is defined for each
 NFS mounted file system and the \"sec\" option does not have the \"sys\"
 setting.

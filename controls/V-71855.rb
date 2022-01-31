@@ -10,8 +10,8 @@ include, for example, signed hash functions using asymmetric cryptography
 enabling distribution of the public key to verify the hash information while
 maintaining the confidentiality of the key used to generate the hash.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the cryptographic hash of system files and commands match the vendor
 values.
 
@@ -27,7 +27,7 @@ investigated through the system audit log.
     If there is any output from the command for system files or binaries, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Run the following command to determine which package owns the file:
 
     # rpm -qf <filename>

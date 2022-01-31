@@ -5,8 +5,8 @@ and time of the last successful account logon upon an SSH logon."
   desc  "Providing users with feedback on when account accesses via SSH last
 occurred facilitates user recognition and reporting of unauthorized account
 use."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify SSH provides users with feedback on when account accesses last
 occurred.
 
@@ -19,7 +19,7 @@ is used and set to \"yes\" with the following command:
     If the \"PrintLastLog\" keyword is set to \"no\", is missing, or is
 commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure SSH to provide users with feedback on when account accesses last
 occurred by setting the required configuration options in \"/etc/pam.d/sshd\"
 or in the \"sshd_config\" file used by the system (\"/etc/ssh/sshd_config\"

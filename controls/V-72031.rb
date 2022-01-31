@@ -6,8 +6,8 @@ group-owned by the users primary group or root."
   desc  "Local initialization files for interactive users are used to configure
 the user's shell environment upon logon. Malicious modification of these files
 could compromise accounts upon logon."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the local initialization files of all local interactive users are
 group-owned by that user's primary Group Identifier (GID).
 
@@ -39,7 +39,7 @@ with the following command:
     If all local interactive user's initialization files are not group-owned by
 that user's primary GID, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Change the group owner of a local interactive user's files to the group
 found in \"/etc/passwd\" for the user. To change the group owner of a local
 interactive user's home directory, use the following command:

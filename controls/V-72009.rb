@@ -5,8 +5,8 @@ that all files and directories have a valid group owner."
   desc  "Files without a valid group owner may be unintentionally inherited if
 a group is assigned the same Group Identifier (GID) as the GID of the files
 without a valid group owner."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify all files and directories on the system have a valid group.
 
     Check the owner of all files and directories with the following command:
@@ -18,7 +18,7 @@ XFS is used as an example.
 
     If any files on the system do not have an assigned group, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Either remove all files and directories from the system that do not have a
 valid group, or assign a valid group to all files and directories on the system
 with the \"chgrp\" command:

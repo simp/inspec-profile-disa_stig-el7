@@ -14,8 +14,8 @@ appropriate authorizations. Circumventing intrusion detection and prevention
 mechanisms or malicious code protection mechanisms are examples of privileged
 functions that require protection from non-privileged users.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     If an HBSS or HIPS is active on the system, this is Not Applicable.
 
     Verify the operating system prevents non-privileged users from executing
@@ -42,7 +42,7 @@ role.
 
     If they are not mapped in this way, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to prevent non-privileged users from
 executing privileged functions to include disabling, circumventing, or altering
 implemented security safeguards/countermeasures.

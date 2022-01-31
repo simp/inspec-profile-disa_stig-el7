@@ -25,8 +25,8 @@ accounts) or for detailed accountability of individual activity.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system requires multifactor authentication to uniquely
 identify organizational users using multifactor authentication.
 
@@ -44,7 +44,7 @@ identify organizational users using multifactor authentication.
 
     If \"smartcard module\" is blank, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to require individuals to be authenticated
 with a multifactor authenticator.
 

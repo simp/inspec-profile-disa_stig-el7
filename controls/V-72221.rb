@@ -16,8 +16,8 @@ general purpose computing system.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system uses mechanisms meeting the requirements of
 applicable federal laws, Executive orders, directives, policies, regulations,
 standards, and guidance for authentication to a cryptographic module.
@@ -38,7 +38,7 @@ in use.
 are listed, the \"Ciphers\" keyword is missing, or the returned line is
 commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure SSH to use FIPS 140-2 approved cryptographic algorithms.
 
     Add the following line (or modify the line to have the required value) to

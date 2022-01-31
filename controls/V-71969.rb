@@ -4,8 +4,8 @@ control "V-71969" do
 package installed."
   desc  "Removing the \"ypserv\" package decreases the risk of the accidental
 (or intentional) activation of NIS or NIS+ services."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     The NIS service provides an unencrypted authentication service that does
 not provide for the confidentiality and integrity of user passwords or the
 remote session.
@@ -17,7 +17,7 @@ command:
 
     If the \"ypserv\" package is installed, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to disable non-essential capabilities by
 removing the \"ypserv\" package from the system with the following command:
 

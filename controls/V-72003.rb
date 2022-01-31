@@ -6,8 +6,8 @@ defined in the /etc/group file."
   desc  "If a user is assigned the GID of a group not existing on the system,
 and a group with the GID is subsequently created, the user may have unintended
 rights to any files associated with the group."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify all GIDs referenced in the \"/etc/passwd\" file are defined in the
 \"/etc/group\" file.
 
@@ -18,7 +18,7 @@ rights to any files associated with the group."
     If GIDs referenced in \"/etc/passwd\" file are returned as not defined in
 \"/etc/group\" file, this is a finding.
   "
-  desc  "fix", "Configure the system to define all GIDs found in the
+  tag 'fix': "Configure the system to define all GIDs found in the
 \"/etc/passwd\" file by modifying the \"/etc/group\" file to add any
 non-existent group referenced in the \"/etc/passwd\" file, or change the GIDs
 referenced in the \"/etc/passwd\" file to a group that exists in

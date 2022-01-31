@@ -16,8 +16,8 @@ No other activity aside from reauthentication must unlock the system.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system enables a user's session lock until that user
 re-establishes access using established identification and authentication
 procedures. The screen program must be installed to lock sessions on the
@@ -34,7 +34,7 @@ Applicable.
     If the \"lock-enabled\" setting is missing or is not set to \"true\", this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to enable a user's session lock until that
 user re-establishes access using established identification and authentication
 procedures.

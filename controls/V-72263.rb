@@ -5,8 +5,8 @@ that the SSH daemon performs strict mode checking of home directory
 configuration files."
   desc  "If other users have access to modify user-specific SSH configuration
 files, they may be able to log on to the system as another user."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the SSH daemon performs strict mode checking of home directory
 configuration files.
 
@@ -22,7 +22,7 @@ in use.
     If \"StrictModes\" is set to \"no\", is missing, or the returned line is
 commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Uncomment the \"StrictModes\" keyword in \"/etc/ssh/sshd_config\" (this
 file may be named differently or be in a different location if using a version
 of SSH that is provided by a third-party vendor) and set the value to \"yes\":

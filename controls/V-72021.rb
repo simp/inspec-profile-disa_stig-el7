@@ -7,8 +7,8 @@ directory owners primary group."
 directory is not the same as the primary GID of the user, this would allow
 unauthorized access to the user's files, and users that share the same group
 may not be able to access files that they legitimately should."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the assigned home directory of all local interactive users is
 group-owned by that user's primary GID.
 
@@ -28,7 +28,7 @@ system with the following command:
     If the user home directory referenced in \"/etc/passwd\" is not group-owned
 by that user's primary GID, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Change the group owner of a local interactive user's home directory to the
 group found in \"/etc/passwd\". To change the group owner of a local
 interactive user's home directory, use the following command:

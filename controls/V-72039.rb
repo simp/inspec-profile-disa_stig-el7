@@ -6,8 +6,8 @@ modification."
   desc  "If an unauthorized or modified device is allowed to exist on the
 system, there is the possibility the system may perform unintended or
 unauthorized operations."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that all system device files are correctly labeled to prevent
 unauthorized modification.
 
@@ -33,7 +33,7 @@ are not a finding.
     If there is output from either of these commands, other than already noted,
 this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Run the following command to determine which package owns the device file:
 
     # rpm -qf <filename>

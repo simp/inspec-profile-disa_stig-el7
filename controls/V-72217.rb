@@ -12,8 +12,8 @@ accounts and does not address concurrent sessions by single users via multiple
 system accounts. The maximum number of concurrent sessions should be defined
 based on mission needs and the operational environment for each system.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system limits the number of concurrent sessions to
 \"10\" for all accounts and/or account types by issuing the following command:
 
@@ -28,7 +28,7 @@ differently for multiple domains.
 set to \"10\" or less for all domains that have the \"maxlogins\" item
 assigned, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to limit the number of concurrent sessions
 to \"10\" for all accounts and/or account types.
 

@@ -5,8 +5,8 @@ that all local interactive user accounts, upon creation, are assigned a home
 directory."
   desc  "If local interactive users are not assigned a valid home directory,
 there is no place for the storage and control of files they should own."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify all local interactive users on the system are assigned a home
 directory upon creation.
 
@@ -19,7 +19,7 @@ local interactive users with the following command:
     If the value for \"CREATE_HOME\" parameter is not set to \"yes\", the line
 is missing, or the line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to assign home directories to all new local
 interactive users by setting the \"CREATE_HOME\" parameter in
 \"/etc/login.defs\" to \"yes\" as follows.

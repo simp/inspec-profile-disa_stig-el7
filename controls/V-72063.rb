@@ -4,8 +4,8 @@ control "V-72063" do
 system for the system audit data path."
   desc  "The use of separate file systems for different paths can protect the
 system from failures resulting from a file system becoming full or failing."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Determine if the operating system is configured to have the
 \"/var/log/audit\" path is on a separate file system.
 
@@ -21,7 +21,7 @@ system from failures resulting from a file system becoming full or failing."
     If no result is returned, or \"/var/log/audit\" is not on a separate file
 system, this is a finding.
   "
-  desc  "fix", "Migrate the system audit data path onto a separate file system."
+  tag 'fix': "Migrate the system audit data path onto a separate file system."
   impact 0.3
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00227"

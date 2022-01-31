@@ -5,8 +5,8 @@ that the SSH daemon does not allow authentication using an empty password."
   desc  "Configuring this setting for the SSH daemon provides additional
 assurance that remote logon via SSH will require a password, even in the event
 of misconfiguration elsewhere."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     To determine how the SSH daemon's \"PermitEmptyPasswords\" option is set,
 run the following command:
 
@@ -18,7 +18,7 @@ returned, the required value is set.
 
     If the required value is not set, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     To explicitly disallow remote logon from accounts with empty passwords, add
 or correct the following line in \"/etc/ssh/sshd_config\":
 

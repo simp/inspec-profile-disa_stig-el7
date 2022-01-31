@@ -20,8 +20,8 @@ and releases the resources associated with that session.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system automatically terminates a user session after
 inactivity time-outs have expired.
 
@@ -39,7 +39,7 @@ of \"0\", this is a finding.
 not documented with the Information System Security Officer (ISSO) as an
 operational requirement, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to automatically terminate a user session
 after inactivity time-outs have expired or at shutdown.
 

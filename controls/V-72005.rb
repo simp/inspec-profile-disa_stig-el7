@@ -8,8 +8,8 @@ the system."
 entire operating system. Multiple accounts with a UID of \"0\" afford an
 opportunity for potential intruders to guess a password for a privileged
 account."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Check the system for duplicate UID \"0\" assignments with the following
 command:
 
@@ -17,7 +17,7 @@ command:
 
     If any accounts other than root have a UID of \"0\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Change the UID of any account on the system, other than root, that has a
 UID of \"0\".
 

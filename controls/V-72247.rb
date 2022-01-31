@@ -6,8 +6,8 @@ logons to the root account using remote access via SSH."
 layer of security is gained by extending the policy of not logging on directly
 as root. In addition, logging on with a user-specific account provides
 individual accountability of actions performed on the system."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify remote access using SSH prevents users from logging on directly as
 root.
 
@@ -20,7 +20,7 @@ following command:
     If the \"PermitRootLogin\" keyword is set to \"yes\", is missing, or is
 commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure SSH to stop users from logging on remotely as the root user.
 
     Edit the appropriate  \"/etc/ssh/sshd_config\" file to uncomment or add the

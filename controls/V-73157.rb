@@ -12,8 +12,8 @@ when a user's session has idled and take action to initiate the session lock.
     The session lock is implemented at the point where session activity can be
 determined and/or controlled.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system prevents a user from overriding session idle
 delay after a 15-minute period of inactivity for graphical user interfaces.
 
@@ -39,7 +39,7 @@ other than \"local\" is being used.
 
     If the command does not return a result, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to prevent a user from overriding a session
 lock after a 15-minute period of inactivity for graphical user interfaces.
 

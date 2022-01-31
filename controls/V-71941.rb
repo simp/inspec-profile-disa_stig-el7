@@ -9,8 +9,8 @@ unauthorized access to their user account has been obtained.
     Operating systems need to track periods of inactivity and disable
 application identifiers after zero days of inactivity.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     If passwords are not being used for authentication, this is Not Applicable.
 
     Verify the operating system disables account identifiers (individuals,
@@ -23,7 +23,7 @@ command:
     If the value is not set to \"0\", is commented out, or is not defined, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to disable account identifiers (individuals,
 groups, roles, and devices) after the password expires.
 

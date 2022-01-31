@@ -5,8 +5,8 @@ authentication upon booting into single-user and maintenance modes."
   desc  "If the system does not require valid root authentication before it
 boots into single-user or maintenance mode, anyone who invokes single-user or
 maintenance mode is granted privileged access to all files on the system."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system must require authentication upon booting into
 single-user and maintenance modes.
 
@@ -21,7 +21,7 @@ single-user mode with the following command:
     If \"ExecStart\" does not have \"/usr/sbin/sulogin\" as an option, this is
 a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to require authentication upon booting into
 single-user and maintenance modes.
 

@@ -9,8 +9,8 @@ implementation. Vulnerabilities in the system's Kerberos implementation may
 then be subject to exploitation. To reduce the attack surface of the system,
 the Kerberos authentication mechanism within SSH must be disabled for systems
 not using this capability."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the SSH daemon does not permit Kerberos to authenticate passwords
 unless approved.
 
@@ -24,7 +24,7 @@ passwords with the following command:
 and is not documented with the Information System Security Officer (ISSO), or
 the returned line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Uncomment the \"KerberosAuthentication\" keyword in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party

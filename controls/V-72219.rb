@@ -24,8 +24,8 @@ business or to address authorized quality of life issues.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Inspect the firewall configuration and running services to verify that it
 is configured to prohibit or restrict the use of functions, ports, protocols,
 and/or services that are unnecessary or prohibited.
@@ -50,7 +50,7 @@ services allowed by the firewall match the PPSM CLSA.
 PPSM CLSA, or there are ports, protocols, or services that are prohibited by
 the PPSM Category Assurance List (CAL), this is a finding.
   "
-  desc  "fix", "Update the host's firewall settings and/or running services to
+  tag 'fix': "Update the host's firewall settings and/or running services to
 comply with the PPSM CLSA for the site or program and the PPSM CAL."
   impact 0.5
   tag severity: nil

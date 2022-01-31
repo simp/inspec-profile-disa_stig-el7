@@ -5,8 +5,8 @@ that the Datagram Congestion Control Protocol (DCCP) kernel module is disabled
 unless required."
   desc  "Disabling DCCP protects the system against exploitation of any flaws
 in the protocol implementation."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system disables the ability to load the DCCP kernel
 module.
 
@@ -33,7 +33,7 @@ dccp\", and use of the dccp kernel module is not documented with the
 Information System Security Officer (ISSO) as an operational requirement, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to disable the ability to use the DCCP
 kernel module.
 

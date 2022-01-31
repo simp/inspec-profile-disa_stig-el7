@@ -6,8 +6,8 @@ the pam_timestamp_check command."
 mission needs of the organization, it would be difficult to establish,
 correlate, and investigate the events relating to an incident or identify those
 responsible for one."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"pam_timestamp_check\" command
 occur.
@@ -22,7 +22,7 @@ auid!=4294967295 -k privileged-pam
 
     If the command does not return any output, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"pam_timestamp_check\" command
 occur.

@@ -11,8 +11,8 @@ storage capacity.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system encrypts audit records off-loaded onto a
 different system or media from the system being audited.
 
@@ -28,7 +28,7 @@ logs are off-loaded to a different system or media.
     If there is no evidence that the transfer of the audit logs being
 off-loaded to another system or media is encrypted, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to encrypt the transfer of off-loaded audit
 records onto a different system or media from the system being audited.
 

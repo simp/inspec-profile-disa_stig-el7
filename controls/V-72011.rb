@@ -5,8 +5,8 @@ that all local interactive users have a home directory assigned in the
 /etc/passwd file."
   desc  "If local interactive users are not assigned a valid home directory,
 there is no place for the storage and control of files they should own."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify local interactive users on the system have a home directory assigned.
 
     Check for missing local interactive user home directories with the
@@ -28,7 +28,7 @@ the following command:
     If any interactive users do not have a home directory assigned, this is a
 finding.
   "
-  desc  "fix", "Assign home directories to all local interactive users that
+  tag 'fix': "Assign home directories to all local interactive users that
 currently do not have a home directory assigned."
   impact 0.5
   tag severity: nil

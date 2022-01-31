@@ -15,8 +15,8 @@ events to be audited, and setting intrusion detection parameters.
 verification/testing and/or systems and environments that require this
 functionality.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     If an HBSS or HIPS is active on the system, this is Not Applicable.
 
     Verify the operating system verifies correct operation of all security
@@ -57,7 +57,7 @@ the following command:
     If no results are returned or \"SELINUXTYPE\" is not set to \"targeted\",
 this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to verify correct operation of all security
 functions.
 

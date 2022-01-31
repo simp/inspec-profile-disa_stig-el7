@@ -19,8 +19,8 @@ system-level network connection. This does not mean that the operating system
 terminates all sessions or network access; it only ends the inactive session
 and releases the resources associated with that session.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system terminates all network connections associated
 with a communications session at the end of the session or based on inactivity.
 
@@ -38,7 +38,7 @@ with a communications session at the end of the session or based on inactivity.
 /etc/profile.d/ directory to enforce session termination after inactivity, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to terminate all network connections
 associated with a communications session at the end of the session or after a
 period of inactivity.

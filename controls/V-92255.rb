@@ -8,8 +8,8 @@ provide additional agility in reacting to network threats. These tools also
 often include a reporting capability to provide network awareness of the
 system, which may not otherwise exist in an organization's systems management
 regime."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Ask the SA or ISSO if a host-based intrusion detection application is
 loaded on the system. Per OPORD 16-0080, the preferred intrusion detection
 system is McAfee HBSS available through the U.S. Cyber Command (USCYBERCOM).
@@ -46,7 +46,7 @@ finding.
     If no host-based intrusion detection system is installed and running on the
 system, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Install and enable the latest McAfee HIPS package, available from
 USCYBERCOM.
 

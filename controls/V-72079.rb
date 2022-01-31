@@ -21,8 +21,8 @@ operating system.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system produces audit records containing information
 to establish when (date and time) the events occurred.
 
@@ -33,7 +33,7 @@ to establish when (date and time) the events occurred.
 
     If the \"auditd\" status is not active, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to produce audit records containing
 information to establish when (date and time) the events occurred.
 

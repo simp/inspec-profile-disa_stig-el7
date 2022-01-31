@@ -6,8 +6,8 @@ Windows display manager installed unless approved."
 processes must not be active to decrease the attack surface of the system. X
 Windows has a long history of security vulnerabilities and will not be used
 unless approved and documented."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that if the system has X Windows System installed, it is authorized.
 
     Check for the X11 package with the following command:
@@ -20,7 +20,7 @@ operational requirement.
     If the use of X Windows on the system is not documented with the
 Information System Security Officer (ISSO), this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Document the requirement for an X Windows server with the ISSO or remove
 the related packages with the following commands:
 

@@ -13,8 +13,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     The \"minclass\" option sets the minimum number of required classes of
 characters for the new password (digits, upper-case, lower-case, others).
 
@@ -26,7 +26,7 @@ characters for the new password (digits, upper-case, lower-case, others).
 
     If the value of \"minclass\" is set to less than \"4\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to require the change of at least four
 character classes when passwords are changed by setting the \"minclass\" option.
 

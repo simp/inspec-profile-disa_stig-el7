@@ -23,8 +23,8 @@ not have to be employed, and vice versa.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify SSH is loaded and active with the following command:
 
     # systemctl status sshd
@@ -39,7 +39,7 @@ ago
     If \"sshd\" does not show a status of \"active\" and \"running\", this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the SSH service to automatically start after reboot with the
 following command:
 

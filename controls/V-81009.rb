@@ -6,8 +6,8 @@ the nodev option."
 character or block special devices. Executing character or block special
 devices from untrusted file systems increases the opportunity for unprivileged
 users to attain unauthorized administrative access."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that the \"nodev\" option is configured for /dev/shm:
 
 
@@ -23,7 +23,7 @@ a finding.
 
     If no results are returned, this is a finding.
   "
-  desc  "fix", "Configure the system so that /dev/shm is mounted with the
+  tag 'fix': "Configure the system so that /dev/shm is mounted with the
 \"nodev\" option."
   impact 0.3
   tag severity: nil

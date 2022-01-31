@@ -7,8 +7,8 @@ for the system via SSH. Host-based authentication is not sufficient for
 preventing unauthorized access to the system, as it does not require
 interactive identification and authentication of a connection request, or for
 the use of two-factor authentication."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify there are no \"shosts.equiv\" files on the system.
 
     Check the system for the existence of these files with the following
@@ -18,7 +18,7 @@ command:
 
     If any \"shosts.equiv\" files are found on the system, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Remove any found \"shosts.equiv\" files from the system.
 
     # rm /[path]/[to]/[file]/shosts.equiv

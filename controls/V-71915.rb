@@ -13,8 +13,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     The \"maxrepeat\" option sets the maximum number of allowed same
 consecutive characters in a new password.
 
@@ -26,7 +26,7 @@ consecutive characters in a new password.
 
     If the value of \"maxrepeat\" is set to more than \"3\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to require the change of the number of
 repeating consecutive characters when passwords are changed by setting the
 \"maxrepeat\" option.

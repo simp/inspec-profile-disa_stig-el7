@@ -27,7 +27,7 @@ control "V-72417" do
         proxy capability). This does not apply to authentication for the purpose of
         configuring the device itself (management)."
 
-  desc  "check", "
+  tag 'check': "
         Verify the operating system has the packages required for multifactor
         authentication installed.
 
@@ -43,7 +43,7 @@ control "V-72417" do
         If the \"esc\" and \"pam_pkcs11\" packages are not installed, this is a
         finding."
 
-  desc  "fix", "
+  tag 'fix': "
         Configure the operating system to implement multifactor authentication by
         installing the required packages.
 

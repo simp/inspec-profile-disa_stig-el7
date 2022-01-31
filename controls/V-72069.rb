@@ -5,8 +5,8 @@ that the file integrity tool is configured to verify Access Control Lists
 (ACLs)."
   desc  "ACLs can provide permissions beyond those permitted through the file
 mode and must be verified by file integrity tools."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the file integrity tool is configured to verify ACLs.
 
     Check to see if Advanced Intrusion Detection Environment (AIDE) is
@@ -41,7 +41,7 @@ lists.
 the \"/etc/aide.conf\" file, or ACLs are not being checked by another file
 integrity tool, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the file integrity tool to check file and directory ACLs.
 
     If AIDE is installed, ensure the \"acl\" rule is present on all uncommented

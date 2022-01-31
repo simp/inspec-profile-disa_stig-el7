@@ -4,8 +4,8 @@ control "V-72255" do
 that the SSH public host key files have mode 0644 or less permissive."
   desc  "If a public host key file is modified by an unauthorized user, the SSH
 service may be compromised."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the SSH public host key files have mode \"0644\" or less permissive.
 
     Note: SSH public key files may be found in other directories on the system
@@ -21,7 +21,7 @@ depending on the installation.
 
     If any file has a mode more permissive than \"0644\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Note: SSH public key files may be found in other directories on the system
 depending on the installation.
 

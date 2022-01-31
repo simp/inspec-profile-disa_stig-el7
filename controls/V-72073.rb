@@ -6,8 +6,8 @@ hashes for validating file contents and directories."
   desc  "File integrity tools use cryptographic hashes for verifying file
 contents and directories have not been altered. These hashes must be FIPS 140-2
 approved cryptographic hashes."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the file integrity tool is configured to use FIPS 140-2 approved
 cryptographic hashes for validating file contents and directories.
 
@@ -48,7 +48,7 @@ in the \"/etc/aide.conf\" file, or another file integrity tool is not using
 FIPS 140-2 approved cryptographic hashes for validating file contents and
 directories, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the file integrity tool to use FIPS 140-2 cryptographic hashes
 for validating file and directory contents.
 

@@ -8,8 +8,8 @@ password changes to defeat the password reuse or history enforcement
 requirement. If users are allowed to immediately and continually change their
 password, the password could be repeatedly changed in a short period of time to
 defeat the organization's policy regarding password reuse."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system enforces 24 hours/1 day as the minimum password
 lifetime for new user accounts.
 
@@ -22,7 +22,7 @@ following command:
     If the \"PASS_MIN_DAYS\" parameter value is not \"1\" or greater, or is
 commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to enforce 24 hours/1 day as the minimum
 password lifetime.
 

@@ -15,8 +15,8 @@ Officer (IMO)/Information System Security Officer (ISSO) and System
 Administrators (SAs) must be notified via email and/or monitoring system trap
 when there is an unauthorized modification of a configuration item.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system notifies designated personnel if baseline
 configurations are changed in an unauthorized manner.
 
@@ -59,7 +59,7 @@ check run\" root@sysname.mil
     If the file integrity application does not notify designated personnel of
 changes, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to notify designated personnel if baseline
 configurations are changed in an unauthorized manner. The AIDE tool can be
 configured to email designated personnel with the use of the cron system.

@@ -5,8 +5,8 @@ that a separate file system is used for user home directories (such as /home or
 an equivalent)."
   desc  "The use of separate file systems for different paths can protect the
 system from failures resulting from a file system becoming full or failing."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that a separate file system/partition has been created for
 non-privileged local interactive user home directories.
 
@@ -38,7 +38,7 @@ interactive users with the following command:
 non-privileged interactive users' home directories does not exist, this is a
 finding.
   "
-  desc  "fix", "Migrate the \"/home\" directory onto a separate file
+  tag 'fix': "Migrate the \"/home\" directory onto a separate file
 system/partition."
   impact 0.3
   tag severity: nil

@@ -7,8 +7,8 @@ a password in resisting attempts at guessing and brute-force attacks. If the
 information system or application allows the user to consecutively reuse their
 password when that password has exceeded its defined lifetime, the end result
 is a password that is not changed per policy requirements."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system prohibits password reuse for a minimum of five
 generations.
 
@@ -24,7 +24,7 @@ command:
 \"remember\" module argument set, is commented out, or the value of the
 \"remember\" module argument is set to less than \"5\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to prohibit password reuse for a minimum of
 five generations.
 

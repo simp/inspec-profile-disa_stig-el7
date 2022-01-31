@@ -12,8 +12,8 @@ control "V-73155" do
       The session lock is implemented at the point where session activity can be
   determined and/or controlled.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system prevents a user from overriding a screensaver
   lock after a 15-minute period of inactivity for graphical user interfaces.
 
@@ -39,7 +39,7 @@ control "V-73155" do
 
       If the command does not return a result, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to prevent a user from overriding a
     screensaver lock after a 15-minute period of inactivity for graphical user
     interfaces.

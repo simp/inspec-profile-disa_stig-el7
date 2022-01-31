@@ -13,8 +13,8 @@ consecutive colons, this is interpreted as the current working directory. If
 deviations from the default system search path for the local interactive user
 are required, they must be documented with the Information System Security
 Officer (ISSO)."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that all local interactive user initialization files' executable
 search path statements do not contain statements that will reference a working
 directory other than the users' home directory.
@@ -33,7 +33,7 @@ of \"/home/smithj\".
 path statements that include directories outside of their home directory, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Edit the local interactive user initialization files to change any PATH
 variable statements that reference directories other than their home directory.
 

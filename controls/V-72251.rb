@@ -8,8 +8,8 @@ immediate root access to the system.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Check the version of the operating system with the following command:
 
     # cat /etc/redhat-release
@@ -28,7 +28,7 @@ the following command:
     If any protocol line other than \"Protocol 2\" is uncommented, this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Remove all Protocol lines that reference version \"1\" in
 \"/etc/ssh/sshd_config\" (this file may be named differently or be in a
 different location if using a version of SSH that is provided by a third-party

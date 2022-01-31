@@ -7,8 +7,8 @@ Program Interface (GSSAPI) authentication unless needed."
 mechanisms to applications. Allowing GSSAPI authentication through SSH exposes
 the system's GSSAPI to remote hosts, increasing the attack surface of the
 system. GSSAPI authentication must be disabled unless needed."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the SSH daemon does not permit GSSAPI authentication unless approved.
 
     Check that the SSH daemon does not permit GSSAPI authentication with the
@@ -21,7 +21,7 @@ following command:
 is not documented with the Information System Security Officer (ISSO), or the
 returned line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Uncomment the \"GSSAPIAuthentication\" keyword in \"/etc/ssh/sshd_config\"
 (this file may be named differently or be in a different location if using a
 version of SSH that is provided by a third-party vendor) and set the value to

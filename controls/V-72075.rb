@@ -6,8 +6,8 @@ media to be used as the boot loader unless approved."
 configured to use removable media as the boot loader. If removable media is
 designed to be used as the boot loader, the requirement must be documented with
 the Information System Security Officer (ISSO)."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the system is not configured to use a boot loader on removable media.
 
     Note: GRUB 2 reads its configuration from the \"/boot/grub2/grub.cfg\" file
@@ -37,7 +37,7 @@ menu entry with the following commands:
 documentation does not exist approving the alternate configuration, this is a
 finding.
   "
-  desc  "fix", "Remove alternate methods of booting the system from removable
+  tag 'fix': "Remove alternate methods of booting the system from removable
 media or document the configuration to boot from removable media with the ISSO."
   impact 0.5
   tag severity: nil

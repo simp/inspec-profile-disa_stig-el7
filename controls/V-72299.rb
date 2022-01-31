@@ -7,8 +7,8 @@ provide for the confidentiality and integrity of user passwords or the remote
 session. If a privileged user were to log on using this service, the privileged
 user password could be compromised. SSH or other encrypted file transfer
 methods must be used in place of this service."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify an FTP server has not been installed on the system.
 
     Check to see if an FTP server has been installed with the following
@@ -21,7 +21,7 @@ commands:
     If \"vsftpd\" is installed and is not documented with the Information
 System Security Officer (ISSO) as an operational requirement, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Document the \"vsftpd\" package with the ISSO as an operational requirement
 or remove it from the system with the following command:
 

@@ -5,8 +5,8 @@ to a log aggregation server."
   desc  "Sending rsyslog output to another system ensures that the logs cannot
 be removed or modified in the event that the system is compromised or has a
 hardware failure."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify \"rsyslog\" is configured to send all messages to a log aggregation
 server.
 
@@ -27,7 +27,7 @@ audit logs are off-loaded to a different system or media.
     If the lines are commented out or there is no evidence that the audit logs
 are being sent to another system, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Modify the \"/etc/rsyslog.conf\" or an \"/etc/rsyslog.d/*.conf\" file to
 contain a configuration line to send all \"rsyslog\" output to a log
 aggregation system:

@@ -44,8 +44,8 @@ Agreement for details.\"
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify any publicly accessible connection to the operating system displays
 the Standard Mandatory DoD Notice and Consent Banner before granting access to
 the system.
@@ -97,7 +97,7 @@ finding.
     If the text in the file does not match the Standard Mandatory DoD Notice
 and Consent Banner, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system via the ssh.
 

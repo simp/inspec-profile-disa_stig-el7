@@ -11,8 +11,8 @@ responsible for one.
     Audit records can be generated from various components within the
 information system (e.g., module or policy filter).
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system must generate audit records for all account
 creations, modifications, disabling, and termination events that affect
 /etc/shadow.
@@ -27,7 +27,7 @@ command:
     If the command does not return a line, or the line is commented out, this
 is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to generate audit records for all account
 creations, modifications, disabling, and termination events that affect
 /etc/shadow.

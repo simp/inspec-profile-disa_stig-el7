@@ -11,8 +11,8 @@ passwords, and key exchanges between systems.
 the use of these tools must be documented with the Information System Security
 Officer (ISSO) and restricted to only authorized personnel.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify network interfaces are not in promiscuous mode unless approved by
 the ISSO and documented.
 
@@ -23,7 +23,7 @@ the ISSO and documented.
     If network interfaces are found on the system in promiscuous mode and their
 use has not been approved by the ISSO and documented, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure network interfaces to turn off promiscuous mode unless approved
 by the ISSO and documented.
 

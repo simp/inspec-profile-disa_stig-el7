@@ -8,8 +8,8 @@ with removable media."
 for mounting any file system not containing approved \"setuid\" and \"setguid\"
 files. Executing files from untrusted file systems increases the opportunity
 for unprivileged users to attain unauthorized administrative access."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify file systems that are used for removable media are mounted with the
 \"nosuid\" option.
 
@@ -24,7 +24,7 @@ noauto,owner,ro,nosuid 0 0
     If a file system found in \"/etc/fstab\" refers to removable media and it
 does not have the \"nosuid\" option set, this is a finding.
   "
-  desc  "fix", "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
+  tag 'fix': "Configure the \"/etc/fstab\" to use the \"nosuid\" option on
 file systems that are associated with removable media."
   impact 0.5
   tag severity: nil

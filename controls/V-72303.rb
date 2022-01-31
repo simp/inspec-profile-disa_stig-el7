@@ -4,8 +4,8 @@ control "V-72303" do
 that remote X connections for interactive users are encrypted."
   desc  "Open X displays allow an attacker to capture keystrokes and execute
 commands remotely."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify remote X connections for interactive users are encrypted.
 
     Check that remote X connections are encrypted with the following command:
@@ -17,7 +17,7 @@ commands remotely."
     If the \"X11Forwarding\" keyword is set to \"no\" or is missing, this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure SSH to encrypt connections for interactive users.
 
     Edit the \"/etc/ssh/sshd_config\" file to uncomment or add the line for the

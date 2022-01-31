@@ -5,8 +5,8 @@ that the audit system takes appropriate action when there is an error sending
 audit records to a remote system."
   desc  "Taking appropriate action when there is an error sending audit records
 to a remote system will minimize the possibility of losing audit records."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the action the operating system takes if there is an error sending
 audit records to a remote system.
 
@@ -19,7 +19,7 @@ records to a remote system with the following command:
     If the value of the \"network_failure_action\" option is not \"syslog\",
 \"single\", or \"halt\", or the line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the action the operating system takes if there is an error
 sending audit records to a remote system.
 

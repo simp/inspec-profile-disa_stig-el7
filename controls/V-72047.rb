@@ -13,8 +13,8 @@ The setting is normally reserved for directories used by the system and by
 users for temporary file storage, (e.g., /tmp), and for directories requiring
 global read/write access.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify all world-writable directories are group-owned by root, sys, bin, or
 an application group.
 
@@ -31,7 +31,7 @@ XFS is used as an example.
     If any world-writable directories are not owned by root, sys, bin, or an
 application group associated with the directory, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Change the group of the world-writable directories to root with the
 following command:
 

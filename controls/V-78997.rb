@@ -15,8 +15,8 @@ default. Disabling the user's ability to disengage the graphical user interface
 session lock provides the assurance that all sessions will lock after the
 specified period of time.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system prevents a user from overriding the screensaver
 idle-activation-enabled setting for the graphical user interface.
 
@@ -42,7 +42,7 @@ other than \"local\" is being used.
 
     If the command does not return a result, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to prevent a user from overriding a
 screensaver lock after a 15-minute period of inactivity for graphical user
 interfaces.

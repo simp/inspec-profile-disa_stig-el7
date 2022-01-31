@@ -9,8 +9,8 @@ brute-forcing, is reduced. Limits are imposed by locking the account.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Check that the system locks an account for a minimum of 15 minutes after
 three unsuccessful logon attempts within a period of 15 minutes with the
 following command:
@@ -72,7 +72,7 @@ to a value less than \"900\" on both \"auth\" lines with the
     If any line referencing the \"pam_faillock.so\" module is commented out,
 this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to lock an account for the maximum period
 when three unsuccessful logon attempts in 15 minutes are made.
 

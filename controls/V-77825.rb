@@ -8,8 +8,8 @@ into a process's address space during an attempt at exploitation. Additionally,
 ASLR also makes it more difficult for an attacker to know the location of
 existing code in order to repurpose it using return-oriented programming (ROP)
 techniques."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system implements virtual address space randomization.
 
     # grep kernel.randomize_va_space /etc/sysctl.conf /etc/sysctl.d/*
@@ -30,7 +30,7 @@ randomization with the following command:
     If \"kernel.randomize_va_space\" does not have a value of \"2\", this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system implement virtual address space
 randomization.
 

@@ -5,8 +5,8 @@ permissions for all authenticated users in such a way that the user can only
 read and modify their own files."
   desc  "Setting the most restrictive default permissions ensures that when new
 accounts are created, they do not have unnecessary access."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system defines default permissions for all
 authenticated users in such a way that the user can only read and modify their
 own files.
@@ -23,7 +23,7 @@ with the following command:
     If the value for the \"UMASK\" parameter is not \"077\", or the \"UMASK\"
 parameter is missing or is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to define default permissions for all
 authenticated users in such a way that the user can only read and modify their
 own files.

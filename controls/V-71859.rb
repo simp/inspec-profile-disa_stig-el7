@@ -45,8 +45,8 @@ Agreement for details.\"
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system displays the Standard Mandatory DoD Notice and
 Consent Banner before granting access to the operating system via a graphical
 user logon.
@@ -63,7 +63,7 @@ with the following command:
     If \"banner-message-enable\" is set to \"false\" or is missing, this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to display the Standard Mandatory DoD Notice
 and Consent Banner before granting access to the system.
 

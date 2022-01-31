@@ -15,8 +15,8 @@ Officer (IMO)/Information System Security Officer (ISSO) and System
 Administrators (SAs) must be notified via email and/or monitoring system trap
 when there is an unauthorized modification of a configuration item.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system routinely checks the baseline configuration for
 unauthorized changes.
 
@@ -50,7 +50,7 @@ system, use the following command:
 controlling the execution of the file integrity application does not exist,
 this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the file integrity tool to run automatically on the system at
 least weekly. The following example output is generic. It will set cron to run
 AIDE daily, but other file integrity tools may be used:

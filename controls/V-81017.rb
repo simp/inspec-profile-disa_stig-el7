@@ -13,8 +13,8 @@ daemon will not off load the logs from the system being audited.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the \"au-remote\" plugin is configured to always off-load audit logs
 using the audisp-remote daemon:
 
@@ -35,7 +35,7 @@ is commented out, this is a finding.
     If the \"type\" setting is not set to \"always\", or the line is commented
 out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Edit the /etc/audisp/plugins.d/au-remote.conf file and add or update the
 following values:
 

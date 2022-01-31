@@ -8,8 +8,8 @@ exist, the user may be given access to the / directory as the current working
 directory upon logon. This could create a Denial of Service because the user
 would not be able to access their logon configuration files, and it may give
 them visibility to system files they normally would not be able to access."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the assigned home directory of all local interactive users on the
 system exists.
 
@@ -32,7 +32,7 @@ containing system logon information.
     If any home directories referenced in \"/etc/passwd\" are returned as not
 defined, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Create home directories to all local interactive users that currently do
 not have a home directory assigned. Use the following commands to create the
 user home directory assigned in \"/etc/ passwd\":

@@ -13,8 +13,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system enforces password complexity by requiring that
 at least one special character be used.
 
@@ -30,7 +30,7 @@ the following command:
     If the value of \"ocredit\" is not set to a negative value, this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to enforce password complexity by requiring
 that at least one special character be used by setting the \"ocredit\" option.
 

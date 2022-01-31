@@ -8,8 +8,8 @@ umask can be represented as a four-digit number, the first digit representing
 special access modes is typically ignored or required to be \"0\". This
 requirement applies to the globally configured system defaults and the local
 interactive user defaults for each account on the system."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that the default umask for all local interactive users is \"077\".
 
     Identify the locations of all local interactive user home directories by
@@ -27,7 +27,7 @@ directories in the \"/home\" directory.
 umask statement that has a value less restrictive than \"077\", this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Remove the umask statement from all local interactive user's initialization
 files.
 

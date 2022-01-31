@@ -14,8 +14,8 @@ correct system.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the audisp daemon is configured to label all off-loaded audit logs:
 
     # grep \"name_format\" /etc/audisp/audispd.conf
@@ -25,7 +25,7 @@ correct system.
     If the \"name_format\" option is not \"hostname\", \"fqd\", or \"numeric\",
 or the line is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Edit the /etc/audisp/audispd.conf file and add or update the
 \"name_format\" option:
 

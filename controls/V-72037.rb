@@ -12,8 +12,8 @@ files or otherwise compromise the system at the user level. If the system is
 compromised at the user level, it is easier to elevate privileges to eventually
 compromise the system at the root and network level."
   end
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that local initialization files do not execute world-writable
 programs.
 
@@ -32,7 +32,7 @@ home directories in the \"/home\" directory.
     If any local initialization files are found to reference world-writable
 files, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Set the mode on files being executed by the local initialization files with
 the following command:
 

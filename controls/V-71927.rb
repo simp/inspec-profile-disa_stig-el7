@@ -7,8 +7,8 @@ password changes to defeat the password reuse or history enforcement
 requirement. If users are allowed to immediately and continually change their
 password, the password could be repeatedly changed in a short period of time to
 defeat the organization's policy regarding password reuse."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Check whether the minimum time period between password changes for each
 user account is one day or greater.
 
@@ -17,7 +17,7 @@ user account is one day or greater.
     If any results are returned that are not associated with a system account,
 this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure non-compliant accounts to enforce a 24 hours/1 day minimum
 password lifetime:
 

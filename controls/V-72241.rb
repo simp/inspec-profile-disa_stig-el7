@@ -19,8 +19,8 @@ and releases the resources associated with that session.
 
 
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system automatically terminates a user session after
 inactivity time-outs have expired.
 
@@ -32,7 +32,7 @@ following command:
 
     If \"ClientAliveCountMax\" is not set to \"0\", this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to terminate automatically a user session
 after inactivity time-outs have expired or at shutdown.
 

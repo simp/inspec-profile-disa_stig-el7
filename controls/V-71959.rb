@@ -4,8 +4,8 @@ control "V-71959" do
 non-certificate trusted host SSH logon to the system."
   desc  "Failure to restrict system access to authenticated users negatively
 impacts operating system security."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the operating system does not allow a non-certificate trusted host
 SSH logon to the system.
 
@@ -18,7 +18,7 @@ following command:
     If the \"HostbasedAuthentication\" keyword is not set to \"no\", is
 missing, or is commented out, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to not allow a non-certificate trusted host
 SSH logon to the system.
 

@@ -13,8 +13,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     The \"maxclassrepeat\" option sets the maximum number of allowed same
 consecutive characters in the same class in the new password.
 
@@ -27,7 +27,7 @@ consecutive characters in the same class in the new password.
     If the value of \"maxclassrepeat\" is set to more than \"4\", this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the operating system to require the change of the number of
 repeating characters of the same character class when passwords are changed by
 setting the \"maxclassrepeat\" option.

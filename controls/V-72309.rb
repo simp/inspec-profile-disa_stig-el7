@@ -6,8 +6,8 @@ packet forwarding unless the system is a router."
 network topology information with other routers. If this software is used when
 not required, system network information may be unnecessarily transmitted
 across the network."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify the system is not performing packet forwarding, unless the system is
 a router.
 
@@ -28,7 +28,7 @@ following command:
     If IP forwarding value is \"1\" and the system is hosting any application,
 database, or web servers, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Set the system to the required kernel parameter by adding the following
 line to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/
 directory (or modify the line to have the required value):

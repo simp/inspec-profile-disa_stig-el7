@@ -4,8 +4,8 @@ control "V-72061" do
 system for /var."
   desc  "The use of separate file systems for different paths can protect the
 system from failures resulting from a file system becoming full or failing."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify that a separate file system/partition has been created for \"/var\".
 
     Check that a file system/partition has been created for \"/var\" with the
@@ -17,7 +17,7 @@ following command:
 
     If a separate entry for \"/var\" is not in use, this is a finding.
   "
-  desc  "fix", "Migrate the \"/var\" path onto a separate file system."
+  tag 'fix': "Migrate the \"/var\" path onto a separate file system."
   impact 0.3
   tag severity: nil
   tag gtitle: "SRG-OS-000480-GPOS-00227"

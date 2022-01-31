@@ -13,8 +13,8 @@ takes to crack a password. The more complex the password, the greater the
 number of possible combinations that need to be tested before the password is
 compromised.
   "
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Note: The value to require a number of lower-case characters to be set is
 expressed as a negative number in \"/etc/security/pwquality.conf\".
 
@@ -27,7 +27,7 @@ the following command:
     If the value of \"lcredit\" is not set to a negative value, this is a
 finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Configure the system to require at least one lower-case character when
 creating or changing a password.
 

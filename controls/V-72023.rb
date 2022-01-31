@@ -6,8 +6,8 @@ directories are owned by the owner of the home directory."
   desc  "If local interactive users do not own the files in their directories,
 unauthorized users may be able to access them. Additionally, if files are not
 owned by the user, this could be an indication of system compromise."
-  desc  "rationale", ""
-  desc  "check", "
+  tag 'rationale': ""
+  tag 'check': "
     Verify all files and directories in a local interactive user's home
 directory are owned by the user.
 
@@ -25,7 +25,7 @@ of \"/home/smithj\".
     If any files are found with an owner different than the home directory
 user, this is a finding.
   "
-  desc  "fix", "
+  tag 'fix': "
     Change the owner of a local interactive user's files and directories to
 that owner. To change the owner of a local interactive user's files and
 directories, use the following command:
