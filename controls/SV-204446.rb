@@ -9,8 +9,8 @@ control 'SV-204446' do
     Officer (IMO)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email
     and/or monitoring system trap when there is an unauthorized modification of a configuration item."
   tag 'legacy': ['V-71975', 'SV-86599']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system notifies designated personnel if baseline configurations are changed in
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system notifies designated personnel if baseline configurations are changed in
     an unauthorized manner.
     Note: A file integrity tool other than Advanced Intrusion Detection Environment (AIDE) may be used, but the tool
     must be executed and notify specified individuals via email or an alert.
@@ -32,7 +32,7 @@ control 'SV-204446' do
     #!/bin/bash
     /usr/sbin/aide --check | /bin/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil
     If the file integrity application does not notify designated personnel of changes, this is a finding.'
-  tag 'fix': 'Configure the operating system to notify designated personnel if baseline configurations are changed
+  desc 'fix', 'Configure the operating system to notify designated personnel if baseline configurations are changed
     in an unauthorized manner. The AIDE tool can be configured to email designated personnel with the use of the cron
     system.
     The following example output is generic. It will set cron to run AIDE daily and to send email at the completion of

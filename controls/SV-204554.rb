@@ -9,15 +9,15 @@ control 'SV-204554' do
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   tag 'legacy': ['V-72175', 'SV-86799']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "postdrop" command occur.
     Check that the following system call is being audited by performing the following command to check the file system
     rules in "/etc/audit/audit.rules":
     # grep -iw /usr/sbin/postdrop /etc/audit/audit.rules
     -a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=unset -k privileged-postfix
     If the command does not return any output, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "postdrop" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/sbin/postdrop -F auid>=1000 -F auid!=unset -k privileged-postfix

@@ -6,15 +6,15 @@ control 'SV-204422' do
     their password when that password has exceeded its defined lifetime, the end result is a password that is not
     changed per policy requirements.'
   tag 'legacy': ['V-71933', 'SV-86557']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system prohibits password reuse for a minimum of five generations.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system prohibits password reuse for a minimum of five generations.
     Check for the value of the "remember" argument in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" with the
     following command:
     # grep -i remember /etc/pam.d/system-auth /etc/pam.d/password-auth
     password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3
     If the line containing the "pam_pwhistory.so" line does not have the "remember" module argument set, is commented
     out, or the value of the "remember" module argument is set to less than "5", this is a finding.'
-  tag 'fix': 'Configure the operating system to prohibit password reuse for a minimum of five generations.
+  desc 'fix', 'Configure the operating system to prohibit password reuse for a minimum of five generations.
     Add the following line in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" (or modify the line to have the
     required value):
     password    requisite     pam_pwhistory.so use_authtok remember=5 retry=3

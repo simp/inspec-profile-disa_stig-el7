@@ -22,8 +22,8 @@ control 'SV-204394' do
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
   tag 'legacy': ['V-71861', 'SV-86485']
-  tag 'rationale': ''
-  tag 'check': %q{Verify the operating system displays the approved Standard Mandatory DoD Notice and Consent Banner
+  desc 'rationale', ''
+  desc 'check', %q{Verify the operating system displays the approved Standard Mandatory DoD Notice and Consent Banner
     before granting access to the operating system via a graphical user logon.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Check that the operating system displays the exact approved Standard Mandatory DoD Notice and Consent Banner text
@@ -44,7 +44,7 @@ control 'SV-204394' do
     work product are private and confidential. See User Agreement for details. '
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
     If the banner does not match the approved Standard Mandatory DoD Notice and Consent Banner, this is a finding.}
-  tag 'fix': %q{Configure the operating system to display the approved Standard Mandatory DoD Notice and Consent
+  desc 'fix', %q{Configure the operating system to display the approved Standard Mandatory DoD Notice and Consent
     Banner before granting access to the system.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the

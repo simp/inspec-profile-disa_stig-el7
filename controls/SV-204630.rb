@@ -5,8 +5,8 @@ control 'SV-204630' do
     requirement applies only to the forwarding of source-routed traffic, such as when IPv6 forwarding is enabled and the
     system is functioning as a router.'
   tag 'legacy': ['V-72319', 'SV-86943']
-  tag 'rationale': ''
-  tag 'check': 'If IPv6 is not enabled, the key will not exist, and this is Not Applicable.
+  desc 'rationale', ''
+  desc 'check', 'If IPv6 is not enabled, the key will not exist, and this is Not Applicable.
     Verify the system does not accept IPv6 source-routed packets.
     # grep net.ipv6.conf.all.accept_source_route /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv6.conf.all.accept_source_route = 0
@@ -16,7 +16,7 @@ control 'SV-204630' do
     # /sbin/sysctl -a | grep net.ipv6.conf.all.accept_source_route
     net.ipv6.conf.all.accept_source_route = 0
     If the returned lines do not have a value of "0", this is a finding.'
-  tag 'fix': 'Set the system to the required kernel parameter, if IPv6 is enabled, by adding the following line to
+  desc 'fix', 'Set the system to the required kernel parameter, if IPv6 is enabled, by adding the following line to
     "/etc/sysctl.conf" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required
     value):
     net.ipv6.conf.all.accept_source_route = 0

@@ -12,13 +12,13 @@ control 'SV-204622' do
     If X11 services are not required for the system's intended function, they should be disabled or restricted as
     appropriate to the system’s needs."
   tag 'legacy': ['SV-86927', 'V-72303']
-  tag 'rationale': ''
-  tag 'check': 'Determine if X11Forwarding is disabled with the following command:
+  desc 'rationale', ''
+  desc 'check', 'Determine if X11Forwarding is disabled with the following command:
     # grep -i x11forwarding /etc/ssh/sshd_config | grep -v "^#"
     X11Forwarding no
     If the "X11Forwarding" keyword is set to "yes" and is not documented with the Information System Security Officer
     (ISSO) as an operational requirement or is missing, this is a finding.'
-  tag 'fix': 'Edit the "/etc/ssh/sshd_config" file to uncomment or add the line for the "X11Forwarding" keyword and
+  desc 'fix', 'Edit the "/etc/ssh/sshd_config" file to uncomment or add the line for the "X11Forwarding" keyword and
     set its value to "no" (this file may be named differently or be in a different location if using a version of SSH
     that is provided by a third-party vendor):
     X11Forwarding no

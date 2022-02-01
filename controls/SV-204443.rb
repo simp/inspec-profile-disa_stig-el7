@@ -3,13 +3,13 @@ control 'SV-204443' do
   desc 'Removing the "ypserv" package decreases the risk of the accidental (or intentional) activation of NIS or
     NIS+ services.'
   tag 'legacy': ['V-71969', 'SV-86593']
-  tag 'rationale': ''
-  tag 'check': 'The NIS service provides an unencrypted authentication service that does not provide for the
+  desc 'rationale', ''
+  desc 'check', 'The NIS service provides an unencrypted authentication service that does not provide for the
     confidentiality and integrity of user passwords or the remote session.
     Check to see if the "ypserve" package is installed with the following command:
     # yum list installed ypserv
     If the "ypserv" package is installed, this is a finding.'
-  tag 'fix': 'Configure the operating system to disable non-essential capabilities by removing the "ypserv" package
+  desc 'fix', 'Configure the operating system to disable non-essential capabilities by removing the "ypserv" package
     from the system with the following command:
     # yum remove ypserv'
   impact 0.7

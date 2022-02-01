@@ -7,8 +7,8 @@ control 'SV-204497' do
     The operating system must implement cryptographic modules adhering to the higher standards approved by the federal
     government since this provides assurance they have been tested and validated.'
   tag 'legacy': ['SV-86691', 'V-72067']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system implements DoD-approved encryption to protect the confidentiality of
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system implements DoD-approved encryption to protect the confidentiality of
     remote access sessions.
     Check to see if the "dracut-fips" package is installed with the following command:
     # yum list installed dracut-fips
@@ -29,7 +29,7 @@ control 'SV-204497' do
     Verify the file /etc/system-fips exists.
     # ls -l /etc/system-fips
     If this file does not exist, this is a finding.'
-  tag 'fix': 'Configure the operating system to implement DoD-approved encryption by installing the dracut-fips
+  desc 'fix', 'Configure the operating system to implement DoD-approved encryption by installing the dracut-fips
     package.
     To enable strict FIPS compliance, the fips=1 kernel option needs to be added to the kernel command line during
     system installation so key generation is done with FIPS-approved algorithms and continuous monitoring tests in

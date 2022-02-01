@@ -5,8 +5,8 @@ control 'SV-204511' do
     audit records.
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.'
   tag 'legacy': ['V-72087', 'SV-86711']
-  tag 'rationale': ''
-  tag 'check': 'Verify the action the operating system takes if the disk the audit records are written to becomes
+  desc 'rationale', ''
+  desc 'check', 'Verify the action the operating system takes if the disk the audit records are written to becomes
     full.
     To determine the action that takes place if the disk is full on the remote server, use the following command:
     # grep -i disk_full_action /etc/audisp/audisp-remote.conf
@@ -17,7 +17,7 @@ control 'SV-204511' do
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     or if the configuration does not take appropriate action when the disk is full on the remote server, this is a
     finding.'
-  tag 'fix': 'Configure the action the operating system takes if the disk the audit records are written to becomes
+  desc 'fix', 'Configure the action the operating system takes if the disk the audit records are written to becomes
     full.
     Uncomment or edit the "disk_full_action" option in "/etc/audisp/audisp-remote.conf" and set it to "syslog",
     "single", or "halt", such as the following line:

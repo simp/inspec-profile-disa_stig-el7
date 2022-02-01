@@ -3,8 +3,8 @@ control 'SV-204489' do
   desc 'Cron logging can be used to trace the successful or unsuccessful execution of cron jobs. It can also be used
     to spot intrusions into the use of the cron facility by unauthorized and malicious users.'
   tag 'legacy': ['V-72051', 'SV-86675']
-  tag 'rationale': ''
-  tag 'check': 'Verify that "rsyslog" is configured to log cron events.
+  desc 'rationale', ''
+  desc 'check', 'Verify that "rsyslog" is configured to log cron events.
     Check the configuration of "/etc/rsyslog.conf" or "/etc/rsyslog.d/*.conf" files for the cron facility with the
     following command:
     Note: If another logging package is used, substitute the utility configuration file for "/etc/rsyslog.conf" or
@@ -16,7 +16,7 @@ control 'SV-204489' do
     Look for the following entry:
     *.* /var/log/messages
     If "rsyslog" is not logging messages for the cron facility or all facilities, this is a finding.'
-  tag 'fix': 'Configure "rsyslog" to log all cron messages by adding or updating the following line to
+  desc 'fix', 'Configure "rsyslog" to log all cron messages by adding or updating the following line to
     "/etc/rsyslog.conf" or a configuration file in the /etc/rsyslog.d/ directory:
     cron.* /var/log/cron
     The rsyslog daemon must be restarted for the changes to take effect:

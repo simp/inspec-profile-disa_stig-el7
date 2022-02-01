@@ -4,8 +4,8 @@ control 'SV-204473' do
   desc 'If a local interactive user files have excessive permissions, unintended users may be able to access or
     modify them.'
   tag 'legacy': ['V-72027', 'SV-86651']
-  tag 'rationale': ''
-  tag 'check': 'Verify all files and directories contained in a local interactive user home directory, excluding
+  desc 'rationale', ''
+  desc 'check', 'Verify all files and directories contained in a local interactive user home directory, excluding
     local initialization files, have a mode of "0750".
     Check the mode of all non-initialization files in a local interactive user home directory with the following
     command:
@@ -16,7 +16,7 @@ control 'SV-204473' do
     -rwxr----- 1 smithj smithj 193 Mar  5 17:06 file2
     -rw-r-x--- 1 smithj smithj 231 Mar  5 17:06 file3
     If any files are found with a mode more permissive than "0750", this is a finding.'
-  tag 'fix': 'Set the mode on files and directories in the local interactive user home directory with the following
+  desc 'fix', 'Set the mode on files and directories in the local interactive user home directory with the following
     command:
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj" and is a member of the
     users group.

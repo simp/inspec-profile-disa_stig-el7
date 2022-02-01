@@ -5,8 +5,8 @@ control 'SV-204417' do
     If passwords are not encrypted, they can be plainly read (i.e., clear text) and easily compromised. Passwords
     encrypted with a weak algorithm are no more protected than if they are kept in plain text.'
   tag 'legacy': ['V-71923', 'SV-86547']
-  tag 'rationale': ''
-  tag 'check': 'Verify the user and group account administration utilities are configured to store only encrypted
+  desc 'rationale', ''
+  desc 'check', 'Verify the user and group account administration utilities are configured to store only encrypted
     representations of passwords. The strength of encryption that must be used to hash passwords for all accounts is
     "SHA512".
     Check that the system is configured to create "SHA512" hashed passwords with the following command:
@@ -14,7 +14,7 @@ control 'SV-204417' do
     crypt_style = sha512
     If the "crypt_style" variable is not set to "sha512", is not in the defaults section, is commented out, or does not
     exist, this is a finding.'
-  tag 'fix': 'Configure the operating system to store only SHA512 encrypted representations of passwords.
+  desc 'fix', 'Configure the operating system to store only SHA512 encrypted representations of passwords.
     Add or update the following line in "/etc/libuser.conf" in the [defaults] section:
     crypt_style = sha512'
   impact 0.5

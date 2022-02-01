@@ -4,8 +4,8 @@ control 'SV-204428' do
   desc 'By limiting the number of failed logon attempts, the risk of unauthorized system access via user password
     guessing, otherwise known as brute forcing, is reduced. Limits are imposed by locking the account.'
   tag 'legacy': ['V-71945', 'SV-86569']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system automatically locks the root account, for a minimum of 15 minutes, when
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system automatically locks the root account, for a minimum of 15 minutes, when
     three unsuccessful logon attempts in 15 minutes are made.
     # grep pam_faillock.so /etc/pam.d/password-auth
     auth required pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
@@ -19,7 +19,7 @@ control 'SV-204428' do
     account required pam_faillock.so
     If the "even_deny_root" setting is not defined on both lines with the "pam_faillock.so" module, is commented out, or
     is missing from a line, this is a finding.'
-  tag 'fix': 'Configure the operating system to automatically lock the root account, for a minimum of 15 minutes,
+  desc 'fix', 'Configure the operating system to automatically lock the root account, for a minimum of 15 minutes,
     when three unsuccessful logon attempts in 15 minutes are made.
     Modify the first three lines of the auth section and the first line of the account section of the
     "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" files to match the following lines:

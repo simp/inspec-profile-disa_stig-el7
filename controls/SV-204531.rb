@@ -14,8 +14,8 @@ control 'SV-204531' do
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
   tag 'legacy': ['SV-86749', 'V-72125']
-  tag 'rationale': ''
-  tag 'check': %q(Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', %q(Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "creat", "open", "openat", "open_by_handle_at", "truncate", and "ftruncate" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep 'open\|truncate\|creat' /etc/audit/audit.rules
@@ -31,7 +31,7 @@ control 'SV-204531' do
     "truncate", and "ftruncate" syscalls, this is a finding.
     If the output does not produce rules containing "-F exit=-EPERM", this is a finding.
     If the output does not produce rules containing "-F exit=-EACCES", this is a finding.)
-  tag 'fix': 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
     the "creat", "open", "openat", "open_by_handle_at", "truncate", and "ftruncate" syscalls.
     Add or update the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S creat,open,openat,open_by_handle_at,truncate,ftruncate -F exit=-EPERM -F auid>=1000 -F

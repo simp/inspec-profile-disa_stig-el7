@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  desc 'rationale', ''
+  desc 'check', "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"lremovexattr\" syscall occur.
 
@@ -30,7 +30,7 @@ auid!=4294967295 -k perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"lremovexattr\" syscall, this is a finding.
   "
-  tag 'fix': "
+  desc 'fix', "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"lremovexattr\" syscall occur.
 

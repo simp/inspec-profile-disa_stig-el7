@@ -5,8 +5,8 @@ control 'SV-204614' do
     destination. These messages modify the host's route table and are unauthenticated. An illicit ICMP redirect message
     could result in a man-in-the-middle attack."
   tag 'legacy': ['SV-86913', 'V-72289']
-  tag 'rationale': ''
-  tag 'check': %q(Verify the system will not accept IPv4 ICMP redirect messages.
+  desc 'rationale', ''
+  desc 'check', %q(Verify the system will not accept IPv4 ICMP redirect messages.
     # grep 'net.ipv4.conf.default.accept_redirects' /etc/sysctl.conf /etc/sysctl.d/*
     If " net.ipv4.conf.default.accept_redirects " is not configured in the /etc/sysctl.conf file or in the
     /etc/sysctl.d/ directory, is commented out, or does not have a value of "0", this is a finding.
@@ -14,7 +14,7 @@ control 'SV-204614' do
     # /sbin/sysctl -a | grep 'net.ipv4.conf.default.accept_redirects'
     net.ipv4.conf.default.accept_redirects = 0
     If the returned line does not have a value of "0", this is a finding.)
-  tag 'fix': 'Set the system to not accept IPv4 ICMP redirect messages by adding the following line to
+  desc 'fix', 'Set the system to not accept IPv4 ICMP redirect messages by adding the following line to
     "/etc/sysctl.conf" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required
     value):
     net.ipv4.conf.default.accept_redirects = 0

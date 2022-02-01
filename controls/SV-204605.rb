@@ -4,13 +4,13 @@ control 'SV-204605' do
   desc 'Providing users with feedback on when account accesses last occurred facilitates user recognition and
     reporting of unauthorized account use.'
   tag 'legacy': ['SV-86899', 'V-72275']
-  tag 'rationale': ''
-  tag 'check': 'Verify users are provided with feedback on when account accesses last occurred.
+  desc 'rationale', ''
+  desc 'check', 'Verify users are provided with feedback on when account accesses last occurred.
     Check that "pam_lastlog" is used and not silent with the following command:
     # grep pam_lastlog /etc/pam.d/postlogin
     session required pam_lastlog.so showfailed
     If "pam_lastlog" is missing from "/etc/pam.d/postlogin" file, or the silent option is present, this is a finding.'
-  tag 'fix': 'Configure the operating system to provide users with feedback on when account accesses last occurred
+  desc 'fix', 'Configure the operating system to provide users with feedback on when account accesses last occurred
     by setting the required configuration options in "/etc/pam.d/postlogin".
     Add the following line to the top of "/etc/pam.d/postlogin":
     session required pam_lastlog.so showfailed'

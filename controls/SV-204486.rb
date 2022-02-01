@@ -12,8 +12,8 @@ control 'SV-204486' do
     files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized
     administrative access.'
   tag 'legacy': ['SV-95725', 'V-81013']
-  tag 'rationale': ''
-  tag 'check': 'Verify that the "nodev","nosuid", and "noexec" options are configured for /dev/shm:
+  desc 'rationale', ''
+  desc 'check', 'Verify that the "nodev","nosuid", and "noexec" options are configured for /dev/shm:
     # cat /etc/fstab | grep /dev/shm
     tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
     If results are returned and the "nodev", "nosuid", or "noexec" options are missing, this is a finding.
@@ -21,7 +21,7 @@ control 'SV-204486' do
     # mount | grep /dev/shm
     tmpfs on /dev/shm type tmpfs (rw,nodev,nosuid,noexec,seclabel)
     If /dev/shm is mounted without secure options "nodev", "nosuid", and "noexec", this is a finding.'
-  tag 'fix': 'Configure the system so that /dev/shm is mounted with the "nodev", "nosuid", and "noexec" options by
+  desc 'fix', 'Configure the system so that /dev/shm is mounted with the "nodev", "nosuid", and "noexec" options by
     adding /modifying the /etc/fstab with the following line:
     tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.3

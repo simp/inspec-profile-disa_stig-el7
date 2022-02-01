@@ -6,15 +6,15 @@ control 'SV-204559' do
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
   tag 'legacy': ['V-78999', 'SV-93705']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "create_module" syscall occur.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep -iw create_module /etc/audit/audit.rules
     -a always,exit -F arch=b32 -S create_module -k module-change
     -a always,exit -F arch=b64 -S create_module -k module-change
     If both the "b32" and "b64" audit rules are not defined for the "create_module" syscall, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "create_module" syscall occur.
     Add or update the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S create_module -k module-change

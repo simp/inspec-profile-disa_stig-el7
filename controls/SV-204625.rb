@@ -5,8 +5,8 @@ control 'SV-204625' do
     routers. If this software is used when not required, system network information may be unnecessarily transmitted
     across the network.'
   tag 'legacy': ['SV-86933', 'V-72309']
-  tag 'rationale': ''
-  tag 'check': 'Verify the system is not performing packet forwarding, unless the system is a router.
+  desc 'rationale', ''
+  desc 'check', 'Verify the system is not performing packet forwarding, unless the system is a router.
     # grep net.ipv4.ip_forward /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv4.ip_forward = 0
     If "net.ipv4.ip_forward" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is
@@ -16,7 +16,7 @@ control 'SV-204625' do
     net.ipv4.ip_forward = 0
     If IP forwarding value is "1" and the system is hosting any application, database, or web servers, this is a
     finding.'
-  tag 'fix': 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
+  desc 'fix', 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
     a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
     net.ipv4.ip_forward = 0
     Issue the following command to make the changes take effect:

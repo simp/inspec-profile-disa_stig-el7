@@ -3,8 +3,8 @@ control 'SV-204451' do
   desc 'Automatically mounting file systems permits easy introduction of unknown devices, thereby facilitating
     malicious activity.'
   tag 'legacy': ['V-71985', 'SV-86609']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system disables the ability to automount devices.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system disables the ability to automount devices.
     Check to see if automounter service is active with the following command:
     # systemctl status autofs
     autofs.service - Automounts filesystems on demand
@@ -12,7 +12,7 @@ control 'SV-204451' do
     Active: inactive (dead)
     If the "autofs" status is set to "active" and is not documented with the Information System Security Officer (ISSO)
     as an operational requirement, this is a finding.'
-  tag 'fix': 'Configure the operating system to disable the ability to automount devices.
+  desc 'fix', 'Configure the operating system to disable the ability to automount devices.
     Turn off the automount service with the following commands:
     # systemctl stop autofs
     # systemctl disable autofs

@@ -7,13 +7,13 @@ control 'SV-204487' do
     be temporary file repositories. The setting is normally reserved for directories used by the system and by users for
     temporary file storage, (e.g., /tmp), and for directories requiring global read/write access.'
   tag 'legacy': ['V-72047', 'SV-86671']
-  tag 'rationale': ''
-  tag 'check': 'The following command will discover and print world-writable directories that are not group-owned by
+  desc 'rationale', ''
+  desc 'check', 'The following command will discover and print world-writable directories that are not group-owned by
     a system account, assuming only system accounts have a GID lower than 1000. Run it once for each local partition
     [PART]:
     # find [PART] -xdev -type d -perm -0002 -gid +999 -print
     If there is output, this is a finding.'
-  tag 'fix': 'All directories in local partitions which are world-writable should be group-owned by root or another
+  desc 'fix', 'All directories in local partitions which are world-writable should be group-owned by root or another
     system account. If any world-writable directories are not group-owned by a system account, this should be
     investigated. Following this, the directories should be deleted or assigned to an appropriate group.'
   impact 0.5

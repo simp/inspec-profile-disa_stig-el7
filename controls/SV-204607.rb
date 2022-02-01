@@ -4,12 +4,12 @@ control 'SV-204607' do
     authentication is not sufficient for preventing unauthorized access to the system, as it does not require
     interactive identification and authentication of a connection request, or for the use of two-factor authentication.'
   tag 'legacy': ['SV-86903', 'V-72279']
-  tag 'rationale': ''
-  tag 'check': 'Verify there are no "shosts.equiv" files on the system.
+  desc 'rationale', ''
+  desc 'check', 'Verify there are no "shosts.equiv" files on the system.
     Check the system for the existence of these files with the following command:
     # find / -name shosts.equiv
     If any "shosts.equiv" files are found on the system, this is a finding.'
-  tag 'fix': 'Remove any found "shosts.equiv" files from the system.
+  desc 'fix', 'Remove any found "shosts.equiv" files from the system.
     # rm /[path]/[to]/[file]/shosts.equiv'
   impact 0.7
   tag 'severity': 'high'

@@ -7,8 +7,8 @@ control 'SV-204582' do
     functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while
     maintaining the confidentiality of the key used to generate the hash.'
   tag 'legacy': ['V-72229', 'SV-86853']
-  tag 'rationale': ''
-  tag 'check': 'If LDAP is not being utilized, this requirement is Not Applicable.
+  desc 'rationale', ''
+  desc 'check', 'If LDAP is not being utilized, this requirement is Not Applicable.
     Verify the operating system implements cryptography to protect the integrity of remote LDAP access sessions.
     To determine if LDAP is being used for authentication, use the following command:
     # systemctl status sssd.service
@@ -25,7 +25,7 @@ control 'SV-204582' do
     ldap_tls_reqcert = demand
     If the "ldap_tls_reqcert" setting is missing, commented out, or does not exist, this is a finding.
     If the "ldap_tls_reqcert" setting is not set to "demand" or "hard", this is a finding.'
-  tag 'fix': 'Configure the operating system to implement cryptography to protect the integrity of LDAP remote
+  desc 'fix', 'Configure the operating system to implement cryptography to protect the integrity of LDAP remote
     access sessions.
     Add or modify the following line in "/etc/sssd/sssd.conf":
     ldap_tls_reqcert = demand'

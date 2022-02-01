@@ -5,8 +5,8 @@ control 'SV-204611' do
     received on the interface they were received on. It should not be used on systems which are routers for complicated
     networks, but is helpful for end hosts and routers serving small networks.'
   tag 'legacy': ['V-92253', 'SV-102355']
-  tag 'rationale': ''
-  tag 'check': 'Verify the system uses a reverse-path filter for IPv4:
+  desc 'rationale', ''
+  desc 'check', 'Verify the system uses a reverse-path filter for IPv4:
     # grep net.ipv4.conf.default.rp_filter /etc/sysctl.conf /etc/sysctl.d/*
     net.ipv4.conf.default.rp_filter = 1
     If "net.ipv4.conf.default.rp_filter" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/
@@ -15,7 +15,7 @@ control 'SV-204611' do
     # /sbin/sysctl -a | grep net.ipv4.conf.default.rp_filter
     net.ipv4.conf.default.rp_filter = 1
     If the returned line does not have a value of "1", this is a finding.'
-  tag 'fix': 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
+  desc 'fix', 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
     a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
     net.ipv4.conf.default.rp_filter = 1
     Issue the following command to make the changes take effect:

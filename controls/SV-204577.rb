@@ -14,8 +14,8 @@ control 'SV-204577' do
     services to only those required, authorized, and approved to conduct official business or to address authorized
     quality of life issues.'
   tag 'legacy': ['V-72219', 'SV-86843']
-  tag 'rationale': ''
-  tag 'check': 'Inspect the firewall configuration and running services to verify that it is configured to prohibit
+  desc 'rationale', ''
+  desc 'check', 'Inspect the firewall configuration and running services to verify that it is configured to prohibit
     or restrict the use of functions, ports, protocols, and/or services that are unnecessary or prohibited.
     Check which services are currently active with the following command:
     # firewall-cmd --list-all
@@ -32,7 +32,7 @@ control 'SV-204577' do
     the PPSM CLSA.
     If there are additional ports, protocols, or services that are not in the PPSM CLSA, or there are ports, protocols,
     or services that are prohibited by the PPSM Category Assurance List (CAL), this is a finding.'
-  tag 'fix': "Update the host's firewall settings and/or running services to comply with the PPSM CLSA for the site
+  desc 'fix', "Update the host's firewall settings and/or running services to comply with the PPSM CLSA for the site
     or program and the PPSM CAL."
   impact 0.5
   tag 'severity': 'medium'

@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  desc 'rationale', ''
+  desc 'check', "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"lchown\" syscall occur.
 
@@ -30,7 +30,7 @@ perm_mod
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"lchown\" syscall, this is a finding.
   "
-  tag 'fix': "
+  desc 'fix', "
     Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
 
     -a always,exit -F arch=b32 -S lchown -F auid>=1000 -F auid!=4294967295 -k

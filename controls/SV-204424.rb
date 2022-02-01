@@ -4,12 +4,12 @@ control 'SV-204424' do
   desc 'If an account has an empty password, anyone could log on and run commands with the privileges of that
     account. Accounts with empty passwords should never be used in operational environments.'
   tag 'legacy': ['V-71937', 'SV-86561']
-  tag 'rationale': ''
-  tag 'check': 'To verify that null passwords cannot be used, run the following command:
+  desc 'rationale', ''
+  desc 'check', 'To verify that null passwords cannot be used, run the following command:
     # grep nullok /etc/pam.d/system-auth /etc/pam.d/password-auth
     If this produces any output, it may be possible to log on with accounts with empty passwords.
     If null passwords can be used, this is a finding.'
-  tag 'fix': 'If an account is configured for password authentication but does not have an assigned password, it may
+  desc 'fix', 'If an account is configured for password authentication but does not have an assigned password, it may
     be possible to log on to the account without authenticating.
     Remove any instances of the "nullok" option in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" to prevent
     logons with empty passwords.

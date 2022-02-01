@@ -4,8 +4,8 @@ control 'SV-204493' do
   desc 'The use of separate file systems for different paths can protect the system from failures resulting from a
     file system becoming full or failing.'
   tag 'legacy': ['SV-86683', 'V-72059']
-  tag 'rationale': ''
-  tag 'check': "Verify that a separate file system/partition has been created for non-privileged local interactive
+  desc 'rationale', ''
+  desc 'check', "Verify that a separate file system/partition has been created for non-privileged local interactive
     user home directories.
     Check the home directory assignment for all non-privileged users (those with a UID of 1000 or greater) on the system
     with the following command:
@@ -23,7 +23,7 @@ control 'SV-204493' do
     UUID=333ada18    /home                   ext4    noatime,nobarrier,nodev  1 2
     If a separate entry for the file system/partition that contains the non-privileged interactive users' home
     directories does not exist, this is a finding."
-  tag 'fix': 'Migrate the "/home" directory onto a separate file system/partition.'
+  desc 'fix', 'Migrate the "/home" directory onto a separate file system/partition.'
   impact 0.3
   tag 'severity': 'low'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'

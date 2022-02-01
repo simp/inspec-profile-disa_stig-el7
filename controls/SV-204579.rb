@@ -12,15 +12,15 @@ control 'SV-204579' do
     This does not mean that the operating system terminates all sessions or network access; it only ends the inactive
     session and releases the resources associated with that session.'
   tag 'legacy': ['SV-86847', 'V-72223']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system terminates all network connections associated with a communications
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system terminates all network connections associated with a communications
     session at the end of the session or based on inactivity.
     Check the value of the system inactivity timeout with the following command:
     # grep -i tmout /etc/profile.d/*
     etc/profile.d/tmout.sh:declare -xr TMOUT=900
     If "TMOUT" is not set to "900" or less in a script located in the /etc/profile.d/ directory to enforce session
     termination after inactivity, this is a finding.'
-  tag 'fix': 'Configure the operating system to terminate all network connections associated with a communications
+  desc 'fix', 'Configure the operating system to terminate all network connections associated with a communications
     session at the end of the session or after a period of inactivity.
     Create a script to enforce the inactivity timeout (for example /etc/profile.d/tmout.sh) such as:
     #!/bin/bash

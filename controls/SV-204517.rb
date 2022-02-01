@@ -14,8 +14,8 @@ control 'SV-204517' do
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
   tag 'legacy': ['SV-86721', 'V-72097']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "chown", "fchown", "fchownat", and "lchown" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep chown /etc/audit/audit.rules
@@ -23,7 +23,7 @@ control 'SV-204517' do
     -a always,exit -F arch=b64 -S chown,fchown,fchownat,lchown -F auid>=1000 -F auid!=unset -k perm_mod
     If both the "b32" and "b64" audit rules are not defined for the "chown", "fchown", "fchownat", and "lchown"
     syscalls, this is a finding.'
-  tag 'fix': 'Add or update the following rule in "/etc/audit/rules.d/audit.rules":
+  desc 'fix', 'Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S chown,fchown,fchownat,lchown -F auid>=1000 -F auid!=unset -k perm_mod
     -a always,exit -F arch=b64 -S chown,fchown,fchownat,lchown -F auid>=1000 -F auid!=unset -k perm_mod
     The audit daemon must be restarted for the changes to take effect.'

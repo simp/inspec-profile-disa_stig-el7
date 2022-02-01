@@ -7,14 +7,14 @@ control 'SV-204599' do
     exploitation. To reduce the attack surface of the system, the Kerberos authentication mechanism within SSH must be
     disabled for systems not using this capability."
   tag 'legacy': ['V-72261', 'SV-86885']
-  tag 'rationale': ''
-  tag 'check': 'Verify the SSH daemon does not permit Kerberos to authenticate passwords unless approved.
+  desc 'rationale', ''
+  desc 'check', 'Verify the SSH daemon does not permit Kerberos to authenticate passwords unless approved.
     Check that the SSH daemon does not permit Kerberos to authenticate passwords with the following command:
     # grep -i kerberosauth /etc/ssh/sshd_config
     KerberosAuthentication no
     If the "KerberosAuthentication" keyword is missing, or is set to "yes" and is not documented with the Information
     System Security Officer (ISSO), or the returned line is commented out, this is a finding.'
-  tag 'fix': 'Uncomment the "KerberosAuthentication" keyword in "/etc/ssh/sshd_config" (this file may be named
+  desc 'fix', 'Uncomment the "KerberosAuthentication" keyword in "/etc/ssh/sshd_config" (this file may be named
     differently or be in a different location if using a version of SSH that is provided by a third-party vendor) and
     set the value to "no":
     KerberosAuthentication no

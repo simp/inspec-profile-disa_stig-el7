@@ -11,8 +11,8 @@ information system (e.g., module or policy filter).
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  desc 'rationale', ''
+  desc 'check', "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"open_by_handle_at\" syscall occur.
 
@@ -42,7 +42,7 @@ a finding.
     If the output does not produce rules containing \"-F exit=-EACCES\", this
 is a finding.
   "
-  tag 'fix': "
+  desc 'fix', "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"open_by_handle_at\" syscall occur.
 

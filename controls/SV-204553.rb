@@ -9,15 +9,15 @@ control 'SV-204553' do
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   tag 'legacy': ['V-72173', 'SV-86797']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "umount" command occur.
     Check that the following system call is being audited by performing the following series of commands to check the
     file system rules in "/etc/audit/audit.rules":
     # grep -iw "/usr/bin/umount" /etc/audit/audit.rules
     -a always,exit -F path=/usr/bin/umount -F auid>=1000 -F auid!=unset -k privileged-mount
     If the command does not return any output, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "umount" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/bin/umount -F auid>=1000 -F auid!=unset -k privileged-mount

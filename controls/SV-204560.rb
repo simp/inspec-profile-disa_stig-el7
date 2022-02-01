@@ -11,8 +11,8 @@ control 'SV-204560' do
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
   tag 'legacy': ['V-72187', 'SV-86811']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "init_module" and "finit_module" syscalls.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep init_module /etc/audit/audit.rules
@@ -20,7 +20,7 @@ control 'SV-204560' do
     -a always,exit -F arch=b64 -S init_module,finit_module -k modulechange
     If both the "b32" and "b64" audit rules are not defined for the "init_module" and "finit_module" syscalls, this is a
     finding.'
-  tag 'fix': 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
     the "init_module" and "finit_module" syscalls.
     Add or update the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S init_module,finit_module -k modulechange

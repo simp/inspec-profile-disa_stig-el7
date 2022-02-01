@@ -11,8 +11,8 @@ control 'SV-204572' do
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
   tag 'legacy': ['V-72205', 'SV-86829']
-  tag 'rationale': ''
-  tag 'check': %q(Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', %q(Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "unlink", "unlinkat", "rename", "renameat", and "rmdir" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep 'unlink\|rename\|rmdir' /etc/audit/audit.rules
@@ -20,7 +20,7 @@ control 'SV-204572' do
     -a always,exit -F arch=b64 -S unlink,unlinkat,rename,renameat,rmdir -F auid>=1000 -F auid!=unset -k delete
     If both the "b32" and "b64" audit rules are not defined for the "unlink", "unlinkat", "rename", "renameat", and
     "rmdir" syscalls, this is a finding.)
-  tag 'fix': 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
     the "unlink", "unlinkat", "rename", "renameat", and "rmdir" syscalls.
     Add the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S unlink,unlinkat,rename,renameat,rmdir -F auid>=1000 -F auid!=unset -k delete

@@ -7,14 +7,14 @@ control 'SV-214799' do
     functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while
     maintaining the confidentiality of the key used to generate the hash.'
   tag 'legacy': ['SV-86479', 'V-71855']
-  tag 'rationale': ''
-  tag 'check': %q{Verify the cryptographic hash of system files and commands match the vendor values.
+  desc 'rationale', ''
+  desc 'check', %q{Verify the cryptographic hash of system files and commands match the vendor values.
     Check the cryptographic hash of system files and commands with the following command:
     Note: System configuration files (indicated by a "c" in the second column) are expected to change over time. Unusual
     modifications should be investigated through the system audit log.
     # rpm -Va --noconfig | grep '^..5'
     If there is any output from the command for system files or binaries, this is a finding.}
-  tag 'fix': 'Run the following command to determine which package owns the file:
+  desc 'fix', 'Run the following command to determine which package owns the file:
     # rpm -qf <filename>
     The package can be reinstalled from a yum repository using the command:
     # sudo yum reinstall <packagename>

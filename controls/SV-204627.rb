@@ -6,8 +6,8 @@ control 'SV-204627' do
     It is highly recommended that SNMP version 3 user authentication and message encryption be used in place of the
     version 2 community strings.'
   tag 'legacy': ['SV-86937', 'V-72313']
-  tag 'rationale': ''
-  tag 'check': 'Verify that a system using SNMP is not using default community strings.
+  desc 'rationale', ''
+  desc 'check', 'Verify that a system using SNMP is not using default community strings.
     Check to see if the "/etc/snmp/snmpd.conf" file exists with the following command:
     # ls -al /etc/snmp/snmpd.conf
     -rw-------   1 root root      52640 Mar 12 11:08 snmpd.conf
@@ -16,7 +16,7 @@ control 'SV-204627' do
     # grep public /etc/snmp/snmpd.conf
     # grep private /etc/snmp/snmpd.conf
     If either of these commands returns any output, this is a finding.'
-  tag 'fix': 'If the "/etc/snmp/snmpd.conf" file exists, modify any lines that contain a community string value of
+  desc 'fix', 'If the "/etc/snmp/snmpd.conf" file exists, modify any lines that contain a community string value of
     "public" or "private" to another string value.'
 
   tag 'severity': 'high'

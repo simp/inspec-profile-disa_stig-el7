@@ -3,8 +3,8 @@ control 'SV-204496' do
   desc 'The use of separate file systems for different paths can protect the system from failures resulting from a
     file system becoming full or failing.'
   tag 'legacy': ['SV-86689', 'V-72065']
-  tag 'rationale': ''
-  tag 'check': 'Verify that a separate file system/partition has been created for "/tmp".
+  desc 'rationale', ''
+  desc 'check', 'Verify that a separate file system/partition has been created for "/tmp".
     Check that a file system/partition has been created for "/tmp" with the following command:
     # systemctl is-enabled tmp.mount
     enabled
@@ -14,7 +14,7 @@ control 'SV-204496' do
     UUID=a411dc99-f2a1-4c87-9e05-184977be8539 /tmp   ext4   rw,relatime,discard,data=ordered,nosuid,noexec, 0 0
     If "tmp.mount" service is not enabled or the "/tmp" directory is not defined in the fstab with a device and mount
     point, this is a finding. '
-  tag 'fix': 'Start the "tmp.mount" service with the following command:
+  desc 'fix', 'Start the "tmp.mount" service with the following command:
     # systemctl enable tmp.mount
     OR
     Edit the "/etc/fstab" file and ensure the "/tmp" directory is defined in the fstab with a device and mount point.'

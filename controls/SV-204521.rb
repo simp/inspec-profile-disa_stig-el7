@@ -14,8 +14,8 @@ control 'SV-204521' do
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
   tag 'legacy': ['SV-86729', 'V-72105']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "chmod", "fchmod", and "fchmodat" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following command:
     # grep chmod /etc/audit/audit.rules
@@ -23,7 +23,7 @@ control 'SV-204521' do
     -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat -F auid>=1000 -F auid!=unset -k perm_mod
     If both the "b32" and "b64" audit rules are not defined for the "chmod", "fchmod", and "fchmodat" syscalls, this is
     a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
     the "chmod", "fchmod", and "fchmodat" syscalls.
     Add or update the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat -F auid>=1000 -F auid!=unset -k perm_mod

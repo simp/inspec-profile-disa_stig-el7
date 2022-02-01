@@ -13,8 +13,8 @@ control 'SV-204586' do
     physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice
     versa.'
   tag 'legacy': ['SV-86859', 'V-72235']
-  tag 'rationale': ''
-  tag 'check': 'Verify SSH is loaded and active with the following command:
+  desc 'rationale', ''
+  desc 'check', 'Verify SSH is loaded and active with the following command:
     # systemctl status sshd
     sshd.service - OpenSSH server daemon
     Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
@@ -23,7 +23,7 @@ control 'SV-204586' do
     CGroup: /system.slice/sshd.service
     1053 /usr/sbin/sshd -D
     If "sshd" does not show a status of "active" and "running", this is a finding.'
-  tag 'fix': 'Configure the SSH service to automatically start after reboot with the following command:
+  desc 'fix', 'Configure the SSH service to automatically start after reboot with the following command:
     # systemctl enable sshd.service'
   impact 0.5
   tag 'severity': 'medium'

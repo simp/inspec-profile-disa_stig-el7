@@ -8,14 +8,14 @@ control 'SV-204414' do
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
   tag 'legacy': ['SV-86541', 'V-71917']
-  tag 'rationale': ''
-  tag 'check': 'The "maxclassrepeat" option sets the maximum number of allowed same consecutive characters in the
+  desc 'rationale', ''
+  desc 'check', 'The "maxclassrepeat" option sets the maximum number of allowed same consecutive characters in the
     same class in the new password.
     Check for the value of the "maxclassrepeat" option in "/etc/security/pwquality.conf" with the following command:
     $ sudo grep maxclassrepeat /etc/security/pwquality.conf
     maxclassrepeat = 4
     If the value of "maxclassrepeat" is set to "0", more than "4" or is commented out, this is a finding.'
-  tag 'fix': 'Configure the operating system to require the change of the number of repeating characters of the same
+  desc 'fix', 'Configure the operating system to require the change of the number of repeating characters of the same
     character class when passwords are changed by setting the "maxclassrepeat" option.
     Add the following line to "/etc/security/pwquality.conf" conf (or modify the line to have the required value):
     maxclassrepeat = 4'

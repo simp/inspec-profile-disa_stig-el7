@@ -12,8 +12,8 @@ control 'SV-204504' do
     audit records are stored), the centralized audit storage capacity of organizations (i.e., all audit data storage
     repositories combined), or both.'
   tag 'legacy': ['V-72081', 'SV-86705']
-  tag 'rationale': ''
-  tag 'check': 'Confirm the audit configuration regarding how auditing processing failures are handled.
+  desc 'rationale', ''
+  desc 'check', 'Confirm the audit configuration regarding how auditing processing failures are handled.
     Check to see what level "auditctl" is set to with following command:
     # auditctl -s | grep -i "fail"
     failure 2
@@ -24,7 +24,7 @@ control 'SV-204504' do
     If the "failure" setting is not set, this should be upgraded to a CAT I finding.
     If the "failure" setting is set to "1" but the availability concern is not documented or there is no monitoring of
     the kernel log, this should be downgraded to a CAT III finding.'
-  tag 'fix': 'Configure the operating system to shut down in the event of an audit processing failure.
+  desc 'fix', 'Configure the operating system to shut down in the event of an audit processing failure.
     Add or correct the option to shut down the operating system with the following command:
     # auditctl -f 2
     Edit the "/etc/audit/rules.d/audit.rules" file and add the following line:

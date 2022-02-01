@@ -4,8 +4,8 @@ control 'SV-204613' do
   desc 'Responding to broadcast (ICMP) echoes facilitates network mapping and provides a vector for amplification
     attacks.'
   tag 'legacy': ['V-72287', 'SV-86911']
-  tag 'rationale': ''
-  tag 'check': 'Verify the system does not respond to IPv4 ICMP echoes sent to a broadcast address.
+  desc 'rationale', ''
+  desc 'check', 'Verify the system does not respond to IPv4 ICMP echoes sent to a broadcast address.
     # grep net.ipv4.icmp_echo_ignore_broadcasts /etc/sysctl.conf /etc/sysctl.d/*
     If " net.ipv4.icmp_echo_ignore_broadcasts" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/
     directory, is commented out, or does not have a value of "1", this is a finding.
@@ -13,7 +13,7 @@ control 'SV-204613' do
     # /sbin/sysctl -a | grep net.ipv4.icmp_echo_ignore_broadcasts
     net.ipv4.icmp_echo_ignore_broadcasts = 1
     If the returned line does not have a value of "1", this is a finding.'
-  tag 'fix': 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
+  desc 'fix', 'Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or
     a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
     net.ipv4.icmp_echo_ignore_broadcasts = 1
     Issue the following command to make the changes take effect:

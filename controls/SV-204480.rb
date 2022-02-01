@@ -6,8 +6,8 @@ control 'SV-204480' do
     files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized
     administrative access.'
   tag 'legacy': ['SV-86665', 'V-72041']
-  tag 'rationale': ''
-  tag 'check': %q{Verify file systems that contain user home directories are mounted with the "nosuid" option.
+  desc 'rationale', ''
+  desc 'check', %q{Verify file systems that contain user home directories are mounted with the "nosuid" option.
     Find the file system(s) that contain the user home directories with the following command:
     Note: If a separate file system has not been created for the user home directories (user home directories are
     mounted under "/"), this is not a finding as the "nosuid" option cannot be used on the "/" system.
@@ -19,7 +19,7 @@ control 'SV-204480' do
     UUID=a411dc99-f2a1-4c87-9e05-184977be8539 /home   ext4   rw,relatime,discard,data=ordered,nosuid 0 2
     If a file system found in "/etc/fstab" refers to the user home directory file system and it does not have the
     "nosuid" option set, this is a finding.}
-  tag 'fix': 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that contain user home
+  desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that contain user home
     directories.'
   impact 0.5
   tag 'severity': 'medium'

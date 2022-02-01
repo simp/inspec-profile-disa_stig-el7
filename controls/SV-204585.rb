@@ -11,14 +11,14 @@ control 'SV-204585' do
     (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If
     physical means of protection are employed, logical means (cryptography) do not have to be employed, and vice versa.'
   tag 'legacy': ['SV-86857', 'V-72233']
-  tag 'rationale': ''
-  tag 'check': %q(Check to see if sshd is installed with the following command:
+  desc 'rationale', ''
+  desc 'check', %q(Check to see if sshd is installed with the following command:
     # yum list installed \*ssh\*
     libssh2.x86_64 1.4.3-8.el7 @anaconda/7.1
     openssh.x86_64 6.6.1p1-11.el7 @anaconda/7.1
     openssh-server.x86_64 6.6.1p1-11.el7 @anaconda/7.1
     If the "SSH server" package is not installed, this is a finding.)
-  tag 'fix': 'Install SSH packages onto the host with the following commands:
+  desc 'fix', 'Install SSH packages onto the host with the following commands:
     # yum install openssh-server.x86_64'
   impact 0.5
   tag 'severity': 'medium'

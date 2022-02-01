@@ -9,8 +9,8 @@ control 'SV-204477' do
     search path for the local interactive user are required, they must be documented with the Information System
     Security Officer (ISSO)."
   tag 'legacy': ['V-72035', 'SV-86659']
-  tag 'rationale': ''
-  tag 'check': %q(Verify that all local interactive user initialization files' executable search path statements do
+  desc 'rationale', ''
+  desc 'check', %q(Verify that all local interactive user initialization files' executable search path statements do
     not contain statements that will reference a working directory other than the user's home directory.
     Check the executable search path statement for all local interactive user initialization files in the user's home
     directory with the following commands:
@@ -19,7 +19,7 @@ control 'SV-204477' do
     /home/smithj/.bash_profile:PATH=$PATH:$HOME/.local/bin:$HOME/bin
     If any local interactive user initialization files have executable search path statements that include directories
     outside of their home directory, this is a finding.)
-  tag 'fix': 'Edit the local interactive user initialization files to change any PATH variable statements that
+  desc 'fix', 'Edit the local interactive user initialization files to change any PATH variable statements that
     reference directories other than their home directory.
     If a local interactive user requires path variables to reference a directory owned by the application, it must be
     documented with the ISSO.'

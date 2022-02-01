@@ -6,12 +6,12 @@ control 'SV-204419' do
     the password could be repeatedly changed in a short period of time to defeat the organization's policy regarding
     password reuse."
   tag 'legacy': ['SV-86551', 'V-71927']
-  tag 'rationale': ''
-  tag 'check': %q(Check whether the minimum time period between password changes for each user account is one day or
+  desc 'rationale', ''
+  desc 'check', %q(Check whether the minimum time period between password changes for each user account is one day or
     greater.
     # awk -F: '$4 < 1 {print $1 " " $4}' /etc/shadow
     If any results are returned that are not associated with a system account, this is a finding.)
-  tag 'fix': 'Configure non-compliant accounts to enforce a 24 hours/1 day minimum password lifetime:
+  desc 'fix', 'Configure non-compliant accounts to enforce a 24 hours/1 day minimum password lifetime:
     # chage -m 1 [user]'
   impact 0.5
   tag 'severity': 'medium'

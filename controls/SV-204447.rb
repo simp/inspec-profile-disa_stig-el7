@@ -14,8 +14,8 @@ control 'SV-204447' do
     verify the software again. This requirement does not mandate DoD certificates for this purpose; however, the
     certificate used to verify the software must be from an approved CA.'
   tag 'legacy': ['V-71977', 'SV-86601']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system prevents the installation of patches, service packs, device drivers, or
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system prevents the installation of patches, service packs, device drivers, or
     operating system components from a repository without verification that they have been digitally signed using a
     certificate that is recognized and approved by the organization.
     Check that yum verifies the signature of packages from a repository prior to install with the following command:
@@ -24,7 +24,7 @@ control 'SV-204447' do
     If "gpgcheck" is not set to "1", or if options are missing or commented out, ask the System Administrator how the
     certificates for patches and other operating system components are verified.
     If there is no process to validate certificates that is approved by the organization, this is a finding.'
-  tag 'fix': 'Configure the operating system to verify the signature of packages from a repository prior to install
+  desc 'fix', 'Configure the operating system to verify the signature of packages from a repository prior to install
     by setting the following option in the "/etc/yum.conf" file:
     gpgcheck=1'
   impact 0.7

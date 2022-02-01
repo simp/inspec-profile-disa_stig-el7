@@ -2,8 +2,8 @@ control 'SV-204449' do
   title 'The Red Hat Enterprise Linux operating system must be configured to disable USB mass storage.'
   desc 'USB mass storage permits easy introduction of unknown devices, thereby facilitating malicious activity.'
   tag 'legacy': ['SV-86607', 'V-71983']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system disables the ability to load the USB Storage kernel module.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system disables the ability to load the USB Storage kernel module.
     # grep -r usb-storage /etc/modprobe.d/* | grep -i "/bin/true" | grep -v "^#"
     install usb-storage /bin/true
     If the command does not return any output, or the line is commented out, and use of USB Storage is not documented
@@ -15,7 +15,7 @@ control 'SV-204449' do
     If the command does not return any output or the output is not "blacklist usb-storage", and use of USB storage
     devices is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is
     a finding.'
-  tag 'fix': 'Configure the operating system to disable the ability to use the USB Storage kernel module.
+  desc 'fix', 'Configure the operating system to disable the ability to use the USB Storage kernel module.
     Create a file under "/etc/modprobe.d" with the following command:
     # touch /etc/modprobe.d/usb-storage.conf
     Add the following line to the created file:

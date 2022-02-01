@@ -7,8 +7,8 @@ control 'SV-204455' do
     unintentional reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any
     action is taken.'
   tag 'legacy': ['SV-86617', 'V-71993']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system is not configured to reboot the system when Ctrl-Alt-Delete is pressed.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system is not configured to reboot the system when Ctrl-Alt-Delete is pressed.
     Check that the ctrl-alt-del.target is masked and not active with the following command:
     # systemctl status ctrl-alt-del.target
     ctrl-alt-del.target
@@ -16,7 +16,7 @@ control 'SV-204455' do
     Active: inactive (dead)
     If the ctrl-alt-del.target is not masked, this is a finding.
     If the ctrl-alt-del.target is active, this is a finding.'
-  tag 'fix': 'Configure the system to disable the Ctrl-Alt-Delete sequence for the command line with the following
+  desc 'fix', 'Configure the system to disable the Ctrl-Alt-Delete sequence for the command line with the following
     command:
     # systemctl mask ctrl-alt-del.target'
   impact 0.7

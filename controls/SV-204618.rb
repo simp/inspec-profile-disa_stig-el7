@@ -7,13 +7,13 @@ control 'SV-204618' do
     If the system is being used to perform a network troubleshooting function, the use of these tools must be documented
     with the Information System Security Officer (ISSO) and restricted to only authorized personnel.'
   tag 'legacy': ['V-72295', 'SV-86919']
-  tag 'rationale': ''
-  tag 'check': 'Verify network interfaces are not in promiscuous mode unless approved by the ISSO and documented.
+  desc 'rationale', ''
+  desc 'check', 'Verify network interfaces are not in promiscuous mode unless approved by the ISSO and documented.
     Check for the status with the following command:
     # ip link | grep -i promisc
     If network interfaces are found on the system in promiscuous mode and their use has not been approved by the ISSO
     and documented, this is a finding.'
-  tag 'fix': 'Configure network interfaces to turn off promiscuous mode unless approved by the ISSO and documented.
+  desc 'fix', 'Configure network interfaces to turn off promiscuous mode unless approved by the ISSO and documented.
     Set the promiscuous mode of an interface to off with the following command:
     #ip link set dev <devicename> multicast off promisc off'
   impact 0.5

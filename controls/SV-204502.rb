@@ -10,8 +10,8 @@ control 'SV-204502' do
     demonstration software not related to requirements or providing a wide array of functionality not required for every
     mission, but which cannot be disabled.'
   tag 'legacy': ['V-72077', 'SV-86701']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system is configured to disable non-essential capabilities. The most secure way
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system is configured to disable non-essential capabilities. The most secure way
     of ensuring a non-essential capability is disabled is to not have the capability installed.
     The telnet service provides an unencrypted remote access service that does not provide for the confidentiality and
     integrity of user passwords or the remote session.
@@ -19,7 +19,7 @@ control 'SV-204502' do
     Check to see if the telnet-server package is installed with the following command:
     # yum list installed telnet-server
     If the telnet-server package is installed, this is a finding.'
-  tag 'fix': 'Configure the operating system to disable non-essential capabilities by removing the telnet-server
+  desc 'fix', 'Configure the operating system to disable non-essential capabilities by removing the telnet-server
     package from the system with the following command:
     # yum remove telnet-server'
   impact 0.7

@@ -6,8 +6,8 @@ control 'SV-204456' do
     loss of availability of systems due to unintentional reboot. In the graphical environment, risk of unintentional
     reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any action is taken.'
   tag 'legacy': ['V-94843', 'SV-104673']
-  tag 'rationale': ''
-  tag 'check': %q(Note: If the operating system does not have a graphical user interface installed, this requirement
+  desc 'rationale', ''
+  desc 'check', %q(Note: If the operating system does not have a graphical user interface installed, this requirement
     is Not Applicable.
     Verify the operating system is not configured to reboot the system when Ctrl-Alt-Delete is pressed.
     Check that the ctrl-alt-del.target is masked and not active in the graphical user interface with the following
@@ -15,7 +15,7 @@ control 'SV-204456' do
     # grep logout /etc/dconf/db/local.d/*
     logout=''
     If "logout" is not set to use two single quotations, or is missing, this is a finding.)
-  tag 'fix': "Configure the system to disable the Ctrl-Alt-Delete sequence for the graphical user interface with the
+  desc 'fix', "Configure the system to disable the Ctrl-Alt-Delete sequence for the graphical user interface with the
     following command:
     # touch /etc/dconf/db/local.d/00-disable-CAD
     Add the setting to disable the Ctrl-Alt-Delete sequence for the graphical user interface:

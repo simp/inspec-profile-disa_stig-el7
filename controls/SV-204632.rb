@@ -15,14 +15,14 @@ control 'SV-204632' do
     of an organizational user (e.g., VPN, proxy capability). This does not apply to authentication for the purpose of
     configuring the device itself (management).'
   tag 'legacy': ['V-72427', 'SV-87051']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system implements multifactor authentication for remote access to privileged
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system implements multifactor authentication for remote access to privileged
     accounts via pluggable authentication modules (PAM).
     Check the "/etc/sssd/sssd.conf" file for the authentication services that are being used with the following command:
     # grep services /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf
     services = nss, pam
     If the "pam" service is not present on all "services" lines, this is a finding.'
-  tag 'fix': 'Configure the operating system to implement multifactor authentication for remote access to privileged
+  desc 'fix', 'Configure the operating system to implement multifactor authentication for remote access to privileged
     accounts via pluggable authentication modules (PAM).
     Modify all of the services lines in "/etc/sssd/sssd.conf" or in configuration files found under "/etc/sssd/conf.d"
     to include pam.'

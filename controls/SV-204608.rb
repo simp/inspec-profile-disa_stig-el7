@@ -5,8 +5,8 @@ control 'SV-204608' do
     failure in name resolution could lead to the failure of security functions requiring name resolution, which may
     include time synchronization, centralized authentication, and remote system logging.'
   tag 'legacy': ['SV-86905', 'V-72281']
-  tag 'rationale': ''
-  tag 'check': %q{Determine whether the system is using local or DNS name resolution with the following command:
+  desc 'rationale', ''
+  desc 'check', %q{Determine whether the system is using local or DNS name resolution with the following command:
     # grep hosts /etc/nsswitch.conf
     hosts: files dns
     If the DNS entry is missing from the host's line in the "/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must
@@ -27,7 +27,7 @@ control 'SV-204608' do
     ----i----------- /etc/resolv.conf
     If the file is mutable and has not been documented with the Information System Security Officer (ISSO), this is a
     finding.}
-  tag 'fix': 'Configure the operating system to use two or more name servers for DNS resolution.
+  desc 'fix', 'Configure the operating system to use two or more name servers for DNS resolution.
     Edit the "/etc/resolv.conf" file to uncomment or add the two or more "nameserver" option lines with the IP address
     of local authoritative name servers. If local host resolution is being performed, the "/etc/resolv.conf" file must
     be empty. An empty "/etc/resolv.conf" file can be created as follows:

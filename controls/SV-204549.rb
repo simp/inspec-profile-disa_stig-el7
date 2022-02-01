@@ -7,8 +7,8 @@ control 'SV-204549' do
     must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of
     compromise.'
   tag 'legacy': ['V-72163', 'SV-86787']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to access
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to access
     the "/etc/sudoers" file and files in the "/etc/sudoers.d/" directory.
     Check for modification of the following files being audited by performing the following commands to check the file
     system rules in "/etc/audit/audit.rules":
@@ -17,7 +17,7 @@ control 'SV-204549' do
     # grep -i "/etc/sudoers.d/" /etc/audit/audit.rules
     -w /etc/sudoers.d/ -p wa -k privileged-actions
     If the commands do not return output that match the examples, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to
     access the "/etc/sudoers" file and files in the "/etc/sudoers.d/" directory.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /etc/sudoers -p wa -k privileged-actions

@@ -7,13 +7,13 @@ control 'SV-204541' do
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
   tag 'legacy': ['V-72147', 'SV-86771']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful account access events occur.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful account access events occur.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep -i /var/log/lastlog /etc/audit/audit.rules
     -w /var/log/lastlog -p wa -k logins
     If the command does not return any output, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful account access events occur.
+  desc 'fix', 'Configure the operating system to generate audit records when successful account access events occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /var/log/lastlog -p wa -k logins
     The audit daemon must be restarted for the changes to take effect.'

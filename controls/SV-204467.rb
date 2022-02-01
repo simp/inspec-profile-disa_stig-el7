@@ -8,8 +8,8 @@ control 'SV-204467' do
     the user would not be able to access their logon configuration files, and it may give them visibility to system
     files they normally would not be able to access.'
   tag 'legacy': ['V-72015', 'SV-86639']
-  tag 'rationale': ''
-  tag 'check': %q{Verify local interactive users on the system have a home directory assigned and the directory
+  desc 'rationale', ''
+  desc 'check', %q{Verify local interactive users on the system have a home directory assigned and the directory
     exists.
     Check the home directory assignment for all local interactive non-privileged users on the system with the following
     command:
@@ -22,7 +22,7 @@ control 'SV-204467' do
     user 'smithj': directory '/home/smithj' does not exist
     If any home directories referenced in "/etc/passwd" are returned as not defined, or if any interactive users do not
     have a home directory assigned, this is a finding.}
-  tag 'fix': 'Create home directories to all local interactive users that currently do not have a home directory
+  desc 'fix', 'Create home directories to all local interactive users that currently do not have a home directory
     assigned. Use the following commands to create the user home directory assigned in "/etc/ passwd":
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj", a UID of "smithj", and a
     Group Identifier (GID) of "users" assigned in "/etc/passwd".

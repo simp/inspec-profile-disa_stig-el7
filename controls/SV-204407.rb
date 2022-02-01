@@ -8,14 +8,14 @@ control 'SV-204407' do
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
   tag 'legacy': ['SV-86527', 'V-71903']
-  tag 'rationale': ''
-  tag 'check': 'Note: The value to require a number of upper-case characters to be set is expressed as a negative
+  desc 'rationale', ''
+  desc 'check', 'Note: The value to require a number of upper-case characters to be set is expressed as a negative
     number in "/etc/security/pwquality.conf".
     Check the value for "ucredit" in "/etc/security/pwquality.conf" with the following command:
     # grep ucredit /etc/security/pwquality.conf
     ucredit = -1
     If the value of "ucredit" is not set to a negative value, this is a finding.'
-  tag 'fix': 'Configure the operating system to enforce password complexity by requiring that at least one
+  desc 'fix', 'Configure the operating system to enforce password complexity by requiring that at least one
     upper-case character be used by setting the "ucredit" option.
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     ucredit = -1'

@@ -14,8 +14,8 @@ compromised at the user level, it is easier to elevate privileges to eventually
 compromise the system at the root and network level."
   end
   tag 'legacy': ['SV-86661', 'V-72037']
-  tag 'rationale': ''
-  tag 'check': %q(Verify that local initialization files do not execute world-writable programs.
+  desc 'rationale', ''
+  desc 'check', %q(Verify that local initialization files do not execute world-writable programs.
     Check the system for world-writable files with the following command:
     # find / -xdev -perm -002 -type f -exec ls -ld {} \; | more
     For all files listed, check for their presence in the local initialization files with the following commands:
@@ -23,7 +23,7 @@ compromise the system at the root and network level."
     directory.
     # grep <file> /home/*/.*
     If any local initialization files are found to reference world-writable files, this is a finding.)
-  tag 'fix': 'Set the mode on files being executed by the local initialization files with the following command:
+  desc 'fix', 'Set the mode on files being executed by the local initialization files with the following command:
     # chmod 0755 <file>'
   impact 0.5
   tag 'severity': 'medium'

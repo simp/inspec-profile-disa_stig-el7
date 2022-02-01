@@ -8,15 +8,15 @@ control 'SV-204556' do
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   tag 'legacy': ['SV-86803', 'V-72179']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "ssh-keysign" command occur.
     Check that the following system call is being audited by performing the following command to check the file system
     rules in "/etc/audit/audit.rules":
     # grep -iw /usr/libexec/openssh/ssh-keysign /etc/audit/audit.rules
     -a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid>=1000 -F auid!=unset -k privileged-ssh
     If the command does not return any output, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "ssh-keysign" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid>=1000 -F auid!=unset -k privileged-ssh

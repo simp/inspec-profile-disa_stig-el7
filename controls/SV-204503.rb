@@ -12,14 +12,14 @@ control 'SV-204503' do
     attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured operating
     system.'
   tag 'legacy': ['SV-86703', 'V-72079']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system produces audit records containing information to establish when (date
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system produces audit records containing information to establish when (date
     and time) the events occurred.
     Check to see if auditing is active by issuing the following command:
     # systemctl is-active auditd.service
     active
     If the "auditd" status is not active, this is a finding.'
-  tag 'fix': 'Configure the operating system to produce audit records containing information to establish when (date
+  desc 'fix', 'Configure the operating system to produce audit records containing information to establish when (date
     and time) the events occurred.
     Enable the auditd service with the following command:
     # systemctl start auditd.service'

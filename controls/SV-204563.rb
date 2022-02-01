@@ -9,14 +9,14 @@ control 'SV-204563' do
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   tag 'legacy': ['SV-86815', 'V-72191']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "kmod" command occur.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep -iw kmod /etc/audit/audit.rules
     -w /usr/bin/kmod -p x -F auid!=unset -k module-change
     If the command does not return any output, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "kmod" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /usr/bin/kmod -p x -F auid!=unset -k module-change

@@ -6,14 +6,14 @@ control 'SV-204440' do
     is the default boot loader for RHEL 7 and is designed to require a password to boot into single-user mode or make
     modifications to the boot menu.'
   tag 'legacy': ['SV-95719', 'V-81007']
-  tag 'rationale': ''
-  tag 'check': 'For systems that use BIOS, this is Not Applicable.
+  desc 'rationale', ''
+  desc 'check', 'For systems that use BIOS, this is Not Applicable.
     For systems that are running a version of RHEL prior to 7.2, this is Not Applicable.
     Check to see if an encrypted grub superusers password is set. On systems that use UEFI, use the following command:
     $ sudo grep -iw grub2_password /boot/efi/EFI/redhat/user.cfg
     GRUB2_PASSWORD=grub.pbkdf2.sha512.[password_hash]
     If the grub superusers password does not begin with "grub.pbkdf2.sha512", this is a finding.'
-  tag 'fix': 'Configure the system to encrypt the boot password for the grub superusers account with the
+  desc 'fix', 'Configure the system to encrypt the boot password for the grub superusers account with the
     grub2-setpassword command, which creates/overwrites the /boot/efi/EFI/redhat/user.cfg file.
     Generate an encrypted grub2 password for the grub superusers account with the following command:
     $ sudo grub2-setpassword

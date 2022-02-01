@@ -4,13 +4,13 @@ control 'SV-204464' do
   desc 'Files without a valid group owner may be unintentionally inherited if a group is assigned the same Group
     Identifier (GID) as the GID of the files without a valid group owner.'
   tag 'legacy': ['V-72009', 'SV-86633']
-  tag 'rationale': ''
-  tag 'check': 'Verify all files and directories on the system have a valid group.
+  desc 'rationale', ''
+  desc 'check', 'Verify all files and directories on the system have a valid group.
     Check the owner of all files and directories with the following command:
     Note: The value after -fstype must be replaced with the filesystem type. XFS is used as an example.
     # find / -fstype xfs -nogroup
     If any files on the system do not have an assigned group, this is a finding.'
-  tag 'fix': 'Either remove all files and directories from the system that do not have a valid group, or assign a
+  desc 'fix', 'Either remove all files and directories from the system that do not have a valid group, or assign a
     valid group to all files and directories on the system with the "chgrp" command:
     # chgrp <group> <file>'
   impact 0.5

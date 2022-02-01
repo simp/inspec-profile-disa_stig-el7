@@ -4,8 +4,8 @@ control 'SV-204498' do
   desc 'ACLs can provide permissions beyond those permitted through the file mode and must be verified by file
     integrity tools.'
   tag 'legacy': ['SV-86693', 'V-72069']
-  tag 'rationale': ''
-  tag 'check': 'Verify the file integrity tool is configured to verify ACLs.
+  desc 'rationale', ''
+  desc 'check', 'Verify the file integrity tool is configured to verify ACLs.
     Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on the system with the following
     command:
     # yum list installed aide
@@ -23,7 +23,7 @@ control 'SV-204498' do
     /sbin All # apply the same custom rule to the files in sbin
     If the "acl" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or ACLs are not
     being checked by another file integrity tool, this is a finding.'
-  tag 'fix': 'Configure the file integrity tool to check file and directory ACLs.
+  desc 'fix', 'Configure the file integrity tool to check file and directory ACLs.
     If AIDE is installed, ensure the "acl" rule is present on all uncommented file and directory selection lists.'
   impact 0.3
   tag 'severity': 'low'

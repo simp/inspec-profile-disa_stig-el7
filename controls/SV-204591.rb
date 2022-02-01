@@ -4,14 +4,14 @@ control 'SV-204591' do
   desc 'Providing users with feedback on when account accesses via SSH last occurred facilitates user recognition
     and reporting of unauthorized account use.'
   tag 'legacy': ['V-72245', 'SV-86869']
-  tag 'rationale': ''
-  tag 'check': 'Verify SSH provides users with feedback on when account accesses last occurred.
+  desc 'rationale', ''
+  desc 'check', 'Verify SSH provides users with feedback on when account accesses last occurred.
     Check that "PrintLastLog" keyword in the sshd daemon configuration file is used and set to "yes" with the following
     command:
     # grep -i printlastlog /etc/ssh/sshd_config
     PrintLastLog yes
     If the "PrintLastLog" keyword is set to "no", is missing, or is commented out, this is a finding.'
-  tag 'fix': 'Configure SSH to provide users with feedback on when account accesses last occurred by setting the
+  desc 'fix', 'Configure SSH to provide users with feedback on when account accesses last occurred by setting the
     required configuration options in "/etc/pam.d/sshd" or in the "sshd_config" file used by the system
     ("/etc/ssh/sshd_config" will be used in the example) (this file may be named differently or be in a different
     location if using a version of SSH that is provided by a third-party vendor).

@@ -10,8 +10,8 @@ control 'SV-204603' do
     Organizations should consider endpoints that may not have regular access to the authoritative time server (e.g.,
     mobile, teleworking, and tactical endpoints).'
   tag 'legacy': ['V-72269', 'SV-86893']
-  tag 'rationale': ''
-  tag 'check': 'Check to see if NTP is running in continuous mode:
+  desc 'rationale', ''
+  desc 'check', 'Check to see if NTP is running in continuous mode:
     # ps -ef | grep ntp
     If NTP is not running, check to see if "chronyd" is running in continuous mode:
     # ps -ef | grep chronyd
@@ -30,7 +30,7 @@ control 'SV-204603' do
     # grep maxpoll /etc/chrony.conf
     server 0.rhel.pool.ntp.org iburst maxpoll 16
     If the option is not set or the line is commented out, this is a finding.'
-  tag 'fix': 'Edit the "/etc/ntp.conf" or "/etc/chrony.conf" file and add or update an entry to define "maxpoll" to
+  desc 'fix', 'Edit the "/etc/ntp.conf" or "/etc/chrony.conf" file and add or update an entry to define "maxpoll" to
     "16" as follows:
     server 0.rhel.pool.ntp.org iburst maxpoll 16
     If NTP was running and "maxpoll" was updated, the NTP service must be restarted:

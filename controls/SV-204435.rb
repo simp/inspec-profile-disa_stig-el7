@@ -3,13 +3,13 @@ control 'SV-204435' do
     the system.'
   desc 'Failure to restrict system access to authenticated users negatively impacts operating system security.'
   tag 'legacy': ['SV-86583', 'V-71959']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system does not allow a non-certificate trusted host SSH logon to the system.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system does not allow a non-certificate trusted host SSH logon to the system.
     Check for the value of the "HostbasedAuthentication" keyword with the following command:
     # grep -i hostbasedauthentication /etc/ssh/sshd_config
     HostbasedAuthentication no
     If the "HostbasedAuthentication" keyword is not set to "no", is missing, or is commented out, this is a finding.'
-  tag 'fix': 'Configure the operating system to not allow a non-certificate trusted host SSH logon to the system.
+  desc 'fix', 'Configure the operating system to not allow a non-certificate trusted host SSH logon to the system.
     Edit the "/etc/ssh/sshd_config" file to uncomment or add the line for "HostbasedAuthentication" keyword and set the
     value to "no":
     HostbasedAuthentication no

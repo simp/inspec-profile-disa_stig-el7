@@ -5,8 +5,8 @@ control 'SV-204512' do
     possibility of losing audit records.
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.'
   tag 'legacy': ['V-73163', 'SV-87815']
-  tag 'rationale': ''
-  tag 'check': 'Verify the action the operating system takes if there is an error sending audit records to a remote
+  desc 'rationale', ''
+  desc 'check', 'Verify the action the operating system takes if there is an error sending audit records to a remote
     system.
     Check the action that takes place if there is an error sending audit records to a remote system with the following
     command:
@@ -18,7 +18,7 @@ control 'SV-204512' do
     If there is no evidence that the system is configured to off-load audit logs to a different system or storage media,
     or if the configuration does not take appropriate action if there is an error sending audit records to the remote
     system, this is a finding.'
-  tag 'fix': 'Configure the action the operating system takes if there is an error sending audit records to a remote
+  desc 'fix', 'Configure the action the operating system takes if there is an error sending audit records to a remote
     system.
     Uncomment the "network_failure_action" option in "/etc/audisp/audisp-remote.conf" and set it to "syslog", "single",
     or "halt".

@@ -6,8 +6,8 @@ control 'SV-204482' do
     files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain
     unauthorized administrative access.'
   tag 'legacy': ['SV-86669', 'V-72045']
-  tag 'rationale': ''
-  tag 'check': 'Verify file systems that are being NFS imported are configured with the "nosuid" option.
+  desc 'rationale', ''
+  desc 'check', 'Verify file systems that are being NFS imported are configured with the "nosuid" option.
     Find the file system(s) that contain the directories being exported with the following command:
     # more /etc/fstab | grep nfs
     UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d /store nfs rw,nosuid 0 0
@@ -16,7 +16,7 @@ control 'SV-204482' do
     Verify the NFS is mounted with the "nosuid" option:
     # mount | grep nfs | grep nosuid
     If no results are returned, this is a finding.'
-  tag 'fix': 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are being imported via
+  desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on file systems that are being imported via
     NFS.'
   impact 0.5
   tag 'severity': 'medium'

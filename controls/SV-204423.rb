@@ -8,14 +8,14 @@ control 'SV-204423' do
     takes to crack a password. Use of more characters in a password helps to exponentially increase the time and/or
     resources required to compromise the password.'
   tag 'legacy': ['V-71935', 'SV-86559']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system enforces a minimum 15-character password length. The "minlen" option
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system enforces a minimum 15-character password length. The "minlen" option
     sets the minimum number of characters in a new password.
     Check for the value of the "minlen" option in "/etc/security/pwquality.conf" with the following command:
     # grep minlen /etc/security/pwquality.conf
     minlen = 15
     If the command does not return a "minlen" value of 15 or greater, this is a finding.'
-  tag 'fix': 'Configure operating system to enforce a minimum 15-character password length.
+  desc 'fix', 'Configure operating system to enforce a minimum 15-character password length.
     Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
     minlen = 15'
   impact 0.5

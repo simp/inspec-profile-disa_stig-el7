@@ -8,14 +8,14 @@ control 'SV-204413' do
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
   tag 'legacy': ['SV-86539', 'V-71915']
-  tag 'rationale': ''
-  tag 'check': 'The "maxrepeat" option sets the maximum number of allowed same consecutive characters in a new
+  desc 'rationale', ''
+  desc 'check', 'The "maxrepeat" option sets the maximum number of allowed same consecutive characters in a new
     password.
     Check for the value of the "maxrepeat" option in "/etc/security/pwquality.conf" with the following command:
     # grep maxrepeat /etc/security/pwquality.conf
     maxrepeat = 3
     If the value of "maxrepeat" is set to more than "3", this is a finding.'
-  tag 'fix': 'Configure the operating system to require the change of the number of repeating consecutive characters
+  desc 'fix', 'Configure the operating system to require the change of the number of repeating consecutive characters
     when passwords are changed by setting the "maxrepeat" option.
     Add the following line to "/etc/security/pwquality.conf conf" (or modify the line to have the required value):
     maxrepeat = 3'

@@ -9,8 +9,8 @@ control 'SV-204445' do
     Officer (IMO)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email
     and/or monitoring system trap when there is an unauthorized modification of a configuration item."
   tag 'legacy': ['SV-86597', 'V-71973']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system routinely checks the baseline configuration for unauthorized changes.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system routinely checks the baseline configuration for unauthorized changes.
     Note: A file integrity tool other than Advanced Intrusion Detection Environment (AIDE) may be used, but the tool
     must be executed at least once per week.
     Check to see if AIDE is installed on the system with the following command:
@@ -27,7 +27,7 @@ control 'SV-204445' do
     /var/spool/cron/root: 30 04 * * * /usr/sbin/aide  --check
     If the file integrity application does not exist, or a script file controlling the execution of the file integrity
     application does not exist, this is a finding.'
-  tag 'fix': 'Configure the file integrity tool to run automatically on the system at least weekly. The following
+  desc 'fix', 'Configure the file integrity tool to run automatically on the system at least weekly. The following
     example output is generic. It will set cron to run AIDE daily, but other file integrity tools may be used:
     # more /etc/cron.daily/aide
     #!/bin/bash

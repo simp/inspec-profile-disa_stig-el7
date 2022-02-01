@@ -4,8 +4,8 @@ control 'SV-204594' do
   desc 'SSHv1 is an insecure implementation of the SSH protocol and has many well-known vulnerability exploits.
     Exploits of the SSH daemon could provide immediate root access to the system.'
   tag 'legacy': ['SV-86875', 'V-72251']
-  tag 'rationale': ''
-  tag 'check': 'Check the version of the operating system with the following command:
+  desc 'rationale', ''
+  desc 'check', 'Check the version of the operating system with the following command:
     # cat /etc/redhat-release
     If the release is 7.4 or newer this requirement is Not Applicable.
     Verify the SSH daemon is configured to only use the SSHv2 protocol.
@@ -14,7 +14,7 @@ control 'SV-204594' do
     Protocol 2
     #Protocol 1,2
     If any protocol line other than "Protocol 2" is uncommented, this is a finding.'
-  tag 'fix': 'Remove all Protocol lines that reference version "1" in "/etc/ssh/sshd_config" (this file may be named
+  desc 'fix', 'Remove all Protocol lines that reference version "1" in "/etc/ssh/sshd_config" (this file may be named
     differently or be in a different location if using a version of SSH that is provided by a third-party vendor). The
     "Protocol" line must be as follows:
     Protocol 2

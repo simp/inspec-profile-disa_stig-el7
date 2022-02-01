@@ -14,8 +14,8 @@ control 'SV-204524' do
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
   tag 'legacy': ['SV-86735', 'V-72111']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "setxattr", "fsetxattr", "lsetxattr", "removexattr", "fremovexattr", and "lremovexattr" syscalls.
     Check the file system rules in "/etc/audit/audit.rules" with the following commands:
     # grep xattr /etc/audit/audit.rules
@@ -25,7 +25,7 @@ control 'SV-204524' do
     auid!=unset -k perm_mod
     If both the "b32" and "b64" audit rules are not defined for the "setxattr", "fsetxattr", "lsetxattr", "removexattr",
     "fremovexattr", and "lremovexattr" syscalls, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records upon successful/unsuccessful attempts to use
     the "setxattr", "fsetxattr", "lsetxattr", "removexattr", "fremovexattr", and "lremovexattr" syscalls.
     Add or update the following rules in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F arch=b32 -S setxattr,fsetxattr,lsetxattr,removexattr,fremovexattr,lremovexattr -F auid>=1000 -F

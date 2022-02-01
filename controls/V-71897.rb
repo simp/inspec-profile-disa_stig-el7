@@ -13,8 +13,8 @@ the session lock.
 configured.
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  desc 'rationale', ''
+  desc 'check', "
     Verify the operating system has the screen package installed.
 
     Check to see if the screen package is installed with the following command:
@@ -31,7 +31,7 @@ installed with the following command:
     If either the screen package or the tmux package is not installed, this is
 a finding.
   "
-  tag 'fix': "
+  desc 'fix', "
     Install the screen package to allow the initiation of a session lock after
 a 15-minute period of inactivity.
 

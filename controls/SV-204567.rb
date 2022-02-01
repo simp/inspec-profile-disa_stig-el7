@@ -7,14 +7,14 @@ control 'SV-204567' do
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
   tag 'legacy': ['SV-87823', 'V-73171']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system must generate audit records for all account creations, modifications,
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system must generate audit records for all account creations, modifications,
     disabling, and termination events that affect /etc/shadow.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep /etc/shadow /etc/audit/audit.rules
     -w /etc/shadow -p wa -k identity
     If the command does not return a line, or the line is commented out, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records for all account creations, modifications,
+  desc 'fix', 'Configure the operating system to generate audit records for all account creations, modifications,
     disabling, and termination events that affect /etc/shadow.
     Add or update the following file system rule in "/etc/audit/rules.d/audit.rules":
     -w /etc/shadow -p wa -k identity

@@ -23,15 +23,15 @@ control 'SV-204393' do
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
   tag 'legacy': ['V-71859', 'SV-86483']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the operating system via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Check to see if the operating system displays a banner at the logon screen with the following command:
     # grep banner-message-enable /etc/dconf/db/local.d/*
     banner-message-enable=true
     If "banner-message-enable" is set to "false" or is missing, this is a finding.'
-  tag 'fix': 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
+  desc 'fix', 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the system.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the

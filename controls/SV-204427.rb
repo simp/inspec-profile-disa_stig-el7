@@ -4,8 +4,8 @@ control 'SV-204427' do
   desc 'By limiting the number of failed logon attempts, the risk of unauthorized system access via user password
     guessing, otherwise known as brute-forcing, is reduced. Limits are imposed by locking the account.'
   tag 'legacy': ['V-71943', 'SV-86567']
-  tag 'rationale': ''
-  tag 'check': 'Check that the system locks an account for a minimum of 15 minutes after three unsuccessful logon
+  desc 'rationale', ''
+  desc 'check', 'Check that the system locks an account for a minimum of 15 minutes after three unsuccessful logon
     attempts within a period of 15 minutes with the following command:
     # grep pam_faillock.so /etc/pam.d/password-auth
     auth required pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900
@@ -35,7 +35,7 @@ control 'SV-204427' do
     with the "pam_faillock.so" module or is missing from these lines, this is a finding.
     Note: The maximum configurable value for "unlock_time" is "604800".
     If any line referencing the "pam_faillock.so" module is commented out, this is a finding.'
-  tag 'fix': 'Configure the operating system to lock an account for the maximum period when three unsuccessful logon
+  desc 'fix', 'Configure the operating system to lock an account for the maximum period when three unsuccessful logon
     attempts in 15 minutes are made.
     Add/Modify the appropriate sections of the "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" files to match
     the following lines:

@@ -9,15 +9,15 @@ control 'SV-204453' do
     This requirement applies to operating systems performing security function verification/testing and/or systems and
     environments that require this functionality.'
   tag 'legacy': ['V-71989', 'SV-86613']
-  tag 'rationale': ''
-  tag 'check': 'Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
+  desc 'rationale', ''
+  desc 'check', 'Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
     conjunction with SELinux.
     Verify the operating system verifies correct operation of all security functions.
     Check if "SELinux" is active and in "Enforcing" mode with the following command:
     # getenforce
     Enforcing
     If "SELinux" is not active and not in "Enforcing" mode, this is a finding.'
-  tag 'fix': 'Configure the operating system to verify correct operation of all security functions.
+  desc 'fix', 'Configure the operating system to verify correct operation of all security functions.
     Set the "SELinux" status and the "Enforcing" mode by modifying the "/etc/selinux/config" file to have the following
     line:
     SELINUX=enforcing

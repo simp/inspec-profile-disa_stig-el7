@@ -9,14 +9,14 @@ control 'SV-204536' do
     sessions and have the loginuid set to -1. The auid representation is an unsigned 32-bit integer, which equals
     4294967295. The audit system interprets -1, 4294967295, and "unset" in the same way.'
   tag 'legacy': ['SV-86759', 'V-72135']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "semanage" command occur.
     Check the file system rule in "/etc/audit/audit.rules" with the following command:
     # grep -i /usr/sbin/semanage /etc/audit/audit.rules
     -a always,exit -F path=/usr/sbin/semanage -F auid>=1000 -F auid!=unset -k privileged-priv_change
     If the command does not return any output, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
+  desc 'fix', 'Configure the operating system to generate audit records when successful/unsuccessful attempts to use
     the "semanage" command occur.
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -a always,exit -F path=/usr/sbin/semanage -F auid>=1000 -F auid!=unset -k privileged-priv_change

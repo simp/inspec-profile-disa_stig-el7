@@ -6,8 +6,8 @@ control 'SV-204507' do
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.  When
     the remote buffer is full, audit logs will not be collected and sent to the central log server.'
   tag 'legacy': ['V-81019', 'SV-95731']
-  tag 'rationale': ''
-  tag 'check': 'Verify the audisp daemon is configured to take an appropriate action when the internal queue is
+  desc 'rationale', ''
+  desc 'check', 'Verify the audisp daemon is configured to take an appropriate action when the internal queue is
     full:
     # grep "overflow_action" /etc/audisp/audispd.conf
     overflow_action = syslog
@@ -16,7 +16,7 @@ control 'SV-204507' do
     what action that system takes when the internal queue is full.
     If there is no evidence the system is configured to off-load audit logs to a different system or storage media or,
     if the configuration does not take appropriate action when the internal queue is full, this is a finding.'
-  tag 'fix': 'Edit the /etc/audisp/audispd.conf file and add or update the "overflow_action" option:
+  desc 'fix', 'Edit the /etc/audisp/audispd.conf file and add or update the "overflow_action" option:
     overflow_action = syslog
     The audit daemon must be restarted for changes to take effect:
     # service auditd restart'

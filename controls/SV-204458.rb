@@ -7,8 +7,8 @@ control 'SV-204458' do
     those customers who wish to standardize on a specific minor release for an extended period. RHEL 7.7 marks the final
     minor release that EUS will be available, while 7.9 is the final minor release overall.'
   tag 'legacy': ['SV-86621', 'V-71997']
-  tag 'rationale': ''
-  tag 'check': 'Verify the version of the operating system is vendor supported.
+  desc 'rationale', ''
+  desc 'check', 'Verify the version of the operating system is vendor supported.
     Check the version of the operating system with the following command:
     # cat /etc/redhat-release
     Red Hat Enterprise Linux Server release 7.9 (Maipo)
@@ -16,7 +16,7 @@ control 'SV-204458' do
     Current End of Extended Update Support for RHEL 7.7 is 30 August 2021.
     Current End of Maintenance Support for RHEL 7.9 is 30 June 2024.
     If the release is not supported by the vendor, this is a finding.'
-  tag 'fix': 'Upgrade to a supported version of the operating system.'
+  desc 'fix', 'Upgrade to a supported version of the operating system.'
   impact 0.7
   tag 'severity': 'high'
   tag 'gtitle': 'SRG-OS-000480-GPOS-00227'

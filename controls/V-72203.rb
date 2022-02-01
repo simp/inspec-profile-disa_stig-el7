@@ -7,8 +7,8 @@ compromises and damages incurred during a system compromise.
 
 
   "
-  tag 'rationale': ''
-  tag 'check': "
+  desc 'rationale', ''
+  desc 'check', "
     Verify the operating system generates audit records when
 successful/unsuccessful attempts to use the \"rmdir\" syscall occur.
 
@@ -26,7 +26,7 @@ delete
     If both the \"b32\" and \"b64\" audit rules are not defined for the
 \"rmdir\" syscall, this is a finding.
   "
-  tag 'fix': "
+  desc 'fix', "
     Configure the operating system to generate audit records when
 successful/unsuccessful attempts to use the \"rmdir\" syscall occur.
 

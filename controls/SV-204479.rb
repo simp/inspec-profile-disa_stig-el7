@@ -4,8 +4,8 @@ control 'SV-204479' do
   desc 'If an unauthorized or modified device is allowed to exist on the system, there is the possibility the system
     may perform unintended or unauthorized operations.'
   tag 'legacy': ['SV-86663', 'V-72039']
-  tag 'rationale': ''
-  tag 'check': %q{Verify that all system device files are correctly labeled to prevent unauthorized modification.
+  desc 'rationale', ''
+  desc 'check', %q{Verify that all system device files are correctly labeled to prevent unauthorized modification.
     List all device files on the system that are incorrectly labeled with the following commands:
     Note: Device files are normally found under "/dev", but applications may place device files in other directories and
     may necessitate a search of the entire system.
@@ -15,7 +15,7 @@ control 'SV-204479' do
     machine. They will not be owned by a user on the system and require the "device_t" label to operate. These device
     files are not a finding.
     If there is output from either of these commands, other than already noted, this is a finding.}
-  tag 'fix': 'Run the following command to determine which package owns the device file:
+  desc 'fix', 'Run the following command to determine which package owns the device file:
     # rpm -qf <filename>
     The package can be reinstalled from a yum repository using the command:
     # sudo yum reinstall <packagename>

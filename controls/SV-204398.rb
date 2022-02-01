@@ -8,15 +8,15 @@ control 'SV-204398' do
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
   tag 'legacy': ['V-71893', 'SV-86517']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system initiates a screensaver after a 15-minute period of inactivity for
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system initiates a screensaver after a 15-minute period of inactivity for
     graphical user interfaces. The screen program must be installed to lock sessions on the console.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
     Check to see if GNOME is configured to display a screensaver after a 15 minute delay with the following command:
     # grep -i idle-delay /etc/dconf/db/local.d/*
     idle-delay=uint32 900
     If the "idle-delay" setting is missing or is not set to "900" or less, this is a finding.'
-  tag 'fix': 'Configure the operating system to initiate a screensaver after a 15-minute period of inactivity for
+  desc 'fix', 'Configure the operating system to initiate a screensaver after a 15-minute period of inactivity for
     graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:

@@ -23,8 +23,8 @@ control 'SV-204580' do
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
   tag 'legacy': ['V-72225', 'SV-86849']
-  tag 'rationale': ''
-  tag 'check': 'Verify any publicly accessible connection to the operating system displays the Standard Mandatory
+  desc 'rationale', ''
+  desc 'check', 'Verify any publicly accessible connection to the operating system displays the Standard Mandatory
     DoD Notice and Consent Banner before granting access to the system.
     Check for the location of the banner file being used with the following command:
     # grep -i banner /etc/ssh/sshd_config
@@ -51,7 +51,7 @@ control 'SV-204580' do
     If the system does not display a graphical logon banner or the banner does not match the Standard Mandatory DoD
     Notice and Consent Banner, this is a finding.
     If the text in the file does not match the Standard Mandatory DoD Notice and Consent Banner, this is a finding.'
-  tag 'fix': 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
+  desc 'fix', 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the system via the ssh.
     Edit the "/etc/ssh/sshd_config" file to uncomment the banner keyword and configure it to point to a file that will
     contain the logon banner (this file may be named differently or be in a different location if using a version of SSH

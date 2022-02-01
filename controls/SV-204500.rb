@@ -7,8 +7,8 @@ control 'SV-204500' do
     Advanced Intrusion Detection Environment (AIDE). AIDE is highly configurable at install time. This requirement
     assumes the "aide.conf" file is under the "/etc" directory.'
   tag 'legacy': ['SV-86697', 'V-72073']
-  tag 'rationale': ''
-  tag 'check': 'Verify the file integrity tool is configured to use FIPS 140-2-approved cryptographic hashes for
+  desc 'rationale', ''
+  desc 'check', 'Verify the file integrity tool is configured to use FIPS 140-2-approved cryptographic hashes for
     validating file contents and directories.
     Check to see if AIDE is installed on the system with the following command:
     # yum list installed aide
@@ -28,7 +28,7 @@ control 'SV-204500' do
     If the "sha512" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or another
     file integrity tool is not using FIPS 140-2-approved cryptographic hashes for validating file contents and
     directories, this is a finding.'
-  tag 'fix': 'Configure the file integrity tool to use FIPS 140-2 cryptographic hashes for validating file and
+  desc 'fix', 'Configure the file integrity tool to use FIPS 140-2 cryptographic hashes for validating file and
     directory contents.
     If AIDE is installed, ensure the "sha512" rule is present on all uncommented file and directory selection lists.
     Exclude any log files, or files expected to change frequently, to reduce unnecessary notifications.'

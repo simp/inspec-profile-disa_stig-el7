@@ -6,12 +6,12 @@ control 'SV-204430' do
     When operating systems provide the capability to escalate a functional capability, it is critical the user
     reauthenticate.'
   tag 'legacy': ['V-71949', 'SV-86573']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system requires users to reauthenticate for privilege escalation.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system requires users to reauthenticate for privilege escalation.
     Check the configuration of the "/etc/sudoers" and "/etc/sudoers.d/*" files with the following command:
     # grep -i authenticate /etc/sudoers /etc/sudoers.d/*
     If any uncommented line is found with a "!authenticate" tag, this is a finding.'
-  tag 'fix': 'Configure the operating system to require users to reauthenticate for privilege escalation.
+  desc 'fix', 'Configure the operating system to require users to reauthenticate for privilege escalation.
     Check the configuration of the "/etc/sudoers" file with the following command:
     # visudo
     Remove any occurrences of "!authenticate" tags in the file.

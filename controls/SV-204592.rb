@@ -5,13 +5,13 @@ control 'SV-204592' do
     extending the policy of not logging on directly as root. In addition, logging on with a user-specific account
     provides individual accountability of actions performed on the system.'
   tag 'legacy': ['V-72247', 'SV-86871']
-  tag 'rationale': ''
-  tag 'check': 'Verify remote access using SSH prevents users from logging on directly as root.
+  desc 'rationale', ''
+  desc 'check', 'Verify remote access using SSH prevents users from logging on directly as root.
     Check that SSH prevents users from logging on directly as root with the following command:
     # grep -i permitrootlogin /etc/ssh/sshd_config
     PermitRootLogin no
     If the "PermitRootLogin" keyword is set to "yes", is missing, or is commented out, this is a finding.'
-  tag 'fix': 'Configure SSH to stop users from logging on remotely as the root user.
+  desc 'fix', 'Configure SSH to stop users from logging on remotely as the root user.
     Edit the appropriate  "/etc/ssh/sshd_config" file to uncomment or add the line for the "PermitRootLogin" keyword and
     set its value to "no" (this file may be named differently or be in a different location if using a version of SSH
     that is provided by a third-party vendor):

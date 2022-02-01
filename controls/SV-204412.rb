@@ -8,14 +8,14 @@ control 'SV-204412' do
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
   tag 'legacy': ['V-71913', 'SV-86537']
-  tag 'rationale': ''
-  tag 'check': 'The "minclass" option sets the minimum number of required classes of characters for the new password
+  desc 'rationale', ''
+  desc 'check', 'The "minclass" option sets the minimum number of required classes of characters for the new password
     (digits, upper-case, lower-case, others).
     Check for the value of the "minclass" option in "/etc/security/pwquality.conf" with the following command:
     # grep minclass /etc/security/pwquality.conf
     minclass = 4
     If the value of "minclass" is set to less than "4", this is a finding.'
-  tag 'fix': 'Configure the operating system to require the change of at least four character classes when passwords
+  desc 'fix', 'Configure the operating system to require the change of at least four character classes when passwords
     are changed by setting the "minclass" option.
     Add the following line to "/etc/security/pwquality.conf conf" (or modify the line to have the required value):
     minclass = 4'

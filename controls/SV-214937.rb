@@ -8,8 +8,8 @@ control 'SV-214937' do
     disengage the graphical user interface session lock provides the assurance that all sessions will lock after the
     specified period of time.'
   tag 'legacy': ['V-78995', 'SV-93701']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system prevents a user from overriding the screensaver lock-enabled setting for
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system prevents a user from overriding the screensaver lock-enabled setting for
     the graphical user interface.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable. The screen program must be
     installed to lock sessions on the console.
@@ -23,7 +23,7 @@ control 'SV-214937' do
     /org/gnome/desktop/screensaver/lock-enabled
     If the command does not return a result, this is a finding.
     '
-  tag 'fix': 'Configure the operating system to prevent a user from overriding a screensaver lock after a 15-minute
+  desc 'fix', 'Configure the operating system to prevent a user from overriding a screensaver lock after a 15-minute
     period of inactivity for graphical user interfaces.
     Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following
     command:

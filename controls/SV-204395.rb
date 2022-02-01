@@ -23,8 +23,8 @@ control 'SV-204395' do
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
   tag 'legacy': ['V-71863', 'SV-86487']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the operating system via a command line user logon.
     Check to see if the operating system displays a banner at the command line logon screen with the following command:
     # more /etc/issue
@@ -47,7 +47,7 @@ control 'SV-204395' do
     Mandatory DoD Notice and Consent Banner, this is a finding.
     If the text in the "/etc/issue" file does not match the Standard Mandatory DoD Notice and Consent Banner, this is a
     finding.'
-  tag 'fix': 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
+  desc 'fix', 'Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the system via the command line by editing the "/etc/issue" file.
     Replace the default text with the Standard Mandatory DoD Notice and Consent Banner. The DoD required text is:
     "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.

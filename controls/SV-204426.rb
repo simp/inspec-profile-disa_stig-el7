@@ -7,14 +7,14 @@ control 'SV-204426' do
     Operating systems need to track periods of inactivity and disable application identifiers after 35 days of
     inactivity.'
   tag 'legacy': ['SV-86565', 'V-71941']
-  tag 'rationale': ''
-  tag 'check': 'If passwords are not being used for authentication, this is Not Applicable.
+  desc 'rationale', ''
+  desc 'check', 'If passwords are not being used for authentication, this is Not Applicable.
     Verify the operating system disables account identifiers (individuals, groups, roles, and devices) after the
     password expires with the following command:
     # grep -i inactive /etc/default/useradd
     INACTIVE=35
     If "INACTIVE" is set to "-1", a value greater than "35", is commented out, or is not defined, this is a finding.'
-  tag 'fix': 'Configure the operating system to disable account identifiers (individuals, groups, roles, and
+  desc 'fix', 'Configure the operating system to disable account identifiers (individuals, groups, roles, and
     devices) 35 days after the password expires.
     Add the following line to "/etc/default/useradd" (or modify the line to have the required value):
     INACTIVE=35

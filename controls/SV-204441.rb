@@ -13,8 +13,8 @@ control 'SV-204441' do
     Organizations may require unique identification of individuals in group accounts (e.g., shared privilege accounts)
     or for detailed accountability of individual activity.'
   tag 'legacy': ['V-71965', 'SV-86589']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system requires multifactor authentication to uniquely identify organizational
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system requires multifactor authentication to uniquely identify organizational
     users using multifactor authentication.
     Check to see if smartcard authentication is enforced on the system:
     # authconfig --test | grep "pam_pkcs11 is enabled"
@@ -24,7 +24,7 @@ control 'SV-204441' do
     # authconfig --test | grep "smartcard module"
     If "smartcard module" is blank, ask the administrator to indicate the AO-approved multifactor authentication in use
     and the configuration to support it. If there is no evidence of multifactor authentication, this is a finding.'
-  tag 'fix': 'Configure the operating system to require individuals to be authenticated with a multifactor
+  desc 'fix', 'Configure the operating system to require individuals to be authenticated with a multifactor
     authenticator.
     Enable smartcard logons with the following commands:
     # authconfig --enablesmartcard --smartcardaction=0 --update

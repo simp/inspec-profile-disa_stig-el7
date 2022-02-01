@@ -7,14 +7,14 @@ control 'SV-204568' do
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
   tag 'legacy': ['SV-87825', 'V-73173']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system must generate audit records for all account creations, modifications,
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system must generate audit records for all account creations, modifications,
     disabling, and termination events that affect /etc/security/opasswd.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
     # grep /etc/security/opasswd /etc/audit/audit.rules
     -w /etc/security/opasswd -p wa -k identity
     If the command does not return a line, or the line is commented out, this is a finding.'
-  tag 'fix': 'Configure the operating system to generate audit records for all account creations, modifications,
+  desc 'fix', 'Configure the operating system to generate audit records for all account creations, modifications,
     disabling, and termination events that affect /etc/security/opasswd.
     Add or update the following file system rule in "/etc/audit/rules.d/audit.rules":
     -w /etc/security/opasswd -p wa -k identity

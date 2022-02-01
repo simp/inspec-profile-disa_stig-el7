@@ -5,12 +5,12 @@ control 'SV-204421' do
     periodically. If the operating system does not limit the lifetime of passwords and force users to change their
     passwords, there is the risk that the operating system passwords could be compromised.'
   tag 'legacy': ['V-71931', 'SV-86555']
-  tag 'rationale': ''
-  tag 'check': %q(Check whether the maximum time period for existing passwords is restricted to 60 days.
+  desc 'rationale', ''
+  desc 'check', %q(Check whether the maximum time period for existing passwords is restricted to 60 days.
     # awk -F: '$5 > 60 {print $1 " " $5}' /etc/shadow
     If any results are returned that are not associated with a system account, this is a finding.
     )
-  tag 'fix': 'Configure non-compliant accounts to enforce a 60-day maximum password lifetime restriction.
+  desc 'fix', 'Configure non-compliant accounts to enforce a 60-day maximum password lifetime restriction.
     # chage -M 60 [user]'
   impact 0.5
   tag 'severity': 'medium'

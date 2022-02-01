@@ -5,14 +5,14 @@ control 'SV-204598' do
     GSSAPI authentication through SSH exposes the system's GSSAPI to remote hosts, increasing the attack surface of the
     system. GSSAPI authentication must be disabled unless needed."
   tag 'legacy': ['V-72259', 'SV-86883']
-  tag 'rationale': ''
-  tag 'check': 'Verify the SSH daemon does not permit GSSAPI authentication unless approved.
+  desc 'rationale', ''
+  desc 'check', 'Verify the SSH daemon does not permit GSSAPI authentication unless approved.
     Check that the SSH daemon does not permit GSSAPI authentication with the following command:
     # grep -i gssapiauth /etc/ssh/sshd_config
     GSSAPIAuthentication no
     If the "GSSAPIAuthentication" keyword is missing, is set to "yes" and is not documented with the Information System
     Security Officer (ISSO), or the returned line is commented out, this is a finding.'
-  tag 'fix': 'Uncomment the "GSSAPIAuthentication" keyword in "/etc/ssh/sshd_config" (this file may be named
+  desc 'fix', 'Uncomment the "GSSAPIAuthentication" keyword in "/etc/ssh/sshd_config" (this file may be named
     differently or be in a different location if using a version of SSH that is provided by a third-party vendor) and
     set the value to "no":
     GSSAPIAuthentication no

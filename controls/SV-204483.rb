@@ -6,8 +6,8 @@ control 'SV-204483' do
     untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative
     access.'
   tag 'legacy': ['SV-87813', 'V-73161']
-  tag 'rationale': ''
-  tag 'check': 'Verify file systems that are being NFS imported are configured with the "noexec" option.
+  desc 'rationale', ''
+  desc 'check', 'Verify file systems that are being NFS imported are configured with the "noexec" option.
     Find the file system(s) that contain the directories being imported with the following command:
     # more /etc/fstab | grep nfs
     UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d /store nfs rw,noexec 0 0
@@ -18,7 +18,7 @@ control 'SV-204483' do
     # mount | grep nfs | grep noexec
     If no results are returned and use of NFS imported binaries is not documented with the Information System Security
     Officer (ISSO) as an operational requirement, this is a finding.'
-  tag 'fix': 'Configure the "/etc/fstab" to use the "noexec" option on file systems that are being imported via
+  desc 'fix', 'Configure the "/etc/fstab" to use the "noexec" option on file systems that are being imported via
     NFS.'
   impact 0.5
   tag 'severity': 'medium'

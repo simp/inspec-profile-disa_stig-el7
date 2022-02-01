@@ -3,8 +3,8 @@ control 'SV-204604' do
   desc 'Firewalls protect computers from network attacks by blocking or limiting access to open network ports.
     Application firewalls limit which applications are allowed to communicate over the network.'
   tag 'legacy': ['SV-86897', 'V-72273']
-  tag 'rationale': ''
-  tag 'check': 'Verify the operating system enabled an application firewall.
+  desc 'rationale', ''
+  desc 'check', 'Verify the operating system enabled an application firewall.
     Check to see if "firewalld" is installed with the following command:
     # yum list installed firewalld
     firewalld-0.3.9-11.el7.noarch.rpm
@@ -21,7 +21,7 @@ control 'SV-204604' do
     # firewall-cmd --state
     running
     If "firewalld" does not show a state of "running", this is a finding.'
-  tag 'fix': %q(Ensure the operating system's application firewall is enabled.
+  desc 'fix', %q(Ensure the operating system's application firewall is enabled.
     Install the "firewalld" package, if it is not on the system, with the following command:
     # yum install firewalld
     Start the firewall via "systemctl" with the following command:

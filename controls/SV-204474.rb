@@ -4,8 +4,8 @@ control 'SV-204474' do
   desc "Local initialization files are used to configure the user's shell environment upon logon. Malicious
     modification of these files could compromise accounts upon logon."
   tag 'legacy': ['V-72029', 'SV-86653']
-  tag 'rationale': ''
-  tag 'check': %q{Verify the local initialization files of all local interactive users are owned by that user.
+  desc 'rationale', ''
+  desc 'check', %q{Verify the local initialization files of all local interactive users are owned by that user.
     Check the home directory assignment for all non-privileged users on the system with the following command:
     Note: The example will be for the smithj user, who has a home directory of "/home/smithj".
     # awk -F: '($3>=1000)&&($7 !~ /nologin/){print $1, $3, $6}' /etc/passwd
@@ -18,7 +18,7 @@ control 'SV-204474' do
     -rwxr-xr-x 1 smithj users 497 Jan 6 2007 .login
     -rwxr-xr-x 1 smithj users 886 Jan 6 2007 .something
     If all local interactive user's initialization files are not owned by that user or root, this is a finding.}
-  tag 'fix': 'Set the owner of the local initialization files for interactive users to either the directory owner or
+  desc 'fix', 'Set the owner of the local initialization files for interactive users to either the directory owner or
     root with the following command:
     Note: The example will be for the smithj user, who has a home directory of "/home/smithj".
     # chown smithj /home/smithj/.[^.]*'

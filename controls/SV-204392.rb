@@ -4,8 +4,8 @@ control 'SV-204392' do
   desc 'Discretionary access control is weakened if a user or group has access permissions to system files and
     directories greater than the default.'
   tag 'legacy': ['V-71849', 'SV-86473']
-  tag 'rationale': ''
-  tag 'check': %q{Verify the file permissions, ownership, and group membership of system files and commands match the
+  desc 'rationale', ''
+  desc 'check', %q{Verify the file permissions, ownership, and group membership of system files and commands match the
     vendor values.
     Check the default file permissions, ownership, and group membership of system files and commands with the following
     command:
@@ -22,7 +22,7 @@ control 'SV-204392' do
     (ISSO), this is a finding.
     If the file is not a member of the default group and is not documented with the Information System Security Officer
     (ISSO), this is a finding.}
-  tag 'fix': 'Run the following command to determine which package owns the file:
+  desc 'fix', 'Run the following command to determine which package owns the file:
     # rpm -qf <filename>
     Reset the user and group ownership of files within a package with the following command:
     # rpm --setugids <packagename>
