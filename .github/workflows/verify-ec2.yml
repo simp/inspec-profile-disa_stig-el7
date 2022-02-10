@@ -48,9 +48,13 @@ jobs:
       - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
       - name: Display our ${{ matrix.suite }} results summary
-        run: 'bundle exec saf view:summary -i spec/results/ec2_rhel-7_${{ matrix.suite }}.json'
+        uses: mitre/saf_action@v1.1.0
+        with:
+          command_string: 'view:summary -i spec/results/ec2_rhel-7_${{ matrix.suite }}.json'
       - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
-        run: 'bundle exec saf validate:threshold -i spec/results/ec2_rhel-7_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml'
+        uses: mitre/saf_action@v1.1.0
+        with:
+          command_string: 'validate:threshold -i spec/results/ec2_rhel-7_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml'
       - name: Save Test Result JSON
         uses: actions/upload-artifact@v2
         with:
