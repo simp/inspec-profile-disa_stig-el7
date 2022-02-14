@@ -40,8 +40,12 @@ jobs:
         run: brew install node
       - name: Install SAF CLI
         run: npm install -g @mitre/saf
+      - name: List spec files
+        run: |
+          pwd
+          ls spec/results/
       - name: Display our ${{ matrix.suite }} results summary
-        run: 'saf view:summary -i spec/results/rhel-7_${{ matrix.suite }}.json'
+        run: 'saf view:summary -i spec/results/*.json'
       - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
         run: 'saf validate:threshold -i spec/results/rhel-7_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml'
       - name: Save Test Result JSON
