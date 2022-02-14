@@ -48,7 +48,8 @@ jobs:
           command_string: 'view:summary -i spec/results/*.json'
       - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
         uses: em-c-rod/saf_action_test@master
-          with: 'validate:threshold -i spec/results/rhel-7_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml'
+        with:
+          command_string: 'validate:threshold -i spec/results/rhel-7_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml'
       - name: Save Test Result JSON
         uses: actions/upload-artifact@v2
         with:
