@@ -38,11 +38,11 @@ jobs:
       - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
       - name: Display our ${{ matrix.suite }} results summary
-        uses: em-c-rod/saf_action_test@master
+        uses: mitre/saf_action@switchToJavascript
         with:
           command_string: 'view:summary -i spec/results/rhel-7_${{ matrix.suite }}.json'
       - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
-        uses: em-c-rod/saf_action_test@master
+        uses: mitre/saf_action@switchToJavascript
         with:
           command_string: 'validate:threshold -i spec/results/rhel-7_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml'
       - name: Save Test Result JSON
