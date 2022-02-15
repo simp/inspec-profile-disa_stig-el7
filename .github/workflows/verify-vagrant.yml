@@ -9,7 +9,8 @@ on:
 jobs:
   my-job:
     name: Validate my profile
-    runs-on: macos-latest
+    # macos-latest no longer has Vagrant. Must use the specified version per documentation.
+    runs-on: macos-10.15
     env:
       CHEF_LICENSE: accept-silent
       KITCHEN_LOCAL_YAML: kitchen.vagrant.yml
@@ -25,7 +26,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6'
+          ruby-version: '2.7'
       - name: Disable ri and rdoc
         run: 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
       - run: bundle install
@@ -34,18 +35,12 @@ jobs:
           bundle exec inspec json . | jq . > profile.json
       - name: Lint the Inspec profile
         run: bundle exec inspec check .
-      - name: List vagrant version
-        run: 'vagrant --version'
       - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-rhel-7 || true
-      - name: List spec files
-        run: |
-          pwd
-          ls spec/results/
       - name: Display our ${{ matrix.suite }} results summary
         uses: em-c-rod/saf_action_test@master
         with:
-          command_string: 'view:summary -i spec/results/*.json'
+          command_string: 'view:summary -i spec/results/rhel-7_${{ matrix.suite }}.json'
       - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
         uses: em-c-rod/saf_action_test@master
         with:
