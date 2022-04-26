@@ -13,6 +13,8 @@ supports:
     release: 7.*
   - platform-name: redhat
     release: 7.*
+  - platform-name: amazon
+    release: 2*
 
 inputs:
 - name: disable_slow_controls
