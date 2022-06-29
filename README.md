@@ -335,7 +335,7 @@ To report a bug or feature request, please open an [issue](https://github.com/mi
 
 ### NOTICE
 
-© 2018-2020 The MITRE Corporation.
+© 2018-2022 The MITRE Corporation.
 
 Approved for Public Release; Distribution Unlimited. Case Number 18-3678.
 
