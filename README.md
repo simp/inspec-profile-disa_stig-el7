@@ -1,6 +1,6 @@
 # red-hat-enterprise-linux-7-stig-baseline
 
-InSpec profile to validate the secure configuration of Red Hat Enterprise Linux 7 against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Red Hat Enterprise Linux 7 STIG Version 2 Release 6.
+InSpec profile to validate the secure configuration of Red Hat Enterprise Linux 7 against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Red Hat Enterprise Linux 7 STIG Version 3 Release 6.
 
 ## Getting Started  
 It is intended and recommended that InSpec and this profile be run from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target remotely over __ssh__.
@@ -256,28 +256,24 @@ input (mentioned above in the user-defined inputs) in the profile to allow you t
 
 The input `disable_slow_controls (bool: false)` can be set to `true` or `false` as needed in a <name_of_your_input_file>.yml file.
 
-* `V-71849` (~3 minutes)
-* `V-71855` (~3 minutes)
-* `V-72037` (10+ minutes)
-
 ## Running This Profile Directly from Github
 
 Against a remote target using ssh with escalated privileges (i.e., InSpec installed on a separate runner host)
 ```bash
 # How to run 
-inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/master.tar.gz -t ssh://TARGET_USERNAME:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --sudo --sudo-password=<SUDO_PASSWORD_IF_REQUIRED> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/main.tar.gz -t ssh://TARGET_USERNAME:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --sudo --sudo-password=<SUDO_PASSWORD_IF_REQUIRED> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
 ```
 
 Against a remote target using a pem key with escalated privileges (i.e., InSpec installed on a separate runner host)
 ```bash
 # How to run 
-inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/master.tar.gz -t ssh://TARGET_USERNAME@TARGET_IP:TARGET_PORT --sudo -i <your_PEM_KEY> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>  
+inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/main.tar.gz -t ssh://TARGET_USERNAME@TARGET_IP:TARGET_PORT --sudo -i <your_PEM_KEY> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>  
 ```
 
 Against a local Red Hat host with escalated privileges (i.e., InSpec installed on the target)
 ```bash
 # How to run
-sudo inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/master.tar.gz --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+sudo inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/main.tar.gz --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
 ```
 ### Different Run Options
 
@@ -324,6 +320,9 @@ The JSON InSpec results file may also be loaded into a __[full heimdall server](
 * KC Linden
 * Rony Xavier
 * Mohamed El-Sharkawi
+* Will Dower
+* Emily Rodriguez
+* Henry Xiao
 
 ## Special Thanks
 * The SIMP Project Team
@@ -404,41 +403,15 @@ profiles in `spec/fixtures/inspec_profiles` during testing.
 
 ## Setting up your box
 
-1. Clone the repo via `git clone -b dev https://github.com/simp/inspec_profiles.git`
-2. cd to `inspec_profiles`
+1. Clone the repo via `git clone https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/main.git`
+2. cd to `redhat-enterprise-linux-7-stig-baseline`
 3. Run `bundle install`
 4. Run `kitchen list` - you should see the following choice:
-   - `default-centos-7`
-5. Run `kitchen converge default-centos-7`
+   - `vanilla-rhel-7`
+   - `hardened-rhel-7`
+5. Run `kitchen converge`
 6. Run `kitchen list` - your should see your host with status "converged"
-
-## Validating your box
-
-**Note:** Once the open issues are resolved in InSpec and kitchen-inspec these
-steps will not really be needed but for now we have to do a few things a bit
-more manually. Once resolved fully, you will only need to run `kitchen verify (machine name)` and everything will be taken care of.
-
-### In the 'inspec_profiles' dir ( manually )
-
-1. cd `.kitchen/`
-2. vi default-centos-7.yml
-3. copy the `ssh_key:` value for later
-4. note the mapped port value ( usually `2222`) and use in the next step
-
-### In the 'inspec_profiles' dir
-
-1. On the terminal: `export SSH_KEY=(value from before)`
-2. cd to `inspec_profiles`
-
-   - (optional) run an `inspec check`, and
-     ensure there are no errors in the baseline.
-
-3. run: `inspec exec -i $SSH_KEY -t ssh://vagrant@127.0.0.1:2222 ( or the port mapped from step '4' above )`
-   - (optional) `inspec exec controls/V-#####
-   - -i \$SSH_KEY -t
-     ssh://vagrant@127.0.0.1:2222` to just test a single control
-   - (optional) `inspec exec -i $SSH_KEY --controls=V-#####,V-##### -t ssh://vagrant@127.0.0.1:2222` to just test a
-     small set of controls
+7. RUn `kitchen verify` to execute inspec profiles against target
 
 # Hardening Development
 
@@ -456,7 +429,7 @@ Included in this repository are testing scripts which allow you to run the profi
 - Just running the validation scripts
   - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen verify (machine name)`
 - just run one or more controls in the validation
-  - edit the .kitchen.yml file in the `controls:` section add the `control id(s)` to the list
+  - edit the kitchen.yml file in the `controls:` section add the `control id(s)` to the list
 
 ### NOTICE
 
