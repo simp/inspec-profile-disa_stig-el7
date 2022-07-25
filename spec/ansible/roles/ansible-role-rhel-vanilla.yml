@@ -1,0 +1,6 @@
+---
+- hosts:
+    - localhost
+  roles:
+    - roles/ansible-role-rhel-vanilla
+  serial: 50

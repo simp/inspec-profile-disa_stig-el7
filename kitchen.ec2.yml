@@ -1,43 +1,48 @@
 ---
+platforms:
+  - name: rhel-7
+
 driver:
   name: ec2
+  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+  user_data: ./user_data.sh
+  tags:
+    POC: <%= ENV['POC_TAG'] %>
+  security_group_ids: <%= ENV['SECURITY_GROUP_IDS'] %>
+  region: <%= ENV['AWS_REGION'] %>
+  subnet_id: <%= ENV['SUBNET_ID'] %>
+  instance_type: t2.large
   associate_public_ip: true
-  instance_type: c5.large
-  ebs_optimized: true
-  block_device_mappings:
-    - device_name: /dev/sda1
-      ebs:
-        delete_on_termination: true
-        volume_size: 30
-        volume_type: gp2
-  interface: public
-  require_chef_for_busser: false
-  privileged: true
+
+transport:
+  name: ssh
+  username: <%= ENV['AWS_EC2_USER'] %>
+  ssh_key: <%= ENV['AWS_EC2_SSH_KEY'] %>
+  connection_timeout: 10
+  connection_retries: 5
 
 verifier:
-  name: inspec
-  sudo: true
+  input_files:
+    - ec2.inputs.yml
   reporter:
     - cli
     - json:spec/results/ec2_%{platform}_%{suite}.json
-  inspec_tests:
-    - name: RedHat Enterprise Linux 7 STIG
-      path: .
-  input_files:
-    - ec2.inputs.yml
-  load_plugins: true
 
 lifecycle:
+  post_create:
+    - remote: |
+        sudo yum -y install python3-pip
+        sudo python3 -m pip install --upgrade pip
+
   pre_converge:
     - remote: |
-        echo "NOTICE - Installing needed packages"
-        sudo yum install -y --nogpgcheck bc bind-utils redhat-lsb-core vim
-        echo "updating system packages"
-        sudo yum update -y --nogpgcheck
         echo "NOTICE - Updating the ec2-user to keep sudo working"
         sudo chage -d $(( $( date +%s ) / 86400 )) ec2-user
         echo "NOTICE - updating ec2-user sudo config"
         sudo chmod 600 /etc/sudoers && sudo sed -i'' "/ec2-user/d" /etc/sudoers && sudo chmod 400 /etc/sudoers
 
+        
 transport:
   name: ssh
+  #https://github.com/neillturner/kitchen-ansible/issues/295
+  max_ssh_sessions: 2

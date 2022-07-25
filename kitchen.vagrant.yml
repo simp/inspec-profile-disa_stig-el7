@@ -1,12 +1,25 @@
 ---
 driver:
   name: vagrant
+  driver_config:
+    ssl_verify_mode: ":verify_none"
+    customize:
+      cpus: 4
+      memory: 8192
+      accelerate3d: "off"
+      accelerate2dvideo: "off"
+      audio: "none"
+      usbcardreader: "off"
+      vrde: "off"
+      usb: "off"
+      nictype1: "82540EM"
+      clipboard: "disabled"
 
 platforms:
   - name: rhel-7
 
     driver:
-      box: bento/centos-7
+      box: generic/centos7
 
 lifecycle:
   pre_converge:

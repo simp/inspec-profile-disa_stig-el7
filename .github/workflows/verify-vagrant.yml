@@ -29,6 +29,8 @@ jobs:
           ruby-version: '2.7'
       - name: Disable ri and rdoc
         run: 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
+      - name: ensure bundler up-to-date
+        run: gem install bundler
       - run: bundle install
       - name: Regenerate current `profile.json`
         run: |

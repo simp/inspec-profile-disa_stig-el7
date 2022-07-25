@@ -1,11 +1,10 @@
-name: redhat-enterprise-linux-7-stig-baseline
-title: redhat-enterprise-linux-7-stig-baseline
-maintainer: MITRE SAF Team
-copyright: MITRE, 2020
-copyright_email: saf@groups.mitre.org
+name: RHEL_7_STIG
+title: Red Hat Enterprise Linux 7 Security Technical Implementation Guide
+maintainer: DISA DevSecOps Team
+copyright: Defense Information Systems Agency (DISA)
 license: Apache-2.0
 summary: "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG"
-version: 2.6.6
+version: 3.6.0
 inspec_version: ">= 4.0"
 
 supports:
@@ -16,566 +15,805 @@ supports:
   - platform-name: amazon
     release: 2*
 
+inspec_version: ">= 4.26"
+# The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
-- name: disable_slow_controls
-  description: Controls that are known to consistently have long run times can be disabled with this attribute
-  type: Boolean
-  value: false
-
-# V-72081
-- name: monitor_kernel_log
-  description: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
-  type: Boolean
-  value: true
-
-# V-71849
-- name: rpm_verify_perms_except
-  description: List of system files that should be allowed to change from an rpm verify point of view
-  type: Array
-  value: []
-
-# V-71855
-- name: rpm_verify_integrity_except
-  description: List of system files that should be allowed to change from an rpm verify point of view
-  type: Array
-  value: []
-
-# V-71859
-- name: banner_message_enabled
-  description: Set to 'true' if the login banner message should be enabled
-  type: Boolean
-  value: true
-
-# V-72211
-- name: log_aggregation_server
-  description: Set to 'true' if the system is being used as a log aggregation server
-  type: Boolean
-  value: false
-
-# V-72047
-- name: application_groups
-  description: Known application groups that are allowed to have world-writeable files or directories
-  type: Array
-  value: []
-
-# V-72307
-- name: x11_enabled
-  description: Set to 'true' if X11 is needed on the system.
-  type: Boolean
-  value: false
-
-- name: user_accounts
-  description: Accounts of known managed users
-  type: Array
-  value: []
-
-- name: known_system_accounts
-  description: System accounts that support approved system activities.
-  type: Array
-  value: 
-    - 'root'
-    - 'bin'
-    - 'daemon'
-    - 'adm'
-    - 'lp'
-    - 'sync'
-    - 'shutdown'
-    - 'halt'
-    - 'mail'
-    - 'operator'
-    - 'nobody'
-    - 'systemd-bus-proxy'
-    - 'dbus'
-    - 'polkitd'
-    - 'postfix'
-    - 'sssd'
-    - 'chrony'
-    - 'systemd-network'
-    - 'sshd'
-    - 'ntp'
-
-# V-71859/V-77819
-- name: dconf_user
-  description: User to use to check dconf settings. Nil means to use whatever user is running inspec currently.
-  type: String
-  value: ""
-
-#  You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
-#  By using this IS (which includes any device attached to this IS), you consent to the following conditions:
-#    - The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
-#    - At any time, the USG may inspect and seize data stored on this IS.
-#    - Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
-#    - This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
-#    - Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
-
-# V-71861
-- name: banner_message_text_gui
-  description: Banner message text for graphical user interface logins.
-  type: String
-  value: "You are accessing a U.S. Government (USG) Information System (IS) that is \
-  provided for USG-authorized use only. By using this IS (which includes any \
-  device attached to this IS), you consent to the following conditions: -The USG \
-  routinely intercepts and monitors communications on this IS for purposes \
-  including, but not limited to, penetration testing, COMSEC monitoring, network \
-  operations and defense, personnel misconduct (PM), law enforcement (LE), and \
-  counterintelligence (CI) investigations. -At any time, the USG may inspect and \
-  seize data stored on this IS. -Communications using, or data stored on, this \
-  IS are not private, are subject to routine monitoring, interception, and \
-  search, and may be disclosed or used for any USG-authorized purpose. -This IS \
-  includes security measures (e.g., authentication and access controls) to \
-  protect USG interests--not for your personal benefit or privacy. \
-  -Notwithstanding the above, using this IS does not constitute consent to PM, \
-  LE or CI investigative searching or monitoring of the content of privileged \
-  communications, or work product, related to personal representation or \
-  services by attorneys, psychotherapists, or clergy, and their assistants. Such \
-  communications and work product are private and confidential. See User \
-  Agreement for details."
-
-- name: banner_message_text_gui_limited
-  description: Banner message text for limited-resource graphical user interface logins.
-  type: String
-  value: "I've read & consent to terms in IS user agreem't."
-
-# V-71863
-- name: banner_message_text_cli
-  description: Banner message text for command line interface logins.
-  type: String
-  value: "You are accessing a U.S. Government (USG) Information System (IS) that is \
-  provided for USG-authorized use only. By using this IS (which includes any \
-  device attached to this IS), you consent to the following conditions: -The USG \
-  routinely intercepts and monitors communications on this IS for purposes \
-  including, but not limited to, penetration testing, COMSEC monitoring, network \
-  operations and defense, personnel misconduct (PM), law enforcement (LE), and \
-  counterintelligence (CI) investigations. -At any time, the USG may inspect and \
-  seize data stored on this IS. -Communications using, or data stored on, this \
-  IS are not private, are subject to routine monitoring, interception, and \
-  search, and may be disclosed or used for any USG-authorized purpose. -This IS \
-  includes security measures (e.g., authentication and access controls) to \
-  protect USG interests--not for your personal benefit or privacy. \
-  -Notwithstanding the above, using this IS does not constitute consent to PM, \
-  LE or CI investigative searching or monitoring of the content of privileged \
-  communications, or work product, related to personal representation or \
-  services by attorneys, psychotherapists, or clergy, and their assistants. Such \
-  communications and work product are private and confidential. See User \
-  Agreement for details."
-
-- name: banner_message_text_cli_limited
-  description: Banner message text for resource-limited command line interface logins.
-  type: String
-  value: "I've read & consent to terms in IS user agreem't."
-
-# V-72225
-- name: banner_message_text_ral
-  description: Banner message text for remote access logins.
-  type: String
-  value: "You are accessing a U.S. Government (USG) Information System (IS) that is \
-  provided for USG-authorized use only. By using this IS (which includes any \
-  device attached to this IS), you consent to the following conditions: -The USG \
-  routinely intercepts and monitors communications on this IS for purposes \
-  including, but not limited to, penetration testing, COMSEC monitoring, network \
-  operations and defense, personnel misconduct (PM), law enforcement (LE), and \
-  counterintelligence (CI) investigations. -At any time, the USG may inspect and \
-  seize data stored on this IS. -Communications using, or data stored on, this \
-  IS are not private, are subject to routine monitoring, interception, and \
-  search, and may be disclosed or used for any USG-authorized purpose. -This IS \
-  includes security measures (e.g., authentication and access controls) to \
-  protect USG interests--not for your personal benefit or privacy. \
-  -Notwithstanding the above, using this IS does not constitute consent to PM, \
-  LE or CI investigative searching or monitoring of the content of privileged \
-  communications, or work product, related to personal representation or \
-  services by attorneys, psychotherapists, or clergy, and their assistants. Such \
-  communications and work product are private and confidential. See User \
-  Agreement for details."
-
-- name: banner_message_text_ral_limited
-  description: Banner message text for resource-limited remote access logins.
-  type: String
-  value: "I've read & consent to terms in IS user agreem't."
-
-# V-71901
-- name: lock_delay
-  description: The scereensaver lock-delay must be less than or equal to the specified value
-  type: Numeric
-  value: 5
-
-# V-71911
-- name: difok
-  description: Minimum number of characters that must be different from previous password
-  type: Numeric
-  value: 8
-
-# V-71933
-- name: min_reuse_generations
-  description: Number of reuse generations
-  type: Numeric
-  value: 5
-
-# V-71935
-- name: min_len
-  description: Number of characters
-  type: Numeric
-  value: 15
-
-# V-71941
-- name: days_of_inactivity
-  description: Number of days
-  type: Numeric
-  value: 0
-
-# V-71943
-- name: unsuccessful_attempts
-  description: number of unsuccessful attempts
-  type: Numeric
-  value: 3
-
-- name: fail_interval
-  description: Interval of time in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
-  type: Numeric
-  value: 900
-
-- name: lockout_time
-  description: Minimum amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
-  value: 604800
-
-# V-71973
-- name: file_integrity_tool
-  description: Name of tool
-  type: String
-  value: 'aide'
-
-- name: file_integrity_interval
-  description: Interval to run the file integrity tool (monthly, weekly, or daily).
-  type: String
-  value: 'weekly'
-
-# V-72223
-- name: system_activity_timeout
-  description: System activity timeout (time in seconds).
-  type: Numeric
-  value: 600
-
-# V-72237
-- name: client_alive_interval
-  description: Client alive interval (time in seconds).
-  type: Numeric
-  value: 600
-
-# V-71965, V-72417, V-72433
-- name: smart_card_status
-  description: Smart card status (enabled or disabled)
-  type: String
-  value: 'enabled'
-
-# V-72051/V-72209
-- name: log_pkg_path
-  description: The path to the logging package
-  type: String
-  value: '/etc/rsyslog.conf'
-
-# V-72011, V-72015, V-72017, V-72019, V-72021, V-72023, V-72025
-# V-72027, V-72029, V-72031, V-72033, V-72035, V-72037, V-72059
-- name: exempt_home_users
-  description: Users exempt from home directory-based controls in array format
-  type: Array
-  value: []
-
-# V-71961
-- name: grub_main_cfg
-  description: Main grub boot config file
-  type: String
-  value: '/boot/grub2/grub.cfg'
-
-- name: grub_uefi_main_cfg
-  description: Main grub boot config file
-  type: String
-  value: '/boot/efi/EFI/redhat/grub.cfg'
-
-- name: grub_superuser
-  description: superusers for grub boot
-  type: String
-  value: 'root'
-
-- name: grub_user_boot_files
-  description: Grub boot config files
-  type: Array
-  value: 
-    - '/boot/grub2/user.cfg'
-
-- name: grub_uefi_user_boot_files
-  description: Grub boot config files
-  type: Array
-  value: ['/boot/efi/EFI/redhat/user.cfg']
-
-# V-71963
-- name: efi_superusers
-  description: Superusers for efi boot
-  type: Array
-  sensitive: true
-  value: 
-    - 'root'
-
-# V-71971
-- name: admin_logins
-  description: System accounts that support approved system activities
-  type: Array
-  sensitive: true
-  value: []
-
-# V-73159
-- name: max_rety
-  description: Maximum number of times to prompt user for new password
-  type: Numeric
-  value: 3
-
-# V-72417
-- name: mfa_pkg_list
-  description: The list of packages needed for MFA on RHEL
-  type: Array
-  value: 
-    - 'nss-tools'
-    - 'nss-pam-ldapd'
-    - 'esc'
-    - 'pam_pkcs11'
-    - 'pam_krb5'
-    - 'opensc'
-    - 'pcsc-lite-ccid'
-    - 'gdm'
-    - 'authconfig'
-    - 'authconfig-gtk'
-    - 'krb5-libs'
-    - 'krb5-workstation'
-    - 'krb5-pkinit'
-    - 'pcsc-lite'
-    - 'pcsc-lite-libs'
-
-# V-77819
-- name: multifactor_enabled
-  description: Should dconf have smart card authentication
-  type: Boolean
-  value: true
-
-- name: non_interactive_shells
-  description: These shells do not allow a user to login
-  type: Array
-  value: 
-    - "/sbin/nologin"
-    - "/sbin/halt"
-    - "/sbin/shutdown"
-    - "/bin/false"
-    - "/bin/sync"
-    - "/bin/true"
-
-# V-72059
-- name: randomize_va_space
-  description: Randomize virtual address space kernel parameter
-  type: Numeric
-  value: 2
-
-# V-72043
-- name: non_removable_media_fs
-  description: File systems that don't correspond to removable media
-  type: Array
-  value: 
-    - 'xfs'
-    - 'ext4'
-    - 'swap'
-    - 'tmpfs'
-
-# V-72317
-- name: approved_tunnels
-  description: Approved configured tunnels prepended with word 'conn' (e.g., ['conn myTunnel'])
-  type: Array
-  value: []
-
-# V-72039
-- name: virtual_machine
-  description: Is the target expected to be a virtual machine
-  type: Boolean
-  value: false
-
-# V-73159
-- name: max_retry
-  description: maximum number of password retries
-  type: Numeric
-  value: 3
-
-# V-72315
-- name: firewalld_services
-  description: "Services that firewalld should be configured to allow."
-  type: Array
-  # Examples
-  # 'dhcpv6-client',
-  # 'ssh'
-  value: []
-
-- name: firewalld_hosts_allow
-  description: "Hosts that firewalld should be configured to allow."
-  type: Array
-  value: []
-
-- name: firewalld_hosts_deny
-  description: "Hosts that firewalld should be configured to deny."
-  type: Array
-  value: []
-
-- name: firewalld_ports_allow
-  description: "Ports that firewalld should be configured to allow."
-  type: Array
-  # Examples
-  # '22/tcp',
-  # '4722/tcp'
-  value: []
-
-- name: firewalld_ports_deny
-  description: "Ports that firewalld should be configured to deny."
-  type: Hash
-  # Examples
-  # 'public':
-  #   - '22/tcp'
-  #   - '4722/tcp'
-  value: {}
-
-- name: tcpwrappers_allow
-  description: "Allow rules from etc/hosts.allow."
-  # Example
-  # 'daemon': 'ALL'
-  # 'client_list':
-  #   - 'ALL'
-  # 'options': []
-  type: Hash
-  value: {}
-
-- name: tcpwrappers_deny
-  description: "Deny rules from etc/hosts.deny."
-  type: Hash
-  # Example
-  # 'daemon': 'ALL'
-  # 'client_list':
-  #   - 'ALL'
-  # 'options': []
-  value: {}
-
-- name: iptables_rules
-  description: "Iptable rules that should exist."
-  type: Array
-  # Example
-  # '-P INPUT ACCEPT',
-  value: []
-
-# V-72219
-- name: firewalld_services_deny
-  description: "Services that firewalld should be configured to deny."
-  type: Hash
-  # Examples (zone:[services])
-  # public:
-  #   - 'ssh'
-  #   - 'icmp'
-  # dmz:
-  #   - 'http'
-  value: {}
-
-- name: firewalld_zones
-  description: "Zones that should be present on the system."
-  type: Array
-  # Examples
-  # - 'drop'
-  # - 'block'
-  # - 'public'
-  # - 'external'
-  # - 'dmz'
-  # - 'work'
-  # - 'home'
-  # - 'internal'
-  # - 'trusted'
-  value: []
-
-# V-72217
-- name: maxlogins_limit
-  description: "The maxium value that can be used for maxlogins."
-  type: Numeric
-  value: 10
-  
-# V-72213
-- name: custom_antivirus
-  description: "Whether an antivirus solution, other than nails, is in use."
-  type: Boolean
-  value: false
-
-- name: custom_antivirus_description
-  description: "Description of custom antivirus solution, when in use."
-  type: String
-  # Default of 'None' is used by control code -- DO NOT CHANGE DEFAULT
-  value: 'None'
-
-# V-92215
-- name: custom_hips
-  description: "Whether an HIPS solution, other than HBSS, is in use."
-  type: Boolean
-  value: false
-
-- name: custom_hips_description
-  description: "Description of custom HIPS solution, when in use."
-  type: String
-  # [Hopefully] non-existent process name to fail by default -- override
-  # with valid process name
-  value: An6yTr21kC
-
-- name: max_daemon_processes
-  description: "Restrict the number of returned processes to account
-    for invalid inputs, such as nil(~), that will match all processes
-    while allowing for 3rd party software that may spawn multiple
-    similarly named processes."
-  type: Numeric
-  value: 1
-
-# V-72073
-- name: aide_exclude_patterns
-  description: 'It is reasonable and advisable to skip checksum on frequently changing files'
-  type: Array
-  value: []
-
-# V-71897
-- name: terminal_mux_pkgs
-  description: 'A list of acceptable terminal multiplexers'
-  type: Array
-  value:
-    - tmux
-    - screen
-  
-- name: required_rules
-  description: 'Required PAM rules'
-  type: Array
-  value: 
-    - 'auth required pam_faillock.so unlock_time=.*'
-    - 'auth sufficient pam_unix.so try_first_pass'
-    - 'auth [default=die] pam_faillock.so unlock_time=.*'
-
-- name: alternate_rules
-  description: 'Alternate PAM rules'
-  type: Array
-  value:
-    - 'auth required pam_faillock.so unlock_time=.*'
-    - 'auth sufficient pam_sss.so forward_pass'
-    - 'auth sufficient pam_unix.so try_first_pass'
-    - 'auth [default=die] pam_faillock.so unlock_time=.*'
-
-- name: data_loss_prevention_installed
-  description: 'is an HBSS with a Device Control Module and a Data Loss Prevention mechanism'
-  type: Boolean
-  value: true
-
-- name: alternate_logs
-  description: 'An alternate method is used for logs than rsyslog'
-  type: Boolean
-  value: false
-
-- name: gssapi_approved
-  description: 'is GSSAPI authentication approved'
-  type: Boolean
-  value: true
-
-- name: disconnected_system
-  description: 'Set flag to true if the target system is disconnected'
-  type: Boolean
-  value: false
-  
+  - name: disable_slow_controls
+    description: Controls that are known to consistently have long run times can be disabled with this attribute
+    type: Boolean
+    value: false
+
+  # V-204504
+  - name: monitor_kernel_log
+    description: Set this to false if your system availability concern is not documented or there is no monitoring of the kernel log
+    type: Boolean
+    value: true
+
+  # V-204392
+  - name: rpm_verify_perms_except
+    description: List of system files that should be allowed to change from an rpm verify point of view
+    type: Array
+    value:
+      - "/etc/issue"
+
+  # V-214799
+  - name: rpm_verify_integrity_except
+    description: List of system files that should be allowed to change from an rpm verify point of view
+    type: Array
+    value: []
+
+  # V-204393
+  - name: banner_message_enabled
+    description: Set to 'true' if the login banner message should be enabled
+    type: Boolean
+    value: true
+
+  # V-204575
+  - name: log_aggregation_server
+    description: Set to 'true' if the system is being used as a log aggregation server
+    type: Boolean
+    value: false
+
+  # V-204624
+  - name: x11_enabled
+    description: Set to 'true' if X11 is needed on the system.
+    type: Boolean
+    value: false
+
+  - name: user_accounts
+    description: Accounts of known managed users
+    type: Array
+    value: []
+
+  - name: known_system_accounts
+    description: System accounts that support approved system activities.
+    type: Array
+    value:
+      - "root"
+      - "bin"
+      - "daemon"
+      - "adm"
+      - "lp"
+      - "sync"
+      - "shutdown"
+      - "halt"
+      - "mail"
+      - "operator"
+      - "nobody"
+      - "systemd-bus-proxy"
+      - "dbus"
+      - "polkitd"
+      - "postfix"
+      - "sssd"
+      - "chrony"
+      - "systemd-network"
+      - "sshd"
+      - "ntp"
+
+  # V-204393/V-204397
+  - name: dconf_user
+    description: User to use to check dconf settings. Nil means to use whatever user is running inspec currently.
+    type: String
+    value: ""
+
+  #  You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
+  #  By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+  #    - The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
+  #    - At any time, the USG may inspect and seize data stored on this IS.
+  #    - Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
+  #    - This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy.
+  #    - Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.
+
+  # SV-204394
+  - name: banner_message_text_gui
+    description: Banner message text for graphical user interface logins.
+    type: String
+    value:
+      "You are accessing a U.S. Government (USG) Information System (IS) that is \
+      provided for USG-authorized use only. By using this IS (which includes any \
+      device attached to this IS), you consent to the following conditions: -The USG \
+      routinely intercepts and monitors communications on this IS for purposes \
+      including, but not limited to, penetration testing, COMSEC monitoring, network \
+      operations and defense, personnel misconduct (PM), law enforcement (LE), and \
+      counterintelligence (CI) investigations. -At any time, the USG may inspect and \
+      seize data stored on this IS. -Communications using, or data stored on, this \
+      IS are not private, are subject to routine monitoring, interception, and \
+      search, and may be disclosed or used for any USG-authorized purpose. -This IS \
+      includes security measures (e.g., authentication and access controls) to \
+      protect USG interests--not for your personal benefit or privacy. \
+      -Notwithstanding the above, using this IS does not constitute consent to PM, \
+      LE or CI investigative searching or monitoring of the content of privileged \
+      communications, or work product, related to personal representation or \
+      services by attorneys, psychotherapists, or clergy, and their assistants. Such \
+      communications and work product are private and confidential. See User \
+      Agreement for details."
+
+  - name: banner_message_text_gui_limited
+    description: Banner message text for limited-resource graphical user interface logins.
+    type: String
+    value: "I've read & consent to terms in IS user agreem't."
+
+  # SV-204395
+  - name: banner_message_text_cli
+    description: Banner message text for command line interface logins.
+    type: String
+    value:
+      "You are accessing a U.S. Government (USG) Information System (IS) that is \
+      provided for USG-authorized use only. By using this IS (which includes any \
+      device attached to this IS), you consent to the following conditions: -The USG \
+      routinely intercepts and monitors communications on this IS for purposes \
+      including, but not limited to, penetration testing, COMSEC monitoring, network \
+      operations and defense, personnel misconduct (PM), law enforcement (LE), and \
+      counterintelligence (CI) investigations. -At any time, the USG may inspect and \
+      seize data stored on this IS. -Communications using, or data stored on, this \
+      IS are not private, are subject to routine monitoring, interception, and \
+      search, and may be disclosed or used for any USG-authorized purpose. -This IS \
+      includes security measures (e.g., authentication and access controls) to \
+      protect USG interests--not for your personal benefit or privacy. \
+      -Notwithstanding the above, using this IS does not constitute consent to PM, \
+      LE or CI investigative searching or monitoring of the content of privileged \
+      communications, or work product, related to personal representation or \
+      services by attorneys, psychotherapists, or clergy, and their assistants. Such \
+      communications and work product are private and confidential. See User \
+      Agreement for details."
+
+  - name: banner_message_text_cli_limited
+    description: Banner message text for resource-limited command line interface logins.
+    type: String
+    value: "I've read & consent to terms in IS user agreem't."
+
+  # SV-204580
+  - name: banner_message_text_ral
+    description: Banner message text for remote access logins.
+    type: String
+    value:
+      "You are accessing a U.S. Government (USG) Information System (IS) that is \
+      provided for USG-authorized use only. By using this IS (which includes any \
+      device attached to this IS), you consent to the following conditions: -The USG \
+      routinely intercepts and monitors communications on this IS for purposes \
+      including, but not limited to, penetration testing, COMSEC monitoring, network \
+      operations and defense, personnel misconduct (PM), law enforcement (LE), and \
+      counterintelligence (CI) investigations. -At any time, the USG may inspect and \
+      seize data stored on this IS. -Communications using, or data stored on, this \
+      IS are not private, are subject to routine monitoring, interception, and \
+      search, and may be disclosed or used for any USG-authorized purpose. -This IS \
+      includes security measures (e.g., authentication and access controls) to \
+      protect USG interests--not for your personal benefit or privacy. \
+      -Notwithstanding the above, using this IS does not constitute consent to PM, \
+      LE or CI investigative searching or monitoring of the content of privileged \
+      communications, or work product, related to personal representation or \
+      services by attorneys, psychotherapists, or clergy, and their assistants. Such \
+      communications and work product are private and confidential. See User \
+      Agreement for details."
+
+  - name: banner_message_text_ral_limited
+    description: Banner message text for resource-limited remote access logins.
+    type: String
+    value: "I've read & consent to terms in IS user agreem't."
+
+  # SV-204404
+  - name: expected_lock_delay
+    description: Expected value for the screensaver lock-delay
+    type: Numeric
+    value: 5
+
+  # SV-204404
+  - name: expected_lock_delay
+    description: Maximum screensaver lock-delay, by policy
+    type: Numeric
+    value: 5
+
+  # SV-204411
+  - name: expected_difok
+    description: Number of characters that must be different from previous password
+    type: Numeric
+    value: 8
+
+  # SV-204411
+  - name: max_difok
+    description: Minimum number of characters that must be different from previous password, by policy
+    type: Numeric
+    value: 8
+
+  # SV-204413
+  - name: expected_passwd_repeats
+    description: Number of allowed same consecutive characters in a new password
+    type: Numeric
+    value: 3
+
+  # SV-204413
+  - name: max_passwd_repeats
+    description: Maximum number of allowed same consecutive characters in a new password, by policy
+    type: Numeric
+    value: 3
+
+  # SV-204422
+  - name: expected_reuse_generations
+    description: Number of reuse generations for passwords
+    type: Numeric
+    value: 5
+
+  # SV-204422
+  - name: min_reuse_generations
+    description: Minimum number of reuse generations for passwords by policy
+    type: Numeric
+    value: 5
+
+  # SV-204423
+  - name: expected_minlen
+    description: Expected value for the minimum number of characters a password needs
+    type: Numeric
+    value: 15
+
+  # SV-204423
+  - name: min_minlen
+    description: Minimum number of characters a password needs, by policy
+    type: Numeric
+    value: 15
+
+  # SV-204426
+  - name: expected_days_of_inactivity
+    description: System setting for number of days an account can stay inactive before deactivation.
+    type: Numeric
+    value: 35
+
+  # SV-204426
+  - name: max_days_of_inactivity
+    description: Maximum allowable number of days an account can stay inactive before deactivation.
+    type: Numeric
+    value: 35
+
+  # SV-204427
+  - name: expected_unsuccessful_attempts
+    description: number of unsuccessful attempts
+    type: Numeric
+    value: 3
+
+  - name: expected_fail_interval
+    description: Interval of time in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
+    type: Numeric
+    value: 900
+
+  - name: expected_lockout_time
+    description: Amount of time account must be locked out after failed logins. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+
+  - name: max_unsuccessful_attempts
+    description: Maximum number of unsuccessful attempts by policy
+    type: Numeric
+    value: 3
+
+  - name: max_fail_interval
+    description: Maximum interval of time, according to policy, in which the consecutive failed logon attempts must occur in order for the account to be locked out (time in seconds)
+    type: Numeric
+    value: 900
+
+  - name: min_lockout_time
+    description: Minimum amount of time account must be locked out after failed logins by policy. This attribute should never be set greater than 604800 (time in seconds).
+    value: 604800
+
+  # SV-204445
+  - name: file_integrity_tool
+    description: Name of tool
+    type: String
+    value: "aide"
+
+  - name: file_integrity_interval
+    description: Interval to run the file integrity tool (monthly, weekly, or daily).
+    type: String
+    value: "weekly"
+
+  # SV-204579
+  - name: expected_system_activity_timeout
+    description: System activity timeout (time in seconds).
+    type: Numeric
+    value: 600
+
+  # SV-204579
+  - name: max_system_activity_timeout
+    description: Maximum system activity timeout (time in seconds) allowed by policy.
+    type: Numeric
+    value: 600
+
+  # SV-204587
+  - name: expected_client_alive_interval
+    description: Expected specific value of the client alive interval (time in seconds).
+    type: Numeric
+    value: 600
+
+  # SV-204587
+  - name: max_client_alive_interval
+    description: Maximum allowed client alive interval (time in seconds).
+    type: Numeric
+    value: 600
+
+  # V-204441, V-204631, V-204633
+  - name: smart_card_status
+    description: Smart card status (enabled or disabled)
+    type: String
+    value: "enabled"
+
+  # SV-204489/V-204574
+  - name: log_pkg_paths
+    description: Paths to files and directories that may include logging config
+    type: Array
+    value:
+      - "/etc/rsyslog.conf"
+      - "/etc/rsyslog.d/*"
+
+  # V-204467, V-204468, V-204469, V-204470, V-204471, V-204472
+  # V-204473, V-204474, V-204475, V-204476, V-204477, V-204478, V-204493
+  - name: exempt_home_users
+    description: Users exempt from home directory-based controls in array format
+    type: Array
+    value: []
+
+  # V-204436
+  - name: grub_main_cfg
+    description: Main grub boot config file
+    type: String
+    value: "/boot/grub2/grub.cfg"
+
+  - name: grub_uefi_main_cfg
+    description: Main grub boot config file
+    type: String
+    value: "/boot/efi/EFI/redhat/grub.cfg"
+
+  - name: grub_superuser
+    description: superusers for grub boot
+    type: String
+    value: "root"
+
+  - name: grub_user_boot_files
+    description: Grub boot config files
+    type: Array
+    value:
+      - "/boot/grub2/user.cfg"
+
+  - name: grub_uefi_user_boot_files
+    description: Grub boot config files
+    type: Array
+    value:
+      - "/boot/efi/EFI/redhat/user.cfg"
+
+  # V-204439
+  - name: efi_superusers
+    description: Superusers for efi boot
+    type: Array
+    value:
+      - "root"
+
+  # V-204444
+  - name: admin_logins
+    description: System accounts that support approved system activities
+    type: Array
+    value: []
+
+  # V-204406
+  - name: max_rety
+    description: Maximum number of times to prompt user for new password
+    type: Numeric
+    value: 3
+
+  # V-204631
+  - name: mfa_pkg_list
+    description: The list of packages needed for MFA on RHEL
+    type: Array
+    value:
+      - "nss-tools"
+      - "nss-pam-ldapd"
+      - "esc"
+      - "pam_pkcs11"
+      - "pam_krb5"
+      - "opensc"
+      - "pcsc-lite-ccid"
+      - "gdm"
+      - "authconfig"
+      - "authconfig-gtk"
+      - "krb5-libs"
+      - "krb5-workstation"
+      - "krb5-pkinit"
+      - "pcsc-lite"
+      - "pcsc-lite-libs"
+
+  # V-204397
+  - name: multifactor_enabled
+    description: Should dconf have smart card authentication
+    type: Boolean
+    value: true
+
+  - name: non_interactive_shells
+    description: These shells do not allow a user to login
+    type: Array
+    value:
+      - "/sbin/nologin"
+      - "/sbin/halt"
+      - "/sbin/shutdown"
+      - "/bin/false"
+      - "/bin/sync"
+      - "/bin/true"
+
+  # V-204493
+  - name: randomize_va_space
+    description: Randomize virtual address space kernel parameter
+    type: Numeric
+    value: 2
+
+  # V-204488
+  - name: non_removable_media_fs
+    description: File systems that don't correspond to removable media
+    type: Array
+    value:
+      - "xfs"
+      - "ext4"
+      - "swap"
+      - "tmpfs"
+
+  # V-204629
+  - name: approved_tunnels
+    description: Approved configured tunnels prepended with word 'conn' (e.g., ['conn myTunnel'])
+    type: Array
+    value: []
+
+  # V-204479
+  - name: virtual_machine
+    description: Is the target expected to be a virtual machine
+    type: Boolean
+    value: false
+
+  # SV-204406
+  - name: retry
+    description: number of allowed password retries
+    type: Numeric
+    value: 3
+
+  # SV-204406
+  - name: max_retry
+    description: maximum number of password retries by policy
+    type: Numeric
+    value: 3
+
+  # V-204628
+  - name: firewalld_services
+    description: "Services that firewalld should be configured to allow."
+    type: Array
+    # Examples
+    # 'dhcpv6-client',
+    # 'ssh'
+    value: []
+
+  - name: firewalld_hosts_allow
+    description: "Hosts that firewalld should be configured to allow."
+    type: Array
+    value: []
+
+  - name: firewalld_hosts_deny
+    description: "Hosts that firewalld should be configured to deny."
+    type: Array
+    value: []
+
+  - name: firewalld_ports_allow
+    description: "Ports that firewalld should be configured to allow."
+    type: Array
+    # Examples
+    # '22/tcp',
+    # '4722/tcp'
+    value: []
+
+  - name: firewalld_ports_deny
+    description: "Ports that firewalld should be configured to deny."
+    type: Hash
+    # Examples
+    # 'public':
+    #   - '22/tcp'
+    #   - '4722/tcp'
+    value: {}
+
+  - name: tcpwrappers_allow
+    description: "Allow rules from etc/hosts.allow."
+    # Example
+    # 'daemon': 'ALL'
+    # 'client_list':
+    #   - 'ALL'
+    # 'options': []
+    type: Hash
+    value: {}
+
+  - name: tcpwrappers_deny
+    description: "Deny rules from etc/hosts.deny."
+    type: Hash
+    # Example
+    # 'daemon': 'ALL'
+    # 'client_list':
+    #   - 'ALL'
+    # 'options': []
+    value: {}
+
+  - name: iptables_rules
+    description: "Iptable rules that should exist."
+    type: Array
+    # Example
+    # '-P INPUT ACCEPT',
+    value: []
+
+  # V-204577
+  - name: firewalld_services_deny
+    description: "Services that firewalld should be configured to deny."
+    type: Hash
+    # Examples (zone:[services])
+    # public:
+    #   - 'ssh'
+    #   - 'icmp'
+    # dmz:
+    #   - 'http'
+    value: {}
+
+  - name: firewalld_zones
+    description: "Zones that should be present on the system."
+    type: Array
+    # Examples
+    # - 'drop'
+    # - 'block'
+    # - 'public'
+    # - 'external'
+    # - 'dmz'
+    # - 'work'
+    # - 'home'
+    # - 'internal'
+    # - 'trusted'
+    value: []
+
+  # SV-204604
+  - name: firewall_application_package
+    description: "If a third-party firewall application is in use (other than firewalld or iptables), indicate the package name here. Otherwise, set this value to an empty string"
+    type: String
+    value: ""
+
+  # SV-204604
+  - name: firewall_application_service
+    description: "If a third-party firewall application is in use (other than firewalld or iptables), indicate the service name here. Otherwise, set this value to an empty string"
+    type: String
+    value: ""
+
+  # SV-204576
+  - name: expected_maxlogins_limit
+    description: "Expected value for the maxlogins setting."
+    type: Numeric
+    value: 10
+
+  # SV-204576
+  - name: max_maxlogins_limit
+    description: "The maxium value that can be used for maxlogins by policy."
+    type: Numeric
+    value: 10
+
+  # SV-214801
+  - name: custom_antivirus
+    description: "Whether an antivirus solution, other than nails, is in use."
+    type: Boolean
+    value: false
+
+  - name: custom_antivirus_description
+    description: "Description of custom antivirus solution, when in use."
+    type: String
+    # Default of 'None' is used by control code -- DO NOT CHANGE DEFAULT
+    value: "None"
+
+  # SV-204500
+  - name: aide_exclude_patterns
+    description: "It is reasonable and advisable to skip checksum on frequently changing files"
+    type: Array
+    value: []
+
+  - name: required_rules
+    description: "Required PAM rules"
+    type: Array
+    value:
+      - "auth required pam_faillock.so unlock_time=.*"
+      - "auth sufficient pam_unix.so try_first_pass"
+      - "auth [default=die] pam_faillock.so unlock_time=.*"
+
+  - name: alternate_rules
+    description: "Alternate PAM rules"
+    type: Array
+    value:
+      - "auth required pam_faillock.so unlock_time=.*"
+      - "auth sufficient pam_sss.so forward_pass"
+      - "auth sufficient pam_unix.so try_first_pass"
+      - "auth [default=die] pam_faillock.so unlock_time=.*"
+
+  - name: data_loss_prevention_installed
+    description: "is an HBSS with a Device Control Module and a Data Loss Prevention mechanism"
+    type: Boolean
+    value: true
+
+  - name: alternate_logs
+    description: "An alternate method is used for logs than rsyslog"
+    type: Boolean
+    value: false
+
+  - name: gssapi_approved
+    description: "is GSSAPI authentication approved"
+    type: Boolean
+    value: true
+
+  - name: disconnected_system
+    description: "Set flag to true if the target system is disconnected"
+    type: Boolean
+    value: false
+
+  # SV-219059
+  - name: automount_config
+    description: "Full path to config file for automount settings"
+    type: String
+    value: "/etc/dconf/db/local.d/00-No-Automount"
+
+  # SV-219059
+  - name: automount_locks_config
+    description: "Full path to locks config file for automount settings"
+    type: String
+    value: "/etc/dconf/db/local.d/locks/00-No-Automount"
+
+  # SV-204414
+  - name: classrepeat
+    description: "Expected system setting for the maximum number of allowed same consecutive characters in the same class of a new password. Maximum of 4"
+    type: Numeric
+    value: 4
+
+  # SV-204414
+  - name: max_classrepeat
+    description: "Maximum allowable value for classrepeat by policy."
+    type: Numeric
+    value: 4
+
+  #SV-204603
+  - name: maxpoll
+    description: "This option specifies the maximum interval between requests sent to the NTP server as a power of 2 in seconds."
+    type: Numeric
+    value: 16
+
+  #SV-204420
+  - name: pass_max_days
+    description: "Password lifetime restriction for new user accounts"
+    type: Numeric
+    value: 60
+
+  #SV-204420
+  - name: max_pass_max_days
+    description: "Maximum password lifetime restriction for new user accounts, by policy"
+    type: Numeric
+    value: 60
+
+  #SV-204431
+  - name: fail_delay
+    description: "Expected value for the delay between logon prompts following a failed console logon attempt in seconds"
+    type: Numeric
+    value: 4
+
+  #SV-204431
+  - name: min_fail_delay
+    description: "Minimum value for the delay between logon prompts following a failed console logon attempt in seconds, by policy"
+    type: Numeric
+    value: 4
+
+  # SV-204468
+  - name: home_dir_mode
+    description: Maximum mode allowed for user home directories (in octal format)
+    type: String
+    value: "0750"
+
+  # SV-204473
+  - name: home_dir_files_mode
+    description: Maximum mode allowed for files contained within user home directories (in octal format)
+    type: String
+    value: "0750"
+
+  # SV-204476
+  - name: init_files_mode
+    description: Maximum mode allowed for initialization files (in octal format)
+    type: String
+    value: "0740"
+
+  # SV-204476
+  - name: user_umask
+    description: Expected value for all user UMASK values (in octal format)
+    type: String
+    value: "0077"
+
+  # SV-204509
+  - name: audit_remote_server
+    description: "Address of the remote server to which audit logs can be sent -- if left blank, control will check that any non-local server is in use"
+    type: String
+    value: ""
+
+  # SV-204511
+  - name: expected_disk_full_action
+    description: "Action that the server should take to preserve audit logs when the disk becomes full -- must be one of syslog, single, halt"
+    type: String
+    value: "single"
+
+  # SV-204512
+  - name: expected_network_failure_action
+    description: "Action that the server should take to preserve audit logs when the network fails -- must be one of syslog, single, halt"
+    type: String
+    value: "single"
+
+  #SV-204513
+  - name: min_space_left
+    description: "Minimum percentage for the space remaining in the audit log file before an alert is generated"
+    type: Numeric
+    value: 25
+
+  # SV-204581
+  - name: public_host_key_file_mode
+    description: Maximum mode allowed for directories containing SSH public host keys (in octal format)
+    type: String
+    value: "0644"
+
+  # SV-204581
+  - name: public_host_key_directories
+    description: "List of any directories containing SSH public host keys"
+    type: Array
+    value:
+      - /etc/ssh
+
+  # SV-204596
+  - name: private_host_key_file_mode
+    description: Maximum mode allowed for directories containing SSH private host keys (in octal format)
+    type: String
+    value: "0640"
+
+  # SV-204596
+  - name: private_host_key_directories
+    description: "List of any directories containing SSH private host keys"
+    type: Array
+    value:
+      - /
+
+  # SV-228564
+  - name: expected_audit_file_mode
+    description: Expected mode for the audit log (in octal format)
+    type: String
+    value: "0600"
+
+  # SV-228564
+  - name: max_audit_file_mode
+    description: Maximum mode allowed for the audit log (in octal format)
+    type: String
+    value: "0600"
+
+  #SV-204412
+  - name: expected_minclass
+    description: "Value for the minimum number of characters that must change between password resets"
+    type: Numeric
+    value: 4
+
+  #SV-204412
+  - name: min_minclass
+    description: "Minimum value for the minimum number of characters that must change between password resets, as allowed by policy"
+    type: Numeric
+    value: 4
+
+  #SV-204419
+  - name: expected_password_lifetime
+    description: "Expected value for the minimum lifetime of a password before it can be a reset"
+    type: Numeric
+    value: 1
+
+  #SV-204419
+  - name: min_password_lifetime
+    description: "Minimum value for the lifetime of a password before it needs a reset, as allowed by policy"
+    type: Numeric
+    value: 1
+
+  #SV-204421
+  - name: expected_max_password_lifetime
+    description: "Expected value for the maximum lifetime of a password before it needs a reset"
+    type: Numeric
+    value: 60
+
+  #SV-204421
+  - name: max_password_lifetime
+    description: "Maximum value for the maximum lifetime of a password before it needs a reset, as allowed by policy"
+    type: Numeric
+    value: 60

@@ -1,4 +1,6 @@
----
+transport:
+  name: ssh
+  max_ssh_sessions: 2
 
 verifier:
   name: inspec
@@ -9,20 +11,24 @@ verifier:
   inspec_tests:
     - name: RedHat Enterprise Linux 7 STIG
       path: .
-  input_files:
-    - kitchen.inputs.yml
   load_plugins: true
 
 provisioner:
-  name: puppet_apply
-  sudo: true
+  name: ansible_playbook
+  hosts: all
   require_chef_for_busser: false
-  manifests_path: ./spec/puppet/manifests
-  modules_path: ./spec/puppet/modules
-  hiera_config_path: ./spec/puppet/hiera.yaml
-  hiera_data_path: ./spec/puppet/hiera
-  resolve_with_librarian_puppet: true
-  ignore_spec_fixtures: true
+  require_ruby_for_busser: false
+  require_pip3: true
+  ansible_binary_path: /usr/local/bin
+  ansible_verbose: true
+  ansible_verbosity: 3
+  roles_path: spec/ansible/roles
+  galaxy_ignore_certs: true
+  ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
+  requirements_path: spec/ansible/roles/requirements.yml
+  env_vars:
+    - ANSIBLE_LOCAL_TEMP=$HOME/.ansible/tmp
+    - ANSIBLE_REMOTE_TEMP=$HOME/.ansible/tmp
 
 platforms:
   - name: rhel-7
@@ -30,8 +36,8 @@ platforms:
 suites:
   - name: vanilla
     provisioner:
-      manifest: base.pp
+      playbook: spec/ansible/roles/ansible-role-rhel-vanilla.yml
       
   - name: hardened
     provisioner:
-      manifest: stig.pp
+      playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml

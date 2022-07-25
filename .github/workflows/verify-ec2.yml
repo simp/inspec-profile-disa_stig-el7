@@ -13,6 +13,7 @@ jobs:
     env:
       CHEF_LICENSE: accept-silent
       KITCHEN_LOCAL_YAML: kitchen.ec2.yml
+      LC_ALL: "en_US.UTF-8"
     strategy:
       matrix:
         suite: ['vanilla', 'hardened']

@@ -1,0 +1,13 @@
+---
+- hosts:
+    - localhost
+  roles:
+    - roles/ansible-role-rhel-vanilla
+    - roles/rhel7STIG
+  serial: 50
+  become: yes
+  vars:
+    rhel7stig_bootloader_password_hash: 'changethispassword'
+    rhel7stig_using_password_auth: false
+    rhel_07_020022: false
+    rhel_07_021340: false
