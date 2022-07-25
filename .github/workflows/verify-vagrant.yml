@@ -2,15 +2,15 @@ name: Vagrant Testing Matrix
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   my-job:
     name: Validate my profile
     # macos-latest no longer has Vagrant. Must use the specified version per documentation.
-    runs-on: macos-10.15
+    runs-on: macos-12
     env:
       CHEF_LICENSE: accept-silent
       KITCHEN_LOCAL_YAML: kitchen.vagrant.yml

@@ -335,42 +335,8 @@ To report a bug or feature request, please open an [issue](https://github.com/mi
 
 # Appendix - (For Developers Interested in Running Hardening Tests):
 
-This repository uses either [Beaker](https://github.com/puppetlabs/beaker) to
-run tests or the [KitchenCI](http://kitchen.ci) framework to run tests on the
-various profiles. Please see the documentation below on how to use each of the
-frameworks.
-
-# Testing with Beaker
-
-To run the tests, perform the following actions:
-
-1. Have Ruby 2.3.0 or later installed
-2. Run `bundle install`
-3. Run `rake beaker:suites`
-
-### Debugging
-
-If you need to debug your systems, you can run Beaker with a couple of options:
-
-1. Preserve the VM unconditionally
-
-   - `BEAKER_destroy=no rake beaker:suites`
-
-2. Preserve the VM unless the tests pass
-   - `BEAKER_destroy=onpass rake beaker:suites`
-
-You can then access the VM by going to the root level of the repository and
-navigating to `.vagrant/beaker_vagrant_files/<automatic directory>`.
-
-You should find a `Vagrantfile` at that location and can use any standard
-[Vagrant CLI Commands](https://www.vagrantup.com/docs/cli/).
-
-The most useful of these will be `vagrant status` and `vagrant ssh <vm name>`.
-
-## Test Layout
-
-The tests are housed under the `spec/acceptance` directory and use the
-profiles in `spec/fixtures/inspec_profiles` during testing.
+This repository uses [KitchenCI](http://kitchen.ci) framework to run tests on the
+various profiles. Please see the documentation below on how to use the framework. 
 
 # Testing with Kitchen
 
@@ -389,8 +355,7 @@ profiles in `spec/fixtures/inspec_profiles` during testing.
 2. If you run into errors when running `bundle install`, use the following
    commands to install gems:
 
-- `gem install kitchen-puppet`
-- `gem install librarian-puppet`
+- `gem install kitchen-ansible`
 - `gem install kitchen-vagrant`
 
 3. If the tests are not found when running `kitchen verify`, open
@@ -428,8 +393,10 @@ Included in this repository are testing scripts which allow you to run the profi
   - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen test (machine name)` or to test all defined machines `kitchen test`
 - Just running the validation scripts
   - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml kitchen verify (machine name)`
-- just run one or more controls in the validation
+- Just run one or more controls in the validation
   - edit the kitchen.yml file in the `controls:` section add the `control id(s)` to the list
+- Skipping one or more tags in the hardening content 
+  - run `CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.vagrant.yml ANSIBLE_EXTRA_FLAGS='--skip-tags=(tags)' kitchen converge (machine name)` kitchen will skip the tasks in the hardening script specified with the tags. 
 
 ### NOTICE
 

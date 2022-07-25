@@ -21,7 +21,6 @@ provisioner:
   require_pip3: true
   ansible_binary_path: /usr/local/bin
   ansible_verbose: true
-  ansible_verbosity: 3
   roles_path: spec/ansible/roles
   galaxy_ignore_certs: true
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>

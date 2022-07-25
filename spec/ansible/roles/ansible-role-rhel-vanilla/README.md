@@ -1,38 +1,32 @@
-Role Name
+Role Name: ansible-role-rhel-stig-vanilla
 =========
 
-A brief description of the role goes here.
+Ansible role to provide initial(unhardened) set-up of Red Hat Enterprise Linux 7 (RHEL 7). 
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+No additional set-up requirements.
 
 Role Variables
 --------------
+- Set this to your desired python interpreter location in runner machines (default: /usr/bin/python3)
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+  ansible_python_interpreter: 
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No additional dependencies. 
 
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
 
 License
 -------
 
-BSD
+Apache-2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+- author: Will Dower
+- company: MITRE
