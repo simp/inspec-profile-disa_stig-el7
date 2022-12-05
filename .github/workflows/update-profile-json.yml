@@ -2,7 +2,7 @@ name: Update the Profile JSON
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   my-job:
