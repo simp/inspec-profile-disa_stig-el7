@@ -23,12 +23,12 @@ jobs:
         run: sudo apt-get install -y jq
       - name: Configure AWS credentials
         env:
-          AWS_SG_ID: ${{ secrets.AWS_SG_ID }}
-          AWS_SUBNET_ID: ${{ secrets.AWS_SUBNET_ID }}
+          AWS_SG_ID: ${{ secrets.SAF_AWS_SG_ID }}
+          AWS_SUBNET_ID: ${{ secrets.SAF_AWS_SUBNET_ID }}
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.SAF_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.SAF_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Check out repository
         uses: actions/checkout@v2
