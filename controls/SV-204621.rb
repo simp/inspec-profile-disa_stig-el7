@@ -23,7 +23,7 @@ control 'SV-204621' do
   tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
-  tag subsystems: ["tftp"]
+  tag subsystems: ['tftp']
   tag 'host', 'container'
 
   describe package('tftp-server') do

@@ -41,7 +41,7 @@ control 'SV-204500' do
   tag 'fix_id': 'F-4624r792830_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["file_integrity_tool"]
+  tag subsystems: ['file_integrity_tool']
   tag 'host', 'container'
 
   file_integrity_tool = input('file_integrity_tool')
@@ -63,8 +63,8 @@ control 'SV-204500' do
       it { should be_empty }
     end
   else
-    describe "Need manual review of file integrity tool" do
-      skip "A manual review of the file integrity tool is required to ensure that it verifies ACLs."
+    describe 'Need manual review of file integrity tool' do
+      skip 'A manual review of the file integrity tool is required to ensure that it verifies ACLs.'
     end
   end
 end

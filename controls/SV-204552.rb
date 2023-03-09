@@ -37,7 +37,7 @@ control 'SV-204552' do
   tag 'fix_id': 'F-4676r462652_fix'
   tag 'cci': ['CCI-000135', 'CCI-002884']
   tag nist: ['AU-3 (1)', 'MA-4 (1) (a)']
-  tag subsystems: ["audit","auditd","audit_rule"]
+  tag subsystems: ['audit', 'auditd', 'audit_rule']
   tag 'host'
 
   audit_syscall = 'mount'
@@ -45,18 +45,18 @@ control 'SV-204552' do
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
     end
   else
-    describe "Syscall" do
+    describe 'Syscall' do
       it "#{audit_syscall} is audited properly" do
         audit_rule = auditd.syscall(audit_syscall)
         expect(audit_rule).to exist
         expect(audit_rule.action.uniq).to cmp 'always'
         expect(audit_rule.list.uniq).to cmp 'exit'
         if os.arch.match(/64/)
-          expect(audit_rule.arch.uniq).to include('b32', 'b64') 
+          expect(audit_rule.arch.uniq).to include('b32', 'b64')
         else
           expect(audit_rule.arch.uniq).to cmp 'b32'
         end
@@ -64,7 +64,7 @@ control 'SV-204552' do
         expect(audit_rule.key.uniq).to cmp 'privileged-mount'
       end
     end
-    describe "Command" do
+    describe 'Command' do
       it "#{audit_command} is audited properly" do
         audit_rule = auditd.file(audit_command)
         expect(audit_rule).to exist

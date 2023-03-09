@@ -30,7 +30,7 @@ control 'SV-204489' do
   tag 'fix_id': 'F-4613r744108_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["cron","rsyslog"]
+  tag subsystems: ['cron', 'rsyslog']
   tag 'host', 'container'
 
   log_pkg_paths = input('log_pkg_paths').join(' ')
@@ -38,13 +38,13 @@ control 'SV-204489' do
   facilities_log = inspec.command("grep '/var/log/messages' #{log_pkg_paths}").stdout.strip
 
   describe.one do
-    describe "cron" do
-      it "should be configured for logging in the logging utility config files" do
+    describe 'cron' do
+      it 'should be configured for logging in the logging utility config files' do
         expect(cron_log).to match(/:cron/), "cron not found in #{log_pkg_paths}"
       end
     end
-    describe "All facilities" do
-      it "should be configured for logging in the logging utility config files" do
+    describe 'All facilities' do
+      it 'should be configured for logging in the logging utility config files' do
         expect(facilities_log).to match(%r{^.+:\*\.\*\s+/var/log/messages}), "cron not found in #{log_pkg_paths}"
       end
     end

@@ -24,15 +24,15 @@ control 'SV-204481' do
   tag 'fix_id': 'F-4605r88636_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["file_system","removable_media"]
+  tag subsystems: ['file_system', 'removable_media']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else  
+  else
     non_removable_media_fs = input('non_removable_media_fs')
 
     file_systems = etc_fstab.params

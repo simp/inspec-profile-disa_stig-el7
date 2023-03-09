@@ -33,29 +33,29 @@ control 'SV-204486' do
   tag 'fix_id': 'F-4610r462553_fix'
   tag 'cci': ['CCI-001764']
   tag nist: ['CM-7 (2)']
-  tag subsystems: ["etc_fstab", "mount"]
+  tag subsystems: ['etc_fstab', 'mount']
   tag 'host', 'container'
 
   if mount('/dev/shm').mounted?
 
     mount_file = etc_fstab.where { mount_point == '/dev/shm' }
     mount_command = mount('/dev/shm').file.mounted.stdout
-      .match(/\((.*)\)/)[1].split(',')
+                                     .match(/\((.*)\)/)[1].split(',')
 
     describe.one do
-      describe "/etc/fstab mount options for /dev/shm" do
+      describe '/etc/fstab mount options for /dev/shm' do
         subject { mount_file }
         its('mount_options.flatten') { should include 'nodev' }
         its('mount_options.flatten') { should include 'nosuid' }
         its('mount_options.flatten') { should include 'noexec' }
       end
-      describe "/etc/fstab mount options for /dev/shm" do
+      describe '/etc/fstab mount options for /dev/shm' do
         subject { mount_file }
         it { should_not exist }
       end
     end
-    describe "mount command options for /dev/shm" do
-      subject{ mount_command }
+    describe 'mount command options for /dev/shm' do
+      subject { mount_command }
       it { should include 'nodev' }
       it { should include 'nosuid' }
       it { should include 'noexec' }

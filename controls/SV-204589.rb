@@ -35,24 +35,22 @@ control 'SV-204589' do
   tag 'fix_id': 'F-4713r88960_fix'
   tag 'cci': ['CCI-001133', 'CCI-002361']
   tag nist: ['SC-10', 'AC-12']
-  tag subsystems: ["ssh"]
+  tag subsystems: ['ssh']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
+    end
+  elsif os.release.to_f >= 7.4
+    impact 0.0
+    describe "The release is #{os.release}" do
+      skip 'The release is newer than 7.4; this control is Not Applicable.'
     end
   else
-    if os.release.to_f >= 7.4
-      impact 0.0
-      describe "The release is #{os.release}" do
-        skip 'The release is newer than 7.4; this control is Not Applicable.'
-      end
-    else
-      describe sshd_config do
-        its('ClientAliveCountMax') { should cmp '0' }
-      end
+    describe sshd_config do
+      its('ClientAliveCountMax') { should cmp '0' }
     end
   end
 end

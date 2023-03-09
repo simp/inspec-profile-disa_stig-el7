@@ -31,13 +31,13 @@ control 'SV-204513' do
   tag 'fix_id': 'F-4637r744111_fix'
   tag 'cci': ['CCI-001855']
   tag nist: ['AU-5 (1)']
-  tag subsystems: ["audit","auditd"]
+  tag subsystems: ['audit', 'auditd']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
     end
   else
     describe auditd_conf do

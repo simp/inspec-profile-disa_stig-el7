@@ -11,17 +11,17 @@ control 'SV-228563' do
   tag fix_id: 'F-19547r377220_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
-  tag subsystems: ["world_writable","ww_dirs"]
+  tag subsystems: ['world_writable', 'ww_dirs']
   tag 'host'
   tag check: "The following command will discover and print world-writable directories that are not owned by a system account, assuming only system accounts have a UID lower than 1000. Run it once for each local partition [PART]:\n\n# find [PART] -xdev -type d -perm -0002 -uid +999 -print\n\nIf there is output, this is a finding."
   tag fix: 'All directories in local partitions which are world-writable should be owned by root or another system account. If any world-writable directories are not owned by a system account, this should be investigated. Following this, the files should be deleted or assigned to an appropriate group.'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  else
     ww_dirs = Set[]
     partitions = etc_fstab.params.map { |partition| partition['mount_point'] }.uniq
     partitions.each do |part|

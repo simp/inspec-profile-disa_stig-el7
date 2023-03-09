@@ -47,7 +47,7 @@ following command:
   tag 'fix_id': 'F-36302r646840_fix'
   tag 'cci': ['CCI-001494', 'CCI-001496', 'CCI-002165', 'CCI-002235']
   tag nist: ['AU-9', 'AU-9 (3)', 'AC-3 (4)', 'AC-6 (10)']
-  tag subsystems: ["permissions","package","rpm"]
+  tag subsystems: ['permissions', 'package', 'rpm']
   tag 'host', 'container'
 
   if input('disable_slow_controls')
@@ -62,20 +62,20 @@ following command:
     allowlist = input('rpm_verify_perms_except')
 
     misconfigured_packages = command('rpm -Va').stdout.split("\n")
-      .select{ |package| package[0..7].match(/M|U|G/) }
-      .map{ |package| package.match(/\S+$/)[0] }
+                                               .select { |package| package[0..7].match(/M|U|G/) }
+                                               .map { |package| package.match(/\S+$/)[0] }
 
-    unless misconfigured_packages.empty?
-      describe "The list of rpm packages with permissions changed from the vendor values" do
-        fail_msg = "Files that have been modified from vendor-approved permissions but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
-        it "should all appear in the allowlist" do
-          expect(misconfigured_packages).to all( be_in allowlist ), fail_msg
-        end
-      end
-    else
-      describe "The list of rpm packages with permissions changed from the vendor values" do
+    if misconfigured_packages.empty?
+      describe 'The list of rpm packages with permissions changed from the vendor values' do
         subject { misconfigured_packages }
         it { should be_empty }
+      end
+    else
+      describe 'The list of rpm packages with permissions changed from the vendor values' do
+        fail_msg = "Files that have been modified from vendor-approved permissions but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
+        it 'should all appear in the allowlist' do
+          expect(misconfigured_packages).to all(be_in(allowlist)), fail_msg
+        end
       end
     end
   end

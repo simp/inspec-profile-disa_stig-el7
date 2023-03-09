@@ -37,18 +37,18 @@ control 'SV-204572' do
   tag 'fix_id': 'F-4696r809824_fix'
   tag 'cci': ['CCI-000172', 'CCI-002884']
   tag nist: ['AU-12 c', 'MA-4 (1) (a)']
-  tag subsystems: ["audit","auditd","audit_rule"]
+  tag subsystems: ['audit', 'auditd', 'audit_rule']
   tag 'host'
 
-  audit_syscalls = ['unlink','unlinkat','rename','renameat','rmdir']
+  audit_syscalls = ['unlink', 'unlinkat', 'rename', 'renameat', 'rmdir']
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
     end
   else
-    describe "Syscall" do
+    describe 'Syscall' do
       audit_syscalls.each do |audit_syscall|
         it "#{audit_syscall} is audited properly" do
           audit_rule = auditd.syscall(audit_syscall)
@@ -56,7 +56,7 @@ control 'SV-204572' do
           expect(audit_rule.action.uniq).to cmp 'always'
           expect(audit_rule.list.uniq).to cmp 'exit'
           if os.arch.match(/64/)
-            expect(audit_rule.arch.uniq).to include('b32', 'b64') 
+            expect(audit_rule.arch.uniq).to include('b32', 'b64')
           else
             expect(audit_rule.arch.uniq).to cmp 'b32'
           end

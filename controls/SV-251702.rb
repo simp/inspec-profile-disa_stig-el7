@@ -11,7 +11,7 @@ control 'SV-251702' do
   tag fix_id: 'F-55093r809219_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
-  tag subsystems: ["password", "/etc/shadow"]
+  tag subsystems: ['password', '/etc/shadow']
   tag 'host', 'container'
   tag check: "Check the \"/etc/shadow\" file for blank passwords with the following command:\n\n$ sudo awk -F: '!$2 {print $1}' /etc/shadow\n\nIf the command returns any results, this is a finding."
   tag fix: "Configure all accounts on the system to have a password or lock the account with the following commands:\n\nPerform a password reset:\n$ sudo passwd [username]\nLock an account:\n$ sudo passwd -l [username]"

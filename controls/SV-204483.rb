@@ -29,7 +29,7 @@ control 'SV-204483' do
   tag 'fix_id': 'F-4607r88642_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["etc_fstab"]
+  tag subsystems: ['etc_fstab']
   tag 'host', 'container'
 
   nfs_systems = etc_fstab.nfs_file_systems.entries

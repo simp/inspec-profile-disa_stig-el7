@@ -30,24 +30,22 @@ control 'SV-204508' do
   tag 'fix_id': 'F-36313r602649_fix'
   tag 'cci': ['CCI-001851']
   tag nist: ['AU-4 (1)']
-  tag subsystems: ["audit","audisp"]
+  tag subsystems: ['audit', 'audisp']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
+    end
+  elsif file('/etc/audisp/audispd.conf').exist?
+
+    describe parse_config_file('/etc/audisp/audispd.conf') do
+      its('name_format') { should match(/^hostname$|^fqd$|^numeric$/i) }
     end
   else
-
-    if file('/etc/audisp/audispd.conf').exist?
-      describe parse_config_file('/etc/audisp/audispd.conf') do
-        its('name_format') { should match(/^hostname$|^fqd$|^numeric$/i) }
-      end
-    else
-      describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
-        skip "File '/etc/audisp/audispd.conf' cannot be found. This check must be performed manually"
-      end
+    describe "File '/etc/audisp/audispd.conf' cannot be found. This test cannot be checked in a automated fashion and you must check it manually" do
+      skip "File '/etc/audisp/audispd.conf' cannot be found. This check must be performed manually"
     end
   end
 end

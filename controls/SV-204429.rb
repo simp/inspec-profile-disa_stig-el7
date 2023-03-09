@@ -31,13 +31,13 @@ control 'SV-204429' do
   tag 'fix_id': 'F-36303r602619_fix'
   tag 'cci': ['CCI-002038']
   tag nist: ['IA-11']
-  tag subsystems: ["sudo"]
+  tag subsystems: ['sudo']
   tag 'host'
 
-  if virtualization.system.eql?('docker') && !command("sudo").exist?
+  if virtualization.system.eql?('docker') && !command('sudo').exist?
     impact 0.0
-    describe "Control not applicable within a container without sudo enabled" do
-      skip "Control not applicable within a container without sudo enabled"
+    describe 'Control not applicable within a container without sudo enabled' do
+      skip 'Control not applicable within a container without sudo enabled'
     end
   else
     processed = []

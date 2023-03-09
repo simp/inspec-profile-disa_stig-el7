@@ -30,7 +30,7 @@ control 'SV-204576' do
   tag 'fix_id': 'F-4700r88921_fix'
   tag 'cci': ['CCI-000054']
   tag nist: ['AC-10']
-  tag subsystems: ["session"]
+  tag subsystems: ['session']
   tag 'host', 'container'
 
   maxlogins_limit = input('expected_maxlogins_limit')
@@ -75,7 +75,7 @@ control 'SV-204576' do
   end
 
   # No files should set 'hard' 'maxlogins' to any noncompliant value
-  describe "The expected maxlogins value should be within policy limit" do
+  describe 'The expected maxlogins value should be within policy limit' do
     subject { input('expected_maxlogins_limit') }
     it { should cmp <= input('max_maxlogins_limit') }
   end

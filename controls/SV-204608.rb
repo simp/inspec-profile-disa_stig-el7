@@ -45,13 +45,13 @@ control 'SV-204608' do
   tag 'fix_id': 'F-4732r89017_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["dns","resolv"]
+  tag subsystems: ['dns', 'resolv']
   tag 'host', 'container'
 
   dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
                                        {
                                          comment_char: '#',
-                                         assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/
+                                         assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/,
                                        }).params['hosts'].include?('dns')
 
   unless dns_in_host_line
@@ -87,7 +87,7 @@ control 'SV-204608' do
     end
   end
 
-  describe "/etc/resolv.conf should be immutable -- file attributes" do
+  describe '/etc/resolv.conf should be immutable -- file attributes' do
     subject { command('lsattr /etc/resolve.conf').stdout }
     it { should match /i/ }
   end

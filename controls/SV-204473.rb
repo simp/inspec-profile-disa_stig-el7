@@ -34,15 +34,15 @@ directory with the following command:
   tag 'fix_id': 'F-4597r88612_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["home_dirs"]
-  tag 'host','container'
+  tag subsystems: ['home_dirs']
+  tag 'host', 'container'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  else
 
     exempt_home_users = input('exempt_home_users')
     non_interactive_shells = input('non_interactive_shells')

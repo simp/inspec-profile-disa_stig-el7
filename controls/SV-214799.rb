@@ -37,7 +37,7 @@ command:
   tag 'fix_id': 'F-15997r192363_fix'
   tag 'cci': ['CCI-001749']
   tag nist: ['CM-5 (3)']
-  tag subsystems: ["rpm","package"]
+  tag subsystems: ['rpm', 'package']
   tag 'host', 'container'
 
   if input('disable_slow_controls')
@@ -51,20 +51,20 @@ command:
     allowlist = input('rpm_verify_integrity_except')
 
     misconfigured_packages = command('rpm -Va --noconfig').stdout.split("\n")
-      .select{ |package| package[0..7].match(/5/) }
-      .map{ |package| package.match(/\S+$/)[0] }
+                                                          .select { |package| package[0..7].match(/5/) }
+                                                          .map { |package| package.match(/\S+$/)[0] }
 
-    unless misconfigured_packages.empty?
-      describe "The list of rpm packages with hashes changed from the vendor values" do
-        fail_msg = "Files with hashes that are changed from vendor values but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
-        it "should all appear in the allowlist" do
-          expect(misconfigured_packages).to all( be_in allowlist ), fail_msg
-        end
-      end
-    else
-      describe "The list of rpm packages with hashes changed from the vendor values" do
+    if misconfigured_packages.empty?
+      describe 'The list of rpm packages with hashes changed from the vendor values' do
         subject { misconfigured_packages }
         it { should be_empty }
+      end
+    else
+      describe 'The list of rpm packages with hashes changed from the vendor values' do
+        fail_msg = "Files with hashes that are changed from vendor values but are not in the allowlist: #{(misconfigured_packages - allowlist).join(', ')}"
+        it 'should all appear in the allowlist' do
+          expect(misconfigured_packages).to all(be_in(allowlist)), fail_msg
+        end
       end
     end
   end

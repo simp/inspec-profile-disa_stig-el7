@@ -24,15 +24,15 @@ control 'SV-204424' do
   tag 'fix_id': 'F-4548r88465_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["pam","password"]
+  tag subsystems: ['pam', 'password']
   tag 'host', 'container'
 
   describe.one do
     describe pam('/etc/pam.d/system-auth') do
-      its('lines') { should_not match_pam_rule(".* .* pam_unix.so nullok") }
+      its('lines') { should_not match_pam_rule('.* .* pam_unix.so nullok') }
     end
     describe pam('/etc/pam.d/password-auth') do
-      its('lines') { should_not match_pam_rule(".* .* pam_unix.so nullok") }
+      its('lines') { should_not match_pam_rule('.* .* pam_unix.so nullok') }
     end
   end
 end

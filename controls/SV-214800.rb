@@ -26,7 +26,7 @@ control 'SV-214800' do
   tag 'fix_id': 'F-36317r754750_fix'
   tag 'cci': ['CCI-001263']
   tag nist: ['SI-4 (5)']
-  tag subsystems: ["endpoint_security"]
+  tag subsystems: ['endpoint_security']
   tag 'host', 'container'
 
   describe package('mcafeetp') do

@@ -25,7 +25,7 @@ control 'SV-204620' do
   tag 'fix_id': 'F-4744r89053_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["vsftpd"]
+  tag subsystems: ['vsftpd']
   tag 'host', 'container'
 
   describe.one do

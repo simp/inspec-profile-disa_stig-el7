@@ -27,7 +27,7 @@ control 'SV-204432' do
   tag 'fix_id': 'F-4556r88489_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["gdm"]
+  tag subsystems: ['gdm']
   tag 'host'
 
   custom_conf = '/etc/gdm/custom.conf'

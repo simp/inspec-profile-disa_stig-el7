@@ -27,7 +27,7 @@ control 'SV-204627' do
   tag 'fix_id': 'F-4751r89074_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["snmp"]
+  tag subsystems: ['snmp']
   tag 'host', 'container'
 
   if file('/etc/snmp/snmpd.conf').exist?

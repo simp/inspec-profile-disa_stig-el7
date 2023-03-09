@@ -27,7 +27,7 @@ control 'SV-204496' do
   tag 'fix_id': 'F-36309r602637_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["file_system","tmp"]
+  tag subsystems: ['file_system', 'tmp']
   tag 'host'
 
   describe.one do

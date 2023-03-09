@@ -38,13 +38,13 @@ control 'SV-204582' do
   tag 'fix_id': 'F-4706r88939_fix'
   tag 'cci': ['CCI-001453']
   tag nist: ['AC-17 (2)']
-  tag subsystems: ["sssd","ldap"]
+  tag subsystems: ['sssd', 'ldap']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
 
@@ -80,7 +80,7 @@ control 'SV-204582' do
 
     if sssd_ldap_enabled
       ldap_tls_cacertdir = command('grep -i ldap_tls_cacertdir /etc/sssd/sssd.conf')
-                          .stdout.strip.scan(/^ldap_tls_cacertdir\s*=\s*(.*)/).last
+                           .stdout.strip.scan(/^ldap_tls_cacertdir\s*=\s*(.*)/).last
 
       describe 'ldap_tls_cacertdir' do
         subject { ldap_tls_cacertdir }

@@ -31,18 +31,18 @@ control 'SV-204543' do
   tag 'fix_id': 'F-4667r462628_fix'
   tag 'cci': ['CCI-000135', 'CCI-000172', 'CCI-002884']
   tag nist: ['AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)']
-  tag subsystems: ["audit","auditd","audit_rule"]
+  tag subsystems: ['audit', 'auditd', 'audit_rule']
   tag 'host'
 
   audit_command = '/usr/sbin/unix_chkpwd'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
     end
   else
-    describe "Command" do
+    describe 'Command' do
       it "#{audit_command} is audited properly" do
         audit_rule = auditd.file(audit_command)
         expect(audit_rule).to exist

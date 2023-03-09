@@ -87,16 +87,15 @@ control 'SV-204580' do
               'CCI-001386', 'CCI-001387', 'CCI-001388']
   tag nist: ['AC-8 a', 'AC-8 b', 'AC-8 c 1', 'AC-8 c 2', 'AC-8 c 2', "AC-8 c
 2", 'AC-8 c 3']
-  tag subsystems: ["ssh", "banner"]
+  tag subsystems: ['ssh', 'banner']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
-
 
     banner_message_text_ral = input('banner_message_text_ral')
     banner_message_text_ral_limited = input('banner_message_text_ral_limited')

@@ -21,15 +21,15 @@ control 'SV-204421' do
   tag 'fix_id': 'F-4545r88456_fix'
   tag 'cci': ['CCI-000199']
   tag nist: ['IA-5 (1) (d)']
-  tag subsystems: ["password","/etc/shadow","tty"]
+  tag subsystems: ['password', '/etc/shadow', 'tty']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  else
     shadow.users.each do |user|
       # filtering on non-system accounts (uid >= 1000)
       next unless user(user).uid >= 1000

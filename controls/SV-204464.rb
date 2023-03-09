@@ -22,7 +22,7 @@ control 'SV-204464' do
   tag 'fix_id': 'F-4588r88585_fix'
   tag 'cci': ['CCI-002165']
   tag nist: ['AC-3 (4)']
-  tag subsystems: ["file_system","groups","files"]
+  tag subsystems: ['file_system', 'groups', 'files']
   tag 'host', 'container'
 
   command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'')

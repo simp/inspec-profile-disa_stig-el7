@@ -26,9 +26,8 @@ control 'SV-204452' do
   tag 'fix_id': 'F-4576r88549_fix'
   tag 'cci': ['CCI-002617']
   tag nist: ['SI-2 (6)']
-  tag subsystems: ["yum"]
+  tag subsystems: ['yum']
   tag 'host', 'container'
-
 
   describe parse_config_file('/etc/yum.conf') do
     its('main.clean_requirements_on_remove') { should match(/1|True|yes/i) }

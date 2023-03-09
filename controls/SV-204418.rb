@@ -25,7 +25,7 @@ control 'SV-204418' do
   tag 'fix_id': 'F-4542r88447_fix'
   tag 'cci': ['CCI-000198']
   tag nist: ['IA-5 (1) (d)']
-  tag subsystems: ["login_defs","password"]
+  tag subsystems: ['login_defs', 'password']
 
   describe login_defs do
     its('PASS_MIN_DAYS') { should cmp >= 1 }

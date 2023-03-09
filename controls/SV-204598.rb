@@ -29,24 +29,22 @@ control 'SV-204598' do
   tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
-  tag subsystems: ["ssh"]
+  tag subsystems: ['ssh']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
+    end
+  elsif input('gssapi_approved')
+    describe sshd_config do
+      its('GSSAPIAuthentication') { should cmp 'no' }
     end
   else
-    if input('gssapi_approved')
-      describe sshd_config do
-        its('GSSAPIAuthentication') { should cmp 'no' }
-      end
-    else
-      impact 0.0
-      describe 'GSSAPI authentication is not approved' do
-        skip 'GSSAPI authentication is not approved, this control is Not Applicable.'
-      end
+    impact 0.0
+    describe 'GSSAPI authentication is not approved' do
+      skip 'GSSAPI authentication is not approved, this control is Not Applicable.'
     end
   end
 end

@@ -42,15 +42,15 @@ control 'SV-204631' do
   tag 'fix_id': 'F-4755r462473_fix'
   tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
-  tag subsystems: ["MFA","smartcard"]
+  tag subsystems: ['MFA', 'smartcard']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  else
 
     mfa_pkg_list = input('mfa_pkg_list')
     smart_card_status = input('smart_card_status')

@@ -54,7 +54,7 @@ Vulnerability Management (IAVM) process, this is a finding.
   tag 'fix_id': 'F-4583r88570_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["packages"]
+  tag subsystems: ['packages']
   tag 'host', 'container'
 
   if input('disconnected_system')

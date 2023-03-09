@@ -21,7 +21,7 @@ control 'SV-204405' do
   tag 'stig_id': 'RHEL-07-010118'
   tag 'fix_id': 'F-4529r88408_fix'
   tag 'cci': ['CCI-000192']
-  tag subsystems: ['pam','password']
+  tag subsystems: ['pam', 'password']
   tag nist: ['IA-5 (1) (a)']
   tag 'host', 'container'
 

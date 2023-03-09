@@ -29,13 +29,13 @@ control 'SV-204430' do
   tag 'fix_id': 'F-4554r88483_fix'
   tag 'cci': ['CCI-002038']
   tag nist: ['IA-11']
-  tag subsystems: ["sudo"]
+  tag subsystems: ['sudo']
   tag 'host'
 
-  if virtualization.system.eql?('docker') && !command("sudo").exist?
+  if virtualization.system.eql?('docker') && !command('sudo').exist?
     impact 0.0
-    describe "Control not applicable within a container without sudo enabled" do
-      skip "Control not applicable within a container without sudo enabled"
+    describe 'Control not applicable within a container without sudo enabled' do
+      skip 'Control not applicable within a container without sudo enabled'
     end
   else
     describe command('grep -ir authenticate /etc/sudoers /etc/sudoers.d/*') do

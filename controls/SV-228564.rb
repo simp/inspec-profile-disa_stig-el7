@@ -12,15 +12,15 @@ control 'SV-228564' do
   tag fix_id: 'F-23603r419770_fix'
   tag cci: ['CCI-000162', 'CCI-000163', 'CCI-000164', 'CCI-001314']
   tag legacy: []
-  tag subsystems: ["audit"]
+  tag subsystems: ['audit']
   tag 'host'
   tag check: "Verify the operating system audit records have proper permissions and ownership.\n\nList the full permissions and ownership of the audit log files with the following command.\n\n# ls -la /var/log/audit \ntotal 4512\ndrwx------. 2 root root 23 Apr 25 16:53 .\ndrwxr-xr-x. 17 root root 4096 Aug 9 13:09 ..\n-rw-------. 1 root root 8675309 Aug 9 12:54 audit.log\n\nAudit logs must be mode 0600 or less permissive. \nIf any are more permissive, this is a finding.\n\nThe owner and group owner of all audit log files must both be \"root\". If any other owner or group owner is listed, this is a finding."
   tag fix: "Change the mode of the audit log files with the following command: \n\n# chmod 0600 [audit_file]\n\nChange the owner and group owner of the audit log files with the following command: \n\n# chown root:root [audit_file]"
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
     end
   else
     describe file(auditd_conf.log_file) do

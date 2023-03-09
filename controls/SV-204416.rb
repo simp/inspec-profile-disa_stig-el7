@@ -25,7 +25,7 @@ control 'SV-204416' do
   tag 'fix_id': 'F-4540r88441_fix'
   tag 'cci': ['CCI-000196']
   tag nist: ['IA-5 (1) (c)']
-  tag subsystems: ["login_defs","password"]
+  tag subsystems: ['login_defs', 'password']
   tag 'host', 'container'
 
   describe login_defs do

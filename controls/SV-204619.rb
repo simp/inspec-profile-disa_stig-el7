@@ -27,17 +27,17 @@ control 'SV-204619' do
   tag 'fix_id': 'F-4743r89050_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["postfix"]
+  tag subsystems: ['postfix']
   tag 'host', 'container'
 
   if package('postfix').installed?
     options = { assignment_regex: /^\s*([^=]*?)\s*=\s*(.*?)\s*$/ }
 
-    if (defined? parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'])then
+    if defined? parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions']
       pf_config = parse_config_file('/etc/postfix/main.cf', options).params['smtpd_client_restrictions'].split(',')
     end
 
-    describe "Postfix config setting smptd_client_restrictions" do
+    describe 'Postfix config setting smptd_client_restrictions' do
       it "should be set to 'permit_mynetworks', 'reject', or both" do
         expect(pf_config).to all satisfy { |x| ['permit_mynetworks', 'reject'].include?(x) }
       end

@@ -25,7 +25,7 @@ following command:
   tag 'fix_id': 'F-4615r88666_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["cron"]
+  tag subsystems: ['cron']
   tag 'host', 'container'
 
   describe.one do

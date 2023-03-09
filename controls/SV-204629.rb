@@ -28,7 +28,7 @@ control 'SV-204629' do
   tag 'fix_id': 'F-4753r89080_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["libreswan","ipsec"]
+  tag subsystems: ['libreswan', 'ipsec']
   tag 'host', 'container'
 
   approved_tunnels = input('approved_tunnels')

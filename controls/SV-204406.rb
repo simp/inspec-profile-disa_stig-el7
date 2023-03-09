@@ -26,15 +26,15 @@ control 'SV-204406' do
   tag 'fix_id': 'F-4530r88411_fix'
   tag 'cci': ['CCI-000192']
   tag nist: ['IA-5 (1) (a)']
-  tag subsystems: ["pam","pwquality","password"]
+  tag subsystems: ['pam', 'pwquality', 'password']
   tag 'host', 'container'
 
   describe pam('/etc/pam.d/system-auth') do
     its('lines') { should match_pam_rule("password required pam_pwquality.so retry=#{input('retry')}") }
   end
 
-  describe "input value" do
-    it "for retry should be in line with maximum/minimum allowed values by policy" do
+  describe 'input value' do
+    it 'for retry should be in line with maximum/minimum allowed values by policy' do
       expect(input('retry')).to be_between(1, input('max_retry'))
     end
   end

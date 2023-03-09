@@ -38,13 +38,13 @@ control 'SV-204583' do
   tag 'fix_id': 'F-4707r88942_fix'
   tag 'cci': ['CCI-001453']
   tag nist: ['AC-17 (2)']
-  tag subsystems: ["sssd","ldap"]
+  tag subsystems: ['sssd', 'ldap']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
 
@@ -97,7 +97,7 @@ control 'SV-204583' do
 
     if pam_ldap_enabled
       tls_cacertfile = command('grep -i tls_cacertfile /etc/pam_ldap.conf')
-                      .stdout.strip.scan(/^tls_cacertfile\s+(.*)/).last
+                       .stdout.strip.scan(/^tls_cacertfile\s+(.*)/).last
 
       describe 'tls_cacertfile' do
         subject { tls_cacertfile }

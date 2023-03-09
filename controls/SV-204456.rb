@@ -30,7 +30,7 @@ control 'SV-204456' do
   tag 'fix_id': 'F-4580r590041_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["gui","general"]
+  tag subsystems: ['gui', 'general']
   tag 'host'
 
   if package('gnome-settings-daemon').installed?

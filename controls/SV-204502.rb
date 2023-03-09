@@ -31,7 +31,7 @@ control 'SV-204502' do
   tag 'fix_id': 'F-4626r88699_fix'
   tag 'cci': ['CCI-000381']
   tag nist: ['CM-7 a']
-  tag subsystems: ["packages"]
+  tag subsystems: ['packages']
   tag 'host', 'container'
 
   describe package('telnet-server') do

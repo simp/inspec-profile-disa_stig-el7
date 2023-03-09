@@ -11,39 +11,35 @@ control 'SV-244557' do
   tag fix_id: 'F-47789r744062_fix'
   tag cci: ['CCI-000213']
   tag legacy: []
-  tag subsystems: ["grub"]
+  tag subsystems: ['grub']
   tag 'host'
   tag check: "For systems that use UEFI, this is Not Applicable.\n\nFor systems that are running a version of RHEL prior to 7.2, this is Not Applicable.\n\nVerify that a unique name is set as the \"superusers\" account:\n\n# grep -iw \"superusers\" /boot/grub2/grub.cfg\n    set superusers=\"[someuniquestringhere]\"\n    export superusers\n\nIf \"superusers\" is identical to any OS account name or is missing a name, this is a finding."
   tag fix: "Configure the system to have a unique name for the grub superusers account.\n\nEdit the /boot/grub2/grub.cfg file and add or modify the following lines in the \"### BEGIN /etc/grub.d/01_users ###\" section:\n\nset superusers=\"[someuniquestringhere]\"\nexport superusers\npassword_pbkdf2 [someuniquestringhere] ${GRUB2_PASSWORD}"
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
-    unless file('/sys/firmware/efi').exist?
-      if os[:release] >= '7.2'
+  elsif file('/sys/firmware/efi').exist?
+    impact 0.0
+    describe 'System running UEFI' do
+      skip 'The System is running UEFI, this control is Not Applicable.'
+    end
+  elsif os[:release] >= '7.2'
+    options = {
+        assignment_regex: /^\s*(.*)=\"?([^\"]+)\"?$/,
+      }
 
-        options = {
-          assignment_regex: /^\s*(.*)=\"?([^\"]+)\"?$/
-        }
+    describe parse_config_file(input('grub_main_cfg'), options) do
+      its('set superusers') { should_not be nil }
+      its('set superusers') { should_not be_in users.usernames }
+    end
 
-        describe parse_config_file(input('grub_main_cfg'), options) do
-          its('set superusers') { should_not be nil }
-          its('set superusers') { should_not be_in users.usernames }
-        end
-      else
-        impact 0.0
-        describe 'System running version of RHEL prior to 7.2' do
-          skip 'The System is running an outdated version of RHEL, this control is Not Applicable.'
-        end
-      end
-    else
-      impact 0.0
-      describe 'System running UEFI' do
-        skip 'The System is running UEFI, this control is Not Applicable.'
-      end
+  else
+    impact 0.0
+    describe 'System running version of RHEL prior to 7.2' do
+      skip 'The System is running an outdated version of RHEL, this control is Not Applicable.'
     end
   end
 end

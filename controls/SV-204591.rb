@@ -27,28 +27,26 @@ control 'SV-204591' do
   tag 'fix_id': 'F-4715r88966_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["pam","ssh","lastlog"]
+  tag subsystems: ['pam', 'ssh', 'lastlog']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
+    end
+  elsif sshd_config.params['printlastlog'] == ['yes']
+
+    describe sshd_config do
+      its('PrintLastLog') { should cmp 'yes' }
     end
   else
-
-    if sshd_config.params['printlastlog'] == ['yes']
-      describe sshd_config do
-        its('PrintLastLog') { should cmp 'yes' }
+    describe pam('/etc/pam.d/sshd') do
+      its('lines') do
+        should match_pam_rule('session required pam_lastlog.so showfailed')
       end
-    else
-      describe pam('/etc/pam.d/sshd') do
-        its('lines') do
-          should match_pam_rule('session required pam_lastlog.so showfailed')
-        end
-        its('lines') do
-          should_not match_pam_rule('session required pam_lastlog.so showfailed silent')
-        end
+      its('lines') do
+        should_not match_pam_rule('session required pam_lastlog.so showfailed silent')
       end
     end
   end

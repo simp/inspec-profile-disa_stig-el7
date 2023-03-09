@@ -30,15 +30,15 @@ control 'SV-204480' do
   tag 'fix_id': 'F-4604r88633_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["home_dirs","file_system"]
+  tag subsystems: ['home_dirs', 'file_system']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  else
 
     describe mount('/home') do
       its('options') { should include 'nosuid' }

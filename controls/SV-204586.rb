@@ -36,13 +36,13 @@ control 'SV-204586' do
   tag 'fix_id': 'F-4710r88951_fix'
   tag 'cci': ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']
   tag nist: ['SC-8', 'SC-8 (2)', 'SC-8 (1)', 'SC-8 (2)']
-  tag subsystems: ["ssh"]
+  tag subsystems: ['ssh']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
     describe systemd_service('sshd.service') do

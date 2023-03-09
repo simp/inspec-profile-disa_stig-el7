@@ -37,7 +37,7 @@ control 'SV-204604' do
   tag 'fix_id': 'F-4728r89005_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["firewalld","iptables"]
+  tag subsystems: ['firewalld', 'iptables']
   tag 'host', 'container'
 
   describe.one do

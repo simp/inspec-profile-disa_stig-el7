@@ -39,15 +39,15 @@ command:
   tag 'cci': ['CCI-000318', 'CCI-000368', 'CCI-001812', 'CCI-001813',
               'CCI-001814']
   tag nist: ['CM-3 f', 'CM-6 c', 'CM-11 (2)', 'CM-5 (1)', 'CM-5 (1)']
-  tag subsystems: ["system_device","device_files"]
+  tag subsystems: ['system_device', 'device_files']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else  
+  else
     virtual_machine = input('virtual_machine')
 
     findings = Set[]

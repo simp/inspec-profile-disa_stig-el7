@@ -28,7 +28,7 @@ control 'SV-204409' do
   tag 'fix_id': 'F-4533r88420_fix'
   tag 'cci': ['CCI-000194']
   tag nist: ['IA-5 (1) (a)']
-  tag subsystems: ["pwquality","password"]
+  tag subsystems: ['pwquality', 'password']
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do

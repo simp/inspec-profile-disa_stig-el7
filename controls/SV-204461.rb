@@ -21,13 +21,13 @@ control 'SV-204461' do
   tag 'fix_id': 'F-4585r88576_fix'
   tag 'cci': ['CCI-000764']
   tag nist: ['IA-2']
-  tag subsystems: ["accounts"]
+  tag subsystems: ['accounts']
   tag 'host', 'container'
 
-  describe "All group identifiers in /etc/passwd" do
-    it "should be defined in /etc/groups" do
-      expect(passwd.gids.map{ |gid| gid.to_i }).to all(be_in etc_group.gids),
-        "missing gids: #{passwd.gids.select{ |gid| !etc_group.gids.include?(gid.to_i)}}"
+  describe 'All group identifiers in /etc/passwd' do
+    it 'should be defined in /etc/groups' do
+      expect(passwd.gids.map { |gid| gid.to_i }).to all(be_in(etc_group.gids)),
+        "missing gids: #{passwd.gids.select { |gid| !etc_group.gids.include?(gid.to_i) }}"
     end
   end
 end

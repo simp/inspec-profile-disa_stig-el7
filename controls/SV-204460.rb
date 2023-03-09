@@ -35,17 +35,17 @@ control 'SV-204460' do
   tag 'fix_id': 'F-4584r88573_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["accounts"]
+  tag subsystems: ['accounts']
   tag 'host', 'container'
 
   known_system_accounts = input('known_system_accounts')
   user_accounts = input('user_accounts')
 
   allowed_accounts = (known_system_accounts + user_accounts).uniq
-  describe "All user accounts" do
+  describe 'All user accounts' do
     it 'are known system accounts or known user accounts' do
       fail_msg = "Accounts not part of the known account lists: #{(passwd.users - allowed_accounts).join(', ')}"
-      expect(passwd.users).to all( be_in allowed_accounts ), fail_msg
+      expect(passwd.users).to all(be_in(allowed_accounts)), fail_msg
     end
   end
 end

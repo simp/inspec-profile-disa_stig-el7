@@ -38,44 +38,42 @@ control 'SV-204632' do
   tag 'fix_id': 'F-4756r89089_fix'
   tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
-  tag subsystems: ["sssd"]
+  tag subsystems: ['sssd']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
-    if package('sssd').installed?
-      if !(sssd_files = command('find /etc/sssd -name *.conf').stdout.split("\n")).empty?
-        sssd_files.each do |file|
-          next unless package('sssd').installed?
+  elsif package('sssd').installed?
+    if !(sssd_files = command('find /etc/sssd -name *.conf').stdout.split("\n")).empty?
+      sssd_files.each do |file|
+        next unless package('sssd').installed?
 
-          describe.one do
-            if package('sssd').installed?
-              describe parse_config_file(file) do
-                its('services') { should include 'pam' }
-              end
+        describe.one do
+          if package('sssd').installed?
+            describe parse_config_file(file) do
+              its('services') { should include 'pam' }
             end
-            if package('sssd').installed?
-              describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' #{file}") do
-                its('stdout.strip') { should include 'pam' }
-              end
+          end
+          if package('sssd').installed?
+            describe command("grep -i -E 'services(\s)*=(\s)*(.+*)pam' #{file}") do
+              its('stdout.strip') { should include 'pam' }
             end
           end
         end
-      else
-        describe 'The set of SSSD configuration files' do
-          subject { sssd_files.to_a }
-          it { should_not be_empty }
-        end
       end
     else
-      impact 0.0
-      describe 'The SSSD Package is not installed on the system' do
-        skip 'This control is Not Appliciable without the SSSD Package installed.'
+      describe 'The set of SSSD configuration files' do
+        subject { sssd_files.to_a }
+        it { should_not be_empty }
       end
+    end
+  else
+    impact 0.0
+    describe 'The SSSD Package is not installed on the system' do
+      skip 'This control is Not Appliciable without the SSSD Package installed.'
     end
   end
 end

@@ -39,7 +39,7 @@ control 'SV-204428' do
   tag 'fix_id': 'F-4552r792820_fix'
   tag 'cci': ['CCI-002238']
   tag nist: ['AC-7 b']
-  tag subsystems: ["pam"]
+  tag subsystems: ['pam']
   tag 'host', 'container'
 
   describe.one do

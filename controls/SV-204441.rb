@@ -42,13 +42,13 @@ control 'SV-204441' do
   tag 'fix_id': 'F-4565r88516_fix'
   tag 'cci': ['CCI-000766']
   tag nist: ['IA-2 (2)']
-  tag subsystems: ["pam","smartcard"]
+  tag subsystems: ['pam', 'smartcard']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe 'Control not applicable within a container' do
+      skip 'Control not applicable within a container'
     end
   else
     smart_card_status = input('smart_card_status')

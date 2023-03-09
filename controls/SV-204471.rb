@@ -27,15 +27,15 @@ control 'SV-204471' do
   tag 'fix_id': 'F-4595r744104_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["home_dirs"]
+  tag subsystems: ['home_dirs']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  else
 
     exempt_home_users = input('exempt_home_users')
     non_interactive_shells = input('non_interactive_shells')

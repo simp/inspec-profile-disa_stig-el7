@@ -29,7 +29,7 @@ control 'SV-204634' do
   tag 'fix_id': 'F-4758r89095_fix'
   tag 'cci': ['CCI-001443', 'CCI-001444', 'CCI-002418']
   tag nist: ['AC-18 (1)', 'AC-18 (1)', 'SC-8']
-  tag subsystems: ["network","wifi","nmcli"]
+  tag subsystems: ['network', 'wifi', 'nmcli']
   tag 'host', 'container'
 
   describe command('nmcli device') do

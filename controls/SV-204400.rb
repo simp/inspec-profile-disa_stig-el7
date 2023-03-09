@@ -40,25 +40,23 @@ control 'SV-204400' do
   tag 'fix_id': 'F-4524r88393_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
-  tag subsystems: ["gui"]
+  tag subsystems: ['gui']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe 'Control not applicable within a container' do
+      skip 'Control not applicable within a container'
+    end
+  elsif package('gnome-desktop3').installed?
+
+    describe command('gsettings writable org.gnome.desktop.session idle-delay') do
+      its('stdout.strip') { should cmp 'false' }
     end
   else
-
-    if package('gnome-desktop3').installed?
-      describe command('gsettings writable org.gnome.desktop.session idle-delay') do
-        its('stdout.strip') { should cmp 'false' }
-      end
-    else
-      impact 0.0
-      describe 'The GNOME desktop is not installed' do
-        skip 'The GNOME desktop is not installed, this control is Not Applicable.'
-      end
+    impact 0.0
+    describe 'The GNOME desktop is not installed' do
+      skip 'The GNOME desktop is not installed, this control is Not Applicable.'
     end
   end
 end

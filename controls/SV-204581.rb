@@ -37,13 +37,13 @@ control 'SV-204581' do
   tag 'fix_id': 'F-4705r88936_fix'
   tag 'cci': ['CCI-001453']
   tag nist: ['AC-17 (2)']
-  tag subsystems: ["sssd","ldap"]
+  tag subsystems: ['sssd', 'ldap']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
 

@@ -39,20 +39,20 @@ control 'SV-204578' do
   tag 'fix_id': 'F-4702r622306_fix'
   tag 'cci': ['CCI-000068', 'CCI-000366', 'CCI-000803']
   tag nist: ['AC-17 (2)', 'CM-6 b', 'IA-7']
-  tag subsystems: ["ssh"]
+  tag subsystems: ['ssh']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
     ciphers_array = sshd_config.params('ciphers')
 
     ciphers_array = ciphers_array.first.split(',') unless ciphers_array.nil?
 
-    describe "List of encryption algortihms used for SSH connections" do
+    describe 'List of encryption algortihms used for SSH connections' do
       subject { ciphers_array }
       it { should_not be_nil }
       it { should eq ['aes256-ctr', 'aes192-ctr', 'aes128-ctr'] }

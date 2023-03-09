@@ -54,7 +54,7 @@ control 'SV-204393' do
   tag 'fix_id': 'F-4517r88372_fix'
   tag 'cci': ['CCI-000048']
   tag nist: ['AC-8 a']
-  tag subsystems: ["gui", 'banner']
+  tag subsystems: ['gui', 'banner']
 
   if package('gnome-desktop3').installed?
     if !input('dconf_user').nil? and command('whoami').stdout.strip == 'root'

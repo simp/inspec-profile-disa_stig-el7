@@ -1,5 +1,3 @@
 Style/WordArray:
-  EnforcedStyle: brackets
-
-Style/RedundantPercentQ:
-  Enabled: true
+  Description: 'Use %w or %W for an array of words. (https://rubystyle.guide#percent-w)'
+  Enabled : false

@@ -26,7 +26,7 @@ control 'SV-204442' do
   tag 'fix_id': 'F-4566r88519_fix'
   tag 'cci': ['CCI-000381']
   tag nist: ['CM-7 a']
-  tag subsystems: ["packages"]
+  tag subsystems: ['packages']
   tag 'host', 'container'
 
   describe package('rsh-server') do

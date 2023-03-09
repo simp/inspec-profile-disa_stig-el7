@@ -79,12 +79,12 @@ control 'SV-204497' do
   tag 'fix_id': 'F-36310r602640_fix'
   tag 'cci': ['CCI-000068', 'CCI-001199', 'CCI-002450', 'CCI-002476']
   tag nist: ['AC-17 (2)', 'SC-28', 'SC-13', 'SC-28 (1)']
-  tag subsystems: ["fips"]
+  tag subsystems: ['fips']
   tag 'host'
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - Kernel config for FIPS capability must be done on the host" do
-      skip "Control not applicable - Kernel config for FIPS capability must be done on the host"
+    describe 'Control not applicable - Kernel config for FIPS capability must be done on the host' do
+      skip 'Control not applicable - Kernel config for FIPS capability must be done on the host'
     end
   else
     describe package('dracut-fips') do

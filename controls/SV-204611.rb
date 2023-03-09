@@ -35,13 +35,13 @@ directory (or modify the line to have the required value):
   tag 'fix_id': 'F-4735r89026_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["kernel_parameter", "ipv4"]
+  tag subsystems: ['kernel_parameter', 'ipv4']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - Kernel config must be done on the host" do
-      skip "Control not applicable - Kernel config must be done on the host"
+    describe 'Control not applicable - Kernel config must be done on the host' do
+      skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
     describe kernel_parameter('net.ipv4.conf.default.rp_filter') do

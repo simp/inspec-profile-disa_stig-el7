@@ -21,7 +21,7 @@ control 'SV-214801' do
   tag 'fix_id': 'F-15999r192369_fix'
   tag 'cci': ['CCI-001668']
   tag nist: ['SI-3 a']
-  tag subsystems: ["clamav","nails","virus_scan"]
+  tag subsystems: ['clamav', 'nails', 'virus_scan']
   tag 'host', 'container'
 
   custom_antivirus = input('custom_antivirus')

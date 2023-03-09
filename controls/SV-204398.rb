@@ -38,26 +38,24 @@ control 'SV-204398' do
   tag 'fix_id': 'F-4522r88387_fix'
   tag 'cci': ['CCI-000057']
   tag nist: ['AC-11 a']
-  tag subsystems: ["gui","screensaver","session","lock"]
+  tag subsystems: ['gui', 'screensaver', 'session', 'lock']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe 'Control not applicable within a container' do
+      skip 'Control not applicable within a container'
+    end
+  elsif package('gnome-desktop3').installed?
+
+    describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
+      its('stdout.strip') { should cmp <= 900 }
     end
   else
-
-    if package('gnome-desktop3').installed?
-      describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
-        its('stdout.strip') { should cmp <= 900 }
-      end
-    else
-      impact 0.0
-      describe 'The system does not have GNOME installed' do
-        skip "The system does not have GNOME installed, this requirement is Not
+    impact 0.0
+    describe 'The system does not have GNOME installed' do
+      skip "The system does not have GNOME installed, this requirement is Not
         Applicable."
-      end
     end
   end
 end

@@ -28,39 +28,37 @@ control 'SV-204440' do
   tag 'fix_id': 'F-4564r744097_fix'
   tag 'cci': ['CCI-000213']
   tag nist: ['AC-3']
-  tag subsystems: ["boot", "uefi"]
+  tag subsystems: ['boot', 'uefi']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  elsif file('/sys/firmware/efi').exist?
 
-    if file('/sys/firmware/efi').exist?
-      if os[:release] >= '7.2'
-        impact 0.7
-        input('grub_uefi_user_boot_files').each do |grub_user_file|
-          describe parse_config_file(grub_user_file) do
-            its('GRUB2_PASSWORD') { should include 'grub.pbkdf2.sha512' }
-          end
+    if os[:release] >= '7.2'
+      impact 0.7
+      input('grub_uefi_user_boot_files').each do |grub_user_file|
+        describe parse_config_file(grub_user_file) do
+          its('GRUB2_PASSWORD') { should include 'grub.pbkdf2.sha512' }
         end
+      end
 
-        describe parse_config_file(input('grub_uefi_main_cfg')) do
-          its('set superusers') { should cmp '"root"' }
-        end
-      else
-        impact 0.0
-        describe 'System running version of RHEL prior to 7.2' do
-          skip 'The System is running an outdated version of RHEL, this control is Not Applicable.'
-        end
+      describe parse_config_file(input('grub_uefi_main_cfg')) do
+        its('set superusers') { should cmp '"root"' }
       end
     else
       impact 0.0
-      describe 'System running BIOS' do
-        skip 'The System is running BIOS, this control is Not Applicable.'
+      describe 'System running version of RHEL prior to 7.2' do
+        skip 'The System is running an outdated version of RHEL, this control is Not Applicable.'
       end
+    end
+  else
+    impact 0.0
+    describe 'System running BIOS' do
+      skip 'The System is running BIOS, this control is Not Applicable.'
     end
   end
 end

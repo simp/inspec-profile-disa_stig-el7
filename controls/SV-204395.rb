@@ -74,13 +74,13 @@ control 'SV-204395' do
   tag 'fix_id': 'F-4519r88378_fix'
   tag 'cci': ['CCI-000048']
   tag nist: ['AC-8 a']
-  tag subsystems: ["banner","/etc/issue"]
+  tag subsystems: ['banner', '/etc/issue']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container" do
-      skip "Control not applicable within a container"
+    describe 'Control not applicable within a container' do
+      skip 'Control not applicable within a container'
     end
   else
 

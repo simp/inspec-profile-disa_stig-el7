@@ -25,7 +25,7 @@ control 'SV-204437' do
   tag 'fix_id': 'F-4561r88504_fix'
   tag 'cci': ['CCI-000213']
   tag nist: ['AC-3']
-  tag subsystems: ["root","sulogin"]
+  tag subsystems: ['root', 'sulogin']
   tag 'host', 'container'
 
   describe command('grep -i execstart /usr/lib/systemd/system/rescue.service') do

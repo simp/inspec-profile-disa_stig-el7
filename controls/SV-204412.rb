@@ -28,11 +28,11 @@ control 'SV-204412' do
   tag 'fix_id': 'F-4536r88429_fix'
   tag 'cci': ['CCI-000195']
   tag nist: ['IA-5 (1) (b)']
-  tag subsystems: ["pwquality","password"]
+  tag subsystems: ['pwquality', 'password']
   tag 'host', 'container'
 
   describe parse_config_file('/etc/security/pwquality.conf') do
-    its('minclass') { should cmp input("expected_minclass") }
-    its('minclass') { should cmp >= input("min_minclass") }
+    its('minclass') { should cmp input('expected_minclass') }
+    its('minclass') { should cmp >= input('min_minclass') }
   end
 end

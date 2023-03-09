@@ -24,7 +24,7 @@ control 'SV-204420' do
   tag 'fix_id': 'F-4544r88453_fix'
   tag 'cci': ['CCI-000199']
   tag nist: ['IA-5 (1) (d)']
-  tag subsystems: ["login_defs","password"]
+  tag subsystems: ['login_defs', 'password']
   tag 'host', 'container'
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?

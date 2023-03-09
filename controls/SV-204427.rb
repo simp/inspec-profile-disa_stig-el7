@@ -55,7 +55,7 @@ control 'SV-204427' do
   tag 'fix_id': 'F-4551r622287_fix'
   tag 'cci': ['CCI-000044', 'CCI-002236', 'CCI-002237', 'CCI-002238']
   tag nist: ['AC-7 a', 'AC-7 b', 'AC-7 b', 'AC-7 b']
-  tag subsystems: ["pam","faillock"]
+  tag subsystems: ['pam', 'faillock']
   tag 'host', 'container'
 
   # pam rules files to check
@@ -73,55 +73,55 @@ control 'SV-204427' do
   alt = input('alternate_rules')
 
   describe.one do
-    describe "pam rules for the faillock module" do
-      it "should exactly match an appropriately configured ruleset in password-auth" do
-        expect(pa_rules).to match_pam_rules(req).exactly, "missing required rules: #{req.select{ |rule| !pa_rules.include?(rule) }}"
+    describe 'pam rules for the faillock module' do
+      it 'should exactly match an appropriately configured ruleset in password-auth' do
+        expect(pa_rules).to match_pam_rules(req).exactly, "missing required rules: #{req.select { |rule| !pa_rules.include?(rule) }}"
       end
     end
-    describe "pam rules for the faillock module" do
-      it "should exactly match an appropriately configured ruleset in password-auth" do
-        expect(pa_rules).to match_pam_rules(alt).exactly, "missing alternate rules: #{alt.select{ |rule| !pa_rules.include?(rule) }}"
+    describe 'pam rules for the faillock module' do
+      it 'should exactly match an appropriately configured ruleset in password-auth' do
+        expect(pa_rules).to match_pam_rules(alt).exactly, "missing alternate rules: #{alt.select { |rule| !pa_rules.include?(rule) }}"
       end
     end
   end
 
-  describe "pam rules for the faillock module" do
-    it "should have the expected settings enabled in password-auth" do
+  describe 'pam rules for the faillock module' do
+    it 'should have the expected settings enabled in password-auth' do
       expect(pa_rules).to match_pam_rule(deny_pattern), "missing: #{deny_pattern}"
       expect(pa_rules).to match_pam_rule(fail_interval_pattern), "missing: #{fail_interval_pattern}"
-      expect(pa_rules).to match_pam_rule(unlock_time_pattern), "missing or misconfigured unlock_time"
+      expect(pa_rules).to match_pam_rule(unlock_time_pattern), 'missing or misconfigured unlock_time'
     end
   end
 
   describe.one do
-    describe "pam rules for the faillock module" do
-      it "should exactly match an appropriately configured ruleset in system-auth" do
-        expect(sa_rules).to match_pam_rules(req).exactly, "missing required rules: #{req.select{ |rule| !sa_rules.include?(rule) }}"
+    describe 'pam rules for the faillock module' do
+      it 'should exactly match an appropriately configured ruleset in system-auth' do
+        expect(sa_rules).to match_pam_rules(req).exactly, "missing required rules: #{req.select { |rule| !sa_rules.include?(rule) }}"
       end
     end
-    describe "pam rules for the faillock module" do
-      it "should exactly match an appropriately configured ruleset in system-auth" do
-        expect(sa_rules).to match_pam_rules(alt).exactly, "missing alternate rules: #{alt.select{ |rule| !sa_rules.include?(rule) }}"
+    describe 'pam rules for the faillock module' do
+      it 'should exactly match an appropriately configured ruleset in system-auth' do
+        expect(sa_rules).to match_pam_rules(alt).exactly, "missing alternate rules: #{alt.select { |rule| !sa_rules.include?(rule) }}"
       end
     end
   end
 
-  describe "pam rules for the faillock module" do
-    it "should have the expected settings enabled in system-auth" do
+  describe 'pam rules for the faillock module' do
+    it 'should have the expected settings enabled in system-auth' do
       expect(sa_rules).to match_pam_rule(deny_pattern), "missing: #{deny_pattern}"
       expect(sa_rules).to match_pam_rule(fail_interval_pattern), "missing: #{fail_interval_pattern}"
-      expect(sa_rules).to match_pam_rule(unlock_time_pattern), "missing or misconfigured unlock_time"
+      expect(sa_rules).to match_pam_rule(unlock_time_pattern), 'missing or misconfigured unlock_time'
     end
   end
 
-  describe "input value" do
-    it "for unsuccessful_attempts should be in line with maximum/minimum allowed values by policy" do
+  describe 'input value' do
+    it 'for unsuccessful_attempts should be in line with maximum/minimum allowed values by policy' do
       expect(input('expected_unsuccessful_attempts')).to cmp <= input('max_unsuccessful_attempts')
     end
-    it "for fail_interval should be in line with maximum/minimum allowed values by policy" do
+    it 'for fail_interval should be in line with maximum/minimum allowed values by policy' do
       expect(input('expected_fail_interval')).to cmp <= input('max_fail_interval')
     end
-    it "for lockout_time should be in line with maximum/minimum allowed values by policy" do
+    it 'for lockout_time should be in line with maximum/minimum allowed values by policy' do
       expect(input('expected_lockout_time')).to cmp >= input('min_lockout_time')
     end
   end

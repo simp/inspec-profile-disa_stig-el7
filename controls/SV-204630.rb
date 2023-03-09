@@ -36,13 +36,13 @@ the /etc/sysctl.d/ directory (or modify the line to have the required value):
   tag 'fix_id': 'F-4754r89083_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["kernel_parameter", "ipv6"]
+  tag subsystems: ['kernel_parameter', 'ipv6']
   tag 'host', 'container'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - Kernel config must be done on the host" do
-      skip "Control not applicable - Kernel config must be done on the host"
+    describe 'Control not applicable - Kernel config must be done on the host' do
+      skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
     describe.one do

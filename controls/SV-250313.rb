@@ -11,15 +11,15 @@ control 'SV-250313' do
   tag fix_id: 'F-53701r792845_fix'
   tag cci: ['CCI-002165', 'CCI-002235']
   tag legacy: []
-  tag subsystems: ["ssh"]
+  tag subsystems: ['ssh']
   tag 'host'
   tag check: "Note: Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in conjunction with SELinux.\n\nVerify the operating system prevents privileged accounts from utilizing SSH.\nCheck the SELinux ssh_sysadm_login boolean with the following command:\n\n$ sudo getsebool ssh_sysadm_login\nssh_sysadm_login --> off\n\nIf the \"ssh_sysadm_login\" boolean is not \"off\" and is not documented with the ISSO as an operational requirement, this is a finding."
   tag fix: "Configure the operating system to prevent privileged accounts from utilizing SSH.\nUse the following command to set the \"ssh_sysadm_login\" boolean to \"off\":\n\n$ sudo setsebool -P ssh_sysadm_login off\n\nNote: SELinux confined users mapped to sysadm_u are not allowed to login to the system over SSH, by default. If this is a required function, it can be configured by setting the ssh_sysadm_login SELinux boolean to \"on\" with the following command:\n\n$ sudo setsebool -P ssh_sysadm_login on\n\nThis must be documented with the ISSO as an operational requirement."
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable within a container -- kernel config" do
-      skip "Control not applicable within a container -- kernel config"
+    describe 'Control not applicable within a container -- kernel config' do
+      skip 'Control not applicable within a container -- kernel config'
     end
   else
     describe command('getsebool ssh_sysadm_login').stdout.strip do

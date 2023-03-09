@@ -26,7 +26,7 @@ control 'SV-204458' do
   tag 'fix_id': 'F-4582r462547_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["redhat_release"]
+  tag subsystems: ['redhat_release']
   tag 'host', 'container'
 
   release = os.release

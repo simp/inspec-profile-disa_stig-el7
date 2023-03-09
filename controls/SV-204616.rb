@@ -29,13 +29,13 @@ control 'SV-204616' do
   tag 'fix_id': 'F-4740r89041_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["kernel_parameter", "ipv4"]
+  tag subsystems: ['kernel_parameter', 'ipv4']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - Kernel config must be done on the host" do
-      skip "Control not applicable - Kernel config must be done on the host"
+    describe 'Control not applicable - Kernel config must be done on the host' do
+      skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
 

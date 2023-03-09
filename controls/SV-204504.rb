@@ -46,13 +46,13 @@ control 'SV-204504' do
   tag 'fix_id': 'F-4628r462467_fix'
   tag 'cci': ['CCI-000139']
   tag nist: ['AU-5 a']
-  tag subsystems: ["audit","auditd"]
+  tag subsystems: ['audit', 'auditd']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - Kernel config must be done on the host" do
-      skip "Control not applicable - Kernel config must be done on the host"
+    describe 'Control not applicable - Kernel config must be done on the host' do
+      skip 'Control not applicable - Kernel config must be done on the host'
     end
   else
     monitor_kernel_log = input('monitor_kernel_log')

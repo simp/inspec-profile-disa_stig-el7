@@ -31,13 +31,13 @@ control 'SV-204595' do
   tag 'fix_id': 'F-4719r622309_fix'
   tag 'cci': ['CCI-001453']
   tag nist: ['AC-17 (2)']
-  tag subsystems: ["ssh"]
+  tag subsystems: ['ssh']
   tag 'host'
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
-    describe "Control not applicable - SSH is not installed within containerized RHEL" do
-      skip "Control not applicable - SSH is not installed within containerized RHEL"
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
 
@@ -51,7 +51,7 @@ control 'SV-204595' do
         end
       end
     else
-      describe "The list of MACs enabled on the system" do
+      describe 'The list of MACs enabled on the system' do
         subject { macs }
         it { should cmp 'hmac-sha2-512,hmac-sha2-256' }
       end

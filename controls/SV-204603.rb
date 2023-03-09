@@ -51,7 +51,7 @@ control 'SV-204603' do
   tag 'fix_id': 'F-4727r809210_fix'
   tag 'cci': ['CCI-001891', 'CCI-002046']
   tag nist: ['AU-8 (1) (a)', 'AU-8 (1) (b)']
-  tag subsystems: ["ntp"]
+  tag subsystems: ['ntp']
   tag 'host', 'container'
 
   # Either ntpd or chronyd should be running

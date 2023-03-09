@@ -23,7 +23,7 @@ control 'SV-204605' do
   tag 'fix_id': 'F-4729r89008_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["pam","lastlog","ssh"]
+  tag subsystems: ['pam', 'lastlog', 'ssh']
   tag 'host', 'container'
 
   describe pam('/etc/pam.d/postlogin') do

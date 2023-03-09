@@ -12,15 +12,15 @@ control 'SV-251704' do
   tag fix_id: 'F-55095r809567_fix'
   tag cci: ['CCI-002038']
   tag legacy: []
-  tag subsystems: ["sudo"]
+  tag subsystems: ['sudo']
   tag 'host'
   tag check: "Verify the operating system is not be configured to bypass password requirements for privilege escalation.\n\nCheck the configuration of the \"/etc/pam.d/sudo\" file with the following command:\n\n$ sudo grep pam_succeed_if /etc/pam.d/sudo\n\nIf any occurrences of \"pam_succeed_if\" is returned from the command, this is a finding."
   tag fix: "Configure the operating system to require users to supply a password for privilege escalation.\n\nCheck the configuration of the \"/etc/ pam.d/sudo\" file with the following command:\n$ sudo vi /etc/pam.d/sudo\n\nRemove any occurrences of \"pam_succeed_if\" in the file."
 
-  if virtualization.system.eql?('docker') && !command("sudo").exist?
+  if virtualization.system.eql?('docker') && !command('sudo').exist?
     impact 0.0
-    describe "Control not applicable within a container without sudo enabled" do
-      skip "Control not applicable within a container without sudo enabled"
+    describe 'Control not applicable within a container without sudo enabled' do
+      skip 'Control not applicable within a container without sudo enabled'
     end
   else
     describe parse_config_file('/etc/pam.d/sudo') do

@@ -25,15 +25,15 @@ control 'SV-204487' do
   tag 'fix_id': 'F-36308r602634_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["world_writable","ww_dirs"]
+  tag subsystems: ['world_writable', 'ww_dirs']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable to a container" do
-      skip "Control not applicable to a container"
+    describe 'Control not applicable to a container' do
+      skip 'Control not applicable to a container'
     end
-  else 
+  else
 
     ww_dirs = Set[]
     partitions = etc_fstab.params.map do |partition|
@@ -43,8 +43,8 @@ control 'SV-204487' do
       cmd = "find #{part} -xdev -type d -perm -0002 -gid +999 -print"
       ww_dirs += command(cmd).stdout.split("\n")
     end
-    describe "List of world-writeable directories not group-owned by a system account" do
-      it "should be empty" do
+    describe 'List of world-writeable directories not group-owned by a system account' do
+      it 'should be empty' do
         expect(ww_dirs).to be_empty, "Found world-writeable dirs not group-owned by system account: #{ww_dirs.to_a.join(', ')}"
       end
     end

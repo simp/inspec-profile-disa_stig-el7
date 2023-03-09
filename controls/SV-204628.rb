@@ -53,10 +53,14 @@ control 'SV-204628' do
   tag 'fix_id': 'F-4752r89077_fix'
   tag 'cci': ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag subsystems: ["iptables","firewall"]
+  tag subsystems: ['iptables', 'firewall']
   tag 'host', 'container'
 
-  unless input('firewall_application_package') != ''
+  if input('firewall_application_package') != ''
+    describe 'Manual review of third-party firewall needed' do
+      skip "A manual review of firewall application \'#{input('firewall_application_package')}\' is needed to determine if it is properly configured"
+    end
+  else
 
     firewalld_services = input('firewalld_services')
     firewalld_hosts_allow = input('firewalld_hosts_allow')
@@ -110,10 +114,6 @@ control 'SV-204628' do
           its('options') { should be rule['options'] }
         end
       end
-    end
-  else
-    describe "Manual review of third-party firewall needed" do
-      skip "A manual review of firewall application \'#{input('firewall_application_package')}\' is needed to determine if it is properly configured"
     end
   end
 end

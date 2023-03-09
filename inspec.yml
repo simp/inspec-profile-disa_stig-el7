@@ -6,7 +6,7 @@ copyright_email: saf@groups.mitre.org
 license: Apache-2.0
 summary: "Inspec Validation Profile for Red Hat Enterprise Linux 7 STIG"
 version: 3.6.0
-inspec_version: ">= 4.0"
+inspec_version: ">= 4.26"
 
 supports:
   - platform-name: centos
@@ -16,7 +16,6 @@ supports:
   - platform-name: amazon
     release: 2*
 
-inspec_version: ">= 4.26"
 # The following defines the default inputs for the configurable controls used in the RHEL 7 DISA STIG.
 inputs:
   - name: disable_slow_controls

@@ -11,54 +11,54 @@ control 'SV-237634' do
   tag fix_id: 'F-40816r646852_fix'
   tag cci: ['CCI-002227']
   tag legacy: []
-  tag subsystems: ["sudo"]
+  tag subsystems: ['sudo']
   tag 'host'
   tag check: "Verify that the sudoers security policy is configured to use the invoking user's password for privilege escalation.\n\n$ sudo egrep -i '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/* | grep -v '#'\n\n/etc/sudoers:Defaults !targetpw\n/etc/sudoers:Defaults !rootpw\n/etc/sudoers:Defaults !runaspw\n\nIf no results are returned, this is a finding.\nIf results are returned from more than one file location, this is a finding.\nIf \"Defaults !targetpw\" is not defined, this is a finding.\nIf \"Defaults !rootpw\" is not defined, this is a finding.\nIf \"Defaults !runaspw\" is not defined, this is a finding."
   tag fix: "Define the following in the Defaults section of the /etc/sudoers file or a configuration file in the /etc/sudoers.d/ directory:\nDefaults !targetpw\nDefaults !rootpw\nDefaults !runaspw"
 
-  if virtualization.system.eql?('docker') && !command("sudo").exist?
+  if virtualization.system.eql?('docker') && !command('sudo').exist?
     impact 0.0
-    describe "Control not applicable within a container without sudo enabled" do
-      skip "Control not applicable within a container without sudo enabled"
+    describe 'Control not applicable within a container without sudo enabled' do
+      skip 'Control not applicable within a container without sudo enabled'
     end
   else
     sudoers_settings = command("egrep -i '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/* | grep -v '#'").stdout.strip
-    
+
     target_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!targetpw$/).flatten
     root_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!rootpw$/).flatten
     runas_match = sudoers_settings.scan(/^([^:]+):Defaults\s+!runaspw$/).flatten
 
     target_match_file = target_match.empty? ? nil : target_match.first
 
-    describe "!targetpw flag" do
-      it "should be set" do
+    describe '!targetpw flag' do
+      it 'should be set' do
         expect(target_match).not_to be_empty
       end
-      it "should be set in exactly one file" do
+      it 'should be set in exactly one file' do
         expect(target_match.count).to cmp 1
       end
     end
 
-    describe "!rootpw flag" do
-      it "should be set" do
+    describe '!rootpw flag' do
+      it 'should be set' do
         expect(root_match).not_to be_empty
       end
-      it "should be set in the same file as targetpw" do
+      it 'should be set in the same file as targetpw' do
         expect(root_match.first).to cmp target_match_file
       end
-      it "should be set in exactly one file" do
+      it 'should be set in exactly one file' do
         expect(root_match.count).to cmp 1
       end
     end
 
-    describe "!runaspw flag" do
-      it "should be set" do
+    describe '!runaspw flag' do
+      it 'should be set' do
         expect(runas_match).not_to be_empty
       end
-      it "should be set in the same file as targetpw" do
+      it 'should be set in the same file as targetpw' do
         expect(runas_match.first).to cmp target_match_file
       end
-      it "should be set in exactly one file" do
+      it 'should be set in exactly one file' do
         expect(runas_match.count).to cmp 1
       end
     end

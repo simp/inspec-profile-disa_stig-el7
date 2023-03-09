@@ -31,18 +31,18 @@ control 'SV-204516' do
   tag 'fix_id': 'F-4640r88741_fix'
   tag 'cci': ['CCI-002234']
   tag nist: ['AC-6 (9)']
-  tag subsystems: ["audit","auditd","audit_rule"]
+  tag subsystems: ['audit', 'auditd', 'audit_rule']
   tag 'host'
 
   audit_syscalls = ['execve']
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
     end
   else
-    describe "Syscall" do
+    describe 'Syscall' do
       audit_syscalls.each do |audit_syscall|
         it "#{audit_syscall} is audited properly" do
           audit_rule = auditd.syscall(audit_syscall)
@@ -50,11 +50,11 @@ control 'SV-204516' do
           expect(audit_rule.action.uniq).to cmp 'always'
           expect(audit_rule.list.uniq).to cmp 'exit'
           if os.arch.match(/64/)
-            expect(audit_rule.arch.uniq).to include('b32', 'b64') 
+            expect(audit_rule.arch.uniq).to include('b32', 'b64')
           else
             expect(audit_rule.arch.uniq).to cmp 'b32'
           end
-          expect(audit_rule.fields.flatten).to include('uid!=euid','gid!=egid', 'euid=0', 'egid=0')
+          expect(audit_rule.fields.flatten).to include('uid!=euid', 'gid!=egid', 'euid=0', 'egid=0')
           expect(audit_rule.key.uniq).to include('setuid', 'setgid')
         end
       end

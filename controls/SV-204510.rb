@@ -28,13 +28,13 @@ control 'SV-204510' do
   tag 'fix_id': 'F-4634r88723_fix'
   tag 'cci': ['CCI-001851']
   tag nist: ['AU-4 (1)']
-  tag subsystems: ["audit","audisp"]
+  tag subsystems: ['audit', 'audisp']
   tag 'host'
 
   if virtualization.system.eql?('docker')
     impact 0.0
-    describe "Control not applicable - audit config must be done on the host" do
-      skip "Control not applicable - audit config must be done on the host"
+    describe 'Control not applicable - audit config must be done on the host' do
+      skip 'Control not applicable - audit config must be done on the host'
     end
   else
     describe parse_config_file('/etc/audisp/audisp-remote.conf') do

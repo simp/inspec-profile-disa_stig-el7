@@ -31,7 +31,7 @@ control 'SV-204415' do
   tag 'fix_id': 'F-4539r88438_fix'
   tag 'cci': ['CCI-000196']
   tag nist: ['IA-5 (1) (c)']
-  tag subsystems: ["pam","password"]
+  tag subsystems: ['pam', 'password']
   tag 'host', 'container'
 
   describe.one do
