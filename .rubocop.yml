@@ -8,6 +8,6 @@ Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 
 Style/TrailingCommaInHashLiteral:
-  Description: 'put trailing commas on the last element of an object'
+  Description: 'https://docs.rubocop.org/rubocop/cops_style.html#styletrailingcommainhashliteral'
   Enabled: true
   EnforcedStyleForMultiline: no_comma
