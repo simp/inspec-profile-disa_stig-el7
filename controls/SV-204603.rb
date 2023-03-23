@@ -71,7 +71,7 @@ control 'SV-204603' do
     max_poll_values = time_sources.map do |val|
       if val.match?(/.*maxpoll.*/)
         val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,
-                 '\1').to_i
+          '\1').to_i
       else
         99
       end
@@ -103,7 +103,7 @@ control 'SV-204603' do
     max_poll_values = time_sources.map do |val|
       if val.match?(/.*maxpoll.*/)
         val.gsub(/.*maxpoll\s+(\d+)(\s+.*|$)/,
-                 '\1').to_i
+          '\1').to_i
       else
         99
       end

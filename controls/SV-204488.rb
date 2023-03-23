@@ -73,7 +73,7 @@ control 'SV-204488' do
 
         # Get user's umask
         umasks.store(u.username,
-                    command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
+          command("su -c 'umask' -l #{u.username}").stdout.chomp("\n"))
 
         # Check all local initialization files to see whether or not they are less restrictive than the input UMASK.
         dotfiles.each do |df|

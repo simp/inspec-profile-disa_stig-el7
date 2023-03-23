@@ -69,12 +69,8 @@ control 'SV-204627' do
         to_process.concat(
           command("grep -E '^\\s*includeDir\\s+' #{in_process} | sed 's/^[[:space:]]*includeDir[[:space:]]*//g'")
             .stdout.strip.split(/\n+/)
-            .map { |f|
-            f.start_with?('/') ? f : File.join('/', f)
-          }               # relative dirs are treated as absolute
-            .select do |f|
-            file(f).directory?
-          end
+            .map { |f| f.start_with?('/') ? f : File.join('/', f) } # relative dirs are treated as absolute
+            .select { |f| file(f).directory? }
         )
       end
     end

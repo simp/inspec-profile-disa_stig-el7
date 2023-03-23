@@ -89,7 +89,7 @@ control 'SV-204395' do
 
     clean_banner = banner_message_text_cli.gsub(/[\r\n\s]/, '')
     clean_banner_limited = banner_message_text_cli_limited.gsub(/[\r\n\s]/,
-                                                                '')
+      '')
     banner_file = file('/etc/issue')
     banner_missing = !banner_file.exist?
 

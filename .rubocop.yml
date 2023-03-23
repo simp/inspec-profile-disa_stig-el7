@@ -1,3 +1,13 @@
 Style/WordArray:
   Description: 'Use %w or %W for an array of words. (https://rubystyle.guide#percent-w)'
   Enabled : false
+
+Layout/ArgumentAlignment:
+  Description: 'check if the arguments on a multi-line method definition are aligned. (https://rubystyle.guide#no-double-indent)'
+  Enabled : true
+  EnforcedStyle: with_fixed_indentation
+
+Style/TrailingCommaInHashLiteral:
+  Description: 'put trailing commas on the last element of an object'
+  Enabled: true
+  EnforcedStyleForMultiline: no_comma

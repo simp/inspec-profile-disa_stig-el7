@@ -23,7 +23,7 @@ control 'SV-251703' do
     end
   else
     options = {
-      assignment_regex: /^(#includedirs?)\s*(.*?)\s*$/,
+      assignment_regex: /^(#includedirs?)\s*(.*?)\s*$/
     }
     describe parse_config_file('/etc/sudoers', options) do
       its('#includedirs') { should cmp '/etc/sudoers.d' }

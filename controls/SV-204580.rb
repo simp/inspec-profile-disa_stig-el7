@@ -137,7 +137,7 @@ control 'SV-204580' do
         banner = file(banner_file).content.gsub(/[\r\n\s]/, '')
         clean_banner = banner_message_text_ral.gsub(/[\r\n\s]/, '')
         clean_banner_limited = banner_message_text_ral_limited.gsub(/[\r\n\s]/,
-                                                                    '')
+          '')
 
         describe 'The SSHD Banner is set to the standard banner and has the correct text' do
           subject { banner }

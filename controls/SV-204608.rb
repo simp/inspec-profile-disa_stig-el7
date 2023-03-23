@@ -49,10 +49,10 @@ control 'SV-204608' do
   tag 'host', 'container'
 
   dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
-                                       {
-                                         comment_char: '#',
-                                         assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/,
-                                       }).params['hosts'].include?('dns')
+    {
+      comment_char: '#',
+      assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/
+    }).params['hosts'].include?('dns')
 
   unless dns_in_host_line
     describe 'If `local` resolution is being used, a `hosts` entry in /etc/nsswitch.conf having `dns`' do
@@ -71,7 +71,7 @@ control 'SV-204608' do
   end
 
   nameservers = parse_config_file('/etc/resolv.conf',
-                                  { comment_char: '#' }).params.keys.grep(/nameserver/)
+    { comment_char: '#' }).params.keys.grep(/nameserver/)
 
   if dns_in_host_line
     describe "The system's nameservers: #{nameservers}" do
