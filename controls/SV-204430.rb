@@ -5,7 +5,6 @@ control 'SV-204430' do
     authorization.
     When operating systems provide the capability to escalate a functional capability, it is critical the user
     reauthenticate.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system requires users to reauthenticate for privilege escalation.
     Check the configuration of the "/etc/sudoers" and "/etc/sudoers.d/*" files with the following command:
     # grep -i authenticate /etc/sudoers /etc/sudoers.d/*
@@ -18,19 +17,18 @@ control 'SV-204430' do
     # grep -i authenticate /etc/sudoers /etc/sudoers.d/*
     Remove any occurrences of "!authenticate" tags in the file(s).'
   impact 0.5
-  tag 'legacy': ['V-71949', 'SV-86573']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000373-GPOS-00156'
-  tag 'satisfies': ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157',
-                    'SRG-OS-000373-GPOS-00158']
-  tag 'gid': 'V-204430'
-  tag 'rid': 'SV-204430r603261_rule'
-  tag 'stig_id': 'RHEL-07-010350'
-  tag 'fix_id': 'F-4554r88483_fix'
-  tag 'cci': ['CCI-002038']
+  tag legacy: ['V-71949', 'SV-86573']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000373-GPOS-00156'
+  tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']
+  tag gid: 'V-204430'
+  tag rid: 'SV-204430r603261_rule'
+  tag stig_id: 'RHEL-07-010350'
+  tag fix_id: 'F-4554r88483_fix'
+  tag cci: ['CCI-002038']
   tag nist: ['IA-11']
   tag subsystems: ['sudo']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker') && !command('sudo').exist?
     impact 0.0

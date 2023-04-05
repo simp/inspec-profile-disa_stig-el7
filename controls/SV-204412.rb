@@ -7,7 +7,6 @@ control 'SV-204412' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  desc 'rationale', ''
   desc 'check', 'The "minclass" option sets the minimum number of required classes of characters for the new password
     (digits, upper-case, lower-case, others).
     Check for the value of the "minclass" option in "/etc/security/pwquality.conf" with the following command:
@@ -19,17 +18,18 @@ control 'SV-204412' do
     Add the following line to "/etc/security/pwquality.conf conf" (or modify the line to have the required value):
     minclass = 4'
   impact 0.5
-  tag 'legacy': ['V-71913', 'SV-86537']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
-  tag 'gid': 'V-204412'
-  tag 'rid': 'SV-204412r603261_rule'
-  tag 'stig_id': 'RHEL-07-010170'
-  tag 'fix_id': 'F-4536r88429_fix'
-  tag 'cci': ['CCI-000195']
+  tag legacy: ['V-71913', 'SV-86537']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000072-GPOS-00040'
+  tag gid: 'V-204412'
+  tag rid: 'SV-204412r603261_rule'
+  tag stig_id: 'RHEL-07-010170'
+  tag fix_id: 'F-4536r88429_fix'
+  tag cci: ['CCI-000195']
   tag nist: ['IA-5 (1) (b)']
   tag subsystems: ['pwquality', 'password']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('minclass') { should cmp input('expected_minclass') }

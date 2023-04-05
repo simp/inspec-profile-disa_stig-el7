@@ -6,7 +6,6 @@ control 'SV-204618' do
     IDs, passwords, and key exchanges between systems.
     If the system is being used to perform a network troubleshooting function, the use of these tools must be documented
     with the Information System Security Officer (ISSO) and restricted to only authorized personnel.'
-  desc 'rationale', ''
   desc 'check', 'Verify network interfaces are not in promiscuous mode unless approved by the ISSO and documented.
     Check for the status with the following command:
     # ip link | grep -i promisc
@@ -16,17 +15,18 @@ control 'SV-204618' do
     Set the promiscuous mode of an interface to off with the following command:
     #ip link set dev <devicename> multicast off promisc off'
   impact 0.5
-  tag 'legacy': ['V-72295', 'SV-86919']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204618'
-  tag 'rid': 'SV-204618r603261_rule'
-  tag 'stig_id': 'RHEL-07-040670'
-  tag 'fix_id': 'F-4742r89047_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['V-72295', 'SV-86919']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204618'
+  tag rid: 'SV-204618r603261_rule'
+  tag stig_id: 'RHEL-07-040670'
+  tag fix_id: 'F-4742r89047_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['network', 'ip_link']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe command('ip link | grep -i promisc') do
     its('stdout.strip') { should match(/^$/) }

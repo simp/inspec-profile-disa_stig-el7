@@ -7,7 +7,6 @@ control 'SV-204404' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system initiates a session lock a for graphical user interfaces when the
     screensaver is activated.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable. The screen program must be
@@ -29,18 +28,18 @@ control 'SV-204404' do
     Update the system databases:
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
-  impact 0.5
-  tag 'legacy': ['V-71901', 'SV-86525']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
-  tag 'gid': 'V-204404'
-  tag 'rid': 'SV-204404r603261_rule'
-  tag 'stig_id': 'RHEL-07-010110'
-  tag 'fix_id': 'F-4528r88405_fix'
-  tag 'cci': ['CCI-000057']
+  impact 0.0
+  tag legacy: ['V-71901', 'SV-86525']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-204404'
+  tag rid: 'SV-204404r603261_rule'
+  tag stig_id: 'RHEL-07-010110'
+  tag fix_id: 'F-4528r88405_fix'
+  tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
   tag subsystems: ['gui', 'screensaver', 'lock', 'session']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

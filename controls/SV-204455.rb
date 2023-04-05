@@ -6,7 +6,6 @@ control 'SV-204455' do
     loss of availability of systems due to unintentional reboot. In the GNOME graphical environment, risk of
     unintentional reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any
     action is taken.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system is not configured to reboot the system when Ctrl-Alt-Delete is pressed.
     Check that the ctrl-alt-del.target is masked and not active with the following command:
     # systemctl status ctrl-alt-del.target
@@ -19,17 +18,17 @@ control 'SV-204455' do
     command:
     # systemctl mask ctrl-alt-del.target'
   impact 0.7
-  tag 'legacy': ['SV-86617', 'V-71993']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204455'
-  tag 'rid': 'SV-204455r603261_rule'
-  tag 'stig_id': 'RHEL-07-020230'
-  tag 'fix_id': 'F-4579r88558_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86617', 'V-71993']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204455'
+  tag rid: 'SV-204455r603261_rule'
+  tag stig_id: 'RHEL-07-020230'
+  tag fix_id: 'F-4579r88558_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['gui', 'general']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

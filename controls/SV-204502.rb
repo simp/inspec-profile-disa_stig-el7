@@ -9,7 +9,6 @@ control 'SV-204502' do
     Examples of non-essential capabilities include, but are not limited to, games, software packages, tools, and
     demonstration software not related to requirements or providing a wide array of functionality not required for every
     mission, but which cannot be disabled.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system is configured to disable non-essential capabilities. The most secure way
     of ensuring a non-essential capability is disabled is to not have the capability installed.
     The telnet service provides an unencrypted remote access service that does not provide for the confidentiality and
@@ -22,17 +21,18 @@ control 'SV-204502' do
     package from the system with the following command:
     # yum remove telnet-server'
   impact 0.7
-  tag 'legacy': ['V-72077', 'SV-86701']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000095-GPOS-00049'
-  tag 'gid': 'V-204502'
-  tag 'rid': 'SV-204502r603261_rule'
-  tag 'stig_id': 'RHEL-07-021710'
-  tag 'fix_id': 'F-4626r88699_fix'
-  tag 'cci': ['CCI-000381']
+  tag legacy: ['V-72077', 'SV-86701']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000095-GPOS-00049'
+  tag gid: 'V-204502'
+  tag rid: 'SV-204502r603261_rule'
+  tag stig_id: 'RHEL-07-021710'
+  tag fix_id: 'F-4626r88699_fix'
+  tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
   tag subsystems: ['packages']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe package('telnet-server') do
     it { should_not be_installed }

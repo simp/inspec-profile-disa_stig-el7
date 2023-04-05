@@ -4,7 +4,6 @@ control 'SV-204420' do
   desc 'Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed
     periodically. If the operating system does not limit the lifetime of passwords and force users to change their
     passwords, there is the risk that the operating system passwords could be compromised.'
-  desc 'rationale', ''
   desc 'check', 'If passwords are not being used for authentication, this is Not Applicable.
     Verify the operating system enforces a 60-day maximum password lifetime restriction for new user accounts.
     Check for the value of "PASS_MAX_DAYS" in "/etc/login.defs" with the following command:
@@ -15,17 +14,18 @@ control 'SV-204420' do
     Add the following line in "/etc/login.defs" (or modify the line to have the required value):
     PASS_MAX_DAYS     60'
   impact 0.5
-  tag 'legacy': ['V-71929', 'SV-86553']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000076-GPOS-00044'
-  tag 'gid': 'V-204420'
-  tag 'rid': 'SV-204420r603261_rule'
-  tag 'stig_id': 'RHEL-07-010250'
-  tag 'fix_id': 'F-4544r88453_fix'
-  tag 'cci': ['CCI-000199']
+  tag legacy: ['V-71929', 'SV-86553']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000076-GPOS-00044'
+  tag gid: 'V-204420'
+  tag rid: 'SV-204420r603261_rule'
+  tag stig_id: 'RHEL-07-010250'
+  tag fix_id: 'F-4544r88453_fix'
+  tag cci: ['CCI-000199']
   tag nist: ['IA-5 (1) (d)']
   tag subsystems: ['login_defs', 'password']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe login_defs do

@@ -5,7 +5,6 @@ control 'SV-204406' do
     Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing
     and brute-force attacks. "pwquality" enforces complex password construction configuration and has the ability to
     limit brute-force attacks on the system.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules.
     Check for the use of "pwquality" with the following command:
     # cat /etc/pam.d/system-auth | grep pam_pwquality
@@ -17,17 +16,18 @@ control 'SV-204406' do
     password required pam_pwquality.so retry=3
     Note: The value of "retry" should be between "1" and "3".'
   impact 0.5
-  tag 'legacy': ['SV-87811', 'V-73159']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000069-GPOS-00037'
-  tag 'gid': 'V-204406'
-  tag 'rid': 'SV-204406r603261_rule'
-  tag 'stig_id': 'RHEL-07-010119'
-  tag 'fix_id': 'F-4530r88411_fix'
-  tag 'cci': ['CCI-000192']
+  tag legacy: ['SV-87811', 'V-73159']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000069-GPOS-00037'
+  tag gid: 'V-204406'
+  tag rid: 'SV-204406r603261_rule'
+  tag stig_id: 'RHEL-07-010119'
+  tag fix_id: 'F-4530r88411_fix'
+  tag cci: ['CCI-000192']
   tag nist: ['IA-5 (1) (a)']
   tag subsystems: ['pam', 'pwquality', 'password']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe pam('/etc/pam.d/system-auth') do
     its('lines') { should match_pam_rule("password required pam_pwquality.so retry=#{input('retry')}") }

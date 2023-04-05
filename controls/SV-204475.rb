@@ -3,8 +3,7 @@ control 'SV-204475' do
     local interactive users are be group-owned by the users primary group or root.'
   desc "Local initialization files for interactive users are used to configure the user's shell environment upon
     logon. Malicious modification of these files could compromise accounts upon logon."
-  desc 'rationale', ''
-  desc 'check', %q{Verify the local initialization files of all local interactive users are group-owned by that user's
+  desc 'check', %q(Verify the local initialization files of all local interactive users are group-owned by that user's
     primary Group Identifier (GID).
     Check the home directory assignment for all non-privileged users on the system with the following command:
     Note: The example will be for the smithj user, who has a home directory of "/home/smithj" and a primary group of
@@ -21,24 +20,24 @@ control 'SV-204475' do
     -rwxr-xr-x 1 smithj users 497 Jan 6 2007 .login
     -rwxr-xr-x 1 smithj users 886 Jan 6 2007 .something
     If all local interactive user's initialization files are not group-owned by that user's primary GID, this is a
-    finding.}
+    finding.)
   desc 'fix', %q(Change the group owner of a local interactive user's files to the group found in "/etc/passwd" for the
     user. To change the group owner of a local interactive user's home directory, use the following command:
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj", and has a primary group
     of users.
     # chgrp users /home/smithj/.[^.]*)
   impact 0.5
-  tag 'legacy': ['V-72031', 'SV-86655']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204475'
-  tag 'rid': 'SV-204475r603836_rule'
-  tag 'stig_id': 'RHEL-07-020700'
-  tag 'fix_id': 'F-4599r88618_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['V-72031', 'SV-86655']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204475'
+  tag rid: 'SV-204475r603836_rule'
+  tag stig_id: 'RHEL-07-020700'
+  tag fix_id: 'F-4599r88618_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['init_files']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

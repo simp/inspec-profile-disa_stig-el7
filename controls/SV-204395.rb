@@ -22,7 +22,6 @@ control 'SV-204395' do
     monitoring of the content of privileged communications, or work product, related to personal representation or
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the operating system via a command line user logon.
     Check to see if the operating system displays a banner at the command line logon screen with the following command:
@@ -64,18 +63,18 @@ control 'SV-204395' do
     services by attorneys, psychotherapists, or clergy, and their assistants.  Such communications and work product are
     private and confidential.  See User Agreement for details."'
   impact 0.5
-  tag 'legacy': ['V-71863', 'SV-86487']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000023-GPOS-00006'
-  tag 'satisfies': ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007']
-  tag 'gid': 'V-204395'
-  tag 'rid': 'SV-204395r603261_rule'
-  tag 'stig_id': 'RHEL-07-010050'
-  tag 'fix_id': 'F-4519r88378_fix'
-  tag 'cci': ['CCI-000048']
+  tag legacy: ['V-71863', 'SV-86487']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
+  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007']
+  tag gid: 'V-204395'
+  tag rid: 'SV-204395r603261_rule'
+  tag stig_id: 'RHEL-07-010050'
+  tag fix_id: 'F-4519r88378_fix'
+  tag cci: ['CCI-000048']
   tag nist: ['AC-8 a']
   tag subsystems: ['banner', '/etc/issue']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

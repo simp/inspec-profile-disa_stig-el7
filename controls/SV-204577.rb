@@ -13,7 +13,6 @@ control 'SV-204577' do
     organizational requirements, providing only essential capabilities and limiting the use of ports, protocols, and/or
     services to only those required, authorized, and approved to conduct official business or to address authorized
     quality of life issues.'
-  desc 'rationale', ''
   desc 'check', 'Inspect the firewall configuration and running services to verify that it is configured to prohibit
     or restrict the use of functions, ports, protocols, and/or services that are unnecessary or prohibited.
     Check which services are currently active with the following command:
@@ -34,18 +33,19 @@ control 'SV-204577' do
   desc 'fix', "Update the host's firewall settings and/or running services to comply with the PPSM CLSA for the site
     or program and the PPSM CAL."
   impact 0.5
-  tag 'legacy': ['V-72219', 'SV-86843']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000096-GPOS-00050'
-  tag 'satisfies': ['SRG-OS-000096-GPOS-00050', 'SRG-OS-000297-GPOS-00115']
-  tag 'gid': 'V-204577'
-  tag 'rid': 'SV-204577r603261_rule'
-  tag 'stig_id': 'RHEL-07-040100'
-  tag 'fix_id': 'F-4701r88924_fix'
-  tag 'cci': ['CCI-000382', 'CCI-002314']
+  tag legacy: ['V-72219', 'SV-86843']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000096-GPOS-00050'
+  tag satisfies: ['SRG-OS-000096-GPOS-00050', 'SRG-OS-000297-GPOS-00115']
+  tag gid: 'V-204577'
+  tag rid: 'SV-204577r603261_rule'
+  tag stig_id: 'RHEL-07-040100'
+  tag fix_id: 'F-4701r88924_fix'
+  tag cci: ['CCI-000382', 'CCI-002314']
   tag nist: ['CM-7 b', 'AC-17 (1)']
   tag subsystems: ['firewall', 'manual']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   if input('firewall_application_package') != ''
     describe 'Manual review of third-party firewall needed' do

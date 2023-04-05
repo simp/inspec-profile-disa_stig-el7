@@ -5,7 +5,6 @@ control 'SV-204507' do
     Off-loading is a common process in information systems with limited audit storage capacity.
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.  When
     the remote buffer is full, audit logs will not be collected and sent to the central log server.'
-  desc 'rationale', ''
   desc 'check', 'Verify the audisp daemon is configured to take an appropriate action when the internal queue is
     full:
     # grep "overflow_action" /etc/audisp/audispd.conf
@@ -20,18 +19,18 @@ control 'SV-204507' do
     The audit daemon must be restarted for changes to take effect:
     # service auditd restart'
   impact 0.5
-  tag 'legacy': ['V-81019', 'SV-95731']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
-  tag 'satisfies': ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
-  tag 'gid': 'V-204507'
-  tag 'rid': 'SV-204507r603261_rule'
-  tag 'stig_id': 'RHEL-07-030210'
-  tag 'fix_id': 'F-36312r602646_fix'
-  tag 'cci': ['CCI-001851']
+  tag legacy: ['V-81019', 'SV-95731']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
+  tag gid: 'V-204507'
+  tag rid: 'SV-204507r603261_rule'
+  tag stig_id: 'RHEL-07-030210'
+  tag fix_id: 'F-36312r602646_fix'
+  tag cci: ['CCI-001851']
   tag nist: ['AU-4 (1)']
   tag subsystems: ['audit', 'audisp']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

@@ -4,7 +4,6 @@ control 'SV-204516' do
     unauthorized external entities that have compromised information system accounts, is a serious and ongoing concern
     and can have significant adverse impacts on organizations. Auditing the use of privileged functions is one way to
     detect such misuse and identify the risk from insider threats and the advanced persistent threat.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system audits the execution of privileged functions using the following
     command:
     # grep -iw execve /etc/audit/audit.rules
@@ -22,17 +21,17 @@ control 'SV-204516' do
     -a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-72095', 'SV-86719']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000327-GPOS-00127'
-  tag 'gid': 'V-204516'
-  tag 'rid': 'SV-204516r603261_rule'
-  tag 'stig_id': 'RHEL-07-030360'
-  tag 'fix_id': 'F-4640r88741_fix'
-  tag 'cci': ['CCI-002234']
+  tag legacy: ['V-72095', 'SV-86719']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000327-GPOS-00127'
+  tag gid: 'V-204516'
+  tag rid: 'SV-204516r603261_rule'
+  tag stig_id: 'RHEL-07-030360'
+  tag fix_id: 'F-4640r88741_fix'
+  tag cci: ['CCI-002234']
   tag nist: ['AC-6 (9)']
   tag subsystems: ['audit', 'auditd', 'audit_rule']
-  tag 'host'
+  tag host: nil
 
   audit_syscalls = ['execve']
 

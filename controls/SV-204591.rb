@@ -3,7 +3,6 @@ control 'SV-204591' do
     logon upon an SSH logon.'
   desc 'Providing users with feedback on when account accesses via SSH last occurred facilitates user recognition
     and reporting of unauthorized account use.'
-  desc 'rationale', ''
   desc 'check', 'Verify SSH provides users with feedback on when account accesses last occurred.
     Check that "PrintLastLog" keyword in the sshd daemon configuration file is used and set to "yes" with the following
     command:
@@ -18,17 +17,17 @@ control 'SV-204591' do
     PrintLastLog yes
     The SSH service must be restarted for changes to "sshd_config" to take effect.'
   impact 0.5
-  tag 'legacy': ['V-72245', 'SV-86869']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204591'
-  tag 'rid': 'SV-204591r603261_rule'
-  tag 'stig_id': 'RHEL-07-040360'
-  tag 'fix_id': 'F-4715r88966_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['V-72245', 'SV-86869']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204591'
+  tag rid: 'SV-204591r603261_rule'
+  tag stig_id: 'RHEL-07-040360'
+  tag fix_id: 'F-4715r88966_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['pam', 'ssh', 'lastlog']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0

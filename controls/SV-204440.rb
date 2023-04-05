@@ -5,7 +5,6 @@ control 'SV-204440' do
     anyone who invokes single-user or maintenance mode is granted privileged access to all files on the system. GRUB 2
     is the default boot loader for RHEL 7 and is designed to require a password to boot into single-user mode or make
     modifications to the boot menu.'
-  desc 'rationale', ''
   desc 'check', 'For systems that use BIOS, this is Not Applicable.
     For systems that are running a version of RHEL prior to 7.2, this is Not Applicable.
     Check to see if an encrypted grub superusers password is set. On systems that use UEFI, use the following command:
@@ -18,18 +17,18 @@ control 'SV-204440' do
     $ sudo grub2-setpassword
     Enter password:
     Confirm password:'
-  impact 0.7
-  tag 'legacy': ['SV-95719', 'V-81007']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000080-GPOS-00048'
-  tag 'gid': 'V-204440'
-  tag 'rid': 'SV-204440r744098_rule'
-  tag 'stig_id': 'RHEL-07-010491'
-  tag 'fix_id': 'F-4564r744097_fix'
-  tag 'cci': ['CCI-000213']
+  impact 0.0
+  tag legacy: ['SV-95719', 'V-81007']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000080-GPOS-00048'
+  tag gid: 'V-204440'
+  tag rid: 'SV-204440r744098_rule'
+  tag stig_id: 'RHEL-07-010491'
+  tag fix_id: 'F-4564r744097_fix'
+  tag cci: ['CCI-000213']
   tag nist: ['AC-3']
   tag subsystems: ['boot', 'uefi']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

@@ -3,7 +3,6 @@ control 'SV-204623' do
     Protocol (TFTP) server is required, the TFTP daemon is configured to operate in secure mode.'
   desc 'Restricting TFTP to a specific directory prevents remote users from copying, transferring, or overwriting
     system files.'
-  desc 'rationale', ''
   desc 'check', 'Verify the TFTP daemon is configured to operate in secure mode.
     Check to see if a TFTP server has been installed with the following commands:
     # yum list installed tftp-server
@@ -16,17 +15,19 @@ control 'SV-204623' do
   desc 'fix', 'Configure the TFTP daemon to operate in secure mode by adding the following line to
     "/etc/xinetd.d/tftp" (or modify the line to have the required value):
     server_args = -s /var/lib/tftpboot'
-  tag 'legacy': ['SV-86929', 'V-72305']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204623'
-  tag 'rid': 'SV-204623r603261_rule'
-  tag 'stig_id': 'RHEL-07-040720'
-  tag 'fix_id': 'F-4747r89062_fix'
-  tag 'cci': ['CCI-000366']
+  impact 0.0
+  tag legacy: ['SV-86929', 'V-72305']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204623'
+  tag rid: 'SV-204623r603261_rule'
+  tag stig_id: 'RHEL-07-040720'
+  tag fix_id: 'F-4747r89062_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['tftp']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   if package('tftp-server').installed?
     impact 0.5

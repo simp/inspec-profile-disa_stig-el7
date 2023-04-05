@@ -3,7 +3,6 @@ control 'SV-204461' do
     referenced in the /etc/passwd file are defined in the /etc/group file.'
   desc 'If a user is assigned the GID of a group not existing on the system, and a group with the GID is
     subsequently created, the user may have unintended rights to any files associated with the group.'
-  desc 'rationale', ''
   desc 'check', 'Verify all GIDs referenced in the "/etc/passwd" file are defined in the "/etc/group" file.
     Check that all referenced GIDs exist with the following command:
     # pwck -r
@@ -12,17 +11,18 @@ control 'SV-204461' do
     file to add any non-existent group referenced in the "/etc/passwd" file, or change the GIDs referenced in the
     "/etc/passwd" file to a group that exists in "/etc/group".'
   impact 0.3
-  tag 'legacy': ['V-72003', 'SV-86627']
-  tag 'severity': 'low'
-  tag 'gtitle': 'SRG-OS-000104-GPOS-00051'
-  tag 'gid': 'V-204461'
-  tag 'rid': 'SV-204461r603261_rule'
-  tag 'stig_id': 'RHEL-07-020300'
-  tag 'fix_id': 'F-4585r88576_fix'
-  tag 'cci': ['CCI-000764']
+  tag legacy: ['V-72003', 'SV-86627']
+  tag severity: 'low'
+  tag gtitle: 'SRG-OS-000104-GPOS-00051'
+  tag gid: 'V-204461'
+  tag rid: 'SV-204461r603261_rule'
+  tag stig_id: 'RHEL-07-020300'
+  tag fix_id: 'F-4585r88576_fix'
+  tag cci: ['CCI-000764']
   tag nist: ['IA-2']
   tag subsystems: ['accounts']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe 'All group identifiers in /etc/passwd' do
     it 'should be defined in /etc/groups' do

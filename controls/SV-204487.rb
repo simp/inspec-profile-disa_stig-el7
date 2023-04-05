@@ -6,7 +6,6 @@ control 'SV-204487' do
     The only authorized public directories are those temporary directories supplied with the system or those designed to
     be temporary file repositories. The setting is normally reserved for directories used by the system and by users for
     temporary file storage, (e.g., /tmp), and for directories requiring global read/write access.'
-  desc 'rationale', ''
   desc 'check', 'The following command will discover and print world-writable directories that are not group-owned by
     a system account, assuming only system accounts have a GID lower than 1000. Run it once for each local partition
     [PART]:
@@ -16,17 +15,17 @@ control 'SV-204487' do
     system account. If any world-writable directories are not group-owned by a system account, this should be
     investigated. Following this, the directories should be deleted or assigned to an appropriate group.'
   impact 0.5
-  tag 'legacy': ['V-72047', 'SV-86671']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204487'
-  tag 'rid': 'SV-204487r744106_rule'
-  tag 'stig_id': 'RHEL-07-021030'
-  tag 'fix_id': 'F-36308r602634_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['V-72047', 'SV-86671']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204487'
+  tag rid: 'SV-204487r744106_rule'
+  tag stig_id: 'RHEL-07-021030'
+  tag fix_id: 'F-36308r602634_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['world_writable', 'ww_dirs']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

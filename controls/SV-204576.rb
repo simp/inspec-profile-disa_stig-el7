@@ -7,7 +7,6 @@ control 'SV-204576' do
     This requirement addresses concurrent sessions for information system accounts and does not address concurrent
     sessions by single users via multiple system accounts. The maximum number of concurrent sessions should be defined
     based on mission needs and the operational environment for each system.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system limits the number of concurrent sessions to "10" for all accounts and/or
     account types by issuing the following command:
     # grep "maxlogins" /etc/security/limits.conf /etc/security/limits.d/*.conf
@@ -21,17 +20,18 @@ control 'SV-204576' do
     /etc/security/limits.d/ :
     * hard maxlogins 10'
   impact 0.3
-  tag 'legacy': ['V-72217', 'SV-86841']
-  tag 'severity': 'low'
-  tag 'gtitle': 'SRG-OS-000027-GPOS-00008'
-  tag 'gid': 'V-204576'
-  tag 'rid': 'SV-204576r603261_rule'
-  tag 'stig_id': 'RHEL-07-040000'
-  tag 'fix_id': 'F-4700r88921_fix'
-  tag 'cci': ['CCI-000054']
+  tag legacy: ['V-72217', 'SV-86841']
+  tag severity: 'low'
+  tag gtitle: 'SRG-OS-000027-GPOS-00008'
+  tag gid: 'V-204576'
+  tag rid: 'SV-204576r603261_rule'
+  tag stig_id: 'RHEL-07-040000'
+  tag fix_id: 'F-4700r88921_fix'
+  tag cci: ['CCI-000054']
   tag nist: ['AC-10']
   tag subsystems: ['session']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   maxlogins_limit = input('expected_maxlogins_limit')
 

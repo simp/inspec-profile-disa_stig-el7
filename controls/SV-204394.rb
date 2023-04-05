@@ -21,8 +21,7 @@ control 'SV-204394' do
     monitoring of the content of privileged communications, or work product, related to personal representation or
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
-  desc 'rationale', ''
-  desc 'check', %q{Verify the operating system displays the approved Standard Mandatory DoD Notice and Consent Banner
+  desc 'check', %q(Verify the operating system displays the approved Standard Mandatory DoD Notice and Consent Banner
     before granting access to the operating system via a graphical user logon.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Check that the operating system displays the exact approved Standard Mandatory DoD Notice and Consent Banner text
@@ -42,8 +41,8 @@ control 'SV-204394' do
     representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and
     work product are private and confidential. See User Agreement for details. '
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
-    If the banner does not match the approved Standard Mandatory DoD Notice and Consent Banner, this is a finding.}
-  desc 'fix', %q{Configure the operating system to display the approved Standard Mandatory DoD Notice and Consent
+    If the banner does not match the approved Standard Mandatory DoD Notice and Consent Banner, this is a finding.)
+  desc 'fix', %q(Configure the operating system to display the approved Standard Mandatory DoD Notice and Consent
     Banner before granting access to the system.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
     Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the
@@ -66,21 +65,20 @@ control 'SV-204394' do
     communications and work product are private and confidential. See User Agreement for details. '
     Note: The "\n " characters are for formatting only. They will not be displayed on the Graphical User Interface.
     Run the following command to update the database:
-    # dconf update}
-  impact 0.5
-  tag 'legacy': ['V-71861', 'SV-86485']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000023-GPOS-00006'
-  tag 'satisfies': ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
-                    'SRG-OS-000228-GPOS-00088']
-  tag 'gid': 'V-204394'
-  tag 'rid': 'SV-204394r603261_rule'
-  tag 'stig_id': 'RHEL-07-010040'
-  tag 'fix_id': 'F-4518r297479_fix'
-  tag 'cci': ['CCI-000048']
+    # dconf update)
+  impact 0.0
+  tag legacy: ['V-71861', 'SV-86485']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
+  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007', 'SRG-OS-000228-GPOS-00088']
+  tag gid: 'V-204394'
+  tag rid: 'SV-204394r603261_rule'
+  tag stig_id: 'RHEL-07-010040'
+  tag fix_id: 'F-4518r297479_fix'
+  tag cci: ['CCI-000048']
   tag nist: ['AC-8 a']
   tag subsystems: ['gdm']
-  tag 'host'
+  tag host: nil
 
   if package('gnome-desktop3').installed?
     # Get all files that have the banner-message-text specified.

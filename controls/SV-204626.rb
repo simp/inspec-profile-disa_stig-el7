@@ -5,7 +5,6 @@ control 'SV-204626' do
     requests from the remote user. The userid and groupid could mistakenly or maliciously be set incorrectly. The
     RPCSEC_GSS method of authentication uses certificates on the server and client systems to more securely authenticate
     the remote mount request.'
-  desc 'rationale', ''
   desc 'check', 'Verify "AUTH_GSS" is being used to authenticate NFS mounts.
     To check if the system is importing an NFS file system, look for any entries in the "/etc/fstab" file that have a
     file system type of "nfs" with the following command:
@@ -17,17 +16,18 @@ control 'SV-204626' do
     "sec" option does not have the "sys" setting.
     Ensure the "sec" option is defined as "krb5:krb5i:krb5p".'
   impact 0.5
-  tag 'legacy': ['SV-86935', 'V-72311']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204626'
-  tag 'rid': 'SV-204626r603261_rule'
-  tag 'stig_id': 'RHEL-07-040750'
-  tag 'fix_id': 'F-4750r89071_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86935', 'V-72311']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204626'
+  tag rid: 'SV-204626r603261_rule'
+  tag stig_id: 'RHEL-07-040750'
+  tag fix_id: 'F-4750r89071_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['nfs', 'etc_fstab']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   nfs_systems = etc_fstab.nfs_file_systems.entries
   if !nfs_systems.nil? and !nfs_systems.empty?

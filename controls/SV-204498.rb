@@ -3,7 +3,6 @@ control 'SV-204498' do
     configured to verify Access Control Lists (ACLs).'
   desc 'ACLs can provide permissions beyond those permitted through the file mode and must be verified by file
     integrity tools.'
-  desc 'rationale', ''
   desc 'check', 'Verify the file integrity tool is configured to verify ACLs.
     Check to see if Advanced Intrusion Detection Environment (AIDE) is installed on the system with the following
     command:
@@ -25,17 +24,18 @@ control 'SV-204498' do
   desc 'fix', 'Configure the file integrity tool to check file and directory ACLs.
     If AIDE is installed, ensure the "acl" rule is present on all uncommented file and directory selection lists.'
   impact 0.3
-  tag 'legacy': ['SV-86693', 'V-72069']
-  tag 'severity': 'low'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204498'
-  tag 'rid': 'SV-204498r603261_rule'
-  tag 'stig_id': 'RHEL-07-021600'
-  tag 'fix_id': 'F-4622r88687_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86693', 'V-72069']
+  tag severity: 'low'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204498'
+  tag rid: 'SV-204498r603261_rule'
+  tag stig_id: 'RHEL-07-021600'
+  tag fix_id: 'F-4622r88687_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['file_integrity_tool']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   file_integrity_tool = input('file_integrity_tool')
 

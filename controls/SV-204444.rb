@@ -7,7 +7,6 @@ control 'SV-204444' do
     administering cryptographic key management activities. Non-privileged users are individuals who do not possess
     appropriate authorizations. Circumventing intrusion detection and prevention mechanisms or malicious code protection
     mechanisms are examples of privileged functions that require protection from non-privileged users.'
-  desc 'rationale', ''
   desc 'check', 'Note: Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL)
     in conjunction with SELinux.
     Verify the operating system prevents non-privileged users from executing privileged functions to include disabling,
@@ -39,17 +38,17 @@ control 'SV-204444' do
     Use the following command to map an existing user to the "user_u" SELinux user:
     $ sudo semanage login -m -s user_u <username>'
   impact 0.5
-  tag 'legacy': ['SV-86595', 'V-71971']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000324-GPOS-00125'
-  tag 'gid': 'V-204444'
-  tag 'rid': 'SV-204444r792826_rule'
-  tag 'stig_id': 'RHEL-07-020020'
-  tag 'fix_id': 'F-4568r792825_fix'
-  tag 'cci': ['CCI-002165', 'CCI-002235']
+  tag legacy: ['SV-86595', 'V-71971']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000324-GPOS-00125'
+  tag gid: 'V-204444'
+  tag rid: 'SV-204444r792826_rule'
+  tag stig_id: 'RHEL-07-020020'
+  tag fix_id: 'F-4568r792825_fix'
+  tag cci: ['CCI-002165', 'CCI-002235']
   tag nist: ['AC-3 (4)', 'AC-6 (10)']
   tag subsystems: ['selinux']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

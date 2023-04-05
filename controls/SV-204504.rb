@@ -11,7 +11,6 @@ control 'SV-204504' do
     This requirement applies to each audit data storage repository (i.e., distinct information system component where
     audit records are stored), the centralized audit storage capacity of organizations (i.e., all audit data storage
     repositories combined), or both.'
-  desc 'rationale', ''
   desc 'check', 'Confirm the audit configuration regarding how auditing processing failures are handled.
     Check to see what level "auditctl" is set to with following command:
     # auditctl -s | grep -i "fail"
@@ -36,18 +35,19 @@ control 'SV-204504' do
     -f 1
     Kernel log monitoring must also be configured to properly alert designated staff.
     The audit daemon must be restarted for the changes to take effect.'
-  tag 'legacy': ['V-72081', 'SV-86705']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000046-GPOS-00022'
-  tag 'satisfies': ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000047-GPOS-00023']
-  tag 'gid': 'V-204504'
-  tag 'rid': 'SV-204504r603261_rule'
-  tag 'stig_id': 'RHEL-07-030010'
-  tag 'fix_id': 'F-4628r462467_fix'
-  tag 'cci': ['CCI-000139']
+  impact 0.5
+  tag legacy: ['V-72081', 'SV-86705']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000046-GPOS-00022'
+  tag satisfies: ['SRG-OS-000046-GPOS-00022', 'SRG-OS-000047-GPOS-00023']
+  tag gid: 'V-204504'
+  tag rid: 'SV-204504r603261_rule'
+  tag stig_id: 'RHEL-07-030010'
+  tag fix_id: 'F-4628r462467_fix'
+  tag cci: ['CCI-000139']
   tag nist: ['AU-5 a']
   tag subsystems: ['audit', 'auditd']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

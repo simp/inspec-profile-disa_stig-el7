@@ -6,7 +6,6 @@ control 'SV-204566' do
     responsible for one.
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system must generate audit records for all account creations, modifications,
     disabling, and termination events that affect "/etc/gshadow".
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
@@ -18,17 +17,18 @@ control 'SV-204566' do
     Add or update the following rule in "/etc/audit/rules.d/audit.rules":
     -w /etc/gshadow -p wa -k identity
     The audit daemon must be restarted for the changes to take effect.'
-  tag 'legacy': ['SV-87819', 'V-73167']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000004-GPOS-00004'
-  tag 'gid': 'V-204566'
-  tag 'rid': 'SV-204566r603261_rule'
-  tag 'stig_id': 'RHEL-07-030872'
-  tag 'fix_id': 'F-4690r88891_fix'
-  tag 'cci': ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']
+  impact 0.5
+  tag legacy: ['SV-87819', 'V-73167']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000004-GPOS-00004'
+  tag gid: 'V-204566'
+  tag rid: 'SV-204566r603261_rule'
+  tag stig_id: 'RHEL-07-030872'
+  tag fix_id: 'F-4690r88891_fix'
+  tag cci: ['CCI-000018', 'CCI-000172', 'CCI-001403', 'CCI-002130']
   tag nist: ['AC-2 (4)', 'AU-12 c', 'AC-2 (4)', 'AC-2 (4)']
   tag subsystems: ['audit', 'auditd', 'audit_rule']
-  tag 'host'
+  tag host: nil
 
   audit_command = '/etc/gshadow'
 

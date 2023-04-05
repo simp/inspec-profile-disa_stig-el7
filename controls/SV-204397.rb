@@ -6,7 +6,6 @@ control 'SV-204397' do
     Multifactor solutions that require devices separate from information systems gaining access include, for example,
     hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S.
     Government Personal Identity Verification card and the DoD Common Access Card.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system uniquely identifies and authenticates users using multifactor
     authentication via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
@@ -30,18 +29,19 @@ control 'SV-204397' do
     enable-smartcard-authentication=true
     Update the system databases:
     # dconf update'
-  tag 'legacy': ['V-77819', 'SV-92515']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000375-GPOS-00160'
-  tag 'satisfies': ['SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
-  tag 'gid': 'V-204397'
-  tag 'rid': 'SV-204397r603261_rule'
-  tag 'stig_id': 'RHEL-07-010061'
-  tag 'fix_id': 'F-4521r88384_fix'
-  tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
+  impact 0.0
+  tag legacy: ['V-77819', 'SV-92515']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: ['SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
+  tag gid: 'V-204397'
+  tag rid: 'SV-204397r603261_rule'
+  tag stig_id: 'RHEL-07-010061'
+  tag fix_id: 'F-4521r88384_fix'
+  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
   tag subsystems: ['gui']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

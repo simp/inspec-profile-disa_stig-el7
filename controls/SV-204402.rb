@@ -7,7 +7,6 @@ control 'SV-204402' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system initiates a session lock after a 15-minute period of inactivity for
     graphical user interfaces. The screen program must be installed to lock sessions on the console.
     Note: If the system does not have a Graphical User Interface installed, this requirement is Not Applicable.
@@ -26,18 +25,18 @@ control 'SV-204402' do
     Update the system databases:
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
-  impact 0.5
-  tag 'legacy': ['V-71899', 'SV-86523']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
-  tag 'gid': 'V-204402'
-  tag 'rid': 'SV-204402r603261_rule'
-  tag 'stig_id': 'RHEL-07-010100'
-  tag 'fix_id': 'F-4526r88399_fix'
-  tag 'cci': ['CCI-000057']
+  impact 0.0
+  tag legacy: ['V-71899', 'SV-86523']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-204402'
+  tag rid: 'SV-204402r603261_rule'
+  tag stig_id: 'RHEL-07-010100'
+  tag fix_id: 'F-4526r88399_fix'
+  tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
   tag subsystems: ['gui', 'session', 'lock']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

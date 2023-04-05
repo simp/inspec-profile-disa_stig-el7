@@ -14,15 +14,13 @@ control 'SV-204633' do
     This requirement only applies to components where this is specific to the function of the device or has the concept
     of an organizational user (e.g., VPN, proxy capability). This does not apply to authentication for the purpose of
     configuring the device itself (management).'
-  desc  'rationale', ''
-  desc  'check', "
-    Verify the operating system implements certificate status checking for PKI
+  desc 'check', 'Verify the operating system implements certificate status checking for PKI
 authentication.
 
     Check to see if Online Certificate Status Protocol (OCSP) is enabled on the
 system with the following command:
 
-    # grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | grep -v \"^#\"
+    # grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | grep -v "^#"
 
     cert_policy = ca, ocsp_on, signature;
     cert_policy = ca, ocsp_on, signature;
@@ -30,28 +28,26 @@ system with the following command:
 
     There should be at least three lines returned.
 
-    If \"ocsp_on\" is not present in all uncommented \"cert_policy\" lines in
-\"/etc/pam_pkcs11/pam_pkcs11.conf\", this is a finding.
-  "
-  desc 'fix', "
-    Configure the operating system to do certificate status checking for PKI
+    If "ocsp_on" is not present in all uncommented "cert_policy" lines in
+"/etc/pam_pkcs11/pam_pkcs11.conf", this is a finding.'
+  desc 'fix', 'Configure the operating system to do certificate status checking for PKI
 authentication.
 
-    Modify all of the \"cert_policy\" lines in
-\"/etc/pam_pkcs11/pam_pkcs11.conf\" to include \"ocsp_on\".
-  "
-  tag 'legacy': ['V-72433', 'SV-87057']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000375-GPOS-00160'
-  tag 'satisfies': ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
-  tag 'gid': 'V-204633'
-  tag 'rid': 'SV-204633r603261_rule'
-  tag 'stig_id': 'RHEL-07-041003'
-  tag 'fix_id': 'F-4757r89092_fix'
-  tag 'cci': ['CCI-001948', 'CCI-001953', 'CCI-001954']
+    Modify all of the "cert_policy" lines in
+"/etc/pam_pkcs11/pam_pkcs11.conf" to include "ocsp_on".'
+  impact 0.5
+  tag legacy: ['V-72433', 'SV-87057']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000375-GPOS-00160'
+  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000375-GPOS-00161', 'SRG-OS-000375-GPOS-00162']
+  tag gid: 'V-204633'
+  tag rid: 'SV-204633r603261_rule'
+  tag stig_id: 'RHEL-07-041003'
+  tag fix_id: 'F-4757r89092_fix'
+  tag cci: ['CCI-001948', 'CCI-001953', 'CCI-001954']
   tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (12)']
   tag subsystems: ['pam_pkcs11', 'pam', 'pkcs11']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

@@ -3,7 +3,6 @@ control 'SV-204495' do
     path.'
   desc 'The use of separate file systems for different paths can protect the system from failures resulting from a
     file system becoming full or failing.'
-  desc 'rationale', ''
   desc 'check', 'Determine if the operating system is configured to have the "/var/log/audit" path is on a separate
     file system.
     # grep /var/log/audit /etc/fstab
@@ -14,17 +13,17 @@ control 'SV-204495' do
     If no result is returned, or "/var/log/audit" is not on a separate file system, this is a finding.'
   desc 'fix', 'Migrate the system audit data path onto a separate file system.'
   impact 0.3
-  tag 'legacy': ['SV-86687', 'V-72063']
-  tag 'severity': 'low'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204495'
-  tag 'rid': 'SV-204495r603261_rule'
-  tag 'stig_id': 'RHEL-07-021330'
-  tag 'fix_id': 'F-4619r88678_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86687', 'V-72063']
+  tag severity: 'low'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204495'
+  tag rid: 'SV-204495r603261_rule'
+  tag stig_id: 'RHEL-07-021330'
+  tag fix_id: 'F-4619r88678_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['file_system', 'audit']
-  tag 'host'
+  tag host: nil
 
   audit_data_path = command("dirname #{auditd_conf.log_file}").stdout.strip
 

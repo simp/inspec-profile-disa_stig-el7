@@ -6,7 +6,6 @@ control 'SV-204634' do
     access point (AP), allowing validated systems to connect to the malicious AP and enabling the attacker to monitor
     and record network traffic. These malicious APs can also serve to create a man-in-the-middle attack or be used to
     create a denial of service to valid network resources."
-  desc 'rationale', ''
   desc 'check', 'Verify that there are no wireless interfaces configured on the system.
     This is N/A for systems that do not have wireless network adapters.
     Check for the presence of active wireless interfaces with the following command:
@@ -20,17 +19,18 @@ control 'SV-204634' do
   desc 'fix', 'Configure the system to disable all wireless network interfaces with the following command:
     #nmcli radio wifi off'
   impact 0.5
-  tag 'legacy': ['V-73177', 'SV-87829']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000424-GPOS-00188'
-  tag 'gid': 'V-204634'
-  tag 'rid': 'SV-204634r603261_rule'
-  tag 'stig_id': 'RHEL-07-041010'
-  tag 'fix_id': 'F-4758r89095_fix'
-  tag 'cci': ['CCI-001443', 'CCI-001444', 'CCI-002418']
+  tag legacy: ['V-73177', 'SV-87829']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000424-GPOS-00188'
+  tag gid: 'V-204634'
+  tag rid: 'SV-204634r603261_rule'
+  tag stig_id: 'RHEL-07-041010'
+  tag fix_id: 'F-4758r89095_fix'
+  tag cci: ['CCI-001443', 'CCI-001444', 'CCI-002418']
   tag nist: ['AC-18 (1)', 'AC-18 (1)', 'SC-8']
   tag subsystems: ['network', 'wifi', 'nmcli']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe command('nmcli device') do
     its('stdout.strip') { should_not match(/wifi connected/) }

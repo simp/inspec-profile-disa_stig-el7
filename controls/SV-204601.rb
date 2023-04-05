@@ -3,7 +3,6 @@ control 'SV-204601' do
     separation.'
   desc 'SSH daemon privilege separation causes the SSH process to drop root privileges when not needed, which would
     decrease the impact of software vulnerabilities in the unprivileged section.'
-  desc 'rationale', ''
   desc 'check', 'Verify the SSH daemon performs privilege separation.
     Check that the SSH daemon performs privilege separation with the following command:
     # grep -i usepriv /etc/ssh/sshd_config
@@ -16,17 +15,17 @@ control 'SV-204601' do
     UsePrivilegeSeparation sandbox
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  tag 'legacy': ['SV-86889', 'V-72265']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204601'
-  tag 'rid': 'SV-204601r603261_rule'
-  tag 'stig_id': 'RHEL-07-040460'
-  tag 'fix_id': 'F-4725r88996_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86889', 'V-72265']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204601'
+  tag rid: 'SV-204601r603261_rule'
+  tag stig_id: 'RHEL-07-040460'
+  tag fix_id: 'F-4725r88996_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['ssh']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0

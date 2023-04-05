@@ -2,7 +2,6 @@ control 'SV-204574' do
   title 'The Red Hat Enterprise Linux operating system must send rsyslog output to a log aggregation server.'
   desc 'Sending rsyslog output to another system ensures that the logs cannot be removed or modified in the event
     that the system is compromised or has a hardware failure.'
-  desc 'rationale', ''
   desc 'check', 'Verify "rsyslog" is configured to send all messages to a log aggregation server.
     Check the configuration of "rsyslog" with the following command:
     Note: If another logging package is used, substitute the utility configuration file for "/etc/rsyslog.conf".
@@ -17,17 +16,17 @@ control 'SV-204574' do
     send all "rsyslog" output to a log aggregation system:
     *.* @@<log aggregation system name>'
   impact 0.5
-  tag 'legacy': ['SV-86833', 'V-72209']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204574'
-  tag 'rid': 'SV-204574r603261_rule'
-  tag 'stig_id': 'RHEL-07-031000'
-  tag 'fix_id': 'F-4698r88915_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86833', 'V-72209']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204574'
+  tag rid: 'SV-204574r603261_rule'
+  tag stig_id: 'RHEL-07-031000'
+  tag fix_id: 'F-4698r88915_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['rsyslog']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

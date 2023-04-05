@@ -5,7 +5,6 @@ control 'SV-204515' do
   desc 'If security personnel are not notified immediately when the threshold for the repository maximum audit
     record storage capacity is reached, they are unable to expand the audit record storage capacity before records are
     lost.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system immediately notifies the SA and ISSO (at a minimum) via email when the
     threshold for the repository maximum audit record storage capacity is reached.
     Check what account the operating system emails when the threshold for the repository maximum audit record storage
@@ -20,17 +19,17 @@ control 'SV-204515' do
     accounts associated with security personnel.
     action_mail_acct = root'
   impact 0.5
-  tag 'legacy': ['V-72093', 'SV-86717']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000343-GPOS-00134'
-  tag 'gid': 'V-204515'
-  tag 'rid': 'SV-204515r603261_rule'
-  tag 'stig_id': 'RHEL-07-030350'
-  tag 'fix_id': 'F-4639r88738_fix'
-  tag 'cci': ['CCI-001855']
+  tag legacy: ['V-72093', 'SV-86717']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000343-GPOS-00134'
+  tag gid: 'V-204515'
+  tag rid: 'SV-204515r603261_rule'
+  tag stig_id: 'RHEL-07-030350'
+  tag fix_id: 'F-4639r88738_fix'
+  tag cci: ['CCI-001855']
   tag nist: ['AU-5 (1)']
   tag subsystems: ['audit', 'auditd']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

@@ -5,7 +5,6 @@ control 'SV-204419' do
     reuse or history enforcement requirement. If users are allowed to immediately and continually change their password,
     the password could be repeatedly changed in a short period of time to defeat the organization's policy regarding
     password reuse."
-  desc 'rationale', ''
   desc 'check', %q(Check whether the minimum time period between password changes for each user account is one day or
     greater.
     # awk -F: '$4 < 1 {print $1 " " $4}' /etc/shadow
@@ -13,17 +12,17 @@ control 'SV-204419' do
   desc 'fix', 'Configure non-compliant accounts to enforce a 24 hours/1 day minimum password lifetime:
     # chage -m 1 [user]'
   impact 0.5
-  tag 'legacy': ['SV-86551', 'V-71927']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000075-GPOS-00043'
-  tag 'gid': 'V-204419'
-  tag 'rid': 'SV-204419r603261_rule'
-  tag 'stig_id': 'RHEL-07-010240'
-  tag 'fix_id': 'F-4543r88450_fix'
-  tag 'cci': ['CCI-000198']
+  tag legacy: ['SV-86551', 'V-71927']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000075-GPOS-00043'
+  tag gid: 'V-204419'
+  tag rid: 'SV-204419r603261_rule'
+  tag stig_id: 'RHEL-07-010240'
+  tag fix_id: 'F-4543r88450_fix'
+  tag cci: ['CCI-000198']
   tag nist: ['IA-5 (1) (d)']
   tag subsystems: ['password', '/etc/shadow']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

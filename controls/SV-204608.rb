@@ -4,8 +4,7 @@ control 'SV-204608' do
   desc 'To provide availability for name resolution services, multiple redundant name servers are mandated. A
     failure in name resolution could lead to the failure of security functions requiring name resolution, which may
     include time synchronization, centralized authentication, and remote system logging.'
-  desc 'rationale', ''
-  desc 'check', %q{Determine whether the system is using local or DNS name resolution with the following command:
+  desc 'check', %q(Determine whether the system is using local or DNS name resolution with the following command:
     # grep hosts /etc/nsswitch.conf
     hosts: files dns
     If the DNS entry is missing from the host's line in the "/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must
@@ -25,7 +24,7 @@ control 'SV-204608' do
     # sudo lsattr /etc/resolv.conf
     ----i----------- /etc/resolv.conf
     If the file is mutable and has not been documented with the Information System Security Officer (ISSO), this is a
-    finding.}
+    finding.)
   desc 'fix', 'Configure the operating system to use two or more name servers for DNS resolution.
     Edit the "/etc/resolv.conf" file to uncomment or add the two or more "nameserver" option lines with the IP address
     of local authoritative name servers. If local host resolution is being performed, the "/etc/resolv.conf" file must
@@ -36,17 +35,18 @@ control 'SV-204608' do
     If the "/etc/resolv.conf" file must be mutable, the required configuration must be documented with the Information
     System Security Officer (ISSO) and the file must be verified by the system file integrity tool.'
   impact 0.3
-  tag 'legacy': ['SV-86905', 'V-72281']
-  tag 'severity': 'low'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204608'
-  tag 'rid': 'SV-204608r603261_rule'
-  tag 'stig_id': 'RHEL-07-040600'
-  tag 'fix_id': 'F-4732r89017_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86905', 'V-72281']
+  tag severity: 'low'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204608'
+  tag rid: 'SV-204608r603261_rule'
+  tag stig_id: 'RHEL-07-040600'
+  tag fix_id: 'F-4732r89017_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['dns', 'resolv']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
     {

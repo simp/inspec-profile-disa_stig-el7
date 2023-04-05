@@ -6,23 +6,24 @@ control 'SV-214801' do
     is not available, the system must be configured to scan, at a minimum, all altered files on the system on a daily
     basis.
     If the system processes inbound SMTP mail, the virus scanner must be configured to scan all received mail.'
-  tag  'rationale': ''
   desc 'check', 'Verify an anti-virus solution is installed on the system. The anti-virus solution may be bundled
     with an approved host-based security solution.
     If there is no anti-virus solution installed on the system, this is a finding.'
   desc 'fix', 'Install an antivirus solution on the system.'
   impact 0.7
-  tag 'legacy': ['V-72213', 'SV-86837']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-214801'
-  tag 'rid': 'SV-214801r603261_rule'
-  tag 'stig_id': 'RHEL-07-032000'
-  tag 'fix_id': 'F-15999r192369_fix'
-  tag 'cci': ['CCI-001668']
+  tag rationale: nil
+  tag legacy: ['V-72213', 'SV-86837']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-214801'
+  tag rid: 'SV-214801r603261_rule'
+  tag stig_id: 'RHEL-07-032000'
+  tag fix_id: 'F-15999r192369_fix'
+  tag cci: ['CCI-001668']
   tag nist: ['SI-3 a']
   tag subsystems: ['clamav', 'nails', 'virus_scan']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   custom_antivirus = input('custom_antivirus')
 

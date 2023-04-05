@@ -6,7 +6,6 @@ control 'SV-204426' do
     unauthorized access to their user account has been obtained.
     Operating systems need to track periods of inactivity and disable application identifiers after 35 days of
     inactivity.'
-  desc 'rationale', ''
   desc 'check', 'If passwords are not being used for authentication, this is Not Applicable.
     Verify the operating system disables account identifiers (individuals, groups, roles, and devices) after the
     password expires with the following command:
@@ -20,17 +19,18 @@ control 'SV-204426' do
     DoD recommendation is 35 days, but a lower value is acceptable. The value "-1" will disable this feature, and "0"
     will disable the account immediately after the password expires.'
   impact 0.5
-  tag 'legacy': ['SV-86565', 'V-71941']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000118-GPOS-00060'
-  tag 'gid': 'V-204426'
-  tag 'rid': 'SV-204426r809190_rule'
-  tag 'stig_id': 'RHEL-07-010310'
-  tag 'fix_id': 'F-4550r809189_fix'
-  tag 'cci': ['CCI-000795']
+  tag legacy: ['SV-86565', 'V-71941']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000118-GPOS-00060'
+  tag gid: 'V-204426'
+  tag rid: 'SV-204426r809190_rule'
+  tag stig_id: 'RHEL-07-010310'
+  tag fix_id: 'F-4550r809189_fix'
+  tag cci: ['CCI-000795']
   tag nist: ['IA-4 e']
   tag subsystems: ['user']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   if command("grep 'pam_unix.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'optional'").stdout.empty? && command("grep 'pam_permit.so' /etc/pam.d/system-auth | grep 'auth ' | grep 'required'").stdout.empty?
     describe parse_config_file('/etc/default/useradd') do

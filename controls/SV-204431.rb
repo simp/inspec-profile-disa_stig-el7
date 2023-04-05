@@ -9,7 +9,6 @@ control 'SV-204431' do
     those parameters impacting the security state of the system, including the parameters required to satisfy other
     security control requirements. Security-related parameters include, for example, registry settings; account, file,
     and directory permission settings; and settings for functions, ports, protocols, services, and remote connections.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system enforces a delay of at least four seconds between console logon prompts
     following a failed logon attempt.
     Check the value of the "fail_delay" parameter in the "/etc/login.defs" file with the following command:
@@ -21,17 +20,18 @@ control 'SV-204431' do
     Modify the "/etc/login.defs" file to set the "FAIL_DELAY" parameter to "4" or greater:
     FAIL_DELAY 4'
   impact 0.5
-  tag 'legacy': ['SV-86575', 'V-71951']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00226'
-  tag 'gid': 'V-204431'
-  tag 'rid': 'SV-204431r603261_rule'
-  tag 'stig_id': 'RHEL-07-010430'
-  tag 'fix_id': 'F-4555r88486_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86575', 'V-71951']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00226'
+  tag gid: 'V-204431'
+  tag rid: 'SV-204431r603261_rule'
+  tag stig_id: 'RHEL-07-010430'
+  tag fix_id: 'F-4555r88486_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['login_defs']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe login_defs do
     its('FAIL_DELAY') { should cmp input('fail_delay') }

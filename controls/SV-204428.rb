@@ -3,7 +3,6 @@ control 'SV-204428' do
     root logon attempts are made within a 15-minute period.'
   desc 'By limiting the number of failed logon attempts, the risk of unauthorized system access via user password
     guessing, otherwise known as brute forcing, is reduced. Limits are imposed by locking the account.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system automatically locks the root account, for a minimum of 15 minutes, when
     three unsuccessful logon attempts in 15 minutes are made.
     # grep pam_faillock.so /etc/pam.d/password-auth
@@ -29,18 +28,19 @@ control 'SV-204428' do
     Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program
     should not be used to update the configurations listed in this requirement.'
   impact 0.5
-  tag 'legacy': ['V-71945', 'SV-86569']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000329-GPOS-00128'
-  tag 'satisfies': ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
-  tag 'gid': 'V-204428'
-  tag 'rid': 'SV-204428r792821_rule'
-  tag 'stig_id': 'RHEL-07-010330'
-  tag 'fix_id': 'F-4552r792820_fix'
-  tag 'cci': ['CCI-002238']
+  tag legacy: ['V-71945', 'SV-86569']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000329-GPOS-00128'
+  tag satisfies: ['SRG-OS-000329-GPOS-00128', 'SRG-OS-000021-GPOS-00005']
+  tag gid: 'V-204428'
+  tag rid: 'SV-204428r792821_rule'
+  tag stig_id: 'RHEL-07-010330'
+  tag fix_id: 'F-4552r792820_fix'
+  tag cci: ['CCI-002238']
   tag nist: ['AC-7 b']
   tag subsystems: ['pam']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe.one do
     describe pam('/etc/pam.d/password-auth') do

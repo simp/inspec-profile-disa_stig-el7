@@ -6,7 +6,6 @@ control 'SV-204497' do
   desc 'Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data.
     The operating system must implement cryptographic modules adhering to the higher standards approved by the federal
     government since this provides assurance they have been tested and validated.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system implements DoD-approved encryption to protect the confidentiality of
     remote access sessions.
     Check to see if the "dracut-fips" package is installed with the following command:
@@ -68,19 +67,19 @@ control 'SV-204497' do
     # touch /etc/ system-fips
     Reboot the system for the changes to take effect.'
   impact 0.7
-  tag 'legacy': ['SV-86691', 'V-72067']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000033-GPOS-00014'
-  tag 'satisfies': ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000185-GPOS-00079', 'SRG-OS-000396-GPOS-00176',
-                    'SRG-OS-000405-GPOS-00184', 'SRG-OS-000478-GPOS-00223']
-  tag 'gid': 'V-204497'
-  tag 'rid': 'SV-204497r603261_rule'
-  tag 'stig_id': 'RHEL-07-021350'
-  tag 'fix_id': 'F-36310r602640_fix'
-  tag 'cci': ['CCI-000068', 'CCI-001199', 'CCI-002450', 'CCI-002476']
+  tag legacy: ['SV-86691', 'V-72067']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000033-GPOS-00014'
+  tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000185-GPOS-00079', 'SRG-OS-000396-GPOS-00176', 'SRG-OS-000405-GPOS-00184', 'SRG-OS-000478-GPOS-00223']
+  tag gid: 'V-204497'
+  tag rid: 'SV-204497r603261_rule'
+  tag stig_id: 'RHEL-07-021350'
+  tag fix_id: 'F-36310r602640_fix'
+  tag cci: ['CCI-000068', 'CCI-001199', 'CCI-002450', 'CCI-002476']
   tag nist: ['AC-17 (2)', 'SC-28', 'SC-13', 'SC-28 (1)']
   tag subsystems: ['fips']
-  tag 'host'
+  tag host: nil
+
   if virtualization.system.eql?('docker')
     impact 0.0
     describe 'Control not applicable - Kernel config for FIPS capability must be done on the host' do

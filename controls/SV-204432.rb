@@ -2,7 +2,6 @@ control 'SV-204432' do
   title 'The Red Hat Enterprise Linux operating system must not allow an unattended or automatic logon to the system
     via a graphical user interface.'
   desc 'Failure to restrict system access to authenticated users negatively impacts operating system security.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system does not allow an unattended or automatic logon to the system via a
     graphical user interface.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
@@ -17,18 +16,18 @@ control 'SV-204432' do
     file to "false":
     [daemon]
     AutomaticLoginEnable=false'
-  impact 0.7
-  tag 'legacy': ['V-71953', 'SV-86577']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00229'
-  tag 'gid': 'V-204432'
-  tag 'rid': 'SV-204432r603261_rule'
-  tag 'stig_id': 'RHEL-07-010440'
-  tag 'fix_id': 'F-4556r88489_fix'
-  tag 'cci': ['CCI-000366']
+  impact 0.0
+  tag legacy: ['V-71953', 'SV-86577']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000480-GPOS-00229'
+  tag gid: 'V-204432'
+  tag rid: 'SV-204432r603261_rule'
+  tag stig_id: 'RHEL-07-010440'
+  tag fix_id: 'F-4556r88489_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['gdm']
-  tag 'host'
+  tag host: nil
 
   custom_conf = '/etc/gdm/custom.conf'
 

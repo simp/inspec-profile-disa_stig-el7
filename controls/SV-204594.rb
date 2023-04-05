@@ -3,7 +3,6 @@ control 'SV-204594' do
     only use the SSHv2 protocol.'
   desc 'SSHv1 is an insecure implementation of the SSH protocol and has many well-known vulnerability exploits.
     Exploits of the SSH daemon could provide immediate root access to the system.'
-  desc 'rationale', ''
   desc 'check', 'Check the version of the operating system with the following command:
     # cat /etc/redhat-release
     If the release is 7.4 or newer this requirement is Not Applicable.
@@ -19,18 +18,18 @@ control 'SV-204594' do
     Protocol 2
     The SSH service must be restarted for changes to take effect.'
   impact 0.7
-  tag 'legacy': ['SV-86875', 'V-72251']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000074-GPOS-00042'
-  tag 'satisfies': ['SRG-OS-000074-GPOS-00042', 'SRG-OS-000480-GPOS-00227']
-  tag 'gid': 'V-204594'
-  tag 'rid': 'SV-204594r603261_rule'
-  tag 'stig_id': 'RHEL-07-040390'
-  tag 'fix_id': 'F-4718r88975_fix'
-  tag 'cci': ['CCI-000197', 'CCI-000366']
+  tag legacy: ['SV-86875', 'V-72251']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000074-GPOS-00042'
+  tag satisfies: ['SRG-OS-000074-GPOS-00042', 'SRG-OS-000480-GPOS-00227']
+  tag gid: 'V-204594'
+  tag rid: 'SV-204594r603261_rule'
+  tag stig_id: 'RHEL-07-040390'
+  tag fix_id: 'F-4718r88975_fix'
+  tag cci: ['CCI-000197', 'CCI-000366']
   tag nist: ['IA-5 (1) (c)', 'CM-6 b']
   tag subsystems: ['ssh']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0

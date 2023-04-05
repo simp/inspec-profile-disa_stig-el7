@@ -5,7 +5,6 @@ control 'SV-204620' do
     integrity of user passwords or the remote session. If a privileged user were to log on using this service, the
     privileged user password could be compromised. SSH or other encrypted file transfer methods must be used in place of
     this service.'
-  desc 'rationale', ''
   desc 'check', 'Verify an FTP server has not been installed on the system.
     Check to see if an FTP server has been installed with the following commands:
     # yum list installed vsftpd
@@ -16,17 +15,18 @@ control 'SV-204620' do
     with the following command:
     # yum remove vsftpd'
   impact 0.7
-  tag 'legacy': ['SV-86923', 'V-72299']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204620'
-  tag 'rid': 'SV-204620r603261_rule'
-  tag 'stig_id': 'RHEL-07-040690'
-  tag 'fix_id': 'F-4744r89053_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86923', 'V-72299']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204620'
+  tag rid: 'SV-204620r603261_rule'
+  tag stig_id: 'RHEL-07-040690'
+  tag fix_id: 'F-4744r89053_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['vsftpd']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe.one do
     describe package('vsftpd') do

@@ -11,7 +11,6 @@ control 'SV-204622' do
     enabled.
     If X11 services are not required for the system's intended function, they should be disabled or restricted as
     appropriate to the system’s needs."
-  desc 'rationale', ''
   desc 'check', 'Determine if X11Forwarding is disabled with the following command:
     # grep -i x11forwarding /etc/ssh/sshd_config | grep -v "^#"
     X11Forwarding no
@@ -24,17 +23,17 @@ control 'SV-204622' do
     The SSH service must be restarted for changes to take effect:
     # systemctl restart sshd'
   impact 0.5
-  tag 'legacy': ['SV-86927', 'V-72303']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204622'
-  tag 'rid': 'SV-204622r603849_rule'
-  tag 'stig_id': 'RHEL-07-040710'
-  tag 'fix_id': 'F-4746r622312_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86927', 'V-72303']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204622'
+  tag rid: 'SV-204622r603849_rule'
+  tag stig_id: 'RHEL-07-040710'
+  tag fix_id: 'F-4746r622312_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['ssh']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0

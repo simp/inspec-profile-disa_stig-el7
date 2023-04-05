@@ -12,7 +12,6 @@ control 'SV-204586' do
     (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If
     physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice
     versa.'
-  desc 'rationale', ''
   desc 'check', 'Verify SSH is loaded and active with the following command:
     # systemctl status sshd
     sshd.service - OpenSSH server daemon
@@ -25,19 +24,18 @@ control 'SV-204586' do
   desc 'fix', 'Configure the SSH service to automatically start after reboot with the following command:
     # systemctl enable sshd.service'
   impact 0.5
-  tag 'legacy': ['SV-86859', 'V-72235']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000423-GPOS-00187'
-  tag 'satisfies': ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000423-GPOS-00188', 'SRG-OS-000423-GPOS-00189',
-                    'SRG-OS-000423-GPOS-00190']
-  tag 'gid': 'V-204586'
-  tag 'rid': 'SV-204586r603261_rule'
-  tag 'stig_id': 'RHEL-07-040310'
-  tag 'fix_id': 'F-4710r88951_fix'
-  tag 'cci': ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']
+  tag legacy: ['SV-86859', 'V-72235']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000423-GPOS-00187'
+  tag satisfies: ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000423-GPOS-00188', 'SRG-OS-000423-GPOS-00189', 'SRG-OS-000423-GPOS-00190']
+  tag gid: 'V-204586'
+  tag rid: 'SV-204586r603261_rule'
+  tag stig_id: 'RHEL-07-040310'
+  tag fix_id: 'F-4710r88951_fix'
+  tag cci: ['CCI-002418', 'CCI-002420', 'CCI-002421', 'CCI-002422']
   tag nist: ['SC-8', 'SC-8 (2)', 'SC-8 (1)', 'SC-8 (2)']
   tag subsystems: ['ssh']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

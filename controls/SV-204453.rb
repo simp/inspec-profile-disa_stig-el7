@@ -8,7 +8,6 @@ control 'SV-204453' do
     intrusion detection parameters.
     This requirement applies to operating systems performing security function verification/testing and/or systems and
     environments that require this functionality.'
-  desc 'rationale', ''
   desc 'check', 'Per OPORD 16-0080, the preferred endpoint security tool is Endpoint Security for Linux (ENSL) in
     conjunction with SELinux.
     Verify the operating system verifies correct operation of all security functions.
@@ -22,17 +21,17 @@ control 'SV-204453' do
     SELINUX=enforcing
     A reboot is required for the changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-71989', 'SV-86613']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000445-GPOS-00199'
-  tag 'gid': 'V-204453'
-  tag 'rid': 'SV-204453r754746_rule'
-  tag 'stig_id': 'RHEL-07-020210'
-  tag 'fix_id': 'F-36306r602628_fix'
-  tag 'cci': ['CCI-002165', 'CCI-002696']
+  tag legacy: ['V-71989', 'SV-86613']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000445-GPOS-00199'
+  tag gid: 'V-204453'
+  tag rid: 'SV-204453r754746_rule'
+  tag stig_id: 'RHEL-07-020210'
+  tag fix_id: 'F-36306r602628_fix'
+  tag cci: ['CCI-002165', 'CCI-002696']
   tag nist: ['AC-3 (4)', 'SI-6 a']
   tag subsystems: ['selinux']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

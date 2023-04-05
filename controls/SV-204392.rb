@@ -3,8 +3,7 @@ control 'SV-204392' do
     and group membership of system files and commands match the vendor values.'
   desc 'Discretionary access control is weakened if a user or group has access permissions to system files and
     directories greater than the default.'
-  desc 'rationale', ''
-  desc 'check', %q{Verify the file permissions, ownership, and group membership of system files and commands match the
+  desc 'check', %q(Verify the file permissions, ownership, and group membership of system files and commands match the
     vendor values.
     Check the default file permissions, ownership, and group membership of system files and commands with the following
     command:
@@ -20,9 +19,8 @@ control 'SV-204392' do
     If the file is not owned by the default owner and is not documented with the Information System Security Officer
     (ISSO), this is a finding.
     If the file is not a member of the default group and is not documented with the Information System Security Officer
-    (ISSO), this is a finding.}
-  desc  'fix', "
-    Run the following command to determine which package owns the file:
+    (ISSO), this is a finding.)
+  desc 'fix', 'Run the following command to determine which package owns the file:
 
     # rpm -qf <filename>
 
@@ -34,21 +32,21 @@ following command:
 
     Reset the permissions of files within a package with the following command:
 
-    #rpm --setperms <packagename>
-  "
+    #rpm --setperms <packagename>'
   impact 0.7
-  tag 'legacy': ['V-71849', 'SV-86473']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000257-GPOS-00098'
-  tag 'satisfies': ['SRG-OS-000257-GPOS-00098', 'SRG-OS-000278-GPOS-00108']
-  tag 'gid': 'V-204392'
-  tag 'rid': 'SV-204392r646841_rule'
-  tag 'stig_id': 'RHEL-07-010010'
-  tag 'fix_id': 'F-36302r646840_fix'
-  tag 'cci': ['CCI-001494', 'CCI-001496', 'CCI-002165', 'CCI-002235']
+  tag legacy: ['V-71849', 'SV-86473']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000257-GPOS-00098'
+  tag satisfies: ['SRG-OS-000257-GPOS-00098', 'SRG-OS-000278-GPOS-00108']
+  tag gid: 'V-204392'
+  tag rid: 'SV-204392r646841_rule'
+  tag stig_id: 'RHEL-07-010010'
+  tag fix_id: 'F-36302r646840_fix'
+  tag cci: ['CCI-001494', 'CCI-001496', 'CCI-002165', 'CCI-002235']
   tag nist: ['AU-9', 'AU-9 (3)', 'AC-3 (4)', 'AC-6 (10)']
   tag subsystems: ['permissions', 'package', 'rpm']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   if input('disable_slow_controls')
     describe "This control consistently takes a long time to run and has been disabled

@@ -7,7 +7,6 @@ control 'SV-204398' do
     operating systems need to be able to identify when a user's session has idled and take action to initiate the
     session lock.
     The session lock is implemented at the point where session activity can be determined and/or controlled."
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system initiates a screensaver after a 15-minute period of inactivity for
     graphical user interfaces. The screen program must be installed to lock sessions on the console.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
@@ -28,18 +27,18 @@ control 'SV-204398' do
     Update the system databases:
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
-  impact 0.5
-  tag 'legacy': ['V-71893', 'SV-86517']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
-  tag 'gid': 'V-204398'
-  tag 'rid': 'SV-204398r603261_rule'
-  tag 'stig_id': 'RHEL-07-010070'
-  tag 'fix_id': 'F-4522r88387_fix'
-  tag 'cci': ['CCI-000057']
+  impact 0.0
+  tag legacy: ['V-71893', 'SV-86517']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-204398'
+  tag rid: 'SV-204398r603261_rule'
+  tag stig_id: 'RHEL-07-010070'
+  tag fix_id: 'F-4522r88387_fix'
+  tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
   tag subsystems: ['gui', 'screensaver', 'session', 'lock']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

@@ -5,7 +5,6 @@ control 'SV-204559' do
     responsible for one.
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "create_module" syscall occur.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
@@ -20,18 +19,18 @@ control 'SV-204559' do
     -a always,exit -F arch=b64 -S create_module -k module-change
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-78999', 'SV-93705']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000471-GPOS-00216'
-  tag 'satisfies': ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
-  tag 'gid': 'V-204559'
-  tag 'rid': 'SV-204559r603261_rule'
-  tag 'stig_id': 'RHEL-07-030819'
-  tag 'fix_id': 'F-4683r88870_fix'
-  tag 'cci': ['CCI-000172']
+  tag legacy: ['V-78999', 'SV-93705']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000471-GPOS-00216'
+  tag satisfies: ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
+  tag gid: 'V-204559'
+  tag rid: 'SV-204559r603261_rule'
+  tag stig_id: 'RHEL-07-030819'
+  tag fix_id: 'F-4683r88870_fix'
+  tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
   tag subsystems: ['audit', 'auditd', 'audit_rule']
-  tag 'host'
+  tag host: nil
 
   audit_syscalls = ['create_module']
 

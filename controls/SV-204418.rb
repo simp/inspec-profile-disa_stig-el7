@@ -5,7 +5,6 @@ control 'SV-204418' do
     reuse or history enforcement requirement. If users are allowed to immediately and continually change their password,
     the password could be repeatedly changed in a short period of time to defeat the organization's policy regarding
     password reuse."
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system enforces 24 hours/1 day as the minimum password lifetime for new user
     accounts.
     Check for the value of "PASS_MIN_DAYS" in "/etc/login.defs" with the following command:
@@ -16,14 +15,14 @@ control 'SV-204418' do
     Add the following line in "/etc/login.defs" (or modify the line to have the required value):
     PASS_MIN_DAYS     1'
   impact 0.5
-  tag 'legacy': ['V-71925', 'SV-86549']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000075-GPOS-00043'
-  tag 'gid': 'V-204418'
-  tag 'rid': 'SV-204418r603261_rule'
-  tag 'stig_id': 'RHEL-07-010230'
-  tag 'fix_id': 'F-4542r88447_fix'
-  tag 'cci': ['CCI-000198']
+  tag legacy: ['V-71925', 'SV-86549']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000075-GPOS-00043'
+  tag gid: 'V-204418'
+  tag rid: 'SV-204418r603261_rule'
+  tag stig_id: 'RHEL-07-010230'
+  tag fix_id: 'F-4542r88447_fix'
+  tag cci: ['CCI-000198']
   tag nist: ['IA-5 (1) (d)']
   tag subsystems: ['login_defs', 'password']
 

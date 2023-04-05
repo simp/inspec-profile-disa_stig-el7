@@ -7,7 +7,6 @@ control 'SV-204414' do
     Password complexity is one factor of several that determines how long it takes to crack a password. The more complex
     the password, the greater the number of possible combinations that need to be tested before the password is
     compromised.'
-  desc 'rationale', ''
   desc 'check', 'The "maxclassrepeat" option sets the maximum number of allowed same consecutive characters in the
     same class in the new password.
     Check for the value of the "maxclassrepeat" option in "/etc/security/pwquality.conf" with the following command:
@@ -19,17 +18,18 @@ control 'SV-204414' do
     Add the following line to "/etc/security/pwquality.conf" conf (or modify the line to have the required value):
     maxclassrepeat = 4'
   impact 0.5
-  tag 'legacy': ['SV-86541', 'V-71917']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000072-GPOS-00040'
-  tag 'gid': 'V-204414'
-  tag 'rid': 'SV-204414r809186_rule'
-  tag 'stig_id': 'RHEL-07-010190'
-  tag 'fix_id': 'F-4538r88435_fix'
-  tag 'cci': ['CCI-000195']
+  tag legacy: ['SV-86541', 'V-71917']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000072-GPOS-00040'
+  tag gid: 'V-204414'
+  tag rid: 'SV-204414r809186_rule'
+  tag stig_id: 'RHEL-07-010190'
+  tag fix_id: 'F-4538r88435_fix'
+  tag cci: ['CCI-000195']
   tag nist: ['IA-5 (1) (b)']
   tag subsystems: ['pwquality', 'password']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   describe parse_config_file('/etc/security/pwquality.conf') do
     its('maxclassrepeat') { should cmp input('classrepeat') }

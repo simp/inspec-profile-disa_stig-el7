@@ -5,7 +5,6 @@ control 'SV-204514' do
   desc 'If security personnel are not notified immediately when the threshold for the repository maximum audit
     record storage capacity is reached, they are unable to expand the audit record storage capacity before records are
     lost.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system immediately notifies the SA and ISSO (at a minimum) via email when the
     allocated audit record storage volume reaches 75 percent of the repository maximum audit record storage capacity.
     Check what action the operating system takes when the threshold for the repository maximum audit record storage
@@ -18,17 +17,17 @@ control 'SV-204514' do
     Uncomment or edit the "space_left_action" keyword in "/etc/audit/auditd.conf" and set it to "email".
     space_left_action = email'
   impact 0.5
-  tag 'legacy': ['V-72091', 'SV-86715']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000343-GPOS-00134'
-  tag 'gid': 'V-204514'
-  tag 'rid': 'SV-204514r603261_rule'
-  tag 'stig_id': 'RHEL-07-030340'
-  tag 'fix_id': 'F-4638r88735_fix'
-  tag 'cci': ['CCI-001855']
+  tag legacy: ['V-72091', 'SV-86715']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000343-GPOS-00134'
+  tag gid: 'V-204514'
+  tag rid: 'SV-204514r603261_rule'
+  tag stig_id: 'RHEL-07-030340'
+  tag fix_id: 'F-4638r88735_fix'
+  tag cci: ['CCI-001855']
   tag nist: ['AU-5 (1)']
   tag subsystems: ['audit', 'auditd']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

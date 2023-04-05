@@ -22,7 +22,6 @@ control 'SV-204393' do
     monitoring of the content of privileged communications, or work product, related to personal representation or
     services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are
     private and confidential. See User Agreement for details."'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before
     granting access to the operating system via a graphical user logon.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable.
@@ -42,17 +41,16 @@ control 'SV-204393' do
     Update the system databases:
     # dconf update
     Users must log out and back in again before the system-wide settings take effect.'
-  impact 0.5
-  tag 'legacy': ['V-71859', 'SV-86483']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000023-GPOS-00006'
-  tag 'satisfies': ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007',
-                    'SRG-OS-000228-GPOS-00088']
-  tag 'gid': 'V-204393'
-  tag 'rid': 'SV-204393r603261_rule'
-  tag 'stig_id': 'RHEL-07-010030'
-  tag 'fix_id': 'F-4517r88372_fix'
-  tag 'cci': ['CCI-000048']
+  impact 0.0
+  tag legacy: ['V-71859', 'SV-86483']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
+  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000024-GPOS-00007', 'SRG-OS-000228-GPOS-00088']
+  tag gid: 'V-204393'
+  tag rid: 'SV-204393r603261_rule'
+  tag stig_id: 'RHEL-07-010030'
+  tag fix_id: 'F-4517r88372_fix'
+  tag cci: ['CCI-000048']
   tag nist: ['AC-8 a']
   tag subsystems: ['gui', 'banner']
 

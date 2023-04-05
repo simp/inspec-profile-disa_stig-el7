@@ -4,7 +4,6 @@ control 'SV-204512' do
   desc 'Taking appropriate action when there is an error sending audit records to a remote system will minimize the
     possibility of losing audit records.
     One method of off-loading audit logs in Red Hat Enterprise Linux is with the use of the audisp-remote dameon.'
-  desc 'rationale', ''
   desc 'check', 'Verify the action the operating system takes if there is an error sending audit records to a remote
     system.
     Check the action that takes place if there is an error sending audit records to a remote system with the following
@@ -23,17 +22,17 @@ control 'SV-204512' do
     or "halt".
     network_failure_action = syslog'
   impact 0.5
-  tag 'legacy': ['V-73163', 'SV-87815']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000342-GPOS-00133'
-  tag 'gid': 'V-204512'
-  tag 'rid': 'SV-204512r603261_rule'
-  tag 'stig_id': 'RHEL-07-030321'
-  tag 'fix_id': 'F-36315r602655_fix'
-  tag 'cci': ['CCI-001851']
+  tag legacy: ['V-73163', 'SV-87815']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000342-GPOS-00133'
+  tag gid: 'V-204512'
+  tag rid: 'SV-204512r603261_rule'
+  tag stig_id: 'RHEL-07-030321'
+  tag fix_id: 'F-36315r602655_fix'
+  tag cci: ['CCI-001851']
   tag nist: ['AU-4 (1)']
   tag subsystems: ['audit', 'audisp']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

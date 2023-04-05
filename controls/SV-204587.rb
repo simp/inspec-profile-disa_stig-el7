@@ -11,7 +11,6 @@ control 'SV-204587' do
     application level if multiple application sessions are using a single operating system-level network connection.
     This does not mean that the operating system terminates all sessions or network access; it only ends the inactive
     session and releases the resources associated with that session.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system automatically terminates a user session after inactivity time-outs have
     expired.
     Check for the value of the "ClientAliveInterval" keyword with the following command:
@@ -28,18 +27,18 @@ control 'SV-204587' do
     ClientAliveInterval 600
     The SSH service must be restarted for changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-72237', 'SV-86861']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000163-GPOS-00072'
-  tag 'satisfies': ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
-  tag 'gid': 'V-204587'
-  tag 'rid': 'SV-204587r603261_rule'
-  tag 'stig_id': 'RHEL-07-040320'
-  tag 'fix_id': 'F-4711r88954_fix'
-  tag 'cci': ['CCI-001133', 'CCI-002361']
+  tag legacy: ['V-72237', 'SV-86861']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000163-GPOS-00072'
+  tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000279-GPOS-00109']
+  tag gid: 'V-204587'
+  tag rid: 'SV-204587r603261_rule'
+  tag stig_id: 'RHEL-07-040320'
+  tag fix_id: 'F-4711r88954_fix'
+  tag cci: ['CCI-001133', 'CCI-002361']
   tag nist: ['SC-10', 'AC-12']
   tag subsystems: ['ssh']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
     impact 0.0

@@ -7,7 +7,6 @@ control 'SV-204403' do
     The ability to enable/disable a session lock is given to the user by default. Disabling the user's ability to
     disengage the graphical user interface session lock provides the assurance that all sessions will lock after the
     specified period of time."
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system prevents a user from overriding the screensaver idle-activation-enabled
     setting for the graphical user interface.
     Note: If the system does not have GNOME installed, this requirement is Not Applicable. The screen program must be
@@ -30,17 +29,18 @@ control 'SV-204403' do
     # touch /etc/dconf/db/local.d/locks/session
     Add the setting to lock the screensaver idle-activation-enabled setting:
     /org/gnome/desktop/screensaver/idle-activation-enabled'
-  tag 'legacy': ['V-78997', 'SV-93703']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000029-GPOS-00010'
-  tag 'gid': 'V-204403'
-  tag 'rid': 'SV-204403r603261_rule'
-  tag 'stig_id': 'RHEL-07-010101'
-  tag 'fix_id': 'F-4527r88402_fix'
-  tag 'cci': ['CCI-000057']
+  impact 0.0
+  tag legacy: ['V-78997', 'SV-93703']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000029-GPOS-00010'
+  tag gid: 'V-204403'
+  tag rid: 'SV-204403r603261_rule'
+  tag stig_id: 'RHEL-07-010101'
+  tag fix_id: 'F-4527r88402_fix'
+  tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
   tag subsystems: ['gui']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

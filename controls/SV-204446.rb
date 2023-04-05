@@ -8,7 +8,6 @@ control 'SV-204446' do
     could ultimately affect the security state of the operating system. The operating system's Information Management
     Officer (IMO)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email
     and/or monitoring system trap when there is an unauthorized modification of a configuration item."
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system notifies designated personnel if baseline configurations are changed in
     an unauthorized manner.
     Note: A file integrity tool other than Advanced Intrusion Detection Environment (AIDE) may be used, but the tool
@@ -39,17 +38,18 @@ control 'SV-204446' do
     # more /etc/cron.daily/aide
     /usr/sbin/aide --check | /bin/mail -s "$HOSTNAME - Daily aide integrity check run" root@sysname.mil'
   impact 0.5
-  tag 'legacy': ['V-71975', 'SV-86599']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000363-GPOS-00150'
-  tag 'gid': 'V-204446'
-  tag 'rid': 'SV-204446r603261_rule'
-  tag 'stig_id': 'RHEL-07-020040'
-  tag 'fix_id': 'F-36305r602625_fix'
-  tag 'cci': ['CCI-001744']
+  tag legacy: ['V-71975', 'SV-86599']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000363-GPOS-00150'
+  tag gid: 'V-204446'
+  tag rid: 'SV-204446r603261_rule'
+  tag stig_id: 'RHEL-07-020040'
+  tag fix_id: 'F-36305r602625_fix'
+  tag cci: ['CCI-001744']
   tag nist: ['CM-3 (5)']
   tag subsystems: ['file_integrity_tool']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   file_integrity_tool = input('file_integrity_tool')
 

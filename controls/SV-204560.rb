@@ -10,7 +10,6 @@ control 'SV-204560' do
     system. Therefore, it is very important to use syscall rules only when absolutely necessary since these affect
     performance. The more rules, the bigger the performance hit. The performance can be helped, however, by combining
     syscalls into one rule whenever possible.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system generates audit records upon successful/unsuccessful attempts to use the
     "init_module" and "finit_module" syscalls.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
@@ -26,18 +25,18 @@ control 'SV-204560' do
     -a always,exit -F arch=b64 -S init_module,finit_module -k modulechange
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-72187', 'SV-86811']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000471-GPOS-00216'
-  tag 'satisfies': ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
-  tag 'gid': 'V-204560'
-  tag 'rid': 'SV-204560r809822_rule'
-  tag 'stig_id': 'RHEL-07-030820'
-  tag 'fix_id': 'F-4684r809821_fix'
-  tag 'cci': ['CCI-000172']
+  tag legacy: ['V-72187', 'SV-86811']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000471-GPOS-00216'
+  tag satisfies: ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
+  tag gid: 'V-204560'
+  tag rid: 'SV-204560r809822_rule'
+  tag stig_id: 'RHEL-07-030820'
+  tag fix_id: 'F-4684r809821_fix'
+  tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
   tag subsystems: ['audit', 'auditd', 'audit_rule']
-  tag 'host'
+  tag host: nil
 
   audit_syscalls = ['init_module', 'finit_module']
 

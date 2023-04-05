@@ -3,7 +3,6 @@ control 'SV-204460' do
   desc 'Accounts providing no operational purpose provide additional opportunities for system compromise.
     Unnecessary accounts include user accounts for individuals not requiring access to the system and application
     accounts for applications not installed on the system.'
-  desc 'rationale', ''
   desc 'check', 'Verify all accounts on the system are assigned to an active system, application, or user account.
     Obtain the list of authorized system accounts from the Information System Security Officer (ISSO).
     Check the system accounts on the system with the following command:
@@ -26,17 +25,18 @@ control 'SV-204460' do
     administrative-level actions.
     Document all authorized accounts on the system.'
   impact 0.5
-  tag 'legacy': ['SV-86625', 'V-72001']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204460'
-  tag 'rid': 'SV-204460r603261_rule'
-  tag 'stig_id': 'RHEL-07-020270'
-  tag 'fix_id': 'F-4584r88573_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86625', 'V-72001']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204460'
+  tag rid: 'SV-204460r603261_rule'
+  tag stig_id: 'RHEL-07-020270'
+  tag fix_id: 'F-4584r88573_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['accounts']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   known_system_accounts = input('known_system_accounts')
   user_accounts = input('user_accounts')

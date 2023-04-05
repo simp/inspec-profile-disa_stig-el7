@@ -12,7 +12,6 @@ control 'SV-204441' do
     2) Accesses that occur through authorized use of group authenticators without individual authentication.
     Organizations may require unique identification of individuals in group accounts (e.g., shared privilege accounts)
     or for detailed accountability of individual activity.'
-  tag  'rationale': ''
   desc 'check', 'Verify the operating system requires multifactor authentication to uniquely identify organizational
     users using multifactor authentication.
     Check to see if smartcard authentication is enforced on the system:
@@ -31,19 +30,20 @@ control 'SV-204441' do
     Modify the "/etc/pam_pkcs11/pkcs11_eventmgr.conf" file to uncomment the following line:
     #/usr/X11R6/bin/xscreensaver-command -lock
     Modify the "/etc/pam_pkcs11/pam_pkcs11.conf" file to use the cackey module if required.'
-  tag 'legacy': ['V-71965', 'SV-86589']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000104-GPOS-00051'
-  tag 'satisfies': ['SRG-OS-000104-GPOS-00051', 'SRG-OS-000106-GPOS-00053', 'SRG-OS-000107-GPOS-00054',
-                    'SRG-OS-000109-GPOS-00056', 'SRG-OS-000108-GPOS-00055', 'SRG-OS-000108-GPOS-00057', 'SRG-OS-000108-GPOS-00058']
-  tag 'gid': 'V-204441'
-  tag 'rid': 'SV-204441r792823_rule'
-  tag 'stig_id': 'RHEL-07-010500'
-  tag 'fix_id': 'F-4565r88516_fix'
-  tag 'cci': ['CCI-000766']
+  impact 0.5
+  tag rationale: nil
+  tag legacy: ['V-71965', 'SV-86589']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000104-GPOS-00051'
+  tag satisfies: ['SRG-OS-000104-GPOS-00051', 'SRG-OS-000106-GPOS-00053', 'SRG-OS-000107-GPOS-00054', 'SRG-OS-000109-GPOS-00056', 'SRG-OS-000108-GPOS-00055', 'SRG-OS-000108-GPOS-00057', 'SRG-OS-000108-GPOS-00058']
+  tag gid: 'V-204441'
+  tag rid: 'SV-204441r792823_rule'
+  tag stig_id: 'RHEL-07-010500'
+  tag fix_id: 'F-4565r88516_fix'
+  tag cci: ['CCI-000766']
   tag nist: ['IA-2 (2)']
   tag subsystems: ['pam', 'smartcard']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

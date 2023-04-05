@@ -2,7 +2,6 @@ control 'SV-204629' do
   title 'The Red Hat Enterprise Linux operating system must not have unauthorized IP tunnels configured.'
   desc 'IP tunneling mechanisms can be used to bypass network filtering. If tunneling is required, it must be
     documented with the Information System Security Officer (ISSO).'
-  desc 'rationale', ''
   desc 'check', 'Verify the system does not have unauthorized IP tunnels configured.
     Check to see if "libreswan" is installed with the following command:
     # yum list installed libreswan
@@ -19,17 +18,19 @@ control 'SV-204629' do
     tunnel is documented with the ISSO.
     If "libreswan" is installed, "IPsec" is active, and an undocumented tunnel is active, this is a finding.'
   desc 'fix', 'Remove all unapproved tunnels from the system, or document them with the ISSO.'
-  tag 'legacy': ['V-72317', 'SV-86941']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204629'
-  tag 'rid': 'SV-204629r603261_rule'
-  tag 'stig_id': 'RHEL-07-040820'
-  tag 'fix_id': 'F-4753r89080_fix'
-  tag 'cci': ['CCI-000366']
+  impact 0.0
+  tag legacy: ['V-72317', 'SV-86941']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204629'
+  tag rid: 'SV-204629r603261_rule'
+  tag stig_id: 'RHEL-07-040820'
+  tag fix_id: 'F-4753r89080_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['libreswan', 'ipsec']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   approved_tunnels = input('approved_tunnels')
 

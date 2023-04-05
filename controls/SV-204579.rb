@@ -11,7 +11,6 @@ control 'SV-204579' do
     application level if multiple application sessions are using a single operating system-level network connection.
     This does not mean that the operating system terminates all sessions or network access; it only ends the inactive
     session and releases the resources associated with that session.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system terminates all network connections associated with a communications
     session at the end of the session or based on inactivity.
     Check the value of the system inactivity timeout with the following command:
@@ -25,17 +24,18 @@ control 'SV-204579' do
     #!/bin/bash
     declare -xr TMOUT=900'
   impact 0.5
-  tag 'legacy': ['SV-86847', 'V-72223']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000163-GPOS-00072'
-  tag 'gid': 'V-204579'
-  tag 'rid': 'SV-204579r646844_rule'
-  tag 'stig_id': 'RHEL-07-040160'
-  tag 'fix_id': 'F-4703r646843_fix'
-  tag 'cci': ['CCI-001133', 'CCI-002361']
+  tag legacy: ['SV-86847', 'V-72223']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000163-GPOS-00072'
+  tag gid: 'V-204579'
+  tag rid: 'SV-204579r646844_rule'
+  tag stig_id: 'RHEL-07-040160'
+  tag fix_id: 'F-4703r646843_fix'
+  tag cci: ['CCI-001133', 'CCI-002361']
   tag nist: ['SC-10', 'AC-12']
   tag subsystems: ['user_profile']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   # Get current TMOUT environment variable (active test)
   describe 'Environment variable TMOUT' do

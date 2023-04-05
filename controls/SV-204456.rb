@@ -5,7 +5,6 @@ control 'SV-204456' do
     accidentally pressed, as could happen in the case of a mixed OS environment, this can create the risk of short-term
     loss of availability of systems due to unintentional reboot. In the graphical environment, risk of unintentional
     reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any action is taken.'
-  desc 'rationale', ''
   desc 'check', %q(Note: If the operating system does not have a graphical user interface installed, this requirement
     is Not Applicable.
     Verify the operating system is not configured to reboot the system when Ctrl-Alt-Delete is pressed.
@@ -20,18 +19,18 @@ control 'SV-204456' do
     Add the setting to disable the Ctrl-Alt-Delete sequence for the graphical user interface:
     [org/gnome/settings-daemon/plugins/media-keys]
     logout=''"
-  impact 0.7
-  tag 'legacy': ['V-94843', 'SV-104673']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204456'
-  tag 'rid': 'SV-204456r603261_rule'
-  tag 'stig_id': 'RHEL-07-020231'
-  tag 'fix_id': 'F-4580r590041_fix'
-  tag 'cci': ['CCI-000366']
+  impact 0.0
+  tag legacy: ['V-94843', 'SV-104673']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204456'
+  tag rid: 'SV-204456r603261_rule'
+  tag stig_id: 'RHEL-07-020231'
+  tag fix_id: 'F-4580r590041_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['gui', 'general']
-  tag 'host'
+  tag host: nil
 
   if package('gnome-settings-daemon').installed?
     describe command('gsettings get org.gnome.settings-daemon.media-keys logout') do

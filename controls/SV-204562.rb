@@ -5,7 +5,6 @@ control 'SV-204562' do
     responsible for one.
     Audit records can be generated from various components within the information system (e.g., module or policy
     filter).'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system generates audit records when successful/unsuccessful attempts to use the
     "delete_module" syscall occur.
     Check the auditing rules in "/etc/audit/audit.rules" with the following command:
@@ -20,18 +19,18 @@ control 'SV-204562' do
     -a always,exit -F arch=b64 -S delete_module -k module-change
     The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
-  tag 'legacy': ['V-72189', 'SV-86813']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000471-GPOS-00216'
-  tag 'satisfies': ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
-  tag 'gid': 'V-204562'
-  tag 'rid': 'SV-204562r603261_rule'
-  tag 'stig_id': 'RHEL-07-030830'
-  tag 'fix_id': 'F-4686r88879_fix'
-  tag 'cci': ['CCI-000172']
+  tag legacy: ['V-72189', 'SV-86813']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000471-GPOS-00216'
+  tag satisfies: ['SRG-OS-000471-GPOS-00216', 'SRG-OS-000477-GPOS-00222']
+  tag gid: 'V-204562'
+  tag rid: 'SV-204562r603261_rule'
+  tag stig_id: 'RHEL-07-030830'
+  tag fix_id: 'F-4686r88879_fix'
+  tag cci: ['CCI-000172']
   tag nist: ['AU-12 c']
   tag subsystems: ['audit', 'auditd', 'audit_rule']
-  tag 'host'
+  tag host: nil
 
   audit_syscalls = ['delete_module']
 

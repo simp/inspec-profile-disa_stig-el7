@@ -3,7 +3,6 @@ control 'SV-204463' do
     valid owner.'
   desc 'Unowned files and directories may be unintentionally inherited if a user is assigned the same User
     Identifier "UID" as the UID of the un-owned files.'
-  desc 'rationale', ''
   desc 'check', 'Verify all files and directories on the system have a valid owner.
     Check the owner of all files and directories with the following command:
     Note: The value after -fstype must be replaced with the filesystem type. XFS is used as an example.
@@ -13,17 +12,18 @@ control 'SV-204463' do
     valid user to all unowned files and directories on the system with the "chown" command:
     # chown <user> <file>'
   impact 0.5
-  tag 'legacy': ['SV-86631', 'V-72007']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204463'
-  tag 'rid': 'SV-204463r603261_rule'
-  tag 'stig_id': 'RHEL-07-020320'
-  tag 'fix_id': 'F-4587r88582_fix'
-  tag 'cci': ['CCI-002165']
+  tag legacy: ['SV-86631', 'V-72007']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204463'
+  tag rid: 'SV-204463r603261_rule'
+  tag stig_id: 'RHEL-07-020320'
+  tag fix_id: 'F-4587r88582_fix'
+  tag cci: ['CCI-002165']
   tag nist: ['AC-3 (4)']
   tag subsystems: ['file_system', 'users', 'files']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   command('grep -v "nodev" /proc/filesystems | awk \'NF{ print $NF }\'')
     .stdout.strip.split("\n").each do |fs|

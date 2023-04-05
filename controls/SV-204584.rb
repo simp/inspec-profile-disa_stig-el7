@@ -4,7 +4,6 @@ control 'SV-204584' do
     attack code he or she has introduced into a process's address space during an attempt at exploitation. Additionally,
     ASLR also makes it more difficult for an attacker to know the location of existing code in order to repurpose it
     using return-oriented programming (ROP) techniques."
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system implements virtual address space randomization.
     # grep kernel.randomize_va_space /etc/sysctl.conf /etc/sysctl.d/*
     kernel.randomize_va_space = 2
@@ -21,17 +20,17 @@ control 'SV-204584' do
     Issue the following command to make the changes take effect:
     # sysctl --system'
   impact 0.5
-  tag 'legacy': ['SV-92521', 'V-77825']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204584'
-  tag 'rid': 'SV-204584r603261_rule'
-  tag 'stig_id': 'RHEL-07-040201'
-  tag 'fix_id': 'F-4708r88945_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-92521', 'V-77825']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204584'
+  tag rid: 'SV-204584r603261_rule'
+  tag stig_id: 'RHEL-07-040201'
+  tag fix_id: 'F-4708r88945_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['aslr', 'kernel_parameter']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

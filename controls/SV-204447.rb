@@ -13,7 +13,6 @@ control 'SV-204447' do
     trusted vendor. Self-signed certificates are disallowed by this requirement. The operating system should not have to
     verify the software again. This requirement does not mandate DoD certificates for this purpose; however, the
     certificate used to verify the software must be from an approved CA.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system prevents the installation of patches, service packs, device drivers, or
     operating system components from a repository without verification that they have been digitally signed using a
     certificate that is recognized and approved by the organization.
@@ -27,17 +26,18 @@ control 'SV-204447' do
     by setting the following option in the "/etc/yum.conf" file:
     gpgcheck=1'
   impact 0.7
-  tag 'legacy': ['V-71977', 'SV-86601']
-  tag 'severity': 'high'
-  tag 'gtitle': 'SRG-OS-000366-GPOS-00153'
-  tag 'gid': 'V-204447'
-  tag 'rid': 'SV-204447r603261_rule'
-  tag 'stig_id': 'RHEL-07-020050'
-  tag 'fix_id': 'F-4571r88534_fix'
-  tag 'cci': ['CCI-001749']
+  tag legacy: ['V-71977', 'SV-86601']
+  tag severity: 'high'
+  tag gtitle: 'SRG-OS-000366-GPOS-00153'
+  tag gid: 'V-204447'
+  tag rid: 'SV-204447r603261_rule'
+  tag stig_id: 'RHEL-07-020050'
+  tag fix_id: 'F-4571r88534_fix'
+  tag cci: ['CCI-001749']
   tag nist: ['CM-5 (3)']
   tag subsystems: ['yum']
-  tag 'host', 'container'
+  tag host: nil
+  tag container: nil
 
   yum_conf = '/etc/yum.conf'
 

@@ -3,7 +3,6 @@ control 'SV-204471' do
     contained in local interactive user home directories have a valid owner.'
   desc 'Unowned files and directories may be unintentionally inherited if a user is assigned the same User
     Identifier "UID" as the UID of the un-owned files.'
-  desc 'rationale', ''
   desc 'check', %q(Verify all files and directories in a local interactive user's home directory have a valid owner.
     Check the owner of all files and directories in a local interactive user's home directory with the following
     command:
@@ -18,17 +17,17 @@ control 'SV-204471' do
     Note: The example will be for the user smithj, who has a home directory of "/home/smithj".
     $ sudo chown smithj /home/smithj/<file or directory>'
   impact 0.5
-  tag 'legacy': ['SV-86647', 'V-72023']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204471'
-  tag 'rid': 'SV-204471r744105_rule'
-  tag 'stig_id': 'RHEL-07-020660'
-  tag 'fix_id': 'F-4595r744104_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['SV-86647', 'V-72023']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204471'
+  tag rid: 'SV-204471r744105_rule'
+  tag stig_id: 'RHEL-07-020660'
+  tag fix_id: 'F-4595r744104_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['home_dirs']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

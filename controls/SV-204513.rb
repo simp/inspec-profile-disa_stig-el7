@@ -4,7 +4,6 @@ control 'SV-204513' do
     75% of the repository maximum audit record storage capacity.'
   desc 'If security personnel are not notified immediately when storage volume reaches 75 percent utilization, they
     are unable to plan for audit record storage capacity expansion.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system initiates an action to notify the SA and ISSO (at a minimum) when
     allocated audit record storage volume reaches 75 percent of the repository maximum audit record storage capacity.
     Check the system configuration to determine the partition the audit records are being written to with the following
@@ -22,17 +21,17 @@ control 'SV-204513' do
     space_left = 25%
     Reload the auditd daemon to apply changes made to the "/etc/audit/auditd.conf" file.'
   impact 0.5
-  tag 'legacy': ['V-72089', 'SV-86713']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000343-GPOS-00134'
-  tag 'gid': 'V-204513'
-  tag 'rid': 'SV-204513r744112_rule'
-  tag 'stig_id': 'RHEL-07-030330'
-  tag 'fix_id': 'F-4637r744111_fix'
-  tag 'cci': ['CCI-001855']
+  tag legacy: ['V-72089', 'SV-86713']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000343-GPOS-00134'
+  tag gid: 'V-204513'
+  tag rid: 'SV-204513r744112_rule'
+  tag stig_id: 'RHEL-07-030330'
+  tag fix_id: 'F-4637r744111_fix'
+  tag cci: ['CCI-001855']
   tag nist: ['AU-5 (1)']
   tag subsystems: ['audit', 'auditd']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

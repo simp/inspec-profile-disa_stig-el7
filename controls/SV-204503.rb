@@ -11,7 +11,6 @@ control 'SV-204503' do
     Associating event types with detected events in the operating system audit logs provides a means of investigating an
     attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured operating
     system.'
-  desc 'rationale', ''
   desc 'check', 'Verify the operating system produces audit records containing information to establish when (date
     and time) the events occurred.
     Check to see if auditing is active by issuing the following command:
@@ -23,19 +22,18 @@ control 'SV-204503' do
     Enable the auditd service with the following command:
     # systemctl start auditd.service'
   impact 0.5
-  tag 'legacy': ['SV-86703', 'V-72079']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000038-GPOS-00016'
-  tag 'satisfies': ['SRG-OS-000038-GPOS-00016', 'SRG-OS-000039-GPOS-00017', 'SRG-OS-000042-GPOS-00021',
-                    'SRG-OS-000254-GPOS-00095', 'SRG-OS-000255-GPOS-00096']
-  tag 'gid': 'V-204503'
-  tag 'rid': 'SV-204503r603261_rule'
-  tag 'stig_id': 'RHEL-07-030000'
-  tag 'fix_id': 'F-36311r602643_fix'
-  tag 'cci': ['CCI-000126', 'CCI-000131']
+  tag legacy: ['SV-86703', 'V-72079']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000038-GPOS-00016'
+  tag satisfies: ['SRG-OS-000038-GPOS-00016', 'SRG-OS-000039-GPOS-00017', 'SRG-OS-000042-GPOS-00021', 'SRG-OS-000254-GPOS-00095', 'SRG-OS-000255-GPOS-00096']
+  tag gid: 'V-204503'
+  tag rid: 'SV-204503r603261_rule'
+  tag stig_id: 'RHEL-07-030000'
+  tag fix_id: 'F-36311r602643_fix'
+  tag cci: ['CCI-000126', 'CCI-000131']
   tag nist: ['AU-2 d', 'AU-3']
   tag subsystems: ['audit', 'auditd']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0

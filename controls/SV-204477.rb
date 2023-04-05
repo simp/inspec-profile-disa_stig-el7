@@ -8,7 +8,6 @@ control 'SV-204477' do
     consecutive colons, this is interpreted as the current working directory. If deviations from the default system
     search path for the local interactive user are required, they must be documented with the Information System
     Security Officer (ISSO)."
-  desc 'rationale', ''
   desc 'check', %q(Verify that all local interactive user initialization files' executable search path statements do
     not contain statements that will reference a working directory other than the user's home directory.
     Check the executable search path statement for all local interactive user initialization files in the user's home
@@ -23,17 +22,17 @@ control 'SV-204477' do
     If a local interactive user requires path variables to reference a directory owned by the application, it must be
     documented with the ISSO.'
   impact 0.5
-  tag 'legacy': ['V-72035', 'SV-86659']
-  tag 'severity': 'medium'
-  tag 'gtitle': 'SRG-OS-000480-GPOS-00227'
-  tag 'gid': 'V-204477'
-  tag 'rid': 'SV-204477r792828_rule'
-  tag 'stig_id': 'RHEL-07-020720'
-  tag 'fix_id': 'F-4601r88624_fix'
-  tag 'cci': ['CCI-000366']
+  tag legacy: ['V-72035', 'SV-86659']
+  tag severity: 'medium'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-204477'
+  tag rid: 'SV-204477r792828_rule'
+  tag stig_id: 'RHEL-07-020720'
+  tag fix_id: 'F-4601r88624_fix'
+  tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag subsystems: ['init_files']
-  tag 'host'
+  tag host: nil
 
   if virtualization.system.eql?('docker')
     impact 0.0
