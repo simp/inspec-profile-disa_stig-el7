@@ -1,4 +1,20 @@
-# EL7 DISA STIG InSpec Profile Maintained by the SIMP Project
+
+
+# **THIS REPO IS DEPRECATED**
+
+---
+---
+---
+
+:warning: **EL7 DISA STIG InSpec Profile is now maintained by MITRE at https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline** :warning:
+
+
+
+----
+----
+----
+
+# EL7 DISA STIG InSpec Profile ~~Maintained by the SIMP Project~~
 
 This [InSpec](https://github.com/chef/inspec) profile is being developed and
 maintained as part of the SIMP project.
